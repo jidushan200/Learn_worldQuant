@@ -1,2 +1,3 @@
 #rank(returns)
-ts_rank(operating_income / cap, 252)
+#【已submit过ts_rank(operating_income / close, 252)，需要做查重操作】 ts_rank(operating_income / cap, 252)
+-rank(ts_rank(fn_liab_fair_val_l1_a, 84))
