@@ -7,7 +7,7 @@ MAX_WAIT_SEC = 1800
 LOG_FILE = "log.alpha.jsonl"
 
 ACCOUNTS: Dict[str, str] = {
-    "ACC1": "1446579723",
+    # "ACC1": "1446579723",
     "ACC2": "3301",
     "ACC3": "3302",
     "ACC4": "3304",

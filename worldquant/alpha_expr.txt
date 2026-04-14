@@ -1,4 +1,8 @@
 #rank(returns)
+
 #【已submit过ts_rank(operating_income / close, 252)，需要做查重操作】 ts_rank(operating_income / cap, 252)
+
 #【已提交】-rank(ts_rank(fn_liab_fair_val_l1_a, 84))
- -rank(returns/10)
+
+# 换分母：几何平均，有warning但不是error
+liabilities/sqrt(cap * assets)
