@@ -1,2 +1,1 @@
-#rank(returns)
-ts_rank(operating_income / cap, 252)
+-rank(ts_rank(fn_liab_fair_val_l1_a, 84))

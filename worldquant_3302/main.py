@@ -72,6 +72,7 @@ def main() -> int:
 
         print("expr:", alpha_expr)
         print("alpha_id:", alpha_id)
+        print("alpha_url:", f"https://platform.worldquantbrain.com/alpha/{alpha_id}")
         return 0
 
     except Exception as e:
