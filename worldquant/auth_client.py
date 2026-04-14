@@ -4,15 +4,16 @@ from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
 
 
-def load_credentials(env_file: str = ".env"):
+def load_credentials(env_file: str = ".env", account: str = None):
     load_dotenv(env_file, override=False)
 
-    active = (environ.get("ACTIVE_ACCOUNT") or "").strip()
-    if not active:
-        raise RuntimeError("请在 .env 配置 ACTIVE_ACCOUNT，例如 ACC1")
+    if not account:
+        account = (environ.get("ACTIVE_ACCOUNT") or "").strip()
+        if not account:
+            raise RuntimeError("请在 .env 配置 ACTIVE_ACCOUNT，或直接传入 account 参数")
 
-    username_key = f"BRAIN_USERNAME_{active}"
-    password_key = f"BRAIN_PASSWORD_{active}"
+    username_key = f"BRAIN_USERNAME_{account}"
+    password_key = f"BRAIN_PASSWORD_{account}"
 
     username = (environ.get(username_key) or "").strip()
     password = (environ.get(password_key) or "").strip()
@@ -23,9 +24,8 @@ def load_credentials(env_file: str = ".env"):
     return username, password
 
 
-def create_authenticated_session(env_file: str = ".env"):
-    # 返回 (session, auth_status_code)
-    username, password = load_credentials(env_file)
+def create_authenticated_session(env_file: str = ".env", account: str = None):
+    username, password = load_credentials(env_file, account)
     sess = requests.Session()
     sess.auth = HTTPBasicAuth(username, password)
 

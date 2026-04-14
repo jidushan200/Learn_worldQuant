@@ -1,12 +1,20 @@
 from copy import deepcopy
 from typing import Any, Dict
 
-# 基础配置
 ENV_FILE = ".env"
 EXPR_FILE = "alpha_expr.txt"
 MAX_WAIT_SEC = 1800
+LOG_FILE = "log.alpha.jsonl"
 
-# 网站上的 Setting
+ACCOUNTS: Dict[str, str] = {
+    "ACC1": "1446579723",
+    "ACC2": "3301",
+    "ACC3": "3302",
+    "ACC4": "3304",
+    "ACC5": "3305",
+    "ACC6": "3307",
+}
+
 SETTING: Dict[str, Any] = {
     "instrumentType": "EQUITY",
     "region": "USA",
