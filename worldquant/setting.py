@@ -7,7 +7,7 @@ MAX_WAIT_SEC = 1800
 LOG_FILE = "log.alpha.jsonl"
 
 ACCOUNTS: Dict[str, str] = {
-    # "ACC1": "1446579723",
+    "ACC1": "1446579723",
     "ACC2": "3301",
     "ACC3": "3302",
     "ACC4": "3304",
@@ -16,17 +16,17 @@ ACCOUNTS: Dict[str, str] = {
 }
 
 SETTING: Dict[str, Any] = {
+    "language": "FASTEXPR",
     "instrumentType": "EQUITY",
     "region": "USA",
     "universe": "TOP3000",
     "delay": 1,
-    "decay": 4,
-    "neutralization": "SUBINDUSTRY",
+    "neutralization": "INDUSTRY",
+    "decay": 0,
     "truncation": 0.08,
     "pasteurization": "ON",
     "unitHandling": "VERIFY",
-    "nanHandling": "OFF",
-    "language": "FASTEXPR",
+    "nanHandling": "ON",
     "visualization": False,
 }
 

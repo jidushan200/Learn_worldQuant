@@ -3,3 +3,15 @@
 {"time": "2026-04-14 17:55:30", "account": "3305-ACC5", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "vRJxzdGw", "alpha_url": "https://platform.worldquantbrain.com/alpha/vRJxzdGw"}
 {"time": "2026-04-14 17:56:44", "account": "3301-ACC2", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "vRJxzNez", "alpha_url": "https://platform.worldquantbrain.com/alpha/vRJxzNez"}
 {"time": "2026-04-14 17:56:58", "account": "3304-ACC4", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "VkYql718", "alpha_url": "https://platform.worldquantbrain.com/alpha/VkYql718"}
+{"time": "2026-04-15 16:28:06", "account": "1446579723-ACC1", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "leRz799n", "alpha_url": "https://platform.worldquantbrain.com/alpha/leRz799n"}
+{"time": "2026-04-15 16:28:17", "account": "3302-ACC3", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "E5raqxEP", "alpha_url": "https://platform.worldquantbrain.com/alpha/E5raqxEP"}
+{"time": "2026-04-15 16:28:36", "account": "3305-ACC5", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "mLxzqlQW", "alpha_url": "https://platform.worldquantbrain.com/alpha/mLxzqlQW"}
+{"time": "2026-04-15 16:28:38", "account": "3304-ACC4", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "qMmznwwV", "alpha_url": "https://platform.worldquantbrain.com/alpha/qMmznwwV"}
+{"time": "2026-04-15 16:28:48", "account": "3301-ACC2", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "gJoPm53Q", "alpha_url": "https://platform.worldquantbrain.com/alpha/gJoPm53Q"}
+{"time": "2026-04-15 16:29:58", "account": "3307-ACC6", "expr": "liabilities/sqrt(cap * assets)", "alpha_id": "6XYqR5bG", "alpha_url": "https://platform.worldquantbrain.com/alpha/6XYqR5bG"}
+{"time": "2026-04-15 16:34:34", "account": "3301-ACC2", "expr": "group_rank(ts_rank(est_eps/close, 60), industry)", "alpha_id": "1YnmJav6", "alpha_url": "https://platform.worldquantbrain.com/alpha/1YnmJav6"}
+{"time": "2026-04-15 16:34:40", "account": "1446579723-ACC1", "expr": "group_rank(ts_rank(est_eps/close, 60), industry)", "alpha_id": "VkYlO2d5", "alpha_url": "https://platform.worldquantbrain.com/alpha/VkYlO2d5"}
+{"time": "2026-04-15 16:36:20", "account": "3304-ACC4", "expr": "group_rank(ts_rank(est_eps/close, 60), industry)", "alpha_id": "e7q2Lxjg", "alpha_url": "https://platform.worldquantbrain.com/alpha/e7q2Lxjg"}
+{"time": "2026-04-15 16:36:20", "account": "3305-ACC5", "expr": "group_rank(ts_rank(est_eps/close, 60), industry)", "alpha_id": "zqJoORVd", "alpha_url": "https://platform.worldquantbrain.com/alpha/zqJoORVd"}
+{"time": "2026-04-15 16:37:05", "account": "3302-ACC3", "expr": "group_rank(ts_rank(est_eps/close, 60), industry)", "alpha_id": "d5l7dbq2", "alpha_url": "https://platform.worldquantbrain.com/alpha/d5l7dbq2"}
+{"time": "2026-04-15 16:38:03", "account": "3307-ACC6", "expr": "group_rank(ts_rank(est_eps/close, 60), industry)", "alpha_id": "gJoPxeX0", "alpha_url": "https://platform.worldquantbrain.com/alpha/gJoPxeX0"}
