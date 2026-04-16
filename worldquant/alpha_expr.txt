@@ -7,4 +7,6 @@
 # 换分母：几何平均，有warning但不是error
 #【已提交】liabilities/sqrt(cap * assets)
 
-group_rank(ts_rank(est_eps/close, 60), industry)
+#2026-04-15 16:38 【已提交】 group_rank(ts_rank(est_eps/close, 60), industry)
+
+-ts_std_dev(scl12_buzz, 10) * log(cap)
