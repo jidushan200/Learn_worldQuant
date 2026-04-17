@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BRAIN Alpha 学习笔记</title>
+	<style>
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			background: #f8f9fa;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			padding: 16px;
+			min-height: 100vh;
+		}
+
+		.container {
+			max-width: 680px;
+			margin: 0 auto;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 1.5rem;
+			font-weight: 800;
+			color: #1e293b;
+			margin-bottom: 4px;
+		}
+
+		.subtitle {
+			text-align: center;
+			color: #94a3b8;
+			font-size: 0.8rem;
+			margin-bottom: 24px;
+		}
+
+		.card {
+			border-radius: 14px;
+			border: 2px solid;
+			overflow: hidden;
+			margin-bottom: 12px;
+		}
+
+		.card-header {
+			width: 100%;
+			text-align: left;
+			padding: 12px 16px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-weight: 700;
+			font-size: 0.95rem;
+			color: white;
+			cursor: pointer;
+			border: none;
+			transition: opacity 0.2s;
+		}
+
+		.card-header:hover {
+			opacity: 0.88;
+		}
+
+		.arrow {
+			transition: transform 0.3s;
+			display: inline-block;
+		}
+
+		.arrow.open {
+			transform: rotate(180deg);
+		}
+
+		.card-body {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.5s ease, padding 0.3s;
+			padding: 0 16px;
+		}
+
+		.card-body.open {
+			max-height: 9999px;
+			padding: 16px;
+		}
+
+		.c-indigo {
+			border-color: #c7d2fe;
+			background: #eef2ff;
+		}
+
+		.c-indigo .card-header {
+			background: #6366f1;
+		}
+
+		.c-blue {
+			border-color: #bfdbfe;
+			background: #eff6ff;
+		}
+
+		.c-blue .card-header {
+			background: #3b82f6;
+		}
+
+		.c-green {
+			border-color: #bbf7d0;
+			background: #f0fdf4;
+		}
+
+		.c-green .card-header {
+			background: #22c55e;
+		}
+
+		.c-yellow {
+			border-color: #fde68a;
+			background: #fefce8;
+		}
+
+		.c-yellow .card-header {
+			background: #eab308;
+		}
+
+		.c-orange {
+			border-color: #fed7aa;
+			background: #fff7ed;
+		}
+
+		.c-orange .card-header {
+			background: #f97316;
+		}
+
+		.c-purple {
+			border-color: #e9d5ff;
+			background: #faf5ff;
+		}
+
+		.c-purple .card-header {
+			background: #a855f7;
+		}
+
+		.c-red {
+			border-color: #fecaca;
+			background: #fff1f2;
+		}
+
+		.c-red .card-header {
+			background: #ef4444;
+		}
+
+		.inner-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+		}
+
+		.box {
+			border-radius: 10px;
+			padding: 10px;
+			font-size: 0.78rem;
+			border: 1px solid;
+		}
+
+		.box-red {
+			background: #fef2f2;
+			border-color: #fecaca;
+		}
+
+		.box-green {
+			background: #f0fdf4;
+			border-color: #bbf7d0;
+		}
+
+		.box-blue {
+			background: #eff6ff;
+			border-color: #bfdbfe;
+		}
+
+		.box-orange {
+			background: #fff7ed;
+			border-color: #fed7aa;
+		}
+
+		.box-purple {
+			background: #faf5ff;
+			border-color: #e9d5ff;
+		}
+
+		.box-pink {
+			background: #fdf2f8;
+			border-color: #f5d0fe;
+		}
+
+		.box-white {
+			background: #fff;
+			border-color: #e2e8f0;
+		}
+
+		.box-gray {
+			background: #f8fafc;
+			border-color: #e2e8f0;
+		}
+
+		.box-yellow {
+			background: #fefce8;
+			border-color: #fde68a;
+		}
+
+		.tag-red {
+			color: #dc2626;
+			font-weight: 700;
+		}
+
+		.tag-green {
+			color: #16a34a;
+			font-weight: 700;
+		}
+
+		.tag-blue {
+			color: #2563eb;
+			font-weight: 700;
+		}
+
+		.tag-orange {
+			color: #ea580c;
+			font-weight: 700;
+		}
+
+		.tag-purple {
+			color: #9333ea;
+			font-weight: 700;
+		}
+
+		.tag-pink {
+			color: #db2777;
+			font-weight: 700;
+		}
+
+		.tag-yellow {
+			color: #ca8a04;
+			font-weight: 700;
+		}
+
+		.tag-gray {
+			color: #475569;
+			font-weight: 700;
+		}
+
+		.mono {
+			font-family: monospace;
+			font-size: 0.75rem;
+		}
+
+		.step-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-radius: 8px;
+			padding: 8px 12px;
+			margin-bottom: 6px;
+			font-size: 0.78rem;
+			font-family: monospace;
+		}
+
+		.step-arrow {
+			text-align: center;
+			color: #94a3b8;
+			font-size: 1.1rem;
+			margin-bottom: 6px;
+		}
+
+		.info-box {
+			border-radius: 10px;
+			padding: 10px 12px;
+			font-size: 0.78rem;
+		}
+
+		.rank-table {
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			gap: 8px;
+			align-items: start;
+			font-family: monospace;
+			font-size: 0.72rem;
+			margin: 8px 0;
+		}
+
+		.rank-col-title {
+			font-weight: 700;
+			color: #475569;
+			margin-bottom: 4px;
+		}
+
+		.rank-row {
+			padding: 2px 0;
+		}
+
+		.pos {
+			color: #16a34a;
+			font-weight: 700;
+		}
+
+		.neg {
+			color: #dc2626;
+			font-weight: 700;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.78rem;
+			text-align: center;
+		}
+
+		th,
+		td {
+			padding: 8px 6px;
+			border-top: 1px solid #ede9fe;
+		}
+
+		thead {
+			background: #ede9fe;
+		}
+
+		.summary-row {
+			display: flex;
+			gap: 10px;
+			align-items: flex-start;
+			background: #f8fafc;
+			border-radius: 8px;
+			padding: 8px 10px;
+			margin-bottom: 6px;
+			font-size: 0.8rem;
+		}
+
+		.summary-icon {
+			font-size: 1rem;
+			flex-shrink: 0;
+		}
+
+		.summary-key {
+			font-weight: 700;
+			color: #334155;
+			width: 58px;
+			flex-shrink: 0;
+		}
+
+		.summary-val {
+			color: #475569;
+		}
+
+		.summary-section {
+			background: #fff;
+			border-radius: 14px;
+			border: 2px solid #e2e8f0;
+			padding: 16px;
+			margin-top: 16px;
+		}
+
+		.summary-title {
+			font-weight: 700;
+			color: #334155;
+			text-align: center;
+			margin-bottom: 12px;
+		}
+
+		.date {
+			text-align: center;
+			font-size: 0.72rem;
+			color: #cbd5e1;
+			margin-top: 12px;
+		}
+
+		.divider {
+			border: none;
+			border-top: 1.5px dashed #e2e8f0;
+			margin: 12px 0;
+		}
+
+		/* Decay bar chart */
+		.bar-grid {
+			display: grid;
+			grid-template-columns: auto 1fr auto;
+			gap: 5px 10px;
+			align-items: center;
+			font-family: monospace;
+			font-size: 0.73rem;
+		}
+
+		.bar-track {
+			height: 9px;
+			border-radius: 5px;
+			overflow: hidden;
+		}
+
+		.bar-fill {
+			height: 100%;
+			border-radius: 5px;
+		}
+
+		@media(max-width:480px) {
+			.inner-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.rank-table {
+				grid-template-columns: 1fr;
+			}
+
+			h1 {
+				font-size: 1.2rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>🧠 BRAIN Alpha 工作原理</h1>
+		<p class="subtitle">WorldQuant BRAIN — 学习笔记</p>
+
+		<!-- 1. 整体流程 -->
+		<div class="card c-indigo">
+			<button class="card-header" onclick="toggle(this)">
+				🧠 BRAIN 整体流程
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+				<div class="step-row" style="background:#e0e7ff;color:#3730a3"><span><b>Step
+							1：原始数据</b></span><span>收益率、成交量、波动率...</span></div>
+				<div class="step-arrow">↓</div>
+				<div class="step-row" style="background:#dbeafe;color:#1d4ed8"><span><b>Step
+							2：rank()</b></span><span>转成排名，消除极端值影响</span></div>
+				<div class="step-arrow">↓</div>
+				<div class="step-row" style="background:#dcfce7;color:#15803d"><span><b>Step 3：中性化</b></span><span>减去均值
+						→ 多空平衡，不赌市场方向</span></div>
+				<div class="step-arrow">↓</div>
+				<div class="step-row" style="background:#fef9c3;color:#854d0e"><span><b>Step
+							4：归一化</b></span><span>÷绝对值之和 → 权重变成比例</span></div>
+				<div class="step-arrow">↓</div>
+				<div class="step-row" style="background:#ffedd5;color:#9a3412"><span><b>Step
+							5：Decay</b></span><span>时间加权平滑，降低噪音和换手率</span></div>
+				<div class="step-arrow">↓</div>
+				<div class="step-row" style="background:#fee2e2;color:#991b1b"><span><b>Step
+							6：提交Alpha</b></span><span>IS回测 + OS验证</span></div>
+				<div class="info-box" style="background:#e0e7ff;color:#3730a3;text-align:center;margin-top:10px;">
+					💡 核心目标：找到"谁比谁强"的规律，多强的空弱的
+				</div>
+			</div>
+		</div>
+
+		<!-- 2. rank() -->
+		<div class="card c-blue">
+			<button class="card-header" onclick="toggle(this)">
+				📊 rank() — 转成排名
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+				<div class="inner-grid">
+					<div class="box box-red">
+						<div class="tag-red" style="margin-bottom:6px">❌ 直接用收益率</div>
+						<div class="mono">股票A +3%<br>股票B +2%<br>股票C +1%<br><span class="tag-red">股票D +50% ← 并购！</span>
+						</div>
+						<div style="margin-top:6px;color:#dc2626">→ 组合被股票D主导！</div>
+					</div>
+					<div class="box box-green">
+						<div class="tag-green" style="margin-bottom:6px">✅ 用rank()</div>
+						<div class="mono">股票A rank=3 → 0.75<br>股票B rank=2 → 0.50<br>股票C rank=1 → 0.25<br><span
+								class="tag-green">股票D rank=4 → 1.00</span></div>
+						<div style="margin-top:6px;color:#16a34a">→ 权重均衡，极端值无法主导</div>
+					</div>
+				</div>
+				<div class="info-box box-blue" style="margin-top:10px;color:#1d4ed8">
+					<b>核心感悟：</b> rank() = 把原始数值转成排名（0到1之间），不管原始差距多大，第1名就是第1名。
+				</div>
+				<div class="box box-white mono" style="margin-top:10px">
+					<span style="color:#94a3b8">// 为什么用负号？</span><br>
+					rank(-returns)<br>
+					<span class="tag-blue">→ 负号让排名翻转</span><br>
+					→ 涨最多 = rank最低(≈0) → 做空（均值回归）<br>
+					→ 跌最多 = rank最高(≈1) → 做多（均值回归）
+				</div>
+			</div>
+		</div>
+
+		<!-- 3. 中性化 -->
+		<div class="card c-green">
+			<button class="card-header" onclick="toggle(this)">
+				⚖️ 中性化 — 不赌市场方向
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+				<div class="box box-white mono">
+					<span style="color:#94a3b8">// 操作：每个值 - 均值(0.50)</span>
+					<div class="rank-table" style="margin-top:8px">
+						<div>
+							<div class="rank-col-title">原始rank值</div>
+							<div class="rank-row">0.00</div>
+							<div class="rank-row">0.14</div>
+							<div class="rank-row">0.29</div>
+							<div class="rank-row">0.43</div>
+							<div class="rank-row">0.57</div>
+							<div class="rank-row">0.71</div>
+							<div class="rank-row">0.86</div>
+							<div class="rank-row">1.00</div>
+						</div>
+						<div
+							style="display:flex;align-items:center;justify-content:center;color:#16a34a;font-weight:700;font-size:1rem">
+							- 0.50</div>
+						<div>
+							<div class="rank-col-title">中性化后</div>
+							<div class="rank-row neg">-0.50</div>
+							<div class="rank-row neg">-0.36</div>
+							<div class="rank-row neg">-0.21</div>
+							<div class="rank-row neg">-0.07</div>
+							<div class="rank-row pos">+0.07</div>
+							<div class="rank-row pos">+0.21</div>
+							<div class="rank-row pos">+0.36</div>
+							<div class="rank-row pos">+0.50</div>
+						</div>
+					</div>
+					<div style="text-align:center;color:#15803d;font-weight:700;margin-top:6px">总和 = 0 ✅ 做多 = 做空</div>
+				</div>
+				<div class="inner-grid" style="margin-top:10px">
+					<div class="box box-red">
+						<div class="tag-red" style="margin-bottom:4px">没有中性化</div>
+						赌市场整体方向<br>大盘跌 → 全军覆没 💸
+					</div>
+					<div class="box box-green">
+						<div class="tag-green" style="margin-bottom:4px">中性化之后</div>
+						只赌"A比B强"<br>涨跌都能赚差价 ✅
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 4. 归一化 -->
+		<div class="card c-yellow">
+			<button class="card-header" onclick="toggle(this)">
+				📐 归一化 — 统一量级
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+				<div class="box box-white mono">
+					<span style="color:#94a3b8">// 操作：每个值 ÷ 所有值的绝对值之和</span><br><br>
+					绝对值之和 = 0.50+0.36+0.21+0.07+0.07+0.21+0.36+0.50<br>
+					= <span class="tag-yellow">2.28</span><br><br>
+					各权重 ÷ 2.28 → 使得：<br>
+					<span class="pos">正数之和 = +0.50 → 做多 $1000万</span><br>
+					<span class="neg">负数之和 = -0.50 → 做空 $1000万</span>
+				</div>
+				<div class="info-box box-yellow" style="color:#854d0e;margin-top:10px">
+					<b>为什么要做：</b> 不同Alpha公式量级不同（有的0.01，有的100），归一化后统一变成"比例"，就像考试要统一用百分制才能公平比较。
+				</div>
+				<div class="box box-white" style="margin-top:10px;text-align:center;font-weight:700;color:#854d0e">
+					× $2000万 → 永远是 多$1000万 + 空$1000万
+				</div>
+			</div>
+		</div>
+
+		<!-- 5. Decay — 扩容 -->
+		<div class="card c-orange">
+			<button class="card-header" onclick="toggle(this)">
+				⏳ Decay — 时间衰减
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+
+				<!-- 公式 -->
+				<div
+					style="background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;padding:11px 14px;margin-bottom:12px">
+					<div style="font-weight:700;color:#9a3412;font-size:0.8rem;margin-bottom:7px">📐 通用公式（线性衰减加权平均）
+					</div>
+					<div style="font-family:monospace;font-size:0.78rem;color:#334155;line-height:2;text-align:center">
+						最终信号 = <span style="color:#ea580c;font-weight:700">( 今天×d + 昨天×(d-1) + … + d天前×1 )</span><br>
+						÷ <span style="color:#9a3412;font-weight:700">( 1+2+…+d = d×(d+1)/2 )</span>
+					</div>
+					<div style="font-size:0.71rem;color:#94a3b8;text-align:center;margin-top:5px">
+						权重线性递减 · 今天始终是最高权重 d · d天前权重为 1
+					</div>
+				</div>
+
+				<!-- Decay = 3 -->
+				<div
+					style="background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;padding:12px;margin-bottom:10px">
+					<div style="font-weight:700;color:#ea580c;font-size:0.82rem;margin-bottom:10px">
+						🔥 Decay = 3（快）— 总权重 = 3+2+1 = <u>6</u>
+					</div>
+					<div class="bar-grid">
+						<span style="color:#475569;white-space:nowrap">今天 (t)&nbsp;&nbsp;&nbsp; × 3</span>
+						<div class="bar-track" style="background:#fde68a">
+							<div class="bar-fill" style="background:#f97316;width:100%"></div>
+						</div>
+						<span style="color:#ea580c;font-weight:700;text-align:right;white-space:nowrap">3/6 =
+							50.0%</span>
+
+						<span style="color:#475569;white-space:nowrap">昨天 (t-1) × 2</span>
+						<div class="bar-track" style="background:#fde68a">
+							<div class="bar-fill" style="background:#f97316;width:67%"></div>
+						</div>
+						<span style="color:#ea580c;font-weight:700;text-align:right;white-space:nowrap">2/6 =
+							33.3%</span>
+
+						<span style="color:#475569;white-space:nowrap">前天 (t-2) × 1</span>
+						<div class="bar-track" style="background:#fde68a">
+							<div class="bar-fill" style="background:#f97316;width:33%"></div>
+						</div>
+						<span style="color:#ea580c;font-weight:700;text-align:right;white-space:nowrap">1/6 =
+							16.7%</span>
+					</div>
+					<div
+						style="margin-top:9px;background:#fffbeb;border-radius:7px;padding:6px 9px;font-size:0.74rem;color:#92400e">
+						⚡ 今天权重高达 <b>50%</b>，信号对最新数据极度敏感，换手率高，每日调仓频繁，交易成本大
+					</div>
+				</div>
+
+				<!-- Decay = 10 -->
+				<div
+					style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:12px;margin-bottom:10px">
+					<div style="font-weight:700;color:#2563eb;font-size:0.82rem;margin-bottom:10px">
+						🐢 Decay = 10（慢）— 总权重 = 10+9+…+1 = <u>55</u>
+					</div>
+					<div class="bar-grid">
+						<span style="color:#475569;white-space:nowrap">今天&nbsp;&nbsp; (t)&nbsp;&nbsp;&nbsp; × 10</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#2563eb;width:100%"></div>
+						</div>
+						<span style="color:#2563eb;font-weight:700;text-align:right;white-space:nowrap">10/55 =
+							18.2%</span>
+
+						<span style="color:#475569;white-space:nowrap">1天前 (t-1)&nbsp; ×&nbsp; 9</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#2563eb;width:90%"></div>
+						</div>
+						<span style="color:#2563eb;font-weight:700;text-align:right;white-space:nowrap">9/55 &nbsp;=
+							16.4%</span>
+
+						<span style="color:#475569;white-space:nowrap">2天前 (t-2)&nbsp; ×&nbsp; 8</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#2563eb;width:80%"></div>
+						</div>
+						<span style="color:#2563eb;font-weight:700;text-align:right;white-space:nowrap">8/55 &nbsp;=
+							14.5%</span>
+
+						<span style="color:#475569;white-space:nowrap">3天前 (t-3)&nbsp; ×&nbsp; 7</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#3b82f6;width:70%"></div>
+						</div>
+						<span style="color:#3b82f6;font-weight:700;text-align:right;white-space:nowrap">7/55 &nbsp;=
+							12.7%</span>
+
+						<span style="color:#475569;white-space:nowrap">4天前 (t-4)&nbsp; ×&nbsp; 6</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#3b82f6;width:60%"></div>
+						</div>
+						<span style="color:#3b82f6;font-weight:700;text-align:right;white-space:nowrap">6/55 &nbsp;=
+							10.9%</span>
+
+						<span style="color:#475569;white-space:nowrap">5天前 (t-5)&nbsp; ×&nbsp; 5</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#60a5fa;width:50%"></div>
+						</div>
+						<span style="color:#60a5fa;font-weight:700;text-align:right;white-space:nowrap">5/55 &nbsp;=
+							&nbsp;9.1%</span>
+
+						<span style="color:#475569;white-space:nowrap">6天前 (t-6)&nbsp; ×&nbsp; 4</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#60a5fa;width:40%"></div>
+						</div>
+						<span style="color:#60a5fa;font-weight:700;text-align:right;white-space:nowrap">4/55 &nbsp;=
+							&nbsp;7.3%</span>
+
+						<span style="color:#475569;white-space:nowrap">7天前 (t-7)&nbsp; ×&nbsp; 3</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#93c5fd;width:30%"></div>
+						</div>
+						<span style="color:#93c5fd;font-weight:700;text-align:right;white-space:nowrap">3/55 &nbsp;=
+							&nbsp;5.5%</span>
+
+						<span style="color:#475569;white-space:nowrap">8天前 (t-8)&nbsp; ×&nbsp; 2</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#93c5fd;width:20%"></div>
+						</div>
+						<span style="color:#93c5fd;font-weight:700;text-align:right;white-space:nowrap">2/55 &nbsp;=
+							&nbsp;3.6%</span>
+
+						<span style="color:#475569;white-space:nowrap">9天前 (t-9)&nbsp; ×&nbsp; 1</span>
+						<div class="bar-track" style="background:#bfdbfe">
+							<div class="bar-fill" style="background:#bfdbfe;width:10%"></div>
+						</div>
+						<span style="color:#93c5fd;font-weight:700;text-align:right;white-space:nowrap">1/55 &nbsp;=
+							&nbsp;1.8%</span>
+					</div>
+					<div
+						style="margin-top:9px;background:#dbeafe;border-radius:7px;padding:6px 9px;font-size:0.74rem;color:#1d4ed8">
+						🛡️ 今天仅占 <b>18.2%</b>，过去10天共同决定信号，平滑稳定，换手率低，对单天噪音不敏感
+					</div>
+				</div>
+
+				<!-- 平滑效果示例 -->
+				<div
+					style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:12px;margin-bottom:10px">
+					<div style="font-weight:700;color:#15803d;font-size:0.82rem;margin-bottom:9px">🧮 平滑效果数值示例（Decay =
+						3）</div>
+					<div
+						style="font-family:monospace;font-size:0.75rem;color:#475569;line-height:1.9;margin-bottom:8px">
+						原始3天信号：&nbsp;
+						<span style="color:#94a3b8">t-2</span> = +0.40 &nbsp;
+						<span style="color:#94a3b8">t-1</span> = <span
+							style="color:#dc2626;font-weight:700">-0.20</span> &nbsp;
+						<span style="color:#94a3b8">t</span>&nbsp; = <span
+							style="color:#16a34a;font-weight:700">+0.60</span>
+					</div>
+					<div style="font-family:monospace;font-size:0.75rem;color:#334155;line-height:2.2">
+						<span style="color:#94a3b8">// ❌ 不用 Decay（直接取今天值）</span><br>
+						信号 = +0.60 &nbsp;<span
+							style="background:#fef2f2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:0.72rem">←
+							昨天是-0.20也不管</span><br><br>
+						<span style="color:#94a3b8">// ✅ 使用 Decay = 3</span><br>
+						信号 = ( 3 × <span style="color:#16a34a;font-weight:700">+0.60</span> &nbsp;+&nbsp; 2 × <span
+							style="color:#dc2626;font-weight:700">-0.20</span> &nbsp;+&nbsp; 1 × +0.40 ) ÷ 6<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= ( 1.80 &minus; 0.40 + 0.40 ) ÷ 6<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 1.80 ÷ 6<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span
+							style="font-weight:700;color:#15803d;font-size:0.85rem">+0.30</span> &nbsp;<span
+							style="background:#f0fdf4;color:#15803d;padding:2px 6px;border-radius:4px;font-size:0.72rem">←
+							被昨天的负值拉低了一半</span>
+					</div>
+					<div
+						style="margin-top:9px;background:#dcfce7;border-radius:7px;padding:6px 9px;font-size:0.74rem;color:#166534;text-align:center;font-weight:600">
+						如果 +0.60 只是随机噪音，Decay 帮你避免了因噪音频繁调仓 ✅
+					</div>
+				</div>
+
+				<!-- 参数选择权衡 -->
+				<div class="inner-grid" style="margin-bottom:10px">
+					<div class="box box-orange">
+						<div class="tag-orange" style="margin-bottom:6px">⚡ 小 Decay（3～5）</div>
+						<div style="font-size:0.75rem;line-height:1.9">
+							✅ 信号更新快<br>
+							✅ 能捕捉短期反转<br>
+							❌ 换手率高，成本大<br>
+							❌ 对噪音更敏感
+						</div>
+					</div>
+					<div class="box box-blue">
+						<div class="tag-blue" style="margin-bottom:6px">🐢 大 Decay（10～20）</div>
+						<div style="font-size:0.75rem;line-height:1.9">
+							✅ 信号平滑稳定<br>
+							✅ 换手率低，成本小<br>
+							❌ 对新信息反应迟钝<br>
+							❌ 可能错过短期机会
+						</div>
+					</div>
+				</div>
+
+				<div class="info-box box-orange" style="color:#9a3412">
+					<b>注意：</b> Decay大 ≠ 当天数据不影响结果。当天仍然权重最高，只是被"稀释"了，历史数据也分到了权重。
+				</div>
+			</div>
+		</div>
+
+		<!-- 6. IS/OS -->
+		<div class="card c-purple">
+			<button class="card-header" onclick="toggle(this)">
+				🔬 IS / OS — 防止背答案
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+				<div class="box box-white mono" style="margin-bottom:10px">
+					2010──────────────2021──────2023<br>
+					<span
+						style="background:#ede9fe;color:#9333ea;padding:2px 8px;border-radius:5px;margin-right:6px">◄───
+						IS ───►</span>
+					<span style="background:#fdf2f8;color:#db2777;padding:2px 8px;border-radius:5px">◄─ OS ─►</span>
+				</div>
+				<div class="inner-grid" style="margin-bottom:10px">
+					<div class="box box-purple">
+						<div class="tag-purple" style="margin-bottom:4px">IS（样本内）</div>
+						你能看到的历史<br>= 历年真题
+					</div>
+					<div class="box box-pink">
+						<div class="tag-pink" style="margin-bottom:4px">OS（样本外）</div>
+						提交后才看到<br>= 真正的考试
+					</div>
+				</div>
+				<div class="box box-white">
+					<table>
+						<thead>
+							<tr>
+								<th></th>
+								<th>OS 好</th>
+								<th>OS 差</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style="background:#faf5ff;font-weight:700">IS 好</td>
+								<td class="tag-green">⭐ 真Alpha</td>
+								<td class="tag-orange">⚠️ 过拟合</td>
+							</tr>
+							<tr>
+								<td style="background:#faf5ff;font-weight:700">IS 差</td>
+								<td class="tag-blue">🤔 运气</td>
+								<td class="tag-red">❌ 垃圾</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 7. 过拟合 -->
+		<div class="card c-red">
+			<button class="card-header" onclick="toggle(this)">
+				⚠️ 过拟合 — 背答案
+				<span class="arrow">▼</span>
+			</button>
+			<div class="card-body">
+				<div class="inner-grid" style="margin-bottom:10px">
+					<div class="box box-green">
+						<div class="tag-green" style="margin-bottom:4px">✅ 真正的Alpha</div>
+						发现了市场规律<br>IS好 → OS也好<br>= 真正理解了题目
+					</div>
+					<div class="box box-red">
+						<div class="tag-red" style="margin-bottom:4px">❌ 过拟合</div>
+						只是背熟了历史答案<br>IS完美 → OS崩盘<br>= 考场全是新题
+					</div>
+				</div>
+				<div class="box box-white" style="margin-bottom:10px">
+					<div class="tag-red" style="margin-bottom:6px">为什么容易过拟合？</div>
+					→ 参数改太多：用哪个指标？用几天？Decay多少？<br>
+					→ 每改一次参数 = 多背了一遍答案<br>
+					→ 改得越多，越"适配"历史，越不适应未来
+				</div>
+				<div class="info-box box-red" style="color:#991b1b;text-align:center;font-weight:700">
+					IS/OS 的设计就是为了抓住"背答案"的行为
+				</div>
+			</div>
+		</div>
+
+		<!-- Summary -->
+		<div class="summary-section">
+			<div class="summary-title">💡 核心概念一句话总结</div>
+			<div class="summary-row"><span class="summary-icon">📊</span><span class="summary-key">rank()</span><span
+					class="summary-val">把数值转成排名，极端值不再主导结果</span></div>
+			<div class="summary-row"><span class="summary-icon">⚖️</span><span class="summary-key">中性化</span><span
+					class="summary-val">减去均值，只赌相对强弱，不赌市场方向</span></div>
+			<div class="summary-row"><span class="summary-icon">📐</span><span class="summary-key">归一化</span><span
+					class="summary-val">÷绝对值之和，统一量级方便比较</span></div>
+			<div class="summary-row"><span class="summary-icon">⏳</span><span class="summary-key">Decay</span><span
+					class="summary-val">值小反应快，今天信号占比高；值大历史数据也有话语权</span></div>
+			<div class="summary-row"><span class="summary-icon">🔬</span><span class="summary-key">IS/OS</span><span
+					class="summary-val">IS是历年真题，OS是真正考试，都好才是真Alpha</span></div>
+			<div class="summary-row"><span class="summary-icon">⚠️</span><span class="summary-key">过拟合</span><span
+					class="summary-val">IS完美OS崩盘 = 背了答案但没真正理解</span></div>
+		</div>
+
+		<div class="date">April 2026</div>
+	</div>
+
+	<script>
+		// 版本 A：独立开关（当前版本）
+		// 点一个不影响其他，每个卡片自己管自己。
+		function toggle(btn) {
+			const body = btn.nextElementSibling;
+			const arrow = btn.querySelector('.arrow');
+			body.classList.toggle('open');
+			arrow.classList.toggle('open');
+		}
+
+		// 版本 B：手风琴模式
+		// 点开一个，其余自动收起，同一时间只能展开一个。
+		// function toggle(btn) {
+		// 	const body = btn.nextElementSibling;
+		// 	const arrow = btn.querySelector('.arrow');
+		// 	const isOpen = body.classList.contains('open');
+
+		// 	document.querySelectorAll('.card-body').forEach(b => b.classList.remove('open'));
+		// 	document.querySelectorAll('.arrow').forEach(a => a.classList.remove('open'));
+
+		// 	if (!isOpen) {
+		// 		body.classList.add('open');
+		// 		arrow.classList.add('open');
+		// 	}
+		// }
+	</script>
+</body>
+
+</html>
