@@ -9,4 +9,7 @@
 
 #2026-04-15 16:38 【已提交】 group_rank(ts_rank(est_eps/close, 60), industry)
 
--ts_std_dev(scl12_buzz, 10) * log(cap)
+#2026-04-16 16:27:40【已提交】-ts_std_dev(scl12_buzz, 10) * log(cap)
+
+#高估股票 est_ptp/est_fcf
+-ts_corr(est_ptp, est_fcf, 40)

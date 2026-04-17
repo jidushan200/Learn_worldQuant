@@ -21,12 +21,12 @@ SETTING: Dict[str, Any] = {
     "region": "USA",
     "universe": "TOP3000",
     "delay": 1,
-    "neutralization": "INDUSTRY",
+    "neutralization": "MARKET",
     "decay": 0,
     "truncation": 0.08,
     "pasteurization": "ON",
     "unitHandling": "VERIFY",
-    "nanHandling": "ON",
+    "nanHandling": "OFF",
     "visualization": False,
 }
 
