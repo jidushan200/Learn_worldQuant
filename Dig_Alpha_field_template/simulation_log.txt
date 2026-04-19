@@ -1,0 +1,1504 @@
+
+============================================================
+  开始时间: 2026-04-19 10:37:17
+  共 574 个 alpha 待回测
+============================================================
+
+[   2/574] [10:38:51] alpha_id: XgYop2Qa
+           字段: assets_curr → group_rank(assets_curr, subindustry)
+           sharpe=0.64 | fitness=0.43 | turnover=0.0178 | returns=5.64% | checks=✅ | 结果=❌ FAIL
+
+[   1/574] [10:39:03] alpha_id: akW1oedW
+           字段: assets → group_rank(assets, subindustry)
+           sharpe=0.69 | fitness=0.47 | turnover=0.014 | returns=5.87% | checks=✅ | 结果=❌ FAIL
+
+[   3/574] [10:39:04] alpha_id: om9NK3G6
+           字段: bookvalue_ps → group_rank(bookvalue_ps, subindustry)
+           sharpe=0.35 | fitness=0.16 | turnover=0.0175 | returns=2.71% | checks=✅ | 结果=❌ FAIL
+
+[   4/574] [10:40:58] alpha_id: om9NKlkm
+           字段: capex → group_rank(capex, subindustry)
+           sharpe=0.59 | fitness=0.35 | turnover=0.0126 | returns=4.40% | checks=✅ | 结果=❌ FAIL
+
+[   5/574] [10:41:15] alpha_id: RRkmp1Ka
+           字段: cash → group_rank(cash, subindustry)
+           sharpe=0.44 | fitness=0.23 | turnover=0.024 | returns=3.38% | checks=✅ | 结果=❌ FAIL
+
+[   6/574] [10:41:16] alpha_id: YPWvpgJJ
+           字段: cash_st → group_rank(cash_st, subindustry)
+           sharpe=0.52 | fitness=0.27 | turnover=0.0203 | returns=3.28% | checks=✅ | 结果=❌ FAIL
+
+[   9/574] [10:42:34] alpha_id: vRJNLk7r
+           字段: cashflow_fin → group_rank(cashflow_fin, subindustry)
+           sharpe=-0.18 | fitness=-0.06 | turnover=0.0148 | returns=-1.26% | checks=✅ | 结果=❌ FAIL
+
+[   7/574] [10:45:09] alpha_id: akW1dQPR
+           字段: cashflow → group_rank(cashflow, subindustry)
+           sharpe=-0.13 | fitness=-0.02 | turnover=0.0174 | returns=-0.45% | checks=✅ | 结果=❌ FAIL
+
+[   8/574] [10:45:18] alpha_id: LLlGpmZ6
+           字段: cashflow_dividends → group_rank(cashflow_dividends, subindustry)
+           sharpe=0.06 | fitness=0.01 | turnover=0.0112 | returns=0.51% | checks=✅ | 结果=❌ FAIL
+
+[  10/574] [10:46:15] alpha_id: vRJNLPgb
+           字段: cashflow_invst → group_rank(cashflow_invst, subindustry)
+           sharpe=-0.45 | fitness=-0.19 | turnover=0.0148 | returns=-2.31% | checks=✅ | 结果=❌ FAIL
+
+[  12/574] [10:46:57] alpha_id: 2rnp7xK5
+           字段: cogs → group_rank(cogs, subindustry)
+           sharpe=0.88 | fitness=0.66 | turnover=0.0141 | returns=7.06% | checks=✅ | 结果=❌ FAIL
+
+[  14/574] [10:48:36] alpha_id: zqJN9VWG
+           字段: debt → group_rank(debt, subindustry)
+           sharpe=0.84 | fitness=0.62 | turnover=0.0255 | returns=6.74% | checks=✅ | 结果=❌ FAIL
+
+[  13/574] [10:49:10] alpha_id: 78Kzwep5
+           字段: current_ratio → group_rank(current_ratio, subindustry)
+           sharpe=-0.8 | fitness=-0.49 | turnover=0.0215 | returns=-4.68% | checks=✅ | 结果=❌ FAIL
+
+[  15/574] [10:50:01] alpha_id: 2rnpL8Px
+           字段: debt_lt → group_rank(debt_lt, subindustry)
+           sharpe=0.92 | fitness=0.69 | turnover=0.0166 | returns=7.01% | checks=✅ | 结果=❌ FAIL
+
+[  11/574] [10:50:09] alpha_id: N15brxQq
+           字段: cashflow_op → group_rank(cashflow_op, subindustry)
+           sharpe=0.3 | fitness=0.14 | turnover=0.0128 | returns=2.83% | checks=✅ | 结果=❌ FAIL
+
+[  16/574] [10:51:20] alpha_id: MP5GQR26
+           字段: debt_st → group_rank(debt_st, subindustry)
+           sharpe=0.86 | fitness=0.61 | turnover=0.0291 | returns=6.32% | checks=✅ | 结果=❌ FAIL
+
+[  18/574] [10:51:32] alpha_id: QP5GVLVK
+           字段: ebit → group_rank(ebit, subindustry)
+           sharpe=0.15 | fitness=0.05 | turnover=0.01 | returns=1.45% | checks=✅ | 结果=❌ FAIL
+
+[  17/574] [10:52:56] alpha_id: E5rGEowK
+           字段: depre_amort → group_rank(depre_amort, subindustry)
+           sharpe=0.7 | fitness=0.48 | turnover=0.0246 | returns=5.96% | checks=✅ | 结果=❌ FAIL
+
+[  20/574] [10:53:02] alpha_id: npON2w7a
+           字段: employee → group_rank(employee, subindustry)
+           sharpe=0.72 | fitness=0.49 | turnover=0.0183 | returns=5.78% | checks=✅ | 结果=❌ FAIL
+
+[  22/574] [10:54:42] alpha_id: A1OGPO9Q
+           字段: eps → group_rank(eps, subindustry)
+           sharpe=0.2 | fitness=0.08 | turnover=0.0229 | returns=1.80% | checks=✅ | 结果=❌ FAIL
+
+[  19/574] [10:55:04] alpha_id: xAmNkPKl
+           字段: ebitda → group_rank(ebitda, subindustry)
+           sharpe=0.3 | fitness=0.15 | turnover=0.0109 | returns=3.02% | checks=✅ | 结果=❌ FAIL
+
+[  21/574] [10:55:57] alpha_id: e7q30L8p
+           字段: enterprise_value → group_rank(enterprise_value, subindustry)
+           sharpe=0.21 | fitness=0.09 | turnover=0.0408 | returns=2.21% | checks=✅ | 结果=❌ FAIL
+
+[  24/574] [10:56:27] alpha_id: QP5GVQWQ
+           字段: fnd6_acdo → group_rank(fnd6_acdo, subindustry)
+           sharpe=1.33 | fitness=1.26 | turnover=0.0155 | returns=11.17% | checks=✅ | 结果=✅ PASS
+
+[  23/574] [10:57:15] alpha_id: om9Nlgml
+           字段: equity → group_rank(equity, subindustry)
+           sharpe=0.37 | fitness=0.18 | turnover=0.0152 | returns=2.91% | checks=✅ | 结果=❌ FAIL
+
+[  26/574] [10:58:23] alpha_id: ZYWEn033
+           字段: fnd6_acox → group_rank(fnd6_acox, subindustry)
+           sharpe=0.67 | fitness=0.43 | turnover=0.0116 | returns=5.04% | checks=✅ | 结果=❌ FAIL
+
+[  27/574] [10:58:52] alpha_id: om9NlLN2
+           字段: fnd6_acqgdwl → group_rank(fnd6_acqgdwl, subindustry)
+           sharpe=0.14 | fitness=0.03 | turnover=0.0252 | returns=0.70% | checks=✅ | 结果=❌ FAIL
+
+[  28/574] [11:00:02] alpha_id: 3qnpRoJN
+           字段: fnd6_acqintan → group_rank(fnd6_acqintan, subindustry)
+           sharpe=0.36 | fitness=0.14 | turnover=0.0256 | returns=1.85% | checks=✅ | 结果=❌ FAIL
+
+[  25/574] [11:00:19] alpha_id: zqJNmdYO
+           字段: fnd6_acodo → group_rank(fnd6_acodo, subindustry)
+           sharpe=0.67 | fitness=0.42 | turnover=0.0115 | returns=5.02% | checks=✅ | 结果=❌ FAIL
+
+[  29/574] [11:00:31] alpha_id: blWQqxkl
+           字段: fnd6_adesinda_curcd → group_rank(fnd6_adesinda_curcd, subindustry)
+           sharpe=0.77 | fitness=0.61 | turnover=0.0087 | returns=7.73% | checks=✅ | 结果=❌ FAIL
+
+[  32/574] [11:01:49] alpha_id: 6XYp90Z5
+           字段: fnd6_aodo → group_rank(fnd6_aodo, subindustry)
+           sharpe=0.47 | fitness=0.26 | turnover=0.0115 | returns=3.74% | checks=✅ | 结果=❌ FAIL
+
+[  31/574] [11:02:06] alpha_id: QP5GVgmr
+           字段: fnd6_am → group_rank(fnd6_am, subindustry)
+           sharpe=0.37 | fitness=0.18 | turnover=0.0162 | returns=2.94% | checks=✅ | 结果=❌ FAIL
+
+[  30/574] [11:02:20] alpha_id: P0XG3KeL
+           字段: fnd6_aldo → group_rank(fnd6_aldo, subindustry)
+           sharpe=0.5 | fitness=0.3 | turnover=0.0122 | returns=4.49% | checks=✅ | 结果=❌ FAIL
+
+[  35/574] [11:03:43] alpha_id: VkYGPbAM
+           字段: fnd6_aqi → group_rank(fnd6_aqi, subindustry)
+           sharpe=-0.58 | fitness=-0.32 | turnover=0.0288 | returns=-3.76% | checks=✅ | 结果=❌ FAIL
+
+[  33/574] [11:04:50] alpha_id: A1OGPA5Q
+           字段: fnd6_aox → group_rank(fnd6_aox, subindustry)
+           sharpe=0.48 | fitness=0.27 | turnover=0.0114 | returns=3.81% | checks=✅ | 结果=❌ FAIL
+
+[  34/574] [11:05:24] alpha_id: xAmNdKbW
+           字段: fnd6_aqc → group_rank(fnd6_aqc, subindustry)
+           sharpe=0.17 | fitness=0.04 | turnover=0.0147 | returns=0.76% | checks=✅ | 结果=❌ FAIL
+
+[  36/574] [11:05:38] alpha_id: QP5G9PrX
+           字段: fnd6_aqs → group_rank(fnd6_aqs, subindustry)
+           sharpe=0.26 | fitness=0.1 | turnover=0.0287 | returns=1.78% | checks=✅ | 结果=❌ FAIL
+
+[  37/574] [11:07:23] alpha_id: 9qAp71No
+           字段: fnd6_beta → group_rank(fnd6_beta, subindustry)
+           sharpe=0.56 | fitness=0.26 | turnover=0.0055 | returns=2.60% | checks=✅ | 结果=❌ FAIL
+
+[  39/574] [11:07:27] alpha_id: gJo89Ekl
+           字段: fnd6_ceql → group_rank(fnd6_ceql, subindustry)
+           sharpe=0.5 | fitness=0.28 | turnover=0.0177 | returns=3.91% | checks=✅ | 结果=❌ FAIL
+
+[  38/574] [11:08:03] alpha_id: MP5GLA9a
+           字段: fnd6_capxv → group_rank(fnd6_capxv, subindustry)
+           sharpe=0.56 | fitness=0.33 | turnover=0.0121 | returns=4.43% | checks=✅ | 结果=❌ FAIL
+
+[  40/574] [11:08:44] alpha_id: 1YnpzvRW
+           字段: fnd6_ch → group_rank(fnd6_ch, subindustry)
+           sharpe=0.48 | fitness=0.24 | turnover=0.0119 | returns=3.02% | checks=✅ | 结果=❌ FAIL
+
+[  43/574] [11:08:57] alpha_id: FAILED
+           字段: fnd6_cicurr → group_rank(fnd6_cicurr, subindustry)
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[  45/574] [11:09:50] alpha_id: FAILED
+           字段: fnd6_cik → group_rank(fnd6_cik, subindustry)
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[  44/574] [11:10:25] alpha_id: gJo89PMm
+           字段: fnd6_cidergl → group_rank(fnd6_cidergl, subindustry)
+           sharpe=0.13 | fitness=0.03 | turnover=0.0192 | returns=0.48% | checks=✅ | 结果=❌ FAIL
+
+[  42/574] [11:12:06] alpha_id: 2rnpNKdJ
+           字段: fnd6_cibegni → group_rank(fnd6_cibegni, subindustry)
+           sharpe=0.04 | fitness=0.01 | turnover=0.0189 | returns=0.35% | checks=✅ | 结果=❌ FAIL
+
+[  48/574] [11:12:51] alpha_id: 1Ynpzdm6
+           字段: fnd6_cipen → group_rank(fnd6_cipen, subindustry)
+           sharpe=0.42 | fitness=0.16 | turnover=0.019 | returns=1.89% | checks=✅ | 结果=❌ FAIL
+
+[  47/574] [11:13:14] alpha_id: WjWAVV9k
+           字段: fnd6_ciother → group_rank(fnd6_ciother, subindustry)
+           sharpe=0.57 | fitness=0.21 | turnover=0.0189 | returns=1.74% | checks=✅ | 结果=❌ FAIL
+
+[  49/574] [11:14:01] alpha_id: ZYWEK77n
+           字段: fnd6_cisecgl → group_rank(fnd6_cisecgl, subindustry)
+           sharpe=-0.01 | fitness=-0.0 | turnover=0.0194 | returns=-0.04% | checks=✅ | 结果=❌ FAIL
+
+[  50/574] [11:14:09] alpha_id: YPWvg7RR
+           字段: fnd6_citotal → group_rank(fnd6_citotal, subindustry)
+           sharpe=0.06 | fitness=0.01 | turnover=0.019 | returns=0.58% | checks=✅ | 结果=❌ FAIL
+
+[  51/574] [11:14:33] alpha_id: MP5GLaM6
+           字段: fnd6_city → group_rank(fnd6_city, subindustry)
+           sharpe=-1.04 | fitness=-0.53 | turnover=0.0088 | returns=-3.28% | checks=✅ | 结果=❌ FAIL
+
+[  53/574] [11:15:48] alpha_id: Gr3GeWM3
+           字段: fnd6_cld3 → group_rank(fnd6_cld3, subindustry)
+           sharpe=0.73 | fitness=0.43 | turnover=0.0206 | returns=4.35% | checks=✅ | 结果=❌ FAIL
+
+[  54/574] [11:15:59] alpha_id: 88KpeRJo
+           字段: fnd6_cld4 → group_rank(fnd6_cld4, subindustry)
+           sharpe=0.69 | fitness=0.39 | turnover=0.0203 | returns=4.08% | checks=✅ | 结果=❌ FAIL
+
+[  52/574] [11:16:04] alpha_id: QP5G90eX
+           字段: fnd6_cld2 → group_rank(fnd6_cld2, subindustry)
+           sharpe=0.79 | fitness=0.48 | turnover=0.0206 | returns=4.62% | checks=✅ | 结果=❌ FAIL
+
+[  56/574] [11:18:39] alpha_id: YPWvg9K6
+           字段: fnd6_cptmfmq_actq → group_rank(fnd6_cptmfmq_actq, subindustry)
+           sharpe=0.62 | fitness=0.41 | turnover=0.0177 | returns=5.51% | checks=✅ | 结果=❌ FAIL
+
+[  55/574] [11:19:14] alpha_id: O05GxjRY
+           字段: fnd6_cld5 → group_rank(fnd6_cld5, subindustry)
+           sharpe=0.48 | fitness=0.22 | turnover=0.0202 | returns=2.68% | checks=✅ | 结果=❌ FAIL
+
+[  58/574] [11:20:03] alpha_id: MP5GLvV6
+           字段: fnd6_cptmfmq_ceqq → group_rank(fnd6_cptmfmq_ceqq, subindustry)
+           sharpe=0.36 | fitness=0.17 | turnover=0.015 | returns=2.78% | checks=✅ | 结果=❌ FAIL
+
+[  57/574] [11:20:15] alpha_id: YPWvgVQl
+           字段: fnd6_cptmfmq_atq → group_rank(fnd6_cptmfmq_atq, subindustry)
+           sharpe=0.67 | fitness=0.45 | turnover=0.0138 | returns=5.72% | checks=✅ | 结果=❌ FAIL
+
+[  59/574] [11:21:10] alpha_id: 88KpeM27
+           字段: fnd6_cptmfmq_dlttq → group_rank(fnd6_cptmfmq_dlttq, subindustry)
+           sharpe=0.91 | fitness=0.68 | turnover=0.0164 | returns=6.91% | checks=✅ | 结果=❌ FAIL
+
+[  62/574] [11:22:38] alpha_id: rKr22YM9
+           字段: fnd6_cptmfmq_oibdpq → group_rank(fnd6_cptmfmq_oibdpq, subindustry)
+           sharpe=0.37 | fitness=0.2 | turnover=0.0255 | returns=3.79% | checks=✅ | 结果=❌ FAIL
+
+[  60/574] [11:22:42] alpha_id: j2d66vxo
+           字段: fnd6_cptmfmq_dpq → group_rank(fnd6_cptmfmq_dpq, subindustry)
+           sharpe=0.69 | fitness=0.47 | turnover=0.0244 | returns=5.87% | checks=✅ | 结果=❌ FAIL
+
+[  61/574] [11:22:44] alpha_id: P0XGGNkE
+           字段: fnd6_cptmfmq_lctq → group_rank(fnd6_cptmfmq_lctq, subindustry)
+           sharpe=0.82 | fitness=0.64 | turnover=0.0174 | returns=7.60% | checks=✅ | 结果=❌ FAIL
+
+[  65/574] [11:24:18] alpha_id: xAmNNazW
+           字段: fnd6_cptnewqv1300_actq → group_rank(fnd6_cptnewqv1300_actq, subindustry)
+           sharpe=0.64 | fitness=0.43 | turnover=0.0178 | returns=5.64% | checks=✅ | 结果=❌ FAIL
+
+[  64/574] [11:24:43] alpha_id: Gr3GGVO0
+           字段: fnd6_cptmfmq_saleq → group_rank(fnd6_cptmfmq_saleq, subindustry)
+           sharpe=0.74 | fitness=0.54 | turnover=0.0119 | returns=6.61% | checks=✅ | 结果=❌ FAIL
+
+[  63/574] [11:25:35] alpha_id: ZYWEEwQQ
+           字段: fnd6_cptmfmq_opepsq → group_rank(fnd6_cptmfmq_opepsq, subindustry)
+           sharpe=0.23 | fitness=0.1 | turnover=0.0218 | returns=2.22% | checks=✅ | 结果=❌ FAIL
+
+[  67/574] [11:26:44] alpha_id: ZYWEEWkn
+           字段: fnd6_cptnewqv1300_atq → group_rank(fnd6_cptnewqv1300_atq, subindustry)
+           sharpe=0.69 | fitness=0.47 | turnover=0.014 | returns=5.87% | checks=✅ | 结果=❌ FAIL
+
+[  68/574] [11:27:25] alpha_id: d5lZZENj
+           字段: fnd6_cptnewqv1300_ceqq → group_rank(fnd6_cptnewqv1300_ceqq, subindustry)
+           sharpe=0.37 | fitness=0.18 | turnover=0.0152 | returns=2.90% | checks=✅ | 结果=❌ FAIL
+
+[  66/574] [11:27:41] alpha_id: Gr3GGnxO
+           字段: fnd6_cptnewqv1300_apq → group_rank(fnd6_cptnewqv1300_apq, subindustry)
+           sharpe=0.67 | fitness=0.43 | turnover=0.0215 | returns=5.22% | checks=✅ | 结果=❌ FAIL
+
+[  69/574] [11:29:19] alpha_id: O05GGxkR
+           字段: fnd6_cptnewqv1300_dlttq → group_rank(fnd6_cptnewqv1300_dlttq, subindustry)
+           sharpe=0.92 | fitness=0.69 | turnover=0.0166 | returns=7.01% | checks=✅ | 结果=❌ FAIL
+
+[  71/574] [11:29:19] alpha_id: KPwGGEGl
+           字段: fnd6_cptnewqv1300_epsf12 → group_rank(fnd6_cptnewqv1300_epsf12, subindustry)
+           sharpe=0.11 | fitness=0.03 | turnover=0.0138 | returns=1.08% | checks=✅ | 结果=❌ FAIL
+
+[  70/574] [11:29:44] alpha_id: P0XGGGPw
+           字段: fnd6_cptnewqv1300_dpq → group_rank(fnd6_cptnewqv1300_dpq, subindustry)
+           sharpe=0.7 | fitness=0.48 | turnover=0.0246 | returns=5.96% | checks=✅ | 结果=❌ FAIL
+
+[  72/574] [11:31:22] alpha_id: N15bbewL
+           字段: fnd6_cptnewqv1300_epsfxq → group_rank(fnd6_cptnewqv1300_epsfxq, subindustry)
+           sharpe=0.2 | fitness=0.08 | turnover=0.0227 | returns=1.86% | checks=✅ | 结果=❌ FAIL
+
+[  73/574] [11:31:28] alpha_id: 6XYppAvJ
+           字段: fnd6_cptnewqv1300_epsx12 → group_rank(fnd6_cptnewqv1300_epsx12, subindustry)
+           sharpe=0.11 | fitness=0.03 | turnover=0.0139 | returns=1.07% | checks=✅ | 结果=❌ FAIL
+
+[  76/574] [11:32:40] alpha_id: 3qnppG1P
+           字段: fnd6_cptnewqv1300_nopiq → group_rank(fnd6_cptnewqv1300_nopiq, subindustry)
+           sharpe=0.4 | fitness=0.13 | turnover=0.0352 | returns=1.34% | checks=✅ | 结果=❌ FAIL
+
+[  74/574] [11:33:07] alpha_id: d5lZZYvg
+           字段: fnd6_cptnewqv1300_lctq → group_rank(fnd6_cptnewqv1300_lctq, subindustry)
+           sharpe=0.84 | fitness=0.66 | turnover=0.0176 | returns=7.76% | checks=✅ | 结果=❌ FAIL
+
+[  75/574] [11:33:13] alpha_id: KPwGG5lg
+           字段: fnd6_cptnewqv1300_ltq → group_rank(fnd6_cptnewqv1300_ltq, subindustry)
+           sharpe=0.87 | fitness=0.65 | turnover=0.0143 | returns=7.05% | checks=✅ | 结果=❌ FAIL
+
+[  77/574] [11:33:57] alpha_id: LLlGGzQ1
+           字段: fnd6_cptnewqv1300_oeps12 → group_rank(fnd6_cptnewqv1300_oeps12, subindustry)
+           sharpe=0.13 | fitness=0.04 | turnover=0.0135 | returns=1.26% | checks=✅ | 结果=❌ FAIL
+
+[  78/574] [11:35:03] alpha_id: xAmNNonW
+           字段: fnd6_cptnewqv1300_oiadpq → group_rank(fnd6_cptnewqv1300_oiadpq, subindustry)
+           sharpe=0.29 | fitness=0.14 | turnover=0.0198 | returns=2.91% | checks=✅ | 结果=❌ FAIL
+
+[  80/574] [11:35:32] alpha_id: zqJNNnbE
+           字段: fnd6_cptnewqv1300_opepsq → group_rank(fnd6_cptnewqv1300_opepsq, subindustry)
+           sharpe=0.24 | fitness=0.1 | turnover=0.0219 | returns=2.30% | checks=✅ | 结果=❌ FAIL
+
+[  79/574] [11:36:28] alpha_id: xAmNNZ8g
+           字段: fnd6_cptnewqv1300_oibdpq → group_rank(fnd6_cptnewqv1300_oibdpq, subindustry)
+           sharpe=0.38 | fitness=0.21 | turnover=0.0257 | returns=3.87% | checks=✅ | 结果=❌ FAIL
+
+[  82/574] [11:37:24] alpha_id: LLlG7PEL
+           字段: fnd6_cptnewqv1300_req → group_rank(fnd6_cptnewqv1300_req, subindustry)
+           sharpe=0.02 | fitness=0.0 | turnover=0.0301 | returns=0.13% | checks=✅ | 结果=❌ FAIL
+
+[  83/574] [11:38:03] alpha_id: d5lZjkWE
+           字段: fnd6_cptnewqv1300_saleq → group_rank(fnd6_cptnewqv1300_saleq, subindustry)
+           sharpe=0.75 | fitness=0.55 | turnover=0.0121 | returns=6.73% | checks=✅ | 结果=❌ FAIL
+
+[  81/574] [11:38:17] alpha_id: zqJNkZwX
+           字段: fnd6_cptnewqv1300_rectq → group_rank(fnd6_cptnewqv1300_rectq, subindustry)
+           sharpe=0.74 | fitness=0.53 | turnover=0.0207 | returns=6.39% | checks=✅ | 结果=❌ FAIL
+
+[  85/574] [11:39:42] alpha_id: mLx5j9pX
+           字段: fnd6_cshpri → group_rank(fnd6_cshpri, subindustry)
+           sharpe=0.23 | fitness=0.07 | turnover=0.0086 | returns=1.11% | checks=✅ | 结果=❌ FAIL
+
+[  86/574] [11:40:18] alpha_id: E5rGlAnr
+           字段: fnd6_cshr → group_rank(fnd6_cshr, subindustry)
+           sharpe=0.63 | fitness=0.31 | turnover=0.0188 | returns=3.10% | checks=✅ | 结果=❌ FAIL
+
+[  87/574] [11:42:29] alpha_id: om9Nq9w6
+           字段: fnd6_cshtr → group_rank(fnd6_cshtr, subindustry)
+           sharpe=1.02 | fitness=0.65 | turnover=0.0098 | returns=5.11% | checks=✅ | 结果=❌ FAIL
+
+[  88/574] [11:42:41] alpha_id: WjWA7W0j
+           字段: fnd6_cshtrq → group_rank(fnd6_cshtrq, subindustry)
+           sharpe=0.42 | fitness=0.19 | turnover=0.0142 | returns=2.56% | checks=✅ | 结果=❌ FAIL
+
+[  84/574] [11:42:43] alpha_id: ZYWE7WJQ
+           字段: fnd6_cptrank_gvkeymap → group_rank(fnd6_cptrank_gvkeymap, subindustry)
+           sharpe=-0.28 | fitness=-0.07 | turnover=0.0046 | returns=-0.87% | checks=✅ | 结果=❌ FAIL
+
+[  90/574] [11:44:00] alpha_id: xAmNjnln
+           字段: fnd6_cstkcvq → group_rank(fnd6_cstkcvq, subindustry)
+           sharpe=0.26 | fitness=0.1 | turnover=0.0379 | returns=1.91% | checks=✅ | 结果=❌ FAIL
+
+[  91/574] [11:45:03] alpha_id: blWQjdwl
+           字段: fnd6_currencya_curcd → group_rank(fnd6_currencya_curcd, subindustry)
+           sharpe=0.01 | fitness=0.0 | turnover=0.0285 | returns=0.17% | checks=✅ | 结果=❌ FAIL
+
+[  92/574] [11:45:28] alpha_id: leRWjWo2
+           字段: fnd6_currencyqv1300_curcd → group_rank(fnd6_currencyqv1300_curcd, subindustry)
+           sharpe=-0.21 | fitness=-0.11 | turnover=0.0599 | returns=-3.30% | checks=✅ | 结果=❌ FAIL
+
+[  89/574] [11:46:49] alpha_id: 78Kzj6mv
+           字段: fnd6_cstkcv → group_rank(fnd6_cstkcv, subindustry)
+           sharpe=0.15 | fitness=0.04 | turnover=0.0131 | returns=1.09% | checks=✅ | 结果=❌ FAIL
+
+[  95/574] [11:48:54] alpha_id: VkYG7mOb
+           字段: fnd6_dcpstk → group_rank(fnd6_dcpstk, subindustry)
+           sharpe=-0.08 | fitness=-0.01 | turnover=0.0191 | returns=-0.38% | checks=✅ | 结果=❌ FAIL
+
+[  94/574] [11:49:06] alpha_id: Gr3Glza5
+           字段: fnd6_dclo → group_rank(fnd6_dclo, subindustry)
+           sharpe=0.78 | fitness=0.38 | turnover=0.0184 | returns=3.01% | checks=✅ | 结果=❌ FAIL
+
+[  93/574] [11:49:11] alpha_id: P0XG7zvE
+           字段: fnd6_dc → group_rank(fnd6_dc, subindustry)
+           sharpe=0.77 | fitness=0.32 | turnover=0.012 | returns=2.22% | checks=✅ | 结果=❌ FAIL
+
+[  96/574] [11:50:28] alpha_id: 9qApX3YK
+           字段: fnd6_dcvsr → group_rank(fnd6_dcvsr, subindustry)
+           sharpe=0.32 | fitness=0.12 | turnover=0.0188 | returns=1.83% | checks=✅ | 结果=❌ FAIL
+
+[  98/574] [11:50:51] alpha_id: 1YnpwA1X
+           字段: fnd6_dcvt → group_rank(fnd6_dcvt, subindustry)
+           sharpe=0.23 | fitness=0.07 | turnover=0.0188 | returns=1.24% | checks=✅ | 结果=❌ FAIL
+
+[  97/574] [11:51:39] alpha_id: npON7jPa
+           字段: fnd6_dcvsub → group_rank(fnd6_dcvsub, subindustry)
+           sharpe=-0.34 | fitness=-0.2 | turnover=0.0224 | returns=-4.12% | checks=✅ | 结果=❌ FAIL
+
+[  99/574] [11:52:00] alpha_id: npON7E2x
+           字段: fnd6_dd → group_rank(fnd6_dd, subindustry)
+           sharpe=0.06 | fitness=0.01 | turnover=0.0175 | returns=0.38% | checks=✅ | 结果=❌ FAIL
+
+[ 100/574] [11:52:35] alpha_id: KPwGOKlj
+           字段: fnd6_dd1 → group_rank(fnd6_dd1, subindustry)
+           sharpe=0.81 | fitness=0.55 | turnover=0.0138 | returns=5.81% | checks=✅ | 结果=❌ FAIL
+
+[ 101/574] [11:52:57] alpha_id: xAmNYAeJ
+           字段: fnd6_dd1q → group_rank(fnd6_dd1q, subindustry)
+           sharpe=1.04 | fitness=0.85 | turnover=0.032 | returns=8.32% | checks=✅ | 结果=❌ FAIL
+
+[ 102/574] [11:53:23] alpha_id: P0XGZQPW
+           字段: fnd6_dd2 → group_rank(fnd6_dd2, subindustry)
+           sharpe=0.7 | fitness=0.39 | turnover=0.0196 | returns=3.97% | checks=✅ | 结果=❌ FAIL
+
+[ 104/574] [11:54:34] alpha_id: 88Kp3d17
+           字段: fnd6_dd4 → group_rank(fnd6_dd4, subindustry)
+           sharpe=0.78 | fitness=0.46 | turnover=0.02 | returns=4.32% | checks=✅ | 结果=❌ FAIL
+
+[ 103/574] [11:55:15] alpha_id: j2d63mOZ
+           字段: fnd6_dd3 → group_rank(fnd6_dd3, subindustry)
+           sharpe=0.7 | fitness=0.4 | turnover=0.0198 | returns=3.99% | checks=✅ | 结果=❌ FAIL
+
+[ 105/574] [11:56:23] alpha_id: 9qApVPK9
+           字段: fnd6_dd5 → group_rank(fnd6_dd5, subindustry)
+           sharpe=1.03 | fitness=0.69 | turnover=0.02 | returns=5.63% | checks=✅ | 结果=❌ FAIL
+
+[ 106/574] [11:57:33] alpha_id: LLlG9Xm6
+           字段: fnd6_dilavx → group_rank(fnd6_dilavx, subindustry)
+           sharpe=0.03 | fitness=0.0 | turnover=0.0108 | returns=0.29% | checks=✅ | 结果=❌ FAIL
+
+[ 109/574] [11:59:02] alpha_id: E5rGvkQ0
+           字段: fnd6_dlto → group_rank(fnd6_dlto, subindustry)
+           sharpe=1.13 | fitness=0.89 | turnover=0.0193 | returns=7.68% | checks=✅ | 结果=❌ FAIL
+
+[ 108/574] [11:59:32] alpha_id: 2rnpO7Mb
+           字段: fnd6_dltis → group_rank(fnd6_dltis, subindustry)
+           sharpe=0.98 | fitness=0.6 | turnover=0.0147 | returns=4.74% | checks=✅ | 结果=❌ FAIL
+
+[ 107/574] [12:00:00] alpha_id: xAmNYkYb
+           字段: fnd6_dlcch → group_rank(fnd6_dlcch, subindustry)
+           sharpe=0.13 | fitness=0.02 | turnover=0.0196 | returns=0.46% | checks=✅ | 结果=❌ FAIL
+
+[ 111/574] [12:01:07] alpha_id: e7q39zMO
+           字段: fnd6_dltr → group_rank(fnd6_dltr, subindustry)
+           sharpe=0.69 | fitness=0.41 | turnover=0.0141 | returns=4.32% | checks=✅ | 结果=❌ FAIL
+
+[ 110/574] [12:01:20] alpha_id: YPWv55ml
+           字段: fnd6_dltp → group_rank(fnd6_dltp, subindustry)
+           sharpe=0.83 | fitness=0.48 | turnover=0.0195 | returns=4.20% | checks=✅ | 结果=❌ FAIL
+
+[ 112/574] [12:01:39] alpha_id: d5lZObwv
+           字段: fnd6_dm → group_rank(fnd6_dm, subindustry)
+           sharpe=1.07 | fitness=0.65 | turnover=0.019 | returns=4.60% | checks=✅ | 结果=❌ FAIL
+
+[ 114/574] [12:02:37] alpha_id: LLlG95o6
+           字段: fnd6_donr → group_rank(fnd6_donr, subindustry)
+           sharpe=-0.4 | fitness=-0.18 | turnover=0.0228 | returns=-2.40% | checks=✅ | 结果=❌ FAIL
+
+[ 113/574] [12:02:47] alpha_id: 0mKpRYK2
+           字段: fnd6_dn → group_rank(fnd6_dn, subindustry)
+           sharpe=0.69 | fitness=0.43 | turnover=0.0181 | returns=4.76% | checks=✅ | 结果=❌ FAIL
+
+[ 117/574] [12:04:04] alpha_id: RRkmVlWe
+           字段: fnd6_drlt → group_rank(fnd6_drlt, subindustry)
+           sharpe=1.1 | fitness=0.6 | turnover=0.011 | returns=3.67% | checks=✅ | 结果=❌ FAIL
+
+[ 115/574] [12:04:25] alpha_id: qMmNWGKV
+           字段: fnd6_dpvieb → group_rank(fnd6_dpvieb, subindustry)
+           sharpe=0.73 | fitness=0.55 | turnover=0.0182 | returns=7.05% | checks=✅ | 结果=❌ FAIL
+
+[ 116/574] [12:05:06] alpha_id: wpJaYWwQ
+           字段: fnd6_drc → group_rank(fnd6_drc, subindustry)
+           sharpe=0.98 | fitness=0.58 | turnover=0.012 | returns=4.39% | checks=✅ | 结果=❌ FAIL
+
+[ 119/574] [12:05:43] alpha_id: VkYG6LJY
+           字段: fnd6_dudd → group_rank(fnd6_dudd, subindustry)
+           sharpe=-0.82 | fitness=-0.45 | turnover=0.0179 | returns=-3.78% | checks=✅ | 结果=❌ FAIL
+
+[ 118/574] [12:05:44] alpha_id: Gr3GdNqZ
+           字段: fnd6_ds → group_rank(fnd6_ds, subindustry)
+           sharpe=0.69 | fitness=0.38 | turnover=0.0174 | returns=3.70% | checks=✅ | 结果=❌ FAIL
+
+[ 120/574] [12:06:34] alpha_id: 2rnpOVNb
+           字段: fnd6_dvpa → group_rank(fnd6_dvpa, subindustry)
+           sharpe=0.25 | fitness=0.17 | turnover=0.0343 | returns=5.96% | checks=✅ | 结果=❌ FAIL
+
+[ 123/574] [12:08:04] alpha_id: 58qpzZAo
+           字段: fnd6_dxd4 → group_rank(fnd6_dxd4, subindustry)
+           sharpe=0.75 | fitness=0.42 | turnover=0.0202 | returns=3.86% | checks=✅ | 结果=❌ FAIL
+
+[ 122/574] [12:08:45] alpha_id: qMmNx9lV
+           字段: fnd6_dxd3 → group_rank(fnd6_dxd3, subindustry)
+           sharpe=0.68 | fitness=0.37 | turnover=0.0201 | returns=3.64% | checks=✅ | 结果=❌ FAIL
+
+[ 124/574] [12:09:23] alpha_id: wpJaZmYY
+           字段: fnd6_dxd5 → group_rank(fnd6_dxd5, subindustry)
+           sharpe=1.07 | fitness=0.71 | turnover=0.0203 | returns=5.49% | checks=✅ | 结果=❌ FAIL
+
+[ 121/574] [12:09:47] alpha_id: 78KzNbz5
+           字段: fnd6_dxd2 → group_rank(fnd6_dxd2, subindustry)
+           sharpe=0.69 | fitness=0.38 | turnover=0.0199 | returns=3.71% | checks=✅ | 结果=❌ FAIL
+
+[ 125/574] [12:10:35] alpha_id: O05GNv0q
+           字段: fnd6_ein → group_rank(fnd6_ein, subindustry)
+           sharpe=0.38 | fitness=0.16 | turnover=0.0095 | returns=2.15% | checks=✅ | 结果=❌ FAIL
+
+[ 126/574] [12:12:08] alpha_id: j2d6AWkO
+           字段: fnd6_esopct → group_rank(fnd6_esopct, subindustry)
+           sharpe=-0.14 | fitness=-0.05 | turnover=0.0141 | returns=-1.54% | checks=✅ | 结果=❌ FAIL
+
+[ 128/574] [12:13:12] alpha_id: WjWAbaKZ
+           字段: fnd6_esopr → group_rank(fnd6_esopr, subindustry)
+           sharpe=0.68 | fitness=1.02 | turnover=0.0071 | returns=28.29% | checks=✅ | 结果=❌ FAIL
+
+[ 127/574] [12:13:16] alpha_id: QP5Gb2Qg
+           字段: fnd6_esopnr → group_rank(fnd6_esopnr, subindustry)
+           sharpe=-0.24 | fitness=-0.17 | turnover=0.0109 | returns=-6.23% | checks=✅ | 结果=❌ FAIL
+
+[ 129/574] [12:15:03] alpha_id: npONd2E8
+           字段: fnd6_esubc → group_rank(fnd6_esubc, subindustry)
+           sharpe=-0.14 | fitness=-0.03 | turnover=0.0148 | returns=-0.46% | checks=✅ | 结果=❌ FAIL
+
+[ 130/574] [12:15:08] alpha_id: LLlGNdb1
+           字段: fnd6_exre → group_rank(fnd6_exre, subindustry)
+           sharpe=0.72 | fitness=0.33 | turnover=0.0157 | returns=2.63% | checks=✅ | 结果=❌ FAIL
+
+[ 131/574] [12:15:48] alpha_id: 78KzNjgL
+           字段: fnd6_fatb → group_rank(fnd6_fatb, subindustry)
+           sharpe=0.46 | fitness=0.28 | turnover=0.0192 | returns=4.71% | checks=✅ | 结果=❌ FAIL
+
+[ 133/574] [12:17:05] alpha_id: wpJaZ9Xl
+           字段: fnd6_fate → group_rank(fnd6_fate, subindustry)
+           sharpe=0.95 | fitness=0.8 | turnover=0.0203 | returns=8.88% | checks=✅ | 结果=❌ FAIL
+
+[ 132/574] [12:17:15] alpha_id: VkYGadeY
+           字段: fnd6_fatc → group_rank(fnd6_fatc, subindustry)
+           sharpe=0.74 | fitness=0.39 | turnover=0.019 | returns=3.48% | checks=✅ | 结果=❌ FAIL
+
+[ 134/574] [12:18:32] alpha_id: E5rGpNGK
+           字段: fnd6_fatl → group_rank(fnd6_fatl, subindustry)
+           sharpe=1.18 | fitness=1.0 | turnover=0.0205 | returns=9.03% | checks=✅ | 结果=❌ FAIL
+
+[ 136/574] [12:19:56] alpha_id: YPWvbYoq
+           字段: fnd6_fato → group_rank(fnd6_fato, subindustry)
+           sharpe=1.1 | fitness=0.61 | turnover=0.0196 | returns=3.84% | checks=✅ | 结果=❌ FAIL
+
+[ 135/574] [12:20:28] alpha_id: VkYGaLPY
+           字段: fnd6_fatn → group_rank(fnd6_fatn, subindustry)
+           sharpe=0.59 | fitness=0.42 | turnover=0.0255 | returns=6.45% | checks=✅ | 结果=❌ FAIL
+
+[ 137/574] [12:22:00] alpha_id: xAmN3Jkb
+           字段: fnd6_fatp → group_rank(fnd6_fatp, subindustry)
+           sharpe=0.64 | fitness=0.46 | turnover=0.0191 | returns=6.46% | checks=✅ | 结果=❌ FAIL
+
+[ 139/574] [12:22:20] alpha_id: vRJN2KvQ
+           字段: fnd6_fic → group_rank(fnd6_fic, subindustry)
+           sharpe=-0.59 | fitness=-0.35 | turnover=0.0098 | returns=-4.39% | checks=✅ | 结果=❌ FAIL
+
+[ 138/574] [12:22:41] alpha_id: 1YnpZk5R
+           字段: fnd6_fiao → group_rank(fnd6_fiao, subindustry)
+           sharpe=-0.54 | fitness=-0.2 | turnover=0.0149 | returns=-1.80% | checks=✅ | 结果=❌ FAIL
+
+[ 141/574] [12:23:43] alpha_id: xAmNb8Rl
+           字段: fnd6_fopox → group_rank(fnd6_fopox, subindustry)
+           sharpe=1.06 | fitness=0.64 | turnover=0.0156 | returns=4.58% | checks=✅ | 结果=❌ FAIL
+
+[ 140/574] [12:24:18] alpha_id: XgYoJ67a
+           字段: fnd6_fopo → group_rank(fnd6_fopo, subindustry)
+           sharpe=1.08 | fitness=0.65 | turnover=0.0154 | returns=4.51% | checks=✅ | 结果=❌ FAIL
+
+[ 144/574] [12:25:41] alpha_id: akW1xMrW
+           字段: fnd6_idesindq_curcd → group_rank(fnd6_idesindq_curcd, subindustry)
+           sharpe=0.86 | fitness=0.72 | turnover=0.0087 | returns=8.73% | checks=✅ | 结果=❌ FAIL
+
+[ 143/574] [12:25:45] alpha_id: mLx56Jk2
+           字段: fnd6_ibmii → group_rank(fnd6_ibmii, subindustry)
+           sharpe=0.02 | fitness=0.0 | turnover=0.011 | returns=0.20% | checks=✅ | 结果=❌ FAIL
+
+[ 142/574] [12:26:26] alpha_id: qMmN0zJE
+           字段: fnd6_fyrc → group_rank(fnd6_fyrc, subindustry)
+           sharpe=-0.89 | fitness=-0.47 | turnover=0.0078 | returns=-3.55% | checks=✅ | 结果=❌ FAIL
+
+[ 146/574] [12:27:14] alpha_id: QP5GKnRg
+           字段: fnd6_incorp → group_rank(fnd6_incorp, subindustry)
+           sharpe=0.3 | fitness=0.11 | turnover=0.0084 | returns=1.63% | checks=✅ | 结果=❌ FAIL
+
+[ 145/574] [12:27:14] alpha_id: kqLPgn8l
+           字段: fnd6_idit → group_rank(fnd6_idit, subindustry)
+           sharpe=0.29 | fitness=0.12 | turnover=0.0158 | returns=1.98% | checks=✅ | 结果=❌ FAIL
+
+[ 147/574] [12:28:19] alpha_id: 3qnpVRNz
+           字段: fnd6_intan → group_rank(fnd6_intan, subindustry)
+           sharpe=0.39 | fitness=0.19 | turnover=0.0089 | returns=3.11% | checks=✅ | 结果=❌ FAIL
+
+[ 148/574] [12:28:32] alpha_id: MP5G3Ldz
+           字段: fnd6_intc → group_rank(fnd6_intc, subindustry)
+           sharpe=0.75 | fitness=0.38 | turnover=0.0159 | returns=3.19% | checks=✅ | 结果=❌ FAIL
+
+[ 149/574] [12:29:04] alpha_id: 2rnpml65
+           字段: fnd6_intpn → group_rank(fnd6_intpn, subindustry)
+           sharpe=0.75 | fitness=0.49 | turnover=0.0175 | returns=5.28% | checks=✅ | 结果=❌ FAIL
+
+[ 151/574] [12:30:33] alpha_id: blWQOaNN
+           字段: fnd6_invo → group_rank(fnd6_invo, subindustry)
+           sharpe=-0.36 | fitness=-0.14 | turnover=0.0197 | returns=-1.82% | checks=✅ | 结果=❌ FAIL
+
+[ 150/574] [12:31:32] alpha_id: vRJN2pPb
+           字段: fnd6_invfg → group_rank(fnd6_invfg, subindustry)
+           sharpe=0.54 | fitness=0.33 | turnover=0.0179 | returns=4.74% | checks=✅ | 结果=❌ FAIL
+
+[ 153/574] [12:32:15] alpha_id: A1OGvEkd
+           字段: fnd6_invwip → group_rank(fnd6_invwip, subindustry)
+           sharpe=0.35 | fitness=0.17 | turnover=0.0183 | returns=3.07% | checks=✅ | 结果=❌ FAIL
+
+[ 155/574] [12:33:48] alpha_id: wpJabrk1
+           字段: fnd6_itci → group_rank(fnd6_itci, subindustry)
+           sharpe=1.61 | fitness=1.3 | turnover=0.0209 | returns=8.17% | checks=✅ | 结果=✅ PASS
+
+[ 152/574] [12:34:18] alpha_id: QP5GY1OK
+           字段: fnd6_invrm → group_rank(fnd6_invrm, subindustry)
+           sharpe=0.35 | fitness=0.18 | turnover=0.0182 | returns=3.19% | checks=✅ | 结果=❌ FAIL
+
+[ 154/574] [12:34:33] alpha_id: gJo8WJZm
+           字段: fnd6_itcb → group_rank(fnd6_itcb, subindustry)
+           sharpe=0.06 | fitness=0.01 | turnover=0.0075 | returns=0.72% | checks=✅ | 结果=❌ FAIL
+
+[ 156/574] [12:36:06] alpha_id: vRJNOg9w
+           字段: fnd6_ivaco → group_rank(fnd6_ivaco, subindustry)
+           sharpe=1.33 | fitness=0.71 | turnover=0.0144 | returns=3.58% | checks=✅ | 结果=❌ FAIL
+
+[ 157/574] [12:36:35] alpha_id: pw1Nv01V
+           字段: fnd6_ivaeq → group_rank(fnd6_ivaeq, subindustry)
+           sharpe=0.22 | fitness=0.07 | turnover=0.0106 | returns=1.27% | checks=✅ | 结果=❌ FAIL
+
+[ 158/574] [12:38:04] alpha_id: E5rGVaPJ
+           字段: fnd6_ivao → group_rank(fnd6_ivao, subindustry)
+           sharpe=0.12 | fitness=0.03 | turnover=0.0111 | returns=0.59% | checks=✅ | 结果=❌ FAIL
+
+[ 159/574] [12:38:40] alpha_id: 9qApE9a1
+           字段: fnd6_ivch → group_rank(fnd6_ivch, subindustry)
+           sharpe=0.26 | fitness=0.08 | turnover=0.0129 | returns=1.10% | checks=✅ | 结果=❌ FAIL
+
+[ 160/574] [12:39:15] alpha_id: KPwGmLN8
+           字段: fnd6_ivst → group_rank(fnd6_ivst, subindustry)
+           sharpe=0.39 | fitness=0.13 | turnover=0.0106 | returns=1.47% | checks=✅ | 结果=❌ FAIL
+
+[ 162/574] [12:41:32] alpha_id: 1YnpjjGQ
+           字段: fnd6_lcox → group_rank(fnd6_lcox, subindustry)
+           sharpe=0.68 | fitness=0.39 | turnover=0.0114 | returns=4.08% | checks=✅ | 结果=❌ FAIL
+
+[ 161/574] [12:42:30] alpha_id: N15beLaX
+           字段: fnd6_ivstch → group_rank(fnd6_ivstch, subindustry)
+           sharpe=0.24 | fitness=0.06 | turnover=0.0177 | returns=0.84% | checks=✅ | 结果=❌ FAIL
+
+[ 163/574] [12:43:05] alpha_id: QP5GYzg5
+           字段: fnd6_lcoxdr → group_rank(fnd6_lcoxdr, subindustry)
+           sharpe=0.54 | fitness=0.25 | turnover=0.0118 | returns=2.68% | checks=✅ | 结果=❌ FAIL
+
+[ 164/574] [12:43:29] alpha_id: WjWALJdG
+           字段: fnd6_lifr → group_rank(fnd6_lifr, subindustry)
+           sharpe=0.43 | fitness=0.21 | turnover=0.0191 | returns=2.90% | checks=✅ | 结果=❌ FAIL
+
+[ 165/574] [12:44:08] alpha_id: npONAlEE
+           字段: fnd6_lno → group_rank(fnd6_lno, subindustry)
+           sharpe=-0.33 | fitness=-0.13 | turnover=0.0164 | returns=-1.80% | checks=✅ | 结果=❌ FAIL
+
+[ 166/574] [12:44:28] alpha_id: vRJNO7Nd
+           字段: fnd6_loc → group_rank(fnd6_loc, subindustry)
+           sharpe=-0.63 | fitness=-0.4 | turnover=0.0095 | returns=-5.14% | checks=✅ | 结果=❌ FAIL
+
+[ 167/574] [12:45:03] alpha_id: 9qApEne1
+           字段: fnd6_lol2 → group_rank(fnd6_lol2, subindustry)
+           sharpe=0.54 | fitness=0.27 | turnover=0.0191 | returns=3.03% | checks=✅ | 结果=❌ FAIL
+
+[ 168/574] [12:45:36] alpha_id: leRWAeZ8
+           字段: fnd6_loxdr → group_rank(fnd6_loxdr, subindustry)
+           sharpe=0.42 | fitness=0.22 | turnover=0.0101 | returns=3.44% | checks=✅ | 结果=❌ FAIL
+
+[ 169/574] [12:46:58] alpha_id: LLlGMJAn
+           字段: fnd6_lqpl1 → group_rank(fnd6_lqpl1, subindustry)
+           sharpe=-0.29 | fitness=-0.09 | turnover=0.0193 | returns=-1.10% | checks=✅ | 结果=❌ FAIL
+
+[ 170/574] [12:47:09] alpha_id: kqLPNlvk
+           字段: fnd6_lul3 → group_rank(fnd6_lul3, subindustry)
+           sharpe=-0.89 | fitness=-0.41 | turnover=0.019 | returns=-2.62% | checks=✅ | 结果=❌ FAIL
+
+[ 171/574] [12:47:10] alpha_id: npONvVrl
+           字段: fnd6_mfma1_aoloch → group_rank(fnd6_mfma1_aoloch, subindustry)
+           sharpe=0.26 | fitness=0.06 | turnover=0.016 | returns=0.60% | checks=✅ | 结果=❌ FAIL
+
+[ 174/574] [12:48:48] alpha_id: kqLPNmzK
+           字段: fnd6_mfma1_capx → group_rank(fnd6_mfma1_capx, subindustry)
+           sharpe=0.58 | fitness=0.34 | turnover=0.0125 | returns=4.38% | checks=✅ | 结果=❌ FAIL
+
+[ 172/574] [12:49:36] alpha_id: e7q35nZE
+           字段: fnd6_mfma1_apalch → group_rank(fnd6_mfma1_apalch, subindustry)
+           sharpe=0.11 | fitness=0.02 | turnover=0.0181 | returns=0.44% | checks=✅ | 结果=❌ FAIL
+
+[ 173/574] [12:50:05] alpha_id: leRWAVre
+           字段: fnd6_mfma1_at → group_rank(fnd6_mfma1_at, subindustry)
+           sharpe=0.66 | fitness=0.44 | turnover=0.0095 | returns=5.61% | checks=✅ | 结果=❌ FAIL
+
+[ 175/574] [12:50:18] alpha_id: 78KzL1n8
+           字段: fnd6_mfma1_csho → group_rank(fnd6_mfma1_csho, subindustry)
+           sharpe=0.3 | fitness=0.1 | turnover=0.0088 | returns=1.44% | checks=✅ | 结果=❌ FAIL
+
+[ 178/574] [12:51:55] alpha_id: 9qApxW31
+           字段: fnd6_mfma1_invch → group_rank(fnd6_mfma1_invch, subindustry)
+           sharpe=0.21 | fitness=0.05 | turnover=0.0166 | returns=0.83% | checks=✅ | 结果=❌ FAIL
+
+[ 177/574] [12:53:27] alpha_id: zqJN3GdE
+           字段: fnd6_mfma1_dpc → group_rank(fnd6_mfma1_dpc, subindustry)
+           sharpe=0.71 | fitness=0.49 | turnover=0.0128 | returns=5.89% | checks=✅ | 结果=❌ FAIL
+
+[ 176/574] [12:53:39] alpha_id: d5lZWoeY
+           字段: fnd6_mfma1_dp → group_rank(fnd6_mfma1_dp, subindustry)
+           sharpe=0.63 | fitness=0.42 | turnover=0.0112 | returns=5.52% | checks=✅ | 结果=❌ FAIL
+
+[ 179/574] [12:54:48] alpha_id: YPWv138A
+           字段: fnd6_mfma2_oancf → group_rank(fnd6_mfma2_oancf, subindustry)
+           sharpe=0.31 | fitness=0.15 | turnover=0.0127 | returns=2.95% | checks=✅ | 结果=❌ FAIL
+
+[ 181/574] [12:55:03] alpha_id: 9qApxeX9
+           字段: fnd6_mfma2_recch → group_rank(fnd6_mfma2_recch, subindustry)
+           sharpe=-0.13 | fitness=-0.03 | turnover=0.0168 | returns=-0.48% | checks=✅ | 结果=❌ FAIL
+
+[ 180/574] [12:56:14] alpha_id: 2rnp58m6
+           字段: fnd6_mfma2_opeps → group_rank(fnd6_mfma2_opeps, subindustry)
+           sharpe=0.17 | fitness=0.06 | turnover=0.0107 | returns=1.60% | checks=✅ | 结果=❌ FAIL
+
+[ 184/574] [12:57:37] alpha_id: Jj5G8LKe
+           字段: fnd6_mfmq_cheq → group_rank(fnd6_mfmq_cheq, subindustry)
+           sharpe=0.5 | fitness=0.25 | turnover=0.0201 | returns=3.17% | checks=✅ | 结果=❌ FAIL
+
+[ 183/574] [12:57:37] alpha_id: 2rnp5kR6
+           字段: fnd6_mfma2_txach → group_rank(fnd6_mfma2_txach, subindustry)
+           sharpe=-0.36 | fitness=-0.13 | turnover=0.0185 | returns=-1.51% | checks=✅ | 结果=❌ FAIL
+
+[ 182/574] [12:58:23] alpha_id: Jj5G805x
+           字段: fnd6_mfma2_revt → group_rank(fnd6_mfma2_revt, subindustry)
+           sharpe=0.68 | fitness=0.48 | turnover=0.0092 | returns=6.12% | checks=✅ | 结果=❌ FAIL
+
+[ 186/574] [12:59:43] alpha_id: YPWvaNmR
+           字段: fnd6_mfmq_cshprq → group_rank(fnd6_mfmq_cshprq, subindustry)
+           sharpe=0.17 | fitness=0.04 | turnover=0.009 | returns=0.78% | checks=✅ | 结果=❌ FAIL
+
+[ 187/574] [12:59:51] alpha_id: akW1ao2v
+           字段: fnd6_mfmq_dlcq → group_rank(fnd6_mfmq_dlcq, subindustry)
+           sharpe=0.84 | fitness=0.59 | turnover=0.0289 | returns=6.18% | checks=✅ | 结果=❌ FAIL
+
+[ 185/574] [13:00:42] alpha_id: 78KzY1jL
+           字段: fnd6_mfmq_cogsq → group_rank(fnd6_mfmq_cogsq, subindustry)
+           sharpe=0.87 | fitness=0.65 | turnover=0.014 | returns=6.98% | checks=✅ | 结果=❌ FAIL
+
+[ 189/574] [13:01:25] alpha_id: wpJaoj5l
+           字段: fnd6_mfmq_mibtq → group_rank(fnd6_mfmq_mibtq, subindustry)
+           sharpe=0.36 | fitness=0.13 | turnover=0.0161 | returns=1.67% | checks=✅ | 结果=❌ FAIL
+
+[ 188/574] [13:01:33] alpha_id: O05GWr0v
+           字段: fnd6_mfmq_ibcomq → group_rank(fnd6_mfmq_ibcomq, subindustry)
+           sharpe=0.14 | fitness=0.05 | turnover=0.0212 | returns=1.36% | checks=✅ | 结果=❌ FAIL
+
+[ 190/574] [13:02:26] alpha_id: MP5G60eL
+           字段: fnd6_mfmq_piq → group_rank(fnd6_mfmq_piq, subindustry)
+           sharpe=0.16 | fitness=0.06 | turnover=0.0214 | returns=1.56% | checks=✅ | 结果=❌ FAIL
+
+[ 191/574] [13:03:26] alpha_id: rKr27N5j
+           字段: fnd6_mibn → group_rank(fnd6_mibn, subindustry)
+           sharpe=0.12 | fitness=0.03 | turnover=0.0083 | returns=0.58% | checks=✅ | 结果=❌ FAIL
+
+[ 192/574] [13:04:44] alpha_id: QP5G0pZQ
+           字段: fnd6_mibt → group_rank(fnd6_mibt, subindustry)
+           sharpe=0.2 | fitness=0.06 | turnover=0.0083 | returns=0.95% | checks=✅ | 结果=❌ FAIL
+
+[ 193/574] [13:05:27] alpha_id: xAmNvZqg
+           字段: fnd6_mkvalt → group_rank(fnd6_mkvalt, subindustry)
+           sharpe=0.41 | fitness=0.21 | turnover=0.0668 | returns=3.36% | checks=✅ | 结果=❌ FAIL
+
+[ 194/574] [13:06:10] alpha_id: ZYWEXYqn
+           字段: fnd6_mkvaltq → group_rank(fnd6_mkvaltq, subindustry)
+           sharpe=0.53 | fitness=0.25 | turnover=0.2284 | returns=4.95% | checks=✅ | 结果=❌ FAIL
+
+[ 195/574] [13:06:24] alpha_id: qMmN59mj
+           字段: fnd6_mrc1 → group_rank(fnd6_mrc1, subindustry)
+           sharpe=1.0 | fitness=0.75 | turnover=0.0195 | returns=7.05% | checks=✅ | 结果=❌ FAIL
+
+[ 196/574] [13:06:42] alpha_id: VkYGMVm0
+           字段: fnd6_mrc2 → group_rank(fnd6_mrc2, subindustry)
+           sharpe=1.01 | fitness=0.75 | turnover=0.0197 | returns=6.95% | checks=✅ | 结果=❌ FAIL
+
+[ 197/574] [13:07:44] alpha_id: QP5GWdkQ
+           字段: fnd6_mrc3 → group_rank(fnd6_mrc3, subindustry)
+           sharpe=0.97 | fitness=0.7 | turnover=0.0196 | returns=6.57% | checks=✅ | 结果=❌ FAIL
+
+[ 199/574] [13:08:10] alpha_id: xAmNlXKg
+           字段: fnd6_mrc5 → group_rank(fnd6_mrc5, subindustry)
+           sharpe=0.86 | fitness=0.57 | turnover=0.0195 | returns=5.50% | checks=✅ | 结果=❌ FAIL
+
+[ 198/574] [13:08:14] alpha_id: QP5GWewr
+           字段: fnd6_mrc4 → group_rank(fnd6_mrc4, subindustry)
+           sharpe=0.92 | fitness=0.64 | turnover=0.0195 | returns=5.98% | checks=✅ | 结果=❌ FAIL
+
+[ 200/574] [13:09:37] alpha_id: WjWAYajN
+           字段: fnd6_mrct → group_rank(fnd6_mrct, subindustry)
+           sharpe=0.9 | fitness=0.63 | turnover=0.0196 | returns=6.16% | checks=✅ | 结果=❌ FAIL
+
+[ 201/574] [13:09:38] alpha_id: 0mKpGevk
+           字段: fnd6_mrcta → group_rank(fnd6_mrcta, subindustry)
+           sharpe=0.91 | fitness=0.6 | turnover=0.0194 | returns=5.47% | checks=✅ | 结果=❌ FAIL
+
+[ 202/574] [13:10:38] alpha_id: leRWgVVe
+           字段: fnd6_msa → group_rank(fnd6_msa, subindustry)
+           sharpe=0.29 | fitness=0.09 | turnover=0.0185 | returns=1.11% | checks=✅ | 结果=❌ FAIL
+
+[ 206/574] [13:11:30] alpha_id: FAILED
+           字段: fnd6_newa1v1300_ano → group_rank(fnd6_newa1v1300_ano, subindustry)
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[ 203/574] [13:11:41] alpha_id: XgYoNWla
+           字段: fnd6_newa1v1300_aco → group_rank(fnd6_newa1v1300_aco, subindustry)
+           sharpe=0.72 | fitness=0.47 | turnover=0.011 | returns=5.39% | checks=✅ | 结果=❌ FAIL
+
+[ 208/574] [13:12:33] alpha_id: FAILED
+           字段: fnd6_newa1v1300_aocidergl → group_rank(fnd6_newa1v1300_aocidergl, subindustry)
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[ 205/574] [13:12:58] alpha_id: VkYGMNb5
+           字段: fnd6_newa1v1300_act → group_rank(fnd6_newa1v1300_act, subindustry)
+           sharpe=0.58 | fitness=0.37 | turnover=0.0104 | returns=5.20% | checks=✅ | 结果=❌ FAIL
+
+[ 207/574] [13:13:19] alpha_id: gJo8rXge
+           字段: fnd6_newa1v1300_ao → group_rank(fnd6_newa1v1300_ao, subindustry)
+           sharpe=0.54 | fitness=0.31 | turnover=0.011 | returns=4.09% | checks=✅ | 结果=❌ FAIL
+
+[ 209/574] [13:14:24] alpha_id: 1YnpG2wR
+           字段: fnd6_newa1v1300_aociother → group_rank(fnd6_newa1v1300_aociother, subindustry)
+           sharpe=0.04 | fitness=0.0 | turnover=0.0181 | returns=0.12% | checks=✅ | 结果=❌ FAIL
+
+[ 210/574] [13:14:34] alpha_id: 0mKpGL0v
+           字段: fnd6_newa1v1300_aocipen → group_rank(fnd6_newa1v1300_aocipen, subindustry)
+           sharpe=-0.49 | fitness=-0.23 | turnover=0.017 | returns=-2.83% | checks=✅ | 结果=❌ FAIL
+
+[ 211/574] [13:14:59] alpha_id: 2rnpGV8w
+           字段: fnd6_newa1v1300_aol2 → group_rank(fnd6_newa1v1300_aol2, subindustry)
+           sharpe=0.87 | fitness=0.51 | turnover=0.0193 | returns=4.27% | checks=✅ | 结果=❌ FAIL
+
+[ 212/574] [13:15:59] alpha_id: E5rGNZaK
+           字段: fnd6_newa1v1300_aoloch → group_rank(fnd6_newa1v1300_aoloch, subindustry)
+           sharpe=0.23 | fitness=0.05 | turnover=0.0161 | returns=0.54% | checks=✅ | 结果=❌ FAIL
+
+[ 213/574] [13:16:09] alpha_id: E5rGN5KJ
+           字段: fnd6_newa1v1300_ap → group_rank(fnd6_newa1v1300_ap, subindustry)
+           sharpe=0.67 | fitness=0.43 | turnover=0.0101 | returns=5.16% | checks=✅ | 结果=❌ FAIL
+
+[ 214/574] [13:16:59] alpha_id: Gr3GXax5
+           字段: fnd6_newa1v1300_apalch → group_rank(fnd6_newa1v1300_apalch, subindustry)
+           sharpe=0.1 | fitness=0.02 | turnover=0.0182 | returns=0.41% | checks=✅ | 结果=❌ FAIL
+
+[ 215/574] [13:17:23] alpha_id: e7q3No1N
+           字段: fnd6_newa1v1300_aqpl1 → group_rank(fnd6_newa1v1300_aqpl1, subindustry)
+           sharpe=0.41 | fitness=0.15 | turnover=0.0192 | returns=1.72% | checks=✅ | 结果=❌ FAIL
+
+[ 216/574] [13:18:39] alpha_id: QP5GOqXM
+           字段: fnd6_newa1v1300_at → group_rank(fnd6_newa1v1300_at, subindustry)
+           sharpe=0.66 | fitness=0.44 | turnover=0.0096 | returns=5.66% | checks=✅ | 结果=❌ FAIL
+
+[ 218/574] [13:18:46] alpha_id: XgYoVPOm
+           字段: fnd6_newa1v1300_bkvlps → group_rank(fnd6_newa1v1300_bkvlps, subindustry)
+           sharpe=0.35 | fitness=0.16 | turnover=0.0176 | returns=2.68% | checks=✅ | 结果=❌ FAIL
+
+[ 217/574] [13:19:27] alpha_id: vRJNZJAA
+           字段: fnd6_newa1v1300_aul3 → group_rank(fnd6_newa1v1300_aul3, subindustry)
+           sharpe=0.21 | fitness=0.05 | turnover=0.0184 | returns=0.81% | checks=✅ | 结果=❌ FAIL
+
+[ 219/574] [13:20:13] alpha_id: d5lZYQlv
+           字段: fnd6_newa1v1300_caps → group_rank(fnd6_newa1v1300_caps, subindustry)
+           sharpe=1.19 | fitness=0.75 | turnover=0.0116 | returns=5.00% | checks=✅ | 结果=❌ FAIL
+
+[ 220/574] [13:20:42] alpha_id: pw1NxlKb
+           字段: fnd6_newa1v1300_capx → group_rank(fnd6_newa1v1300_capx, subindustry)
+           sharpe=0.59 | fitness=0.35 | turnover=0.0126 | returns=4.41% | checks=✅ | 结果=❌ FAIL
+
+[ 221/574] [13:21:18] alpha_id: LLlGEG0n
+           字段: fnd6_newa1v1300_ceq → group_rank(fnd6_newa1v1300_ceq, subindustry)
+           sharpe=0.45 | fitness=0.24 | turnover=0.0098 | returns=3.54% | checks=✅ | 结果=❌ FAIL
+
+[ 222/574] [13:21:58] alpha_id: VkYGZ0VA
+           字段: fnd6_newa1v1300_ceqt → group_rank(fnd6_newa1v1300_ceqt, subindustry)
+           sharpe=0.46 | fitness=0.16 | turnover=0.0172 | returns=1.54% | checks=✅ | 结果=❌ FAIL
+
+[ 224/574] [13:23:09] alpha_id: xAmNVl2m
+           字段: fnd6_newa1v1300_chech → group_rank(fnd6_newa1v1300_chech, subindustry)
+           sharpe=-0.13 | fitness=-0.02 | turnover=0.0174 | returns=-0.45% | checks=✅ | 结果=❌ FAIL
+
+[ 225/574] [13:23:46] alpha_id: 9qAp8M6q
+           字段: fnd6_newa1v1300_cogs → group_rank(fnd6_newa1v1300_cogs, subindustry)
+           sharpe=0.83 | fitness=0.6 | turnover=0.0094 | returns=6.63% | checks=✅ | 结果=❌ FAIL
+
+[ 223/574] [13:24:27] alpha_id: O05GR28p
+           字段: fnd6_newa1v1300_che → group_rank(fnd6_newa1v1300_che, subindustry)
+           sharpe=0.52 | fitness=0.27 | turnover=0.0109 | returns=3.30% | checks=✅ | 结果=❌ FAIL
+
+[ 226/574] [13:24:32] alpha_id: ZYWEg1X3
+           字段: fnd6_newa1v1300_cshfd → group_rank(fnd6_newa1v1300_cshfd, subindustry)
+           sharpe=0.2 | fitness=0.06 | turnover=0.0087 | returns=0.95% | checks=✅ | 结果=❌ FAIL
+
+[ 229/574] [13:25:50] alpha_id: 9qAp8NY1
+           字段: fnd6_newa1v1300_cstk → group_rank(fnd6_newa1v1300_cstk, subindustry)
+           sharpe=0.15 | fitness=0.04 | turnover=0.011 | returns=0.94% | checks=✅ | 结果=❌ FAIL
+
+[ 228/574] [13:26:16] alpha_id: 6XYpon2L
+           字段: fnd6_newa1v1300_csho → group_rank(fnd6_newa1v1300_csho, subindustry)
+           sharpe=0.29 | fitness=0.1 | turnover=0.0089 | returns=1.42% | checks=✅ | 结果=❌ FAIL
+
+[ 227/574] [13:27:04] alpha_id: XgYovGAX
+           字段: fnd6_newa1v1300_cshi → group_rank(fnd6_newa1v1300_cshi, subindustry)
+           sharpe=0.35 | fitness=0.13 | turnover=0.0141 | returns=1.76% | checks=✅ | 结果=❌ FAIL
+
+[ 231/574] [13:27:40] alpha_id: zqJN21P8
+           字段: fnd6_newa1v1300_dlc → group_rank(fnd6_newa1v1300_dlc, subindustry)
+           sharpe=0.73 | fitness=0.45 | turnover=0.0123 | returns=4.76% | checks=✅ | 结果=❌ FAIL
+
+[ 230/574] [13:28:35] alpha_id: VkYGmKqM
+           字段: fnd6_newa1v1300_dcom → group_rank(fnd6_newa1v1300_dcom, subindustry)
+           sharpe=-0.35 | fitness=-0.15 | turnover=0.0111 | returns=-2.29% | checks=✅ | 结果=❌ FAIL
+
+[ 232/574] [13:29:21] alpha_id: RRkmlY8d
+           字段: fnd6_newa1v1300_dltt → group_rank(fnd6_newa1v1300_dltt, subindustry)
+           sharpe=0.89 | fitness=0.65 | turnover=0.0096 | returns=6.73% | checks=✅ | 结果=❌ FAIL
+
+[ 233/574] [13:29:47] alpha_id: d5lZ3lmJ
+           字段: fnd6_newa1v1300_dp → group_rank(fnd6_newa1v1300_dp, subindustry)
+           sharpe=0.62 | fitness=0.41 | turnover=0.0113 | returns=5.48% | checks=✅ | 结果=❌ FAIL
+
+[ 234/574] [13:31:15] alpha_id: wpJa2Eq1
+           字段: fnd6_newa1v1300_dpact → group_rank(fnd6_newa1v1300_dpact, subindustry)
+           sharpe=0.72 | fitness=0.53 | turnover=0.0179 | returns=6.84% | checks=✅ | 结果=❌ FAIL
+
+[ 236/574] [13:31:27] alpha_id: XgYovoj5
+           字段: fnd6_newa1v1300_dv → group_rank(fnd6_newa1v1300_dv, subindustry)
+           sharpe=0.06 | fitness=0.01 | turnover=0.0113 | returns=0.53% | checks=✅ | 结果=❌ FAIL
+
+[ 235/574] [13:31:28] alpha_id: akW1QE9w
+           字段: fnd6_newa1v1300_dpc → group_rank(fnd6_newa1v1300_dpc, subindustry)
+           sharpe=0.71 | fitness=0.49 | turnover=0.013 | returns=5.85% | checks=✅ | 结果=❌ FAIL
+
+[ 237/574] [13:32:33] alpha_id: 2rnpXmVP
+           字段: fnd6_newa1v1300_dvc → group_rank(fnd6_newa1v1300_dvc, subindustry)
+           sharpe=0.05 | fitness=0.01 | turnover=0.0184 | returns=0.46% | checks=✅ | 结果=❌ FAIL
+
+[ 239/574] [13:32:57] alpha_id: zqJN23RG
+           字段: fnd6_newa1v1300_ebit → group_rank(fnd6_newa1v1300_ebit, subindustry)
+           sharpe=0.15 | fitness=0.05 | turnover=0.01 | returns=1.48% | checks=✅ | 结果=❌ FAIL
+
+[ 238/574] [13:33:29] alpha_id: 9qApdGEo
+           字段: fnd6_newa1v1300_dvt → group_rank(fnd6_newa1v1300_dvt, subindustry)
+           sharpe=0.05 | fitness=0.01 | turnover=0.0186 | returns=0.37% | checks=✅ | 结果=❌ FAIL
+
+[ 240/574] [13:35:23] alpha_id: 6XYpoLJp
+           字段: fnd6_newa1v1300_ebitda → group_rank(fnd6_newa1v1300_ebitda, subindustry)
+           sharpe=0.3 | fitness=0.15 | turnover=0.011 | returns=3.05% | checks=✅ | 结果=❌ FAIL
+
+[ 242/574] [13:36:27] alpha_id: 1YnplrWK
+           字段: fnd6_newa1v1300_epsfi → group_rank(fnd6_newa1v1300_epsfi, subindustry)
+           sharpe=0.12 | fitness=0.03 | turnover=0.0114 | returns=1.03% | checks=✅ | 结果=❌ FAIL
+
+[ 241/574] [13:36:41] alpha_id: blWQzlGr
+           字段: fnd6_newa1v1300_emp → group_rank(fnd6_newa1v1300_emp, subindustry)
+           sharpe=0.72 | fitness=0.49 | turnover=0.0184 | returns=5.81% | checks=✅ | 结果=❌ FAIL
+
+[ 243/574] [13:37:52] alpha_id: RRkmzndd
+           字段: fnd6_newa1v1300_epsfx → group_rank(fnd6_newa1v1300_epsfx, subindustry)
+           sharpe=0.11 | fitness=0.03 | turnover=0.0113 | returns=0.99% | checks=✅ | 结果=❌ FAIL
+
+[ 245/574] [13:38:22] alpha_id: 0mKpgW78
+           字段: fnd6_newa1v1300_epspx → group_rank(fnd6_newa1v1300_epspx, subindustry)
+           sharpe=0.11 | fitness=0.03 | turnover=0.0113 | returns=0.96% | checks=✅ | 结果=❌ FAIL
+
+[ 244/574] [13:39:02] alpha_id: leRWG63A
+           字段: fnd6_newa1v1300_epspi → group_rank(fnd6_newa1v1300_epspi, subindustry)
+           sharpe=0.11 | fitness=0.03 | turnover=0.0114 | returns=0.99% | checks=✅ | 结果=❌ FAIL
+
+[ 246/574] [13:39:26] alpha_id: LLlGz6p1
+           字段: fnd6_newa1v1300_fca → group_rank(fnd6_newa1v1300_fca, subindustry)
+           sharpe=-0.2 | fitness=-0.05 | turnover=0.0191 | returns=-0.73% | checks=✅ | 结果=❌ FAIL
+
+[ 247/574] [13:40:23] alpha_id: XgYozkkz
+           字段: fnd6_newa1v1300_fincf → group_rank(fnd6_newa1v1300_fincf, subindustry)
+           sharpe=-0.18 | fitness=-0.06 | turnover=0.0148 | returns=-1.25% | checks=✅ | 结果=❌ FAIL
+
+[ 248/574] [13:40:45] alpha_id: LLlGzRbL
+           字段: fnd6_newa1v1300_gdwl → group_rank(fnd6_newa1v1300_gdwl, subindustry)
+           sharpe=0.32 | fitness=0.15 | turnover=0.0094 | returns=2.58% | checks=✅ | 结果=❌ FAIL
+
+[ 249/574] [13:41:44] alpha_id: vRJNGN23
+           字段: fnd6_newa1v1300_gp → group_rank(fnd6_newa1v1300_gp, subindustry)
+           sharpe=0.53 | fitness=0.33 | turnover=0.0095 | returns=4.78% | checks=✅ | 结果=❌ FAIL
+
+[ 250/574] [13:42:13] alpha_id: RRkmzVO1
+           字段: fnd6_newa1v1300_ib → group_rank(fnd6_newa1v1300_ib, subindustry)
+           sharpe=0.03 | fitness=0.0 | turnover=0.0109 | returns=0.29% | checks=✅ | 结果=❌ FAIL
+
+[ 251/574] [13:42:30] alpha_id: 0mKpgrq2
+           字段: fnd6_newa1v1300_ibadj → group_rank(fnd6_newa1v1300_ibadj, subindustry)
+           sharpe=0.03 | fitness=0.0 | turnover=0.0109 | returns=0.28% | checks=✅ | 结果=❌ FAIL
+
+[ 252/574] [13:43:34] alpha_id: E5rGzmL0
+           字段: fnd6_newa1v1300_ibc → group_rank(fnd6_newa1v1300_ibc, subindustry)
+           sharpe=0.04 | fitness=0.01 | turnover=0.014 | returns=0.37% | checks=✅ | 结果=❌ FAIL
+
+[ 253/574] [13:43:49] alpha_id: 6XYp0ZN7
+           字段: fnd6_newa1v1300_ibcom → group_rank(fnd6_newa1v1300_ibcom, subindustry)
+           sharpe=0.03 | fitness=0.0 | turnover=0.0109 | returns=0.29% | checks=✅ | 结果=❌ FAIL
+
+[ 254/574] [13:45:11] alpha_id: pw1NGkRb
+           字段: fnd6_newa1v1300_icapt → group_rank(fnd6_newa1v1300_icapt, subindustry)
+           sharpe=0.63 | fitness=0.41 | turnover=0.0099 | returns=5.32% | checks=✅ | 结果=❌ FAIL
+
+[ 256/574] [13:45:30] alpha_id: leRWGwQO
+           字段: fnd6_newa1v1300_invch → group_rank(fnd6_newa1v1300_invch, subindustry)
+           sharpe=0.2 | fitness=0.05 | turnover=0.0167 | returns=0.78% | checks=✅ | 结果=❌ FAIL
+
+[ 255/574] [13:45:35] alpha_id: qMmNG2ej
+           字段: fnd6_newa1v1300_intano → group_rank(fnd6_newa1v1300_intano, subindustry)
+           sharpe=0.37 | fitness=0.17 | turnover=0.0102 | returns=2.76% | checks=✅ | 结果=❌ FAIL
+
+[ 257/574] [13:46:58] alpha_id: wpJaPKJv
+           字段: fnd6_newa1v1300_invt → group_rank(fnd6_newa1v1300_invt, subindustry)
+           sharpe=0.57 | fitness=0.32 | turnover=0.009 | returns=4.01% | checks=✅ | 结果=❌ FAIL
+
+[ 258/574] [13:47:31] alpha_id: e7q3vpvO
+           字段: fnd6_newa1v1300_ivncf → group_rank(fnd6_newa1v1300_ivncf, subindustry)
+           sharpe=-0.45 | fitness=-0.19 | turnover=0.0149 | returns=-2.33% | checks=✅ | 结果=❌ FAIL
+
+[ 259/574] [13:47:33] alpha_id: leRW9Oen
+           字段: fnd6_newa1v1300_lco → group_rank(fnd6_newa1v1300_lco, subindustry)
+           sharpe=0.72 | fitness=0.48 | turnover=0.0111 | returns=5.60% | checks=✅ | 结果=❌ FAIL
+
+[ 260/574] [13:49:05] alpha_id: RRkmKZ0n
+           字段: fnd6_newa1v1300_lct → group_rank(fnd6_newa1v1300_lct, subindustry)
+           sharpe=0.73 | fitness=0.53 | turnover=0.0101 | returns=6.65% | checks=✅ | 结果=❌ FAIL
+
+[ 262/574] [13:50:02] alpha_id: 9qApmAq1
+           字段: fnd6_newa1v1300_lse → group_rank(fnd6_newa1v1300_lse, subindustry)
+           sharpe=0.66 | fitness=0.44 | turnover=0.0096 | returns=5.66% | checks=✅ | 结果=❌ FAIL
+
+[ 263/574] [13:50:50] alpha_id: KPwGQkOj
+           字段: fnd6_newa1v1300_lt → group_rank(fnd6_newa1v1300_lt, subindustry)
+           sharpe=0.82 | fitness=0.6 | turnover=0.0096 | returns=6.60% | checks=✅ | 结果=❌ FAIL
+
+[ 261/574] [13:52:08] alpha_id: gJo8d80l
+           字段: fnd6_newa1v1300_lo → group_rank(fnd6_newa1v1300_lo, subindustry)
+           sharpe=0.63 | fitness=0.39 | turnover=0.0099 | returns=4.78% | checks=✅ | 结果=❌ FAIL
+
+[ 264/574] [13:52:51] alpha_id: A1OGmv6Y
+           字段: fnd6_newa2v1300_mib → group_rank(fnd6_newa2v1300_mib, subindustry)
+           sharpe=0.9 | fitness=0.46 | turnover=0.0083 | returns=3.22% | checks=✅ | 结果=❌ FAIL
+
+[ 265/574] [13:53:06] alpha_id: qMmN3EZP
+           字段: fnd6_newa2v1300_mii → group_rank(fnd6_newa2v1300_mii, subindustry)
+           sharpe=0.29 | fitness=0.1 | turnover=0.0093 | returns=1.36% | checks=✅ | 结果=❌ FAIL
+
+[ 266/574] [13:53:37] alpha_id: leRW9a37
+           字段: fnd6_newa2v1300_ni → group_rank(fnd6_newa2v1300_ni, subindustry)
+           sharpe=0.03 | fitness=0.0 | turnover=0.0109 | returns=0.25% | checks=✅ | 结果=❌ FAIL
+
+[ 267/574] [13:55:06] alpha_id: A1OGmEre
+           字段: fnd6_newa2v1300_nopi → group_rank(fnd6_newa2v1300_nopi, subindustry)
+           sharpe=-0.03 | fitness=-0.0 | turnover=0.013 | returns=-0.12% | checks=✅ | 结果=❌ FAIL
+
+[ 268/574] [13:55:26] alpha_id: kqLPOMRd
+           字段: fnd6_newa2v1300_oancf → group_rank(fnd6_newa2v1300_oancf, subindustry)
+           sharpe=0.3 | fitness=0.14 | turnover=0.0129 | returns=2.87% | checks=✅ | 结果=❌ FAIL
+
+[ 269/574] [13:56:30] alpha_id: rKr2VxPE
+           字段: fnd6_newa2v1300_oiadp → group_rank(fnd6_newa2v1300_oiadp, subindustry)
+           sharpe=0.15 | fitness=0.05 | turnover=0.01 | returns=1.42% | checks=✅ | 结果=❌ FAIL
+
+[ 271/574] [13:56:55] alpha_id: A1OGEROE
+           字段: fnd6_newa2v1300_opeps → group_rank(fnd6_newa2v1300_opeps, subindustry)
+           sharpe=0.17 | fitness=0.06 | turnover=0.0109 | returns=1.63% | checks=✅ | 结果=❌ FAIL
+
+[ 273/574] [13:58:13] alpha_id: LLlG3awa
+           字段: fnd6_newa2v1300_pi → group_rank(fnd6_newa2v1300_pi, subindustry)
+           sharpe=0.02 | fitness=0.0 | turnover=0.0108 | returns=0.20% | checks=✅ | 结果=❌ FAIL
+
+[ 270/574] [13:58:23] alpha_id: d5lZvAgg
+           字段: fnd6_newa2v1300_oibdp → group_rank(fnd6_newa2v1300_oibdp, subindustry)
+           sharpe=0.3 | fitness=0.15 | turnover=0.011 | returns=3.02% | checks=✅ | 结果=❌ FAIL
+
+[ 274/574] [13:59:36] alpha_id: blWQA2dR
+           字段: fnd6_newa2v1300_ppegt → group_rank(fnd6_newa2v1300_ppegt, subindustry)
+           sharpe=0.79 | fitness=0.59 | turnover=0.0181 | returns=7.08% | checks=✅ | 结果=❌ FAIL
+
+[ 272/574] [13:59:37] alpha_id: 0mKp5kNr
+           字段: fnd6_newa2v1300_optexd → group_rank(fnd6_newa2v1300_optexd, subindustry)
+           sharpe=-0.1 | fitness=-0.02 | turnover=0.0205 | returns=-0.54% | checks=✅ | 结果=❌ FAIL
+
+[ 277/574] [14:00:54] alpha_id: zqJNe5pO
+           字段: fnd6_newa2v1300_rdip → group_rank(fnd6_newa2v1300_rdip, subindustry)
+           sharpe=0.28 | fitness=0.14 | turnover=0.0159 | returns=2.94% | checks=✅ | 结果=❌ FAIL
+
+[ 276/574] [14:01:20] alpha_id: 3qnpJAbZ
+           字段: fnd6_newa2v1300_prsho → group_rank(fnd6_newa2v1300_prsho, subindustry)
+           sharpe=-0.27 | fitness=-0.11 | turnover=0.0188 | returns=-2.23% | checks=✅ | 结果=❌ FAIL
+
+[ 275/574] [14:01:40] alpha_id: MP5GVp0a
+           字段: fnd6_newa2v1300_ppent → group_rank(fnd6_newa2v1300_ppent, subindustry)
+           sharpe=0.78 | fitness=0.56 | turnover=0.0098 | returns=6.33% | checks=✅ | 结果=❌ FAIL
+
+[ 278/574] [14:03:06] alpha_id: d5lZvbME
+           字段: fnd6_newa2v1300_rdipa → group_rank(fnd6_newa2v1300_rdipa, subindustry)
+           sharpe=0.22 | fitness=0.09 | turnover=0.0175 | returns=2.30% | checks=✅ | 结果=❌ FAIL
+
+[ 279/574] [14:03:11] alpha_id: qMmNV0oK
+           字段: fnd6_newa2v1300_rdipd → group_rank(fnd6_newa2v1300_rdipd, subindustry)
+           sharpe=0.27 | fitness=0.13 | turnover=0.0179 | returns=2.84% | checks=✅ | 结果=❌ FAIL
+
+[ 281/574] [14:04:56] alpha_id: 88KpXJNl
+[ 282/574] [14:04:56] alpha_id: gJo8LG2l
+           字段: fnd6_newa2v1300_re → group_rank(fnd6_newa2v1300_re, subindustry)
+           字段: fnd6_newa2v1300_recch → group_rank(fnd6_newa2v1300_recch, subindustry)
+           sharpe=-0.03 | fitness=-0.0 | turnover=0.0112 | returns=-0.21% | checks=✅ | 结果=❌ FAIL
+
+           sharpe=-0.12 | fitness=-0.02 | turnover=0.0169 | returns=-0.45% | checks=✅ | 结果=❌ FAIL
+
+[ 280/574] [14:06:24] alpha_id: QP5G6x9Q
+           字段: fnd6_newa2v1300_rdipeps → group_rank(fnd6_newa2v1300_rdipeps, subindustry)
+           sharpe=0.22 | fitness=0.1 | turnover=0.0182 | returns=2.36% | checks=✅ | 结果=❌ FAIL
+
+[ 283/574] [14:06:36] alpha_id: qMmNVRgO
+           字段: fnd6_newa2v1300_rect → group_rank(fnd6_newa2v1300_rect, subindustry)
+           sharpe=0.61 | fitness=0.39 | turnover=0.0095 | returns=5.17% | checks=✅ | 结果=❌ FAIL
+
+[ 285/574] [14:08:17] alpha_id: Jj5G2EJA
+           字段: fnd6_newa2v1300_revt → group_rank(fnd6_newa2v1300_revt, subindustry)
+           sharpe=0.68 | fitness=0.48 | turnover=0.0093 | returns=6.13% | checks=✅ | 结果=❌ FAIL
+
+[ 286/574] [14:08:23] alpha_id: QP5GoL9p
+           字段: fnd6_newa2v1300_sale → group_rank(fnd6_newa2v1300_sale, subindustry)
+           sharpe=0.68 | fitness=0.48 | turnover=0.0093 | returns=6.13% | checks=✅ | 结果=❌ FAIL
+
+[ 284/574] [14:08:53] alpha_id: MP5G2AZ9
+           字段: fnd6_newa2v1300_reuna → group_rank(fnd6_newa2v1300_reuna, subindustry)
+           sharpe=-0.0 | fitness=-0.0 | turnover=0.0112 | returns=-0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 287/574] [14:10:09] alpha_id: zqJNLom8
+           字段: fnd6_newa2v1300_seq → group_rank(fnd6_newa2v1300_seq, subindustry)
+           sharpe=0.45 | fitness=0.24 | turnover=0.0096 | returns=3.48% | checks=✅ | 结果=❌ FAIL
+
+[ 289/574] [14:10:34] alpha_id: A1OG2gjW
+           字段: fnd6_newa2v1300_spced → group_rank(fnd6_newa2v1300_spced, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 288/574] [14:11:42] alpha_id: QP5GoVmK
+           字段: fnd6_newa2v1300_seqo → group_rank(fnd6_newa2v1300_seqo, subindustry)
+           sharpe=-0.14 | fitness=-0.04 | turnover=0.014 | returns=-0.91% | checks=✅ | 结果=❌ FAIL
+
+[ 291/574] [14:12:20] alpha_id: 2rnp2lP8
+           字段: fnd6_newa2v1300_spi → group_rank(fnd6_newa2v1300_spi, subindustry)
+           sharpe=-0.52 | fitness=-0.21 | turnover=0.0131 | returns=-2.13% | checks=✅ | 结果=❌ FAIL
+
+[ 290/574] [14:13:20] alpha_id: pw1Npv3g
+           字段: fnd6_newa2v1300_spceeps → group_rank(fnd6_newa2v1300_spceeps, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 292/574] [14:13:38] alpha_id: LLlG2Kxv
+           字段: fnd6_newa2v1300_stkco → group_rank(fnd6_newa2v1300_stkco, subindustry)
+           sharpe=0.65 | fitness=0.37 | turnover=0.0139 | returns=3.96% | checks=✅ | 结果=❌ FAIL
+
+[ 295/574] [14:15:01] alpha_id: j2d6MOXO
+           字段: fnd6_newa2v1300_txach → group_rank(fnd6_newa2v1300_txach, subindustry)
+           sharpe=-0.29 | fitness=-0.09 | turnover=0.0186 | returns=-1.20% | checks=✅ | 结果=❌ FAIL
+
+[ 294/574] [14:16:28] alpha_id: om9Nkx1l
+[ 293/574] [14:16:28] alpha_id: 0mKpaJV8
+           字段: fnd6_newa2v1300_tstkn → group_rank(fnd6_newa2v1300_tstkn, subindustry)
+           字段: fnd6_newa2v1300_tstk → group_rank(fnd6_newa2v1300_tstk, subindustry)
+           sharpe=0.83 | fitness=0.49 | turnover=0.013 | returns=4.33% | checks=✅ | 结果=❌ FAIL
+           sharpe=0.76 | fitness=0.44 | turnover=0.009 | returns=4.25% | checks=✅ | 结果=❌ FAIL
+
+
+[ 297/574] [14:18:15] alpha_id: leRWYXe7
+           字段: fnd6_newa2v1300_txditc → group_rank(fnd6_newa2v1300_txditc, subindustry)
+           sharpe=0.37 | fitness=0.18 | turnover=0.0105 | returns=3.02% | checks=✅ | 结果=❌ FAIL
+
+[ 298/574] [14:18:32] alpha_id: A1OG5dYY
+           字段: fnd6_newa2v1300_txp → group_rank(fnd6_newa2v1300_txp, subindustry)
+           sharpe=0.14 | fitness=0.04 | turnover=0.0117 | returns=0.89% | checks=✅ | 结果=❌ FAIL
+
+[ 296/574] [14:19:17] alpha_id: KPwGpYgg
+           字段: fnd6_newa2v1300_txdb → group_rank(fnd6_newa2v1300_txdb, subindustry)
+           sharpe=0.37 | fitness=0.18 | turnover=0.0108 | returns=2.94% | checks=✅ | 结果=❌ FAIL
+
+[ 300/574] [14:20:10] alpha_id: Jj5GkgEm
+           字段: fnd6_newa2v1300_wcap → group_rank(fnd6_newa2v1300_wcap, subindustry)
+           sharpe=0.68 | fitness=0.38 | turnover=0.0112 | returns=3.94% | checks=✅ | 结果=❌ FAIL
+
+[ 299/574] [14:20:51] alpha_id: j2d6J1kW
+           字段: fnd6_newa2v1300_txt → group_rank(fnd6_newa2v1300_txt, subindustry)
+           sharpe=0.29 | fitness=0.12 | turnover=0.0114 | returns=2.22% | checks=✅ | 结果=❌ FAIL
+
+[ 302/574] [14:21:33] alpha_id: 78KzrnW8
+           字段: fnd6_newa2v1300_xint → group_rank(fnd6_newa2v1300_xint, subindustry)
+           sharpe=0.73 | fitness=0.46 | turnover=0.0102 | returns=5.07% | checks=✅ | 结果=❌ FAIL
+
+[ 304/574] [14:23:29] alpha_id: 58qp1JRJ
+           字段: fnd6_newa2v1300_xopteps → group_rank(fnd6_newa2v1300_xopteps, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 301/574] [14:23:34] alpha_id: e7q3PaaJ
+           字段: fnd6_newa2v1300_xidoc → group_rank(fnd6_newa2v1300_xidoc, subindustry)
+           sharpe=-0.36 | fitness=-0.12 | turnover=0.0156 | returns=-1.28% | checks=✅ | 结果=❌ FAIL
+
+[ 303/574] [14:24:24] alpha_id: WjWARzdk
+           字段: fnd6_newa2v1300_xoptd → group_rank(fnd6_newa2v1300_xoptd, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 306/574] [14:25:28] alpha_id: d5lZ66ME
+           字段: fnd6_newa2v1300_xsga → group_rank(fnd6_newa2v1300_xsga, subindustry)
+           sharpe=0.77 | fitness=0.53 | turnover=0.0098 | returns=5.94% | checks=✅ | 结果=❌ FAIL
+
+[ 305/574] [14:25:46] alpha_id: 3qnpOmwX
+           字段: fnd6_newa2v1300_xrd → group_rank(fnd6_newa2v1300_xrd, subindustry)
+           sharpe=0.53 | fitness=0.32 | turnover=0.0126 | returns=4.58% | checks=✅ | 结果=❌ FAIL
+
+[ 307/574] [14:26:20] alpha_id: 78Kzrpmx
+           字段: fnd6_newq_xoptdqp → group_rank(fnd6_newq_xoptdqp, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 310/574] [14:27:54] alpha_id: 78KzRbJQ
+           字段: fnd6_newqv1300_acomincq → group_rank(fnd6_newqv1300_acomincq, subindustry)
+           sharpe=-0.36 | fitness=-0.13 | turnover=0.0324 | returns=-1.71% | checks=✅ | 结果=❌ FAIL
+
+[ 308/574] [14:28:40] alpha_id: E5rGP3Ar
+           字段: fnd6_newq_xoptepsqp → group_rank(fnd6_newq_xoptepsqp, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 309/574] [14:28:47] alpha_id: d5lZrqbj
+           字段: fnd6_newq_xoptqp → group_rank(fnd6_newq_xoptqp, subindustry)
+           sharpe=0.0 | fitness=None | turnover=0.0 | returns=0.00% | checks=✅ | 结果=❌ FAIL
+
+[ 311/574] [14:29:42] alpha_id: xAmNpzMg
+           字段: fnd6_newqv1300_acoq → group_rank(fnd6_newqv1300_acoq, subindustry)
+           sharpe=0.66 | fitness=0.41 | turnover=0.0249 | returns=4.91% | checks=✅ | 结果=❌ FAIL
+
+[ 312/574] [14:30:28] alpha_id: 0mKp2eV1
+           字段: fnd6_newqv1300_altoq → group_rank(fnd6_newqv1300_altoq, subindustry)
+           sharpe=0.6 | fitness=0.37 | turnover=0.0241 | returns=4.79% | checks=✅ | 结果=❌ FAIL
+
+[ 314/574] [14:31:16] alpha_id: zqJNnm1R
+           字段: fnd6_newqv1300_anoq → group_rank(fnd6_newqv1300_anoq, subindustry)
+           sharpe=0.36 | fitness=0.13 | turnover=0.0807 | returns=1.74% | checks=✅ | 结果=❌ FAIL
+
+[ 313/574] [14:31:26] alpha_id: akW19n82
+           字段: fnd6_newqv1300_ancq → group_rank(fnd6_newqv1300_ancq, subindustry)
+           sharpe=0.53 | fitness=0.34 | turnover=0.0157 | returns=5.29% | checks=✅ | 结果=❌ FAIL
+
+[ 316/574] [14:32:38] alpha_id: 78KzR6kQ
+           字段: fnd6_newqv1300_aociotherq → group_rank(fnd6_newqv1300_aociotherq, subindustry)
+           sharpe=-0.13 | fitness=-0.02 | turnover=0.0634 | returns=-0.40% | checks=✅ | 结果=❌ FAIL
+
+[ 317/574] [14:33:11] alpha_id: KPwGMJVx
+           字段: fnd6_newqv1300_aocipenq → group_rank(fnd6_newqv1300_aocipenq, subindustry)
+           sharpe=-0.61 | fitness=-0.33 | turnover=0.0657 | returns=-3.71% | checks=✅ | 结果=❌ FAIL
+
+[ 319/574] [14:34:45] alpha_id: j2d6KOEQ
+           字段: fnd6_newqv1300_aol2q → group_rank(fnd6_newqv1300_aol2q, subindustry)
+           sharpe=1.05 | fitness=0.69 | turnover=0.0682 | returns=5.45% | checks=✅ | 结果=❌ FAIL
+
+[ 315/574] [14:35:08] alpha_id: gJo8V0Gg
+           字段: fnd6_newqv1300_aociderglq → group_rank(fnd6_newqv1300_aociderglq, subindustry)
+           sharpe=-0.3 | fitness=-0.09 | turnover=0.0668 | returns=-1.05% | checks=✅ | 结果=❌ FAIL
+
+[ 318/574] [14:35:28] alpha_id: zqJNnnPG
+           字段: fnd6_newqv1300_aocisecglq → group_rank(fnd6_newqv1300_aocisecglq, subindustry)
+           sharpe=-0.24 | fitness=-0.19 | turnover=0.0326 | returns=-7.54% | checks=✅ | 结果=❌ FAIL
+
+[ 321/574] [14:36:47] alpha_id: P0XGL0qw
+           字段: fnd6_newqv1300_aqpl1q → group_rank(fnd6_newqv1300_aqpl1q, subindustry)
+           sharpe=0.34 | fitness=0.11 | turnover=0.0676 | returns=1.39% | checks=✅ | 结果=❌ FAIL
+
+[ 322/574] [14:37:18] alpha_id: 6XYp6797
+           字段: fnd6_newqv1300_aul3q → group_rank(fnd6_newqv1300_aul3q, subindustry)
+           sharpe=0.24 | fitness=0.07 | turnover=0.0686 | returns=0.95% | checks=✅ | 结果=❌ FAIL
+
+[ 320/574] [14:38:03] alpha_id: 6XYp6v5K
+           字段: fnd6_newqv1300_aoq → group_rank(fnd6_newqv1300_aoq, subindustry)
+           sharpe=0.46 | fitness=0.26 | turnover=0.02 | returns=3.85% | checks=✅ | 结果=❌ FAIL
+
+[ 324/574] [14:38:45] alpha_id: xAmN7MgW
+           字段: fnd6_newqv1300_chq → group_rank(fnd6_newqv1300_chq, subindustry)
+           sharpe=0.43 | fitness=0.2 | turnover=0.0194 | returns=2.79% | checks=✅ | 结果=❌ FAIL
+
+[ 325/574] [14:39:25] alpha_id: 3qnpm3KO
+           字段: fnd6_newqv1300_cibegniq → group_rank(fnd6_newqv1300_cibegniq, subindustry)
+           sharpe=0.19 | fitness=0.07 | turnover=0.0638 | returns=1.77% | checks=✅ | 结果=❌ FAIL
+
+[ 323/574] [14:39:31] alpha_id: A1OGXb1W
+           字段: fnd6_newqv1300_capsq → group_rank(fnd6_newqv1300_capsq, subindustry)
+           sharpe=1.19 | fitness=0.75 | turnover=0.0307 | returns=4.92% | checks=✅ | 结果=❌ FAIL
+
+[ 326/574] [14:40:36] alpha_id: om9Njn9J
+           字段: fnd6_newqv1300_cicurrq → group_rank(fnd6_newqv1300_cicurrq, subindustry)
+           sharpe=-0.29 | fitness=-0.1 | turnover=0.0693 | returns=-1.42% | checks=✅ | 结果=❌ FAIL
+
+[ 327/574] [14:42:18] alpha_id: ZYWEV0qY
+           字段: fnd6_newqv1300_ciderglq → group_rank(fnd6_newqv1300_ciderglq, subindustry)
+           sharpe=0.42 | fitness=0.15 | turnover=0.0702 | returns=1.59% | checks=✅ | 结果=❌ FAIL
+
+[ 328/574] [14:42:36] alpha_id: xAmN7bgl
+           字段: fnd6_newqv1300_cimiiq → group_rank(fnd6_newqv1300_cimiiq, subindustry)
+           sharpe=0.63 | fitness=0.29 | turnover=0.0628 | returns=2.61% | checks=✅ | 结果=❌ FAIL
+
+[ 329/574] [14:42:54] alpha_id: 6XYp6AOE
+           字段: fnd6_newqv1300_ciotherq → group_rank(fnd6_newqv1300_ciotherq, subindustry)
+           sharpe=0.28 | fitness=0.07 | turnover=0.0663 | returns=0.88% | checks=✅ | 结果=❌ FAIL
+
+[ 330/574] [14:43:37] alpha_id: zqJN7ArX
+           字段: fnd6_newqv1300_cipenq → group_rank(fnd6_newqv1300_cipenq, subindustry)
+           sharpe=0.79 | fitness=0.42 | turnover=0.0717 | returns=3.49% | checks=✅ | 结果=❌ FAIL
+
+[ 331/574] [14:44:32] alpha_id: A1OGXmrW
+           字段: fnd6_newqv1300_ciq → group_rank(fnd6_newqv1300_ciq, subindustry)
+           sharpe=0.24 | fitness=0.1 | turnover=0.0645 | returns=2.21% | checks=✅ | 结果=❌ FAIL
+
+[ 332/574] [14:44:36] alpha_id: 9qAp5kve
+           字段: fnd6_newqv1300_cisecglq → group_rank(fnd6_newqv1300_cisecglq, subindustry)
+           sharpe=0.05 | fitness=0.01 | turnover=0.0657 | returns=0.19% | checks=✅ | 结果=❌ FAIL
+
+[ 333/574] [14:46:01] alpha_id: e7q3MYMp
+           字段: fnd6_newqv1300_citotalq → group_rank(fnd6_newqv1300_citotalq, subindustry)
+           sharpe=0.25 | fitness=0.11 | turnover=0.0644 | returns=2.31% | checks=✅ | 结果=❌ FAIL
+
+[ 335/574] [14:46:35] alpha_id: mLx5GPjX
+           字段: fnd6_newqv1300_csh12q → group_rank(fnd6_newqv1300_csh12q, subindustry)
+           sharpe=0.2 | fitness=0.06 | turnover=0.0091 | returns=0.97% | checks=✅ | 结果=❌ FAIL
+
+[ 334/574] [14:47:49] alpha_id: A1OGp90l
+           字段: fnd6_newqv1300_cogsq → group_rank(fnd6_newqv1300_cogsq, subindustry)
+           sharpe=0.88 | fitness=0.66 | turnover=0.0141 | returns=7.06% | checks=✅ | 结果=❌ FAIL
+
+[ 343/574] [14:48:35] alpha_id: FAILED
+           字段: fnd6_newqv1300_dilavq → group_rank(fnd6_newqv1300_dilavq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 344/574] [14:48:46] alpha_id: FAILED
+           字段: fnd6_newqv1300_dlcq → group_rank(fnd6_newqv1300_dlcq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 347/574] [14:49:14] alpha_id: FAILED
+           字段: fnd6_newqv1300_drltq → group_rank(fnd6_newqv1300_drltq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 350/574] [14:49:24] alpha_id: FAILED
+           字段: fnd6_newqv1300_epspxq → group_rank(fnd6_newqv1300_epspxq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 352/574] [14:49:31] alpha_id: FAILED
+           字段: fnd6_newqv1300_esoprq → group_rank(fnd6_newqv1300_esoprq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 353/574] [14:49:34] alpha_id: FAILED
+           字段: fnd6_newqv1300_fcaq → group_rank(fnd6_newqv1300_fcaq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 349/574] [14:49:50] alpha_id: FAILED
+           字段: fnd6_newqv1300_epspiq → group_rank(fnd6_newqv1300_epspiq, subindustry)
+           ❌ 错误: 轮询失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 356/574] [14:50:01] alpha_id: FAILED
+           字段: fnd6_newqv1300_glced12 → group_rank(fnd6_newqv1300_glced12, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 357/574] [14:50:11] alpha_id: FAILED
+           字段: fnd6_newqv1300_glceeps12 → group_rank(fnd6_newqv1300_glceeps12, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 359/574] [14:50:16] alpha_id: FAILED
+           字段: fnd6_newqv1300_ibadjq → group_rank(fnd6_newqv1300_ibadjq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 360/574] [14:50:21] alpha_id: FAILED
+           字段: fnd6_newqv1300_ibcomq → group_rank(fnd6_newqv1300_ibcomq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 355/574] [14:50:24] alpha_id: FAILED
+           字段: fnd6_newqv1300_glcea12 → group_rank(fnd6_newqv1300_glcea12, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 361/574] [14:50:26] alpha_id: FAILED
+           字段: fnd6_newqv1300_ibmiiq → group_rank(fnd6_newqv1300_ibmiiq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 362/574] [14:50:32] alpha_id: FAILED
+           字段: fnd6_newqv1300_ibq → group_rank(fnd6_newqv1300_ibq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 363/574] [14:50:34] alpha_id: FAILED
+           字段: fnd6_newqv1300_icaptq → group_rank(fnd6_newqv1300_icaptq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 364/574] [14:50:36] alpha_id: FAILED
+           字段: fnd6_newqv1300_intanoq → group_rank(fnd6_newqv1300_intanoq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+
+[ 366/574] [14:50:44] alpha_id: FAILED
+           字段: fnd6_newqv1300_invfgq → group_rank(fnd6_newqv1300_invfgq, subindustry)
+           ❌ 错误: 提交失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+
+

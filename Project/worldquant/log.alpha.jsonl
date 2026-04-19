@@ -37,3 +37,9 @@
 {"time": "2026-04-17 20:35:13", "account": "3301-ACC2", "expr": "-ts_corr(est_ptp, est_fcf, 40)", "alpha_id": "e7qr3m1z", "alpha_url": "https://platform.worldquantbrain.com/alpha/e7qr3m1z"}
 {"time": "2026-04-17 20:36:04", "account": "3302-ACC3", "expr": "-ts_corr(est_ptp, est_fcf, 40)", "alpha_id": "qMmXNon1", "alpha_url": "https://platform.worldquantbrain.com/alpha/qMmXNon1"}
 {"time": "2026-04-17 20:36:25", "account": "1446579723-ACC1", "expr": "-ts_corr(est_ptp, est_fcf, 40)", "alpha_id": "VkY8GJ0V", "alpha_url": "https://platform.worldquantbrain.com/alpha/VkY8GJ0V"}
+{"time": "2026-04-18 20:28:05", "account": "1446579723-ACC1", "expr": "returns", "alpha_id": "MP5Qrevk", "alpha_url": "https://platform.worldquantbrain.com/alpha/MP5Qrevk"}
+{"time": "2026-04-18 20:30:15", "account": "3307-ACC7", "expr": "returns", "alpha_id": "qMmlRRgA", "alpha_url": "https://platform.worldquantbrain.com/alpha/qMmlRRgA"}
+{"time": "2026-04-18 20:30:24", "account": "3305-ACC5", "expr": "returns", "alpha_id": "xAmkZpJp", "alpha_url": "https://platform.worldquantbrain.com/alpha/xAmkZpJp"}
+{"time": "2026-04-18 20:30:24", "account": "3304-ACC4", "expr": "returns", "alpha_id": "2rnLYV0b", "alpha_url": "https://platform.worldquantbrain.com/alpha/2rnLYV0b"}
+{"time": "2026-04-18 20:31:01", "account": "3302-ACC2", "expr": "returns", "alpha_id": "0mKEJaaq", "alpha_url": "https://platform.worldquantbrain.com/alpha/0mKEJaaq"}
+{"time": "2026-04-18 20:32:06", "account": "3301-ACC1", "expr": "returns", "alpha_id": "MP5Qrevk", "alpha_url": "https://platform.worldquantbrain.com/alpha/MP5Qrevk"}

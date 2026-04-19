@@ -1,0 +1,4 @@
+[
+  {"name": "debt_momentum", "expr": "group_rank(ts_delta(debt, 5), subindustry)"},
+  {"name": "capex_rank",    "expr": "rank(capex / assets)"}
+]

@@ -1,0 +1,2 @@
+alpha_id,expr,sharpe,fitness,turnover,returns,checks_pass,overall_pass,error,field_id
+QP5GVQWQ,"{'code': 'group_rank(fnd6_acdo, subindustry)', 'description': None, 'operatorCount': 1}",1.33,1.26,0.0155,0.1117,True,True,,fnd6_acdo
