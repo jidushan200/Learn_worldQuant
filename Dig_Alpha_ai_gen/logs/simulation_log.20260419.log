@@ -1,0 +1,395 @@
+
+============================================================
+  开始时间: 2026-04-19 16:03:44
+  共 2 个 alpha 待回测
+============================================================
+
+[   1/2] [2026_04_19 16:05:16]
+           alpha_id: ZYW7Y3o1
+           字段: debt_momentum
+           Alpha_expr: group_rank(ts_delta(debt, 5), subindustry)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=-0.59 | fitness=-0.16 | turnover=0.5368 | returns=-3.75% | checks=✅ | 结果=❌ FAIL
+
+[   2/2] [2026_04_19 16:06:27]
+           alpha_id: vRJjRMLb
+           字段: capex_rank
+           Alpha_expr: rank(capex / assets)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.81 | fitness=0.42 | turnover=0.0194 | returns=3.39% | checks=✅ | 结果=❌ FAIL
+
+
+============================================================
+  结束时间: 2026-04-19 16:06:27
+  总计: 2  ✅ 通过: 0  ❌ 未通过: 2
+============================================================
+
+
+============================================================
+  开始时间: 2026-04-19 16:22:23
+  共 100 个 alpha 待回测
+============================================================
+
+[   2/100] [2026_04_19 16:23:44]
+           alpha_id: MP57WQeo
+           字段: cpskew_30_sm5
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.19 | fitness=1.11 | turnover=0.364 | returns=9.35% | checks=✅ | 结果=✅ PASS
+
+[   3/100] [2026_04_19 16:23:53]
+           alpha_id: O057Yx9q
+           字段: cpskew_60_sm5
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_60,5)-ts_backfill(implied_volatility_put_60,5))/ts_backfill(implied_volatility_mean_60,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.21 | fitness=1.26 | turnover=0.3285 | returns=10.61% | checks=✅ | 结果=✅ PASS
+
+[   1/100] [2026_04_19 16:24:16]
+           alpha_id: 88Klolbq
+           字段: cpskew_180_sm5
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.22 | fitness=1.57 | turnover=0.2403 | returns=12.01% | checks=✅ | 结果=✅ PASS
+
+[   5/100] [2026_04_19 16:24:44]
+           alpha_id: FAILED
+           字段: cpskew_365_sm5
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_365,5)-ts_backfill(implied_volatility_put_365,5))/ts_backfill(implied_volatility_mean_365,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 完成但 alpha 为空
+
+[   6/100] [2026_04_19 16:25:44]
+           alpha_id: Jj57webW
+           字段: cpskew_180_sm3
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),3)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.27 | fitness=1.32 | turnover=0.3468 | returns=11.77% | checks=✅ | 结果=✅ PASS
+
+[   7/100] [2026_04_19 16:26:46]
+           alpha_id: kqLj7WlP
+           字段: cpskew_180_sm10
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),10)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.1 | fitness=1.87 | turnover=0.1499 | returns=11.94% | checks=✅ | 结果=✅ PASS
+
+[   4/100] [2026_04_19 16:26:55]
+           alpha_id: A1OlWzRd
+           字段: cpskew_90_sm5
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/ts_backfill(implied_volatility_mean_90,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.33 | fitness=1.5 | turnover=0.2901 | returns=12.08% | checks=✅ | 结果=✅ PASS
+
+[   8/100] [2026_04_19 16:27:02]
+           alpha_id: RRk73z21
+           字段: cpskew_180_sm15
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),15)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.25 | fitness=2.31 | turnover=0.1149 | returns=13.12% | checks=✅ | 结果=✅ PASS
+
+[  10/100] [2026_04_19 16:29:14]
+           alpha_id: xAmj6ZzN
+           字段: cpskew_180_sm30
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),30)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.49 | fitness=2.73 | turnover=0.075 | returns=15.01% | checks=✅ | 结果=✅ PASS
+
+[   9/100] [2026_04_19 16:29:27]
+           alpha_id: e7qzpXqp
+           字段: cpskew_180_sm20
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),20)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.37 | fitness=2.51 | turnover=0.0958 | returns=14.01% | checks=✅ | 结果=✅ PASS
+
+[  11/100] [2026_04_19 16:29:43]
+           alpha_id: rKrjg15J
+           字段: cpskew_180_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.69 | fitness=0.85 | turnover=0.2635 | returns=6.74% | checks=✅ | 结果=❌ FAIL
+
+[  13/100] [2026_04_19 16:31:14]
+           alpha_id: rKrjggNa
+           字段: cpskew_60_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_60,5)-ts_backfill(implied_volatility_put_60,5))/ts_backfill(implied_volatility_mean_60,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.67 | fitness=0.67 | turnover=0.3418 | returns=5.46% | checks=✅ | 结果=❌ FAIL
+
+[  14/100] [2026_04_19 16:31:19]
+           alpha_id: P0X7adwW
+           字段: cpskew_90_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/ts_backfill(implied_volatility_mean_90,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.82 | fitness=0.85 | turnover=0.3047 | returns=6.58% | checks=✅ | 结果=❌ FAIL
+
+[  15/100] [2026_04_19 16:31:48]
+           alpha_id: FAILED
+           字段: cpskew_365_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_365,5)-ts_backfill(implied_volatility_put_365,5))/ts_backfill(implied_volatility_mean_365,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 完成但 alpha 为空
+
+[  12/100] [2026_04_19 16:33:09]
+           alpha_id: e7qzwKk6
+           字段: cpskew_30_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.0 | fitness=0.79 | turnover=0.3718 | returns=5.76% | checks=✅ | 结果=❌ FAIL
+
+[  16/100] [2026_04_19 16:33:17]
+           alpha_id: zqJk6j3K
+           字段: cpskew_180_zscore20
+           Alpha_expr: ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),20)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.57 | fitness=0.06 | turnover=1.1388 | returns=1.48% | checks=✅ | 结果=❌ FAIL
+
+[  18/100] [2026_04_19 16:34:40]
+           alpha_id: npO7R3X3
+           字段: cpskew_180_zscore120
+           Alpha_expr: ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),120)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.52 | fitness=0.07 | turnover=1.0196 | returns=1.61% | checks=✅ | 结果=❌ FAIL
+
+[  19/100] [2026_04_19 16:35:25]
+           alpha_id: A1OlZPnR
+           字段: cpskew_30_zscore60
+           Alpha_expr: ts_zscore((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.64 | fitness=0.08 | turnover=1.164 | returns=1.66% | checks=✅ | 结果=❌ FAIL
+
+[  17/100] [2026_04_19 16:36:24]
+           alpha_id: QP57k3ZK
+           字段: cpskew_180_zscore60
+           Alpha_expr: ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.47 | fitness=0.05 | turnover=1.0532 | returns=1.37% | checks=✅ | 结果=❌ FAIL
+
+[  20/100] [2026_04_19 16:36:43]
+           alpha_id: Gr3lAbPO
+           字段: cpskew_90_zscore60
+           Alpha_expr: ts_zscore((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/ts_backfill(implied_volatility_mean_90,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.13 | fitness=0.01 | turnover=1.0906 | returns=0.38% | checks=✅ | 结果=❌ FAIL
+
+[  22/100] [2026_04_19 16:37:44]
+           alpha_id: 88Kl9RYX
+           字段: cpskew_180_tsrank60
+           Alpha_expr: ts_rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.76 | fitness=0.11 | turnover=1.0179 | returns=1.99% | checks=✅ | 结果=❌ FAIL
+
+[  21/100] [2026_04_19 16:37:51]
+           alpha_id: 3qnlr0xe
+           字段: cpskew_180_tsrank20
+           Alpha_expr: ts_rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),20)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.63 | fitness=0.08 | turnover=1.106 | returns=1.57% | checks=✅ | 结果=❌ FAIL
+
+[  24/100] [2026_04_19 16:39:25]
+           alpha_id: KPw7dZeg
+           字段: cpskew_30_tsrank60
+           Alpha_expr: ts_rank((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.84 | fitness=0.11 | turnover=1.1177 | returns=1.97% | checks=✅ | 结果=❌ FAIL
+
+[  23/100] [2026_04_19 16:40:07]
+           alpha_id: j2djRK5O
+           字段: cpskew_180_tsrank120
+           Alpha_expr: ts_rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),120)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.73 | fitness=0.1 | turnover=0.9797 | returns=1.98% | checks=✅ | 结果=❌ FAIL
+
+[  26/100] [2026_04_19 16:41:44]
+           alpha_id: N157vXZX
+           字段: cpskew_180_delta5
+           Alpha_expr: ts_delta((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.65 | fitness=0.08 | turnover=1.2378 | returns=2.01% | checks=✅ | 结果=❌ FAIL
+
+[  25/100] [2026_04_19 16:41:47]
+           alpha_id: E5rlX5gR
+           字段: cpskew_90_tsrank60
+           Alpha_expr: ts_rank((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/ts_backfill(implied_volatility_mean_90,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.24 | fitness=0.02 | turnover=1.0406 | returns=0.62% | checks=✅ | 结果=❌ FAIL
+
+[  27/100] [2026_04_19 16:42:00]
+           alpha_id: om9qM8vl
+           字段: cpskew_180_delta10
+           Alpha_expr: ts_delta((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),10)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.98 | fitness=0.16 | turnover=1.137 | returns=3.10% | checks=✅ | 结果=❌ FAIL
+
+[  29/100] [2026_04_19 16:43:06]
+           alpha_id: 2rnlbb7J
+           字段: cpskew_30_delta5
+           Alpha_expr: ts_delta((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.25 | fitness=0.02 | turnover=1.2923 | returns=0.69% | checks=✅ | 结果=❌ FAIL
+
+[  28/100] [2026_04_19 16:43:12]
+           alpha_id: qMmjoq1O
+           字段: cpskew_180_delta20
+           Alpha_expr: ts_delta((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),20)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=-0.12 | fitness=-0.01 | turnover=1.0511 | returns=-0.35% | checks=✅ | 结果=❌ FAIL
+
+[  30/100] [2026_04_19 16:43:25]
+           alpha_id: N157v927
+           字段: cpskew_180_delta5_sm5
+           Alpha_expr: ts_mean(ts_delta((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.57 | fitness=0.1 | turnover=0.6044 | returns=1.89% | checks=✅ | 结果=❌ FAIL
+
+[  32/100] [2026_04_19 16:45:15]
+           alpha_id: RRk7nakd
+           字段: cpskew_30_ratio
+           Alpha_expr: ts_mean(ts_backfill(implied_volatility_call_30,5)/ts_backfill(implied_volatility_put_30,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.55 | fitness=0.64 | turnover=0.3738 | returns=6.43% | checks=✅ | 结果=❌ FAIL
+
+[  31/100] [2026_04_19 16:46:25]
+           alpha_id: zqJk1OLV
+           字段: cpskew_180_ratio
+           Alpha_expr: ts_mean(ts_backfill(implied_volatility_call_180,5)/ts_backfill(implied_volatility_put_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.74 | fitness=1.04 | turnover=0.2535 | returns=9.05% | checks=✅ | 结果=✅ PASS
+
+[  34/100] [2026_04_19 16:46:45]
+           alpha_id: xAmj0n7p
+           字段: cpskew_180_ratio_zs60
+           Alpha_expr: ts_zscore(ts_backfill(implied_volatility_call_180,5)/ts_backfill(implied_volatility_put_180,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.48 | fitness=0.06 | turnover=1.0529 | returns=1.41% | checks=✅ | 结果=❌ FAIL
+
+[  37/100] [2026_04_19 16:47:58]
+           alpha_id: FAILED
+           字段: cpskew_30_butterfly
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/(ts_backfill(implied_volatility_call_30,5)+ts_backfill(implied_volatility_put_30,5)),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[  33/100] [2026_04_19 16:48:11]
+           alpha_id: XgY75WM8
+           字段: cpskew_180_ratio_rank
+           Alpha_expr: rank(ts_mean(ts_backfill(implied_volatility_call_180,5)/ts_backfill(implied_volatility_put_180,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.71 | fitness=0.87 | turnover=0.2628 | returns=6.77% | checks=✅ | 结果=❌ FAIL
+
+
+============================================================
+  开始时间: 2026-04-19 16:48:22
+  共 66 个 alpha 待回测
+============================================================
+
+[   3/66] [2026_04_19 16:49:19]
+           alpha_id: FAILED
+           字段: cpskew_30_butterfly
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/(ts_backfill(implied_volatility_call_30,5)+ts_backfill(implied_volatility_put_30,5)),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[   1/66] [2026_04_19 16:49:20]
+           alpha_id: FAILED
+           字段: cpskew_180_ratio_tsrank60
+           Alpha_expr: ts_rank(ts_backfill(implied_volatility_call_180,5)/ts_backfill(implied_volatility_put_180,5),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[   2/66] [2026_04_19 16:49:22]
+           alpha_id: FAILED
+           字段: cpskew_180_butterfly
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/(ts_backfill(implied_volatility_call_180,5)+ts_backfill(implied_volatility_put_180,5)),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+[   5/66] [2026_04_19 16:52:16]
+           alpha_id: d5ljA95x
+           字段: cpskew_180_butterfly_zs60
+           Alpha_expr: ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/(ts_backfill(implied_volatility_call_180,5)+ts_backfill(implied_volatility_put_180,5)),60)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=0.48 | fitness=0.06 | turnover=1.052 | returns=1.40% | checks=✅ | 结果=❌ FAIL
+
+[   4/66] [2026_04_19 16:52:25]
+           alpha_id: xAmj0Lrl
+           字段: cpskew_180_butterfly_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/(ts_backfill(implied_volatility_call_180,5)+ts_backfill(implied_volatility_put_180,5)),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.7 | fitness=0.86 | turnover=0.2633 | returns=6.77% | checks=✅ | 结果=❌ FAIL
+
+[   6/66] [2026_04_19 16:53:45]
+           alpha_id: KPw7algk
+           字段: cpskew_90_butterfly
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/(ts_backfill(implied_volatility_call_90,5)+ts_backfill(implied_volatility_put_90,5)),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.43 | fitness=1.6 | turnover=0.287 | returns=12.40% | checks=✅ | 结果=✅ PASS
+
+[   9/66] [2026_04_19 16:55:06]
+           alpha_id: xAmjga3w
+           字段: cpskew_term_90m180
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/ts_backfill(implied_volatility_mean_90,5),5)-ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=-0.55 | fitness=-0.12 | turnover=0.4044 | returns=-2.00% | checks=✅ | 结果=❌ FAIL
+
+[  10/66] [2026_04_19 16:55:18]
+           alpha_id: FAILED
+           字段: cpskew_term_180m365
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)-ts_mean((ts_backfill(implied_volatility_call_365,5)-ts_backfill(implied_volatility_put_365,5))/ts_backfill(implied_volatility_mean_365,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           ❌ 错误: 完成但 alpha 为空
+
+[   7/66] [2026_04_19 16:56:07]
+           alpha_id: e7qzRg96
+           字段: cpskew_term_30m180
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),5)-ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=-0.79 | fitness=-0.2 | turnover=0.3623 | returns=-2.36% | checks=✅ | 结果=❌ FAIL
+
+[   8/66] [2026_04_19 16:56:27]
+           alpha_id: wpJjg1kd
+           字段: cpskew_term_60m180
+           Alpha_expr: ts_mean((ts_backfill(implied_volatility_call_60,5)-ts_backfill(implied_volatility_put_60,5))/ts_backfill(implied_volatility_mean_60,5),5)-ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=-0.84 | fitness=-0.23 | turnover=0.3884 | returns=-2.94% | checks=✅ | 结果=❌ FAIL
+
+[  13/66] [2026_04_19 16:58:01]
+           alpha_id: A1OlK3zY
+           字段: cpskew_180_decay10
+           Alpha_expr: ts_decay_linear((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),10)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.26 | fitness=1.84 | turnover=0.1906 | returns=12.62% | checks=✅ | 结果=✅ PASS
+
+[  12/66] [2026_04_19 16:58:10]
+           alpha_id: zqJkp9WR
+           字段: cpskew_180_decay5
+           Alpha_expr: ts_decay_linear((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.32 | fitness=1.51 | turnover=0.2922 | returns=12.39% | checks=✅ | 结果=✅ PASS
+
+[  11/66] [2026_04_19 16:58:14]
+           alpha_id: KPw7ab5p
+           字段: cpskew_term_30m180_rank
+           Alpha_expr: rank(ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),5)-ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=-1.12 | fitness=-0.33 | turnover=0.3379 | returns=-2.87% | checks=✅ | 结果=❌ FAIL
+
+[  14/66] [2026_04_19 16:59:30]
+           alpha_id: qMmjqWOj
+           字段: cpskew_180_decay20
+           Alpha_expr: ts_decay_linear((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),20)
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=2.25 | fitness=2.25 | turnover=0.1314 | returns=13.19% | checks=✅ | 结果=✅ PASS
+
+[  16/66] [2026_04_19 16:59:37]
+           alpha_id: mLxj9mw2
+           字段: cpskew_180_decay10_rank
+           Alpha_expr: rank(ts_decay_linear((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),10))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.74 | fitness=1.03 | turnover=0.2056 | returns=7.20% | checks=✅ | 结果=✅ PASS
+
+[  17/66] [2026_04_19 17:00:54]
+           alpha_id: ZYW7GaOd
+           字段: call_iv_norm_180
+           Alpha_expr: rank(ts_mean(ts_backfill(implied_volatility_call_180,5)/ts_backfill(implied_volatility_mean_180,5),5))
+           settings: region=USA | universe=TOP3000 | neutralization=SUBINDUSTRY | delay=1 | decay=0 | truncation=0.08 | pasteurization=ON | language=FASTEXPR
+           sharpe=1.7 | fitness=0.86 | turnover=0.2648 | returns=6.75% | checks=✅ | 结果=❌ FAIL
+

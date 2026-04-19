@@ -40,4 +40,6 @@ MAX_CONCURRENT           = 3      # 最大并发 simulate 数量
 # ---------- 输出文件路径 ----------
 OUTPUT_ALL    = "all_results.csv"     # 全部 alpha 结果
 OUTPUT_PASSED = "passed_alphas.csv"   # 仅通过筛选的 alpha
-OUTPUT_LOG    = "simulation_log.txt"  # 回测过程日志
+
+LOGS_DIR     = "logs"               # 日志文件夹
+LOG_BASE_NAME = "simulation_log"

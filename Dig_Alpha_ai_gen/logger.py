@@ -1,21 +1,41 @@
+import os
 import threading
 from datetime import datetime
-from setting import OUTPUT_LOG
+from setting import LOGS_DIR, LOG_BASE_NAME
 
-# 多线程下防止日志交叉乱序
 _log_lock = threading.Lock()
+_log_file_path = None
+
+
+def _resolve_log_path() -> str:
+    today = datetime.now().strftime("%Y%m%d")
+    os.makedirs(LOGS_DIR, exist_ok=True)
+
+    for filename in os.listdir(LOGS_DIR):
+        if filename.startswith(LOG_BASE_NAME) and today in filename:
+            print(f"  📄 找到今日日志，追加写入: {filename}")
+            return os.path.join(LOGS_DIR, filename)
+
+    filename = f"{LOG_BASE_NAME}.{today}.log"
+    print(f"  📄 新建今日日志: {filename}")
+    return os.path.join(LOGS_DIR, filename)
+
+
+def _get_log_path() -> str:
+    global _log_file_path
+    if _log_file_path is None:
+        _log_file_path = _resolve_log_path()
+    return _log_file_path
 
 
 def _write(msg: str):
-    """将消息同时输出到控制台和日志文件（线程安全）"""
     with _log_lock:
         print(msg)
-        with open(OUTPUT_LOG, "a", encoding="utf-8") as f:
+        with open(_get_log_path(), "a", encoding="utf-8") as f:
             f.write(msg + "\n")
 
 
 def log_start(total: int):
-    """程序启动时写入日志头"""
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     _write(f"\n{'=' * 60}")
     _write(f"  开始时间: {ts}")
@@ -29,63 +49,60 @@ def log_result(
     alpha_id: str,
     field_id: str,
     expr:     str,
+    settings: dict | None,
     result:   dict | None,
     err:      str | None,
 ):
-    """
-    每个 alpha 回测完成后，格式化输出结果并写入日志
-
-    输出格式示例：
-        [  3/120] alpha_id: abc123xyz
-                  字段: fn_sales_growth → group_rank(fn_sales_growth, subindustry)
-                  sharpe=1.45 | fitness=1.12 | turnover=0.25 | returns=8.3% | checks=✅ | 结果=✅ PASS
-
-    Args:
-        index:    当前序号（从1开始）
-        total:    总数
-        alpha_id: 回测返回的 alpha id，失败时为 None
-        field_id: 本次使用的字段 id
-        expr:     本次使用的表达式
-        result:   evaluate.py 返回的结果字典，失败时为 None
-        err:      错误信息，成功时为 None
-    """
-    ts = datetime.now().strftime("%H:%M:%S")
-
-    # ── 第一行：序号 + alpha_id ──────────────────────────────
+    ts     = datetime.now().strftime("%Y_%m_%d %H:%M:%S")
     id_str = alpha_id if alpha_id else "FAILED"
-    line1 = f"[{index:>4}/{total}] [{ts}] alpha_id: {id_str}"
 
-    # ── 第二行：字段来源 ─────────────────────────────────────
-    line2 = f"           字段: {field_id} → {expr}"
+    line1 = f"[{index:>4}/{total}] [{ts}]"
+    line2 = f"           alpha_id: {id_str}"
+    line3 = f"           字段: {field_id}"
+    line4 = f"           Alpha_expr: {expr}"
 
-    # ── 第三行：指标结果 或 错误信息 ─────────────────────────
+    # ── settings 展示 ──────────────────────────────────────────
+    if settings:
+        line5 = (
+            f"           settings: "
+            f"region={settings.get('region')} | "
+            f"universe={settings.get('universe')} | "
+            f"neutralization={settings.get('neutralization')} | "
+            f"delay={settings.get('delay')} | "
+            f"decay={settings.get('decay')} | "
+            f"truncation={settings.get('truncation')} | "
+            f"pasteurization={settings.get('pasteurization')} | "
+            f"language={settings.get('language')}"
+        )
+    else:
+        line5 = f"           settings: N/A"
+
+    # ── 回测结果 ───────────────────────────────────────────────
     if err:
-        line3 = f"           ❌ 错误: {err}"
+        line6 = f"           ❌ 错误: {err}"
     else:
         sharpe   = result.get("sharpe")
         fitness  = result.get("fitness")
         turnover = result.get("turnover")
         returns  = result.get("returns")
-        checks   = "✅" if result.get("checks_pass") else "❌"
-        overall  = "✅ PASS" if result.get("overall_pass") else "❌ FAIL"
-
-        # returns 转为百分比显示，更直观
         ret_str = f"{returns * 100:.2f}%" if returns is not None else "N/A"
 
-        line3 = (
+        # 只展示核心指标，不判断是否通过
+        line6 = (
             f"           sharpe={sharpe} | fitness={fitness} | "
-            f"turnover={turnover} | returns={ret_str} | "
-            f"checks={checks} | 结果={overall}"
+            f"turnover={turnover} | returns={ret_str}"
         )
 
     _write(line1)
     _write(line2)
     _write(line3)
-    _write("")  # 空行分隔，提高可读性
+    _write(line4)
+    _write(line5)
+    _write(line6)
+    _write("")
 
 
 def log_end(total: int, passed: int):
-    """程序结束时写入汇总"""
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     _write(f"\n{'=' * 60}")
     _write(f"  结束时间: {ts}")

@@ -29,6 +29,13 @@ MAX_RETRY                = 5      # 遇到 429 限流时最多重试次数
 MAX_CONCURRENT           = 3      # 最大并发 simulate 数量
 
 # ---------- 输出文件路径 ----------
-OUTPUT_ALL    = "all_results.csv"     # 全部 alpha 结果
-OUTPUT_PASSED = "passed_alphas.csv"   # 仅通过筛选的 alpha
-OUTPUT_LOG    = "simulation_log.txt"  # 回测过程日志
+OUTPUT_ALL    = "all_results.jsonl"     # 全部 alpha 结果
+OUTPUT_PASSED = "passed_alphas.jsonl"   # 仅通过筛选的 alpha
+
+# ---------- 日志 ----------
+LOGS_DIR      = "logs"                # 日志文件夹
+LOG_BASE_NAME = "simulation_log"      # 日志文件名前缀，完整名如 simulation_log.20260419.log
+
+# ---------- 网页输出 ----------
+WEB_DIR          = "web"                                          # 网页文件夹
+BRAIN_URL_PREFIX = "https://platform.worldquantbrain.com/alpha/"  # alpha 详情页前缀，拼接 alpha_id 即可访问
