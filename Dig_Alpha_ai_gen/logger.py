@@ -1,7 +1,8 @@
 import os
+import json
 import threading
 from datetime import datetime
-from setting import LOGS_DIR, LOG_BASE_NAME
+from setting import LOGS_DIR, LOG_BASE_NAME, BRAIN_URL_PREFIX
 
 _log_lock = threading.Lock()
 _log_file_path = None
@@ -16,7 +17,7 @@ def _resolve_log_path() -> str:
             print(f"  📄 找到今日日志，追加写入: {filename}")
             return os.path.join(LOGS_DIR, filename)
 
-    filename = f"{LOG_BASE_NAME}.{today}.log"
+    filename = f"{LOG_BASE_NAME}.{today}.jsonl"
     print(f"  📄 新建今日日志: {filename}")
     return os.path.join(LOGS_DIR, filename)
 
@@ -28,83 +29,164 @@ def _get_log_path() -> str:
     return _log_file_path
 
 
-def _write(msg: str):
-    with _log_lock:
-        print(msg)
-        with open(_get_log_path(), "a", encoding="utf-8") as f:
-            f.write(msg + "\n")
+def _fmt_ts() -> str:
+    """返回带括号的时间戳，如 【2026_04_20 14:24:29】"""
+    return f"【{datetime.now().strftime('%Y_%m_%d %H:%M:%S')}】"
 
+
+def _build_result_line(obj: dict) -> str:
+    """
+    构建非标准 JSONL 行：首字段为 alpha_id 裸值（无 key）
+    例：{"6f3a2e91","expr":"rank(...)","sharpe":1.52,"fitness":1.23,"turnover":0.2840}
+    """
+    alpha_id = obj.get("alpha_id") or "—"
+    expr     = (obj.get("expr") or "").replace('"', '\\"')
+    error    = obj.get("error")
+
+    if error:
+        return f'{{"{alpha_id}","expr":"{expr}","error":"{error.replace(chr(34), chr(92)+chr(34))}"}}'
+
+    parts = [f'"{alpha_id}"', f'"expr":"{expr}"']
+
+    sharpe   = obj.get("sharpe")
+    fitness  = obj.get("fitness")
+    turnover = obj.get("turnover")
+
+    if sharpe   is not None: parts.append(f'"sharpe":{sharpe}')
+    if fitness  is not None: parts.append(f'"fitness":{fitness}')
+    if turnover is not None: parts.append(f'"turnover":{round(turnover, 4)}')
+
+    weight_max      = obj.get("weight_max")
+    sub_univ_sharpe = obj.get("sub_univ_sharpe")
+    self_corr       = obj.get("self_corr")
+
+    if weight_max      is not None: parts.append(f'"weight_max":{round(weight_max, 4)}')
+    if sub_univ_sharpe is not None: parts.append(f'"sub_univ_sharpe":{round(sub_univ_sharpe, 4)}')
+    if self_corr       is not None: parts.append(f'"self_corr":{round(self_corr, 4)}')
+
+    return "{" + ",".join(parts) + "}"
+
+
+def _log_entry(obj: dict):
+    """将日志写入文件并打印到控制台（线程安全）"""
+    with _log_lock:
+        _print_entry(obj)
+        with open(_get_log_path(), "a", encoding="utf-8") as f:
+            if obj.get("type") == "result":
+                f.write(_build_result_line(obj) + "\n")
+                f.write(_fmt_ts() + "\n")
+            else:
+                f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+
+def _print_entry(obj: dict):
+    """按 type 格式化打印到控制台"""
+    t   = obj.get("type")
+    pad = " " * 12
+
+    if t == "start":
+        print(f"\n{'=' * 60}")
+        print(f"  开始时间 : {obj['timestamp']}")
+        print(f"  共 {obj['total']} 个 alpha 待回测")
+        print(f"{'=' * 60}\n")
+
+    elif t == "result":
+        index    = obj.get("index", 0)
+        total    = obj.get("total", 0)
+        alpha_id = obj.get("alpha_id") or "—"
+        expr     = obj.get("expr", "")
+        error    = obj.get("error")
+
+        print(f"[{index:4d}/{total:4d}]  {alpha_id}  【Alpha_id】")
+        print(f"{pad}expr      : {expr}")
+
+        if error:
+            print(f"{pad}error     : {error}")
+        else:
+            sharpe   = obj.get("sharpe")
+            fitness  = obj.get("fitness")
+            turnover = obj.get("turnover")
+
+            if None not in (sharpe, fitness, turnover):
+                # turnover API 返回小数（如 0.284），乘 100 转成百分比显示
+                to_pct = turnover * 100 if isinstance(turnover, (int, float)) and turnover <= 1 else turnover
+                print(f"{pad}sharpe    : {sharpe:.2f}    fitness  : {fitness:.2f}    turnover : {to_pct:.1f}%")
+
+            # 可选指标：有值才打印，没有整行跳过
+            weight_max      = obj.get("weight_max")
+            sub_univ_sharpe = obj.get("sub_univ_sharpe")
+            self_corr       = obj.get("self_corr")
+
+            if weight_max      is not None: print(f"{pad}weight    : max={weight_max:.4f}")
+            if sub_univ_sharpe is not None: print(f"{pad}sub-univ  : sharpe={sub_univ_sharpe:.2f}")
+            if self_corr       is not None: print(f"{pad}self-corr : {self_corr:.2f}")
+
+        print(f"{pad}{_fmt_ts()}")
+        print()
+
+    elif t == "end":
+        print(f"\n{'=' * 60}")
+        print(f"  结束时间 : {obj['timestamp']}")
+        print(f"  总计: {obj['total']}  ✅ 成功: {obj['succeeded']}  ❌ 失败: {obj['failed']}")
+        print(f"{'=' * 60}\n")
+
+
+# ── 公开接口 ──────────────────────────────────────────────────
 
 def log_start(total: int):
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    _write(f"\n{'=' * 60}")
-    _write(f"  开始时间: {ts}")
-    _write(f"  共 {total} 个 alpha 待回测")
-    _write(f"{'=' * 60}\n")
+    _log_entry({
+        "type":      "start",
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total":     total,
+    })
 
 
 def log_result(
     index:    int,
     total:    int,
-    alpha_id: str,
+    alpha_id: str | None,
     field_id: str,
     expr:     str,
     settings: dict | None,
     result:   dict | None,
     err:      str | None,
 ):
-    ts     = datetime.now().strftime("%Y_%m_%d %H:%M:%S")
-    id_str = alpha_id if alpha_id else "FAILED"
+    url = (BRAIN_URL_PREFIX + alpha_id) if alpha_id else None
 
-    line1 = f"[{index:>4}/{total}] [{ts}]"
-    line2 = f"           alpha_id: {id_str}"
-    line3 = f"           字段: {field_id}"
-    line4 = f"           Alpha_expr: {expr}"
+    entry = {
+        "type":      "result",
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "index":     index,
+        "total":     total,
+        "alpha_id":  alpha_id,
+        "url":       url,
+        "field_id":  field_id,
+        "expr":      expr,
+        "settings":  settings,
+        "error":     err,
+    }
 
-    # ── settings 展示 ──────────────────────────────────────────
-    if settings:
-        line5 = (
-            f"           settings: "
-            f"region={settings.get('region')} | "
-            f"universe={settings.get('universe')} | "
-            f"neutralization={settings.get('neutralization')} | "
-            f"delay={settings.get('delay')} | "
-            f"decay={settings.get('decay')} | "
-            f"truncation={settings.get('truncation')} | "
-            f"pasteurization={settings.get('pasteurization')} | "
-            f"language={settings.get('language')}"
-        )
-    else:
-        line5 = f"           settings: N/A"
+    if result and not err:
+        entry.update({
+            "sharpe":          result.get("sharpe"),
+            "fitness":         result.get("fitness"),
+            "turnover":        result.get("turnover"),
+            "returns":         result.get("returns"),
+            "checks_pass":     result.get("checks_pass"),
+            "checks_detail":   result.get("checks_detail"),
+            "weight_max":      result.get("weight_max"),
+            "sub_univ_sharpe": result.get("sub_univ_sharpe"),
+            "self_corr":       result.get("self_corr"),
+        })
 
-    # ── 回测结果 ───────────────────────────────────────────────
-    if err:
-        line6 = f"           ❌ 错误: {err}"
-    else:
-        sharpe   = result.get("sharpe")
-        fitness  = result.get("fitness")
-        turnover = result.get("turnover")
-        returns  = result.get("returns")
-        ret_str = f"{returns * 100:.2f}%" if returns is not None else "N/A"
-
-        # 只展示核心指标，不判断是否通过
-        line6 = (
-            f"           sharpe={sharpe} | fitness={fitness} | "
-            f"turnover={turnover} | returns={ret_str}"
-        )
-
-    _write(line1)
-    _write(line2)
-    _write(line3)
-    _write(line4)
-    _write(line5)
-    _write(line6)
-    _write("")
+    _log_entry(entry)
 
 
-def log_end(total: int, passed: int):
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    _write(f"\n{'=' * 60}")
-    _write(f"  结束时间: {ts}")
-    _write(f"  总计: {total}  ✅ 通过: {passed}  ❌ 未通过: {total - passed}")
-    _write(f"{'=' * 60}\n")
+def log_end(total: int, succeeded: int):
+    _log_entry({
+        "type":      "end",
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total":     total,
+        "succeeded": succeeded,
+        "failed":    total - succeeded,
+    })

@@ -7,6 +7,7 @@
     <orderEntry type="module" module-name="Dig_Alpha_field_template" />
     <orderEntry type="module" module-name="Fetch_Fields" />
     <orderEntry type="module" module-name="worldquant" />
+    <orderEntry type="module" module-name="Dig_Alpha_6ways_evaluate" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="GOOGLE" />

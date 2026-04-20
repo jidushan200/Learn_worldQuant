@@ -6,7 +6,7 @@ def get_alpha_result(
     alpha_id: str
 ) -> tuple:
     """
-    查询 alpha 回测结果，提取核心指标，并判断是否通过筛选条件
+    查询 alpha 回测结果，提取平台返回的全部指标，不做本地审批
 
     Args:
         sess:     已认证的 requests.Session
@@ -14,11 +14,8 @@ def get_alpha_result(
 
     Returns:
         tuple: (result_dict, err)
-               成功时 result_dict 包含所有指标，err 为 None
-               失败时 result_dict 为 None，err 为错误信息
     """
 
-    # ── 1) 请求 alpha 详情 ────────────────────────────────────
     resp = sess.get(
         url=f"https://api.worldquantbrain.com/alphas/{alpha_id}",
         timeout=30
@@ -28,43 +25,51 @@ def get_alpha_result(
 
     data = resp.json()
 
-    # ── 2) 检查 is 字段是否存在 ───────────────────────────────
-    # is 字段包含 sharpe / fitness / turnover 等核心指标
     is_data = data.get("is")
     if not is_data:
         return None, "返回数据中缺少 is 字段"
 
-    # ── 3) 提取核心指标 ───────────────────────────────────────
-    sharpe   = is_data.get("sharpe")    # 夏普率
-    fitness  = is_data.get("fitness")   # 适应度
-    turnover = is_data.get("turnover")  # 换手率
-    returns  = is_data.get("returns")   # 年化收益
+    sharpe   = is_data.get("sharpe")
+    fitness  = is_data.get("fitness")
+    turnover = is_data.get("turnover")
+    returns  = is_data.get("returns")
 
-    # ── 4) checks 全部通过才算合规 ───────────────────────────
-    # checks 是平台自动执行的一系列合规检查，结果为 PASS / FAIL
-    # 使用 checks 统一判断，避免与 criteria_pass 重复
     checks = data.get("checks", [])
-    checks_pass = all(c.get("result") == "PASS" for c in checks)
+    checks_pass   = all(c.get("result") == "PASS" for c in checks)
+    checks_detail = [
+        {"name": c.get("name"), "result": c.get("result"), "value": c.get("value")}
+        for c in checks
+    ]
 
-    # ── 5) 综合判断是否通过 ───────────────────────────────────
-    overall_pass = (
-        checks_pass                             and  # 平台合规检查全通过
-        sharpe   is not None and sharpe   > 1.25 and  # 夏普率 > 1.25
-        fitness  is not None and fitness  > 1.0  and  # 适应度 > 1.0
-        turnover is not None and 0.01 <= turnover <= 0.7  # 换手率在合理范围
-    )
+    # ── 可选指标：按 check 名称模糊匹配提取 ──────────────────
+    # ⚠️ check 名称以实际 API 返回为准，若对不上可在此调整关键词
+    weight_max      = None
+    sub_univ_sharpe = None
+    self_corr       = None
 
-    # ── 6) 整理返回结果 ───────────────────────────────────────
+    for c in checks:
+        name = (c.get("name") or "").upper()
+        val  = c.get("value")
+        if "WEIGHT" in name:
+            weight_max = val
+        elif "SUB_UNIVERSE" in name or "SUBUNIVERSE" in name:
+            sub_univ_sharpe = val
+        elif "SELF" in name and "CORR" in name:
+            self_corr = val
+
     result = {
-        "alpha_id":     alpha_id,
-        "expr":         data.get("regular", ""),  # alpha 表达式
-        "sharpe":       sharpe,
-        "fitness":      fitness,
-        "turnover":     turnover,
-        "returns":      returns,
-        "checks_pass":  checks_pass,
-        "overall_pass": overall_pass,
-        "error":        None,
+        "alpha_id":        alpha_id,
+        "expr":            data.get("regular", ""),
+        "sharpe":          sharpe,
+        "fitness":         fitness,
+        "turnover":        turnover,
+        "returns":         returns,
+        "checks_pass":     checks_pass,
+        "checks_detail":   checks_detail,
+        "weight_max":      weight_max,
+        "sub_univ_sharpe": sub_univ_sharpe,
+        "self_corr":       self_corr,
+        "error":           None,
     }
 
     return result, None

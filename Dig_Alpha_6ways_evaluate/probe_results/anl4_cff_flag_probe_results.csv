@@ -1,0 +1,29 @@
+alpha_id,probe_type,expr,long_count,short_count,error
+gJojLvxJ,probe2_nonzero,anl4_cff_flag != 0 ? 1 : 0,1949.0,0.0,
+E5rlx0OK,probe1_raw,anl4_cff_flag,1949.0,0.0,
+Gr3l9Mr3,probe3_freq_N5,"ts_std_dev(anl4_cff_flag, 5) != 0 ? 1 : 0",2.0,0.0,
+KPw7Znqz,probe3_freq_N22,"ts_std_dev(anl4_cff_flag, 22) != 0 ? 1 : 0",14.0,0.0,
+d5ljvjYY,probe3_freq_N66,"ts_std_dev(anl4_cff_flag, 66) != 0 ? 1 : 0",46.0,0.0,
+leRj1vd7,probe4_bound_X0.01,abs(anl4_cff_flag) > 0.01,1949.0,0.0,
+N1578PVg,probe3_freq_N252,"ts_std_dev(anl4_cff_flag, 252) != 0 ? 1 : 0",180.0,0.0,
+d5ljv3ZX,probe4_bound_X0.1,abs(anl4_cff_flag) > 0.1,1949.0,0.0,
+E5rlxx7m,probe4_bound_X0.5,abs(anl4_cff_flag) > 0.5,1949.0,0.0,
+xAmj55op,probe4_bound_X1,abs(anl4_cff_flag) > 1,1949.0,0.0,
+WjW7J2Jo,probe4_bound_X2,abs(anl4_cff_flag) > 2,1949.0,0.0,
+,probe5_median_X0,"ts_median(anl4_cff_flag, 1000) > 0",,,完成但 alpha 为空
+,probe5_median_X0.1,"ts_median(anl4_cff_flag, 1000) > 0.1",,,完成但 alpha 为空
+,probe5_median_X0.5,"ts_median(anl4_cff_flag, 1000) > 0.5",,,完成但 alpha 为空
+,probe5_median_X1,"ts_median(anl4_cff_flag, 1000) > 1",,,完成但 alpha 为空
+P0X7Kk1K,probe4_bound_X10,abs(anl4_cff_flag) > 10,1949.0,0.0,
+,probe5_median_X2,"ts_median(anl4_cff_flag, 1000) > 2",,,完成但 alpha 为空
+,probe5_median_X5,"ts_median(anl4_cff_flag, 1000) > 5",,,完成但 alpha 为空
+,probe6_dist_0.0_0.2,0.0 < scale_down(anl4_cff_flag) && scale_down(anl4_cff_flag) < 0.2,,,完成但 alpha 为空
+,probe6_dist_0.4_0.6,0.4 < scale_down(anl4_cff_flag) && scale_down(anl4_cff_flag) < 0.6,,,完成但 alpha 为空
+,probe6_dist_0.6_0.8,0.6 < scale_down(anl4_cff_flag) && scale_down(anl4_cff_flag) < 0.8,,,完成但 alpha 为空
+,probe6_dist_0.8_1.0,0.8 < scale_down(anl4_cff_flag) && scale_down(anl4_cff_flag) < 1.0,,,完成但 alpha 为空
+leRjNO1N,probe4_bound_X5,abs(anl4_cff_flag) > 5,1949.0,0.0,
+,probe6_dist_0.2_0.4,0.2 < scale_down(anl4_cff_flag) && scale_down(anl4_cff_flag) < 0.4,,,完成但 alpha 为空
+58ql27xN,probe7_backfill_N22,"ts_backfill(anl4_cff_flag, 22) != 0 ? 1 : 0",2037.0,0.0,
+leRjNkG7,probe7_backfill_N5,"ts_backfill(anl4_cff_flag, 5) != 0 ? 1 : 0",1969.0,0.0,
+1Ynw2n1k,probe7_backfill_N66,"ts_backfill(anl4_cff_flag, 66) != 0 ? 1 : 0",2183.0,0.0,
+E5rl2qoG,probe7_backfill_N252,"ts_backfill(anl4_cff_flag, 252) != 0 ? 1 : 0",2445.0,0.0,
