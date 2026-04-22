@@ -61,3 +61,346 @@
 【2026_04_21 12:22:23】
 {"YPWx3L3l","expr":"-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80)","sharpe":1.29,"fitness":0.38,"turnover":0.7404}
 【2026_04_21 12:24:18】
+{"9qAE51xd","expr":"rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40)","sharpe":1.18,"fitness":0.34,"turnover":0.7317}
+【2026_04_21 12:25:11】
+{"0mKjZ0qk","expr":"-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40)","sharpe":1.46,"fitness":0.42,"turnover":0.8177}
+【2026_04_21 12:25:22】
+{"mLxYnOOp","expr":"rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80)","sharpe":1.39,"fitness":0.48,"turnover":0.6409}
+【2026_04_21 12:26:24】
+{"vRJO7xwd","expr":"ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80),5)","sharpe":0.99,"fitness":0.43,"turnover":0.2812}
+【2026_04_21 12:27:16】
+{"QP5YRj7G","expr":"ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80),10)","sharpe":1.02,"fitness":0.54,"turnover":0.1909}
+【2026_04_21 12:27:49】
+{"blW80vPp","expr":"-sign(ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)","sharpe":1.04,"fitness":0.33,"turnover":0.6904}
+【2026_04_21 12:29:17】
+{"O05Jdpvb","expr":"rank(-ts_delta(close,40))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),10)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)","sharpe":1.21,"fitness":0.68,"turnover":0.2145}
+【2026_04_21 12:29:54】
+{"KPwmA9O1","expr":"rank(-ts_delta(close,40))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)","sharpe":1.16,"fitness":0.5,"turnover":0.318}
+【2026_04_21 12:30:16】
+{"zqJr7ked","expr":"rank(-ts_delta(close,40))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)","sharpe":1.24,"fitness":0.53,"turnover":0.5002}
+【2026_04_21 12:31:13】
+{"XgYRZNL8","expr":"-sign(ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)","sharpe":0.43,"fitness":0.07,"turnover":0.7756}
+【2026_04_21 12:33:11】
+{"qMmE2YV1","expr":"-sign(ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)","sharpe":0.6,"fitness":0.12,"turnover":0.6991}
+【2026_04_21 12:34:04】
+{"78KoP2EZ","expr":"-sign(ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)","sharpe":0.21,"fitness":0.03,"turnover":0.6786}
+【2026_04_21 12:35:09】
+{"QP5YRxqw","expr":"ts_mean(-sign(ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":0.66,"fitness":0.22,"turnover":0.2873}
+【2026_04_21 12:37:02】
+{"Gr3g2qqQ","expr":"ts_mean(-sign(ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":-0.05,"fitness":-0.0,"turnover":0.2733}
+【2026_04_21 12:38:08】
+{"blW8mkmm","expr":"rank(-ts_delta(close,40))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40)","sharpe":-0.25,"fitness":-0.02,"turnover":1.0607}
+【2026_04_21 12:40:17】
+{"xAm1LRrW","expr":"ts_mean(rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),3)","sharpe":1.05,"fitness":0.47,"turnover":0.2954}
+【2026_04_21 12:46:36】
+{"xAm1Lden","expr":"-sign(ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40)","sharpe":0.85,"fitness":0.12,"turnover":1.1019}
+【2026_04_21 12:48:16】
+{"58qjXZnn","expr":"-sign(ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)","sharpe":-0.2,"fitness":-0.02,"turnover":0.7499}
+【2026_04_21 12:56:04】
+{"type": "start", "timestamp": "2026-04-21 13:10:40", "total": 50}
+{"om9oxzM5","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":1.71,"fitness":1.0,"turnover":0.2596}
+【2026_04_21 13:12:31】
+{"3qnj8amZ","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),8)","sharpe":1.69,"fitness":1.12,"turnover":0.1954}
+【2026_04_21 13:13:23】
+{"npOALW78","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),7)","sharpe":1.72,"fitness":1.11,"turnover":0.2116}
+【2026_04_21 13:14:04】
+{"VkYdA8Ww","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),15)","sharpe":1.7,"fitness":1.35,"turnover":0.1365}
+【2026_04_21 13:14:08】
+{"Jj5P6Q8n","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)","sharpe":1.65,"fitness":1.36,"turnover":0.117}
+【2026_04_21 13:16:12】
+{"A1OQoQoQ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":1.76,"fitness":0.98,"turnover":0.3026}
+【2026_04_21 13:16:29】
+{"QP5YwW5X","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.78,"fitness":0.86,"turnover":0.4078}
+【2026_04_21 13:17:09】
+{"0mKj1g16","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.74,"fitness":1.16,"turnover":0.204}
+【2026_04_21 13:18:02】
+{"0mKj1Ljv","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),15)","sharpe":1.74,"fitness":1.29,"turnover":0.1642}
+【2026_04_21 13:19:08】
+{"YPWxRomJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),7)","sharpe":1.76,"fitness":1.07,"turnover":0.2493}
+【2026_04_21 13:19:18】
+{"mLxoPPn6","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)","sharpe":1.74,"fitness":1.39,"turnover":0.142}
+【2026_04_21 13:20:49】
+{"QP5v1MaG","expr":"ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":1.49,"fitness":0.68,"turnover":0.3608}
+【2026_04_21 13:21:30】
+{"P0XoJr3J","expr":"ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),30)","sharpe":1.24,"fitness":0.84,"turnover":0.1447}
+【2026_04_21 13:23:33】
+{"78KLk0R2","expr":"ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),25)","sharpe":1.3,"fitness":0.86,"turnover":0.1578}
+【2026_04_21 13:23:52】
+{"ZYWQRx9j","expr":"ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),15)","sharpe":1.42,"fitness":0.85,"turnover":0.2026}
+【2026_04_21 13:24:07】
+{"WjWL28Eo","expr":"ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),15)","sharpe":1.25,"fitness":0.77,"turnover":0.168}
+【2026_04_21 13:25:31】
+{"Jj5eVG2m","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),5)","sharpe":1.63,"fitness":1.03,"turnover":0.2254}
+【2026_04_21 13:26:41】
+{"Jj5eVeLe","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),3)","sharpe":1.74,"fitness":0.97,"turnover":0.3137}
+【2026_04_21 13:27:59】
+{"A1OVRLYR","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),15)","sharpe":1.57,"fitness":1.32,"turnover":0.1174}
+【2026_04_21 13:28:28】
+{"npOv1qaq","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),20)","sharpe":1.62,"fitness":1.39,"turnover":0.1225}
+【2026_04_21 13:29:25】
+{"j2dY5J65","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),10)","sharpe":1.67,"fitness":1.22,"turnover":0.1767}
+【2026_04_21 13:30:26】
+{"rKrR1w3E","expr":"ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.26,"fitness":0.55,"turnover":0.3483}
+【2026_04_21 13:30:28】
+{"qMmEpaMj","expr":"ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":1.2,"fitness":0.6,"turnover":0.2511}
+【2026_04_21 13:31:45】
+{"wpJQp82d","expr":"ts_decay_linear(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)","sharpe":1.17,"fitness":0.79,"turnover":0.1383}
+【2026_04_21 13:31:59】
+{"58qE8nE5","expr":"ts_decay_linear(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.18,"fitness":0.66,"turnover":0.1974}
+【2026_04_21 13:32:26】
+{"KPwJPaY1","expr":"ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),3)","sharpe":1.28,"fitness":0.63,"turnover":0.3004}
+【2026_04_21 13:33:37】
+{"om9Em2Z2","expr":"ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),15)","sharpe":1.26,"fitness":0.95,"turnover":0.1103}
+【2026_04_21 13:34:16】
+{"MP50nJYo","expr":"ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),5)","sharpe":1.21,"fitness":0.68,"turnover":0.2143}
+【2026_04_21 13:35:24】
+{"j2dY2nAk","expr":"ts_decay_linear(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),10)","sharpe":1.24,"fitness":0.8,"turnover":0.1675}
+【2026_04_21 13:36:12】
+{"mLxoLg1X","expr":"ts_decay_linear(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),20)","sharpe":1.26,"fitness":0.95,"turnover":0.1155}
+【2026_04_21 13:38:23】
+{"O05A08lY","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)","sharpe":1.73,"fitness":1.01,"turnover":0.2602}
+【2026_04_21 13:38:52】
+{"ZYWQYmz0","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),3)","sharpe":1.8,"fitness":0.92,"turnover":0.3601}
+【2026_04_21 13:39:01】
+{"VkYxkmgG","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)","sharpe":1.67,"fitness":1.17,"turnover":0.1715}
+【2026_04_21 13:40:10】
+{"O05A0jag","expr":"ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),20)","sharpe":1.28,"fitness":0.79,"turnover":0.1758}
+【2026_04_21 13:41:36】
+{"XgY9mjzX","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.56,"fitness":0.89,"turnover":0.2416}
+【2026_04_21 13:43:17】
+{"om9E81Zk","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),3)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.63,"fitness":0.87,"turnover":0.2918}
+【2026_04_21 13:43:18】
+{"LLlMVeN6","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),3)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":1.58,"fitness":0.95,"turnover":0.2204}
+【2026_04_21 13:45:39】
+{"VkYx12JJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.52,"fitness":1.03,"turnover":0.1642}
+【2026_04_21 13:47:28】
+{"j2dYz9Lk","expr":"ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),3)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.24,"fitness":0.69,"turnover":0.1927}
+【2026_04_21 13:47:31】
+{"pw1dY6O3","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)","sharpe":1.78,"fitness":1.2,"turnover":0.2043}
+【2026_04_21 13:48:37】
+{"xAmrOj8J","expr":"ts_mean(rank(-ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.4,"fitness":0.79,"turnover":0.2922}
+【2026_04_21 13:49:42】
+{"blW6GjvM","expr":"ts_mean(rank(-ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":1.26,"fitness":0.79,"turnover":0.2133}
+【2026_04_21 13:49:45】
+{"88KR5NoX","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.26,"fitness":0.89,"turnover":0.1722}
+【2026_04_21 13:51:14】
+{"78KL7lOZ","expr":"ts_mean(-sign(ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":0.74,"fitness":0.42,"turnover":0.1781}
+【2026_04_21 13:52:50】
+{"XgY9mxZz","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),3)","sharpe":1.36,"fitness":0.6,"turnover":0.3612}
+【2026_04_21 13:53:27】
+{"3qnoQvjg","expr":"ts_decay_linear(-sign(ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)","sharpe":0.78,"fitness":0.51,"turnover":0.1501}
+【2026_04_21 13:53:36】
+{"QP5vM1Er","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),5)","sharpe":1.39,"fitness":0.73,"turnover":0.2622}
+【2026_04_21 13:54:53】
+{"RRkEMXvj","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40),10)","sharpe":0.67,"fitness":0.18,"turnover":0.2953}
+【2026_04_21 13:57:18】
+{"blW6X7mq","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),10)","sharpe":1.43,"fitness":0.86,"turnover":0.2069}
+【2026_04_21 13:57:33】
+{"j2dYvNqo","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40),3)","sharpe":0.29,"fitness":0.04,"turnover":0.5251}
+【2026_04_21 13:57:37】
+{"type": "end", "timestamp": "2026-04-21 13:57:38", "total": 50, "succeeded": 50, "failed": 0}
+{"type": "start", "timestamp": "2026-04-21 15:18:13", "total": 50}
+{"type": "start", "timestamp": "2026-04-21 15:18:23", "total": 50}
+{"VkYxwv1V","expr":"ts_mean(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.65,"fitness":0.8,"turnover":0.3665}
+【2026_04_21 15:20:41】
+{"VkYxwjq0","expr":"ts_mean(rank(-ts_delta(close,5))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.54,"fitness":0.68,"turnover":0.414}
+【2026_04_21 15:22:02】
+{"3qnoYrVe","expr":"ts_mean(rank(-ts_delta(close,10))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.48,"fitness":0.66,"turnover":0.3799}
+【2026_04_21 15:22:04】
+{"P0Xor9Gx","expr":"ts_mean(rank(-ts_delta(close,30))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":1.44,"fitness":0.66,"turnover":0.3524}
+【2026_04_21 15:22:35】
+{"QP5vrlqw","expr":"ts_mean(rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":0.94,"fitness":0.36,"turnover":0.3419}
+【2026_04_21 15:24:12】
+{"npOvkOWq","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),10),3)","sharpe":1.52,"fitness":0.53,"turnover":0.5401}
+【2026_04_21 15:24:33】
+{"RRkEZk2b","expr":"ts_mean(rank(-ts_delta(close,120))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)","sharpe":0.87,"fitness":0.34,"turnover":0.3343}
+【2026_04_21 15:24:36】
+{"N15NWrpq","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),20),3)","sharpe":1.46,"fitness":0.58,"turnover":0.4327}
+【2026_04_21 15:25:59】
+{"MP5YlLxk","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),60),3)","sharpe":1.7,"fitness":0.9,"turnover":0.3304}
+【2026_04_21 15:26:13】
+{"QP5vrvLG","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),30),3)","sharpe":1.58,"fitness":0.72,"turnover":0.3861}
+【2026_04_21 15:27:51】
+{"mLxo2aeE","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),40),40),3)","sharpe":1.18,"fitness":0.48,"turnover":0.3691}
+【2026_04_21 15:28:09】
+{"1YnNV0vR","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),8)","sharpe":1.4,"fitness":0.84,"turnover":0.1985}
+【2026_04_21 15:29:31】
+{"88KRkWWX","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),120),3)","sharpe":1.63,"fitness":0.92,"turnover":0.297}
+【2026_04_21 15:30:47】
+{"XgY9PjA5","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),90),40),3)","sharpe":1.66,"fitness":0.82,"turnover":0.3602}
+【2026_04_21 15:31:44】
+{"vRJ1x8Pw","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),8)","sharpe":1.69,"fitness":1.12,"turnover":0.1956}
+【2026_04_21 15:32:29】
+{"78KL0b6O","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),240),40),3)","sharpe":1.8,"fitness":0.91,"turnover":0.3622}
+【2026_04_21 15:32:58】
+{"qMmLvoxP","expr":"ts_decay_linear(rank(-ts_delta(close,10))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.52,"fitness":0.91,"turnover":0.2177}
+【2026_04_21 15:33:11】
+{"0mKY9k72","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.69,"fitness":1.1,"turnover":0.2085}
+【2026_04_21 15:34:23】
+{"0mKY9Qz8","expr":"ts_decay_linear(rank(-ts_delta(close,30))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":1.36,"fitness":0.81,"turnover":0.1999}
+【2026_04_21 15:35:05】
+{"npOvY3O3","expr":"ts_decay_linear(rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":0.86,"fitness":0.42,"turnover":0.1935}
+【2026_04_21 15:36:02】
+{"78KL0nAO","expr":"ts_rank(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)","sharpe":0.45,"fitness":0.05,"turnover":1.1258}
+【2026_04_21 15:36:58】
+{"zqJ3QNMd","expr":"ts_rank(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":0.4,"fitness":0.05,"turnover":0.945}
+【2026_04_21 15:37:13】
+{"pw1dojYV","expr":"ts_rank(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)","sharpe":0.45,"fitness":0.06,"turnover":0.8067}
+【2026_04_21 15:37:28】
+{"XgY9Paoa","expr":"ts_mean(rank(-ts_delta(close,20))*rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120)),5)","sharpe":1.02,"fitness":0.75,"turnover":0.1681}
+【2026_04_21 15:39:06】
+{"vRJ1xA1r","expr":"ts_mean(rank(-ts_delta(close,20))*rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120)),3)","sharpe":1.18,"fitness":0.8,"turnover":0.2278}
+【2026_04_21 15:39:07】
+{"j2dYWxr5","expr":"ts_decay_linear(rank(-ts_delta(close,20))*rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120)),10)","sharpe":0.98,"fitness":0.79,"turnover":0.1367}
+【2026_04_21 15:40:22】
+{"pw1dokXj","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),3)","sharpe":1.81,"fitness":0.93,"turnover":0.3643}
+【2026_04_21 15:40:59】
+{"6XYd36e7","expr":"ts_mean(rank(-ts_delta(close,20))*rank(ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),3)","sharpe":1.29,"fitness":0.74,"turnover":0.274}
+【2026_04_21 15:41:37】
+{"1YnNLYYX","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)","sharpe":1.76,"fitness":1.05,"turnover":0.264}
+【2026_04_21 15:42:50】
+{"1YnNLQkk","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.76,"fitness":1.19,"turnover":0.2079}
+【2026_04_21 15:44:06】
+{"1YnNLQNX","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),60),40),3)","sharpe":1.26,"fitness":0.54,"turnover":0.3644}
+【2026_04_21 15:44:12】
+{"xAmrQPqg","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_mean(ts_backfill(implied_volatility_call_180,5),120),40),10)","sharpe":1.38,"fitness":0.8,"turnover":0.2087}
+【2026_04_21 15:46:36】
+{"N15N6OMX","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_mean(ts_backfill(implied_volatility_call_180,5),120),40),5)","sharpe":1.39,"fitness":0.72,"turnover":0.2664}
+【2026_04_21 15:47:23】
+{"RRkEYrro","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_mean(ts_backfill(implied_volatility_call_180,5),120),40),3)","sharpe":1.53,"fitness":0.71,"turnover":0.3713}
+【2026_04_21 15:47:24】
+{"gJoeKbkJ","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_delta(ts_backfill(implied_volatility_put_180,5),10),40),3)","sharpe":0.52,"fitness":0.12,"turnover":0.4568}
+【2026_04_21 15:49:07】
+{"qMmLd0xO","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_delta(ts_backfill(implied_volatility_put_180,5),5),40),3)","sharpe":1.16,"fitness":0.36,"turnover":0.5692}
+【2026_04_21 15:49:26】
+{"ZYWQxQbd","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_mean(ts_backfill(implied_volatility_call_180,5),180),40),3)","sharpe":1.56,"fitness":0.73,"turnover":0.3721}
+【2026_04_21 15:49:54】
+{"om9EvJPm","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_delta(ts_backfill(implied_volatility_put_180,5),20),40),3)","sharpe":0.73,"fitness":0.23,"turnover":0.3833}
+【2026_04_21 15:50:57】
+{"qMmLdw8E","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_delta(ts_backfill(implied_volatility_put_180,5),10),40),10)","sharpe":0.43,"fitness":0.12,"turnover":0.2849}
+【2026_04_21 15:51:50】
+{"xAmrQEWJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_delta(ts_backfill(implied_volatility_put_180,5),5),40),10)","sharpe":0.83,"fitness":0.27,"turnover":0.3752}
+【2026_04_21 15:52:02】
+{"VkYxlkx0","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,3)-ts_mean(ts_backfill(implied_volatility_put_180,3),120),40),10)","sharpe":1.74,"fitness":1.15,"turnover":0.2085}
+【2026_04_21 15:54:00】
+{"gJoePJVg","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,3)-ts_mean(ts_backfill(implied_volatility_put_180,3),120),40),3)","sharpe":1.74,"fitness":0.88,"turnover":0.3608}
+【2026_04_21 15:54:01】
+{"N15Njmvo","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,10)-ts_mean(ts_backfill(implied_volatility_put_180,10),120),40),3)","sharpe":1.76,"fitness":0.89,"turnover":0.3572}
+【2026_04_21 15:54:47】
+{"58qE6NZJ","expr":"ts_mean(rank(-ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5),120),3)","sharpe":1.1,"fitness":0.64,"turnover":0.2533}
+【2026_04_21 15:56:03】
+{"pw1dzJ9o","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5),120),10)","sharpe":0.93,"fitness":0.65,"turnover":0.1486}
+【2026_04_21 15:56:29】
+{"O05Ammpg","expr":"ts_mean(rank(-ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5),60),3)","sharpe":1.4,"fitness":0.85,"turnover":0.2811}
+【2026_04_21 15:57:04】
+{"YPW1kp6R","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40),5)","sharpe":0.57,"fitness":0.12,"turnover":0.377}
+【2026_04_21 15:58:31】
+{"mLxozgqX","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40),10)","sharpe":0.86,"fitness":0.29,"turnover":0.2465}
+【2026_04_21 15:59:58】
+{"npOvzPzz","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40),5)","sharpe":0.41,"fitness":0.07,"turnover":0.4454}
+【2026_04_21 16:00:23】
+{"MP5Y80Pr","expr":"ts_mean(rank(-ts_delta(close,20))*rank(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5)),3)","sharpe":-0.2,"fitness":-0.04,"turnover":0.3145}
+【2026_04_21 16:00:38】
+{"type": "end", "timestamp": "2026-04-21 16:00:38", "total": 50, "succeeded": 50, "failed": 0}
+{"type": "start", "timestamp": "2026-04-21 17:05:25", "total": 50}
+{"9qAxrz6x","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),60),40),10)","sharpe":1.29,"fitness":0.74,"turnover":0.2096}
+【2026_04_21 17:07:15】
+{"vRJ1lRQQ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),40),40),10)","sharpe":1.15,"fitness":0.61,"turnover":0.2157}
+【2026_04_21 17:07:34】
+{"1YnNd92J","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),90),40),10)","sharpe":1.72,"fitness":1.15,"turnover":0.2087}
+【2026_04_21 17:08:19】
+{"d5lW0mJg","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),10)","sharpe":1.84,"fitness":1.26,"turnover":0.2092}
+【2026_04_21 17:10:21】
+{"3qnoRake","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),10)","sharpe":1.85,"fitness":1.27,"turnover":0.2085}
+【2026_04_21 17:10:56】
+{"om9ElVv5","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)","sharpe":1.81,"fitness":1.02,"turnover":0.3073}
+【2026_04_21 17:11:15】
+{"gJoeMj5m","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),20)","sharpe":1.77,"fitness":1.43,"turnover":0.1451}
+【2026_04_21 17:12:47】
+{"9qAxrjbV","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),8)","sharpe":1.78,"fitness":1.14,"turnover":0.2352}
+【2026_04_21 17:13:08】
+{"xAmrkbzJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),15)","sharpe":1.76,"fitness":1.32,"turnover":0.1676}
+【2026_04_21 17:13:22】
+{"pw1dokXj","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),3)","sharpe":1.81,"fitness":0.93,"turnover":0.3643}
+【2026_04_21 17:15:13】
+{"XgY9n3P5","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.7,"fitness":1.21,"turnover":0.175}
+【2026_04_21 17:16:32】
+{"MP5YQr66","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),8)","sharpe":1.73,"fitness":1.17,"turnover":0.1991}
+【2026_04_21 17:16:49】
+{"vRJ1lQ2r","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),12)","sharpe":1.73,"fitness":1.31,"turnover":0.1578}
+【2026_04_21 17:16:51】
+{"vRJ1vgqz","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),30),10)","sharpe":1.57,"fitness":0.95,"turnover":0.2244}
+【2026_04_21 17:18:43】
+{"YPW1gwRJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),20),10)","sharpe":1.3,"fitness":0.66,"turnover":0.2547}
+【2026_04_21 17:19:49】
+{"VkYx3EAJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),80),10)","sharpe":1.83,"fitness":1.39,"turnover":0.1815}
+【2026_04_21 17:20:16】
+{"O05AxmkJ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),60),10)","sharpe":1.78,"fitness":1.29,"turnover":0.1912}
+【2026_04_21 17:20:22】
+{"zqJ3RWrR","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.76,"fitness":1.17,"turnover":0.2122}
+【2026_04_21 17:21:38】
+{"88KRe3Vo","expr":"ts_decay_linear(rank(-ts_delta(close,5))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.65,"fitness":1.0,"turnover":0.2349}
+【2026_04_21 17:23:03】
+{"P0XoOMWx","expr":"ts_decay_linear(rank(-ts_delta(close,30))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.46,"fitness":0.91,"turnover":0.2042}
+【2026_04_21 17:23:32】
+{"wpJQEQXp","expr":"ts_decay_linear(rank(-ts_delta(close,10))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.66,"fitness":1.04,"turnover":0.2212}
+【2026_04_21 17:23:45】
+{"gJoe9gGe","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)","sharpe":1.81,"fitness":1.01,"turnover":0.3035}
+【2026_04_21 17:24:56】
+{"pw1dY6O3","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)","sharpe":1.78,"fitness":1.2,"turnover":0.2043}
+【2026_04_21 17:25:28】
+{"A1OV755R","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),8)","sharpe":1.8,"fitness":1.15,"turnover":0.2315}
+【2026_04_21 17:26:03】
+{"78KLneYZ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),20)","sharpe":1.77,"fitness":1.42,"turnover":0.1419}
+【2026_04_21 17:27:15】
+{"xAmrNqAN","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),15)","sharpe":1.78,"fitness":1.33,"turnover":0.1642}
+【2026_04_21 17:27:59】
+{"O05A08lY","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)","sharpe":1.73,"fitness":1.01,"turnover":0.2602}
+【2026_04_21 17:28:14】
+{"VkYxkmgG","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)","sharpe":1.67,"fitness":1.17,"turnover":0.1715}
+【2026_04_21 17:28:52】
+{"WjWOAWjQ","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),90),40),10)","sharpe":1.65,"fitness":1.07,"turnover":0.2094}
+【2026_04_21 17:30:52】
+{"1YnNpnrK","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),10)","sharpe":1.38,"fitness":0.81,"turnover":0.2111}
+【2026_04_21 17:31:09】
+{"LLlMG1VM","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),240),40),10)","sharpe":1.76,"fitness":1.16,"turnover":0.2093}
+【2026_04_21 17:32:21】
+{"Gr3WGllO","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)","sharpe":1.77,"fitness":1.18,"turnover":0.2088}
+【2026_04_21 17:33:08】
+{"blW6Qx8l","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),90),40),10)","sharpe":1.71,"fitness":1.13,"turnover":0.2127}
+【2026_04_21 17:34:54】
+{"zqJ3RWrR","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)","sharpe":1.76,"fitness":1.17,"turnover":0.2122}
+【2026_04_21 17:36:09】
+{"78KLzPmx","expr":"ts_mean(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)","sharpe":1.78,"fitness":1.06,"turnover":0.2696}
+【2026_04_21 17:37:03】
+{"A1OVGAxE","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),10)","sharpe":1.88,"fitness":1.29,"turnover":0.2127}
+【2026_04_21 17:37:26】
+{"om9Eqpwm","expr":"ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),10)","sharpe":1.87,"fitness":1.28,"turnover":0.2132}
+【2026_04_21 17:38:49】
+{"mLxojRM6","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),120),40),10)","sharpe":1.76,"fitness":1.18,"turnover":0.2125}
+【2026_04_21 17:39:00】
+{"mLxoj295","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),120),40),5)","sharpe":1.75,"fitness":1.04,"turnover":0.2654}
+【2026_04_21 17:40:27】
+{"O05A7bqR","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),180),40),10)","sharpe":1.85,"fitness":1.26,"turnover":0.2131}
+【2026_04_21 17:41:38】
+{"leRAjr2N","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,10)-ts_mean(ts_backfill(implied_volatility_put_90,10),120),40),10)","sharpe":1.75,"fitness":1.18,"turnover":0.205}
+【2026_04_21 17:42:05】
+{"RRkE7dQ0","expr":"ts_decay_linear(rank(-ts_delta(close,20))*(ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)+ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),10)","sharpe":1.79,"fitness":1.25,"turnover":0.1987}
+【2026_04_21 17:42:05】
+{"E5r6llw9","expr":"ts_mean(rank(-ts_delta(close,20))*(ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)+ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),5)","sharpe":1.77,"fitness":1.09,"turnover":0.2519}
+【2026_04_21 17:43:33】
+{"e7q5z906","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)","sharpe":0.06,"fitness":0.01,"turnover":0.2424}
+【2026_04_21 17:43:46】
+{"0mKYwxkK","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),150),40),10)","sharpe":1.87,"fitness":1.29,"turnover":0.2094}
+【2026_04_21 17:45:28】
+{"N15N72lo","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),150),40),10)","sharpe":1.84,"fitness":1.25,"turnover":0.2051}
+【2026_04_21 17:46:51】
+{"1YnNwRGQ","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),200),40),10)","sharpe":1.78,"fitness":1.2,"turnover":0.2094}
+【2026_04_21 17:47:07】
+{"j2dYjp6o","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),5)","sharpe":1.8,"fitness":1.08,"turnover":0.265}
+【2026_04_21 17:47:51】
+{"MP5Y7J9L","expr":"ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),5)","sharpe":1.79,"fitness":1.07,"turnover":0.2662}
+【2026_04_21 17:48:13】
+{"xAmrYAmw","expr":"ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),8)","sharpe":1.88,"fitness":1.22,"turnover":0.236}
+【2026_04_21 17:48:46】
+{"type": "end", "timestamp": "2026-04-21 17:48:46", "total": 50, "succeeded": 50, "failed": 0}

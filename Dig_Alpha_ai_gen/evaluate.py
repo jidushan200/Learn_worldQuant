@@ -1,4 +1,10 @@
+import time
+from time import sleep
 import requests
+from requests.exceptions import ConnectionError, ProxyError, Timeout
+
+_RETRYABLE = (ConnectionError, ProxyError, Timeout)
+_MAX_RETRY = 5
 
 
 def get_alpha_result(
@@ -16,10 +22,28 @@ def get_alpha_result(
         tuple: (result_dict, err)
     """
 
-    resp = sess.get(
-        url=f"https://api.worldquantbrain.com/alphas/{alpha_id}",
-        timeout=30
-    )
+    url = f"https://api.worldquantbrain.com/alphas/{alpha_id}"
+    resp = None
+
+    for attempt in range(1, _MAX_RETRY + 1):
+        try:
+            resp = sess.get(url=url, timeout=30)
+        except _RETRYABLE as e:
+            wait = 15 * attempt
+            print(f"  ⚠️  evaluate 网络异常 (attempt {attempt}/{_MAX_RETRY})，{wait}s 后重试: {e}")
+            sleep(wait)
+            continue
+
+        if resp.status_code == 429:
+            wait = int(resp.headers.get("Retry-After", 10))
+            print(f"  ⚠️  evaluate 限流 (attempt {attempt}/{_MAX_RETRY})，等待 {wait} 秒...")
+            sleep(wait)
+            continue
+
+        break
+
+    if resp is None:
+        return None, "查询失败：重试耗尽仍无响应"
     if resp.status_code >= 400:
         return None, f"查询失败: {resp.status_code} {resp.text}"
 
@@ -42,7 +66,6 @@ def get_alpha_result(
     ]
 
     # ── 可选指标：按 check 名称模糊匹配提取 ──────────────────
-    # ⚠️ check 名称以实际 API 返回为准，若对不上可在此调整关键词
     weight_max      = None
     sub_univ_sharpe = None
     self_corr       = None

@@ -1,202 +1,202 @@
 [
   {
-    "name": "new_v1_v13_smooth3",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)"
+    "name": "v4_A1_put90_ivbase40_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),40),40),10)"
   },
   {
-    "name": "new_v2_v13_smooth5",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)"
+    "name": "v4_A2_put90_ivbase60_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),60),40),10)"
   },
   {
-    "name": "new_v3_v13_smooth10",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)"
+    "name": "v4_A3_put90_ivbase90_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),90),40),10)"
   },
   {
-    "name": "new_v4_v12_smooth3",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),3)"
+    "name": "v4_A4_put90_ivbase180_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),10)"
   },
   {
-    "name": "new_v5_v12_smooth5",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),5)"
+    "name": "v4_A5_put90_ivbase240_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),10)"
   },
   {
-    "name": "new_v6_v12_smooth10",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),10)"
+    "name": "v4_B1_put90_iv120_decay5",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)"
   },
   {
-    "name": "new_v7_v13_rank20",
-    "expr": "rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_B2_put90_iv120_decay8",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),8)"
   },
   {
-    "name": "new_v8_v13_rank40",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_B3_put90_iv120_decay15",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),15)"
   },
   {
-    "name": "new_v9_v12_rank20",
-    "expr": "rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_B4_put90_iv120_decay20",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),20)"
   },
   {
-    "name": "new_v10_v12_rank40",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_C1_put90_iv120_mean3",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),3)"
   },
   {
-    "name": "new_v11_v13_rank20_smooth3",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),3)"
+    "name": "v4_C2_put90_iv120_mean8",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),8)"
   },
   {
-    "name": "new_v12_v13_rank40_smooth5",
-    "expr": "ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)"
+    "name": "v4_C3_put90_iv120_mean10",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
   },
   {
-    "name": "new_v13_v12_rank40_smooth5",
-    "expr": "ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),5)"
+    "name": "v4_C4_put90_iv120_mean12",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),12)"
   },
   {
-    "name": "new_v14_v13_iv_smooth5",
-    "expr": "-sign(ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_D1_put90_z20_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),20),10)"
   },
   {
-    "name": "new_v15_v13_iv_smooth10",
-    "expr": "-sign(ts_delta(close,20))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),10)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_D2_put90_z30_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),30),10)"
   },
   {
-    "name": "new_v16_v13_smooth15",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),15)"
+    "name": "v4_D3_put90_z60_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),60),10)"
   },
   {
-    "name": "new_v17_v13_smooth20",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)"
+    "name": "v4_D4_put90_z80_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),80),10)"
   },
   {
-    "name": "new_v18_v12_smooth15",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),15)"
+    "name": "v4_E1_put90_delta5_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,5))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
   },
   {
-    "name": "new_v19_v12_smooth20",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),20)"
+    "name": "v4_E2_put90_delta10_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,10))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
   },
   {
-    "name": "new_v20_rank60_iv120_40",
-    "expr": "rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_E3_put90_delta15_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
   },
   {
-    "name": "new_v21_rank60_iv120_80",
-    "expr": "rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_E4_put90_delta30_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,30))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
   },
   {
-    "name": "new_v22_rank80_iv120_40",
-    "expr": "rank(-ts_delta(close,80))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_F1_put180_iv180_decay5",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)"
   },
   {
-    "name": "new_v23_rank80_iv120_80",
-    "expr": "rank(-ts_delta(close,80))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_F2_put180_iv180_decay8",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),8)"
   },
   {
-    "name": "new_v24_rank60_iv120_smooth5",
-    "expr": "ts_mean(rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)"
+    "name": "v4_F3_put180_iv180_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)"
   },
   {
-    "name": "new_v25_rank60_iv120_smooth10",
-    "expr": "ts_mean(rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)"
+    "name": "v4_F4_put180_iv180_decay15",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),15)"
   },
   {
-    "name": "new_v26_rank40_iv120_80_smooth5",
-    "expr": "ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),5)"
+    "name": "v4_F5_put180_iv180_decay20",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),20)"
   },
   {
-    "name": "new_v27_rank40_iv120_80_smooth10",
-    "expr": "ts_mean(rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),10)"
+    "name": "v4_F6_put180_iv180_mean5",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)"
   },
   {
-    "name": "new_v28_v13_decay10",
-    "expr": "ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)"
+    "name": "v4_F7_put180_iv180_mean10",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)"
   },
   {
-    "name": "new_v29_v13_decay20",
-    "expr": "ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),20)"
+    "name": "v4_G1_delta15_put180_iv60_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),10)"
   },
   {
-    "name": "new_v30_v12_decay10",
-    "expr": "ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),10)"
+    "name": "v4_G2_delta15_put180_iv90_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),90),40),10)"
   },
   {
-    "name": "new_v31_v12_decay20",
-    "expr": "ts_decay_linear(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),20)"
+    "name": "v4_G3_delta15_put180_iv180_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)"
   },
   {
-    "name": "new_v32_sign20_iv180_40",
-    "expr": "-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40)"
+    "name": "v4_G4_delta15_put180_iv240_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),240),40),10)"
   },
   {
-    "name": "new_v33_sign20_iv180_80",
-    "expr": "-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80)"
+    "name": "v4_H1_delta15_put90_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
   },
   {
-    "name": "new_v34_rank40_iv180_40",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40)"
+    "name": "v4_H2_delta15_put90_iv120_mean5",
+    "expr": "ts_mean(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)"
   },
   {
-    "name": "new_v35_rank40_iv180_80",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80)"
+    "name": "v4_H3_delta15_put90_iv90_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),90),40),10)"
   },
   {
-    "name": "new_v36_sign20_iv180_smooth5",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80),5)"
+    "name": "v4_H4_delta15_put90_iv180_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),10)"
   },
   {
-    "name": "new_v37_sign20_iv180_smooth10",
-    "expr": "ts_mean(-sign(ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),80),10)"
+    "name": "v4_H5_delta15_put90_iv240_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),10)"
   },
   {
-    "name": "new_v38_rank40_ivsmooth5_iv120",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_I1_put90_bf3_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),120),40),10)"
   },
   {
-    "name": "new_v39_rank40_ivsmooth10_iv120",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore(ts_mean(ts_backfill(implied_volatility_put_180,5),10)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_I2_put90_bf3_iv120_mean5",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),120),40),5)"
   },
   {
-    "name": "new_v40_sign20_tsrank_iv120_40",
-    "expr": "-sign(ts_delta(close,20))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_I3_put90_bf3_iv180_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),180),40),10)"
   },
   {
-    "name": "new_v41_rank40_tsrank_iv120_80",
-    "expr": "rank(-ts_delta(close,40))*ts_rank(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_I4_put90_bf10_iv120_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,10)-ts_mean(ts_backfill(implied_volatility_put_90,10),120),40),10)"
   },
   {
-    "name": "new_v42_sign40_iv120_40",
-    "expr": "-sign(ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_J1_put90put180_ivsum_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*(ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)+ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),10)"
   },
   {
-    "name": "new_v43_sign40_iv120_80",
-    "expr": "-sign(ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_J2_put90put180_ivsum_mean5",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*(ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)+ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),5)"
   },
   {
-    "name": "new_v44_sign60_iv120_40",
-    "expr": "-sign(ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)"
+    "name": "v4_J3_put90put180_ivproduct_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)"
   },
   {
-    "name": "new_v45_sign60_iv120_80",
-    "expr": "-sign(ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80)"
+    "name": "v4_K1_put90_iv150_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),150),40),10)"
   },
   {
-    "name": "new_v46_sign40_iv120_smooth5",
-    "expr": "ts_mean(-sign(ts_delta(close,40))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)"
+    "name": "v4_K2_put90_iv200_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),200),40),10)"
   },
   {
-    "name": "new_v47_sign60_iv120_smooth5",
-    "expr": "ts_mean(-sign(ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),5)"
+    "name": "v4_K3_put180_iv150_decay10",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),150),40),10)"
   },
   {
-    "name": "new_v48_sign20_skew_iv120_40",
-    "expr": "-sign(ts_delta(close,20))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40)"
+    "name": "v4_L1_put90_iv180_mean5",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),5)"
   },
   {
-    "name": "new_v49_rank40_skew_iv120_40",
-    "expr": "rank(-ts_delta(close,40))*ts_zscore((ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5))-ts_mean(ts_backfill(implied_volatility_put_180,5)-ts_backfill(implied_volatility_call_180,5),120),40)"
+    "name": "v4_L2_put90_iv240_mean5",
+    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),5)"
   },
   {
-    "name": "new_v50_rank60_iv120_80_smooth3",
-    "expr": "ts_mean(rank(-ts_delta(close,60))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),80),3)"
+    "name": "v4_L3_put90_iv180_decay8",
+    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),8)"
   }
 ]
