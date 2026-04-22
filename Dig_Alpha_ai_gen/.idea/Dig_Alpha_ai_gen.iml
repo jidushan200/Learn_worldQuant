@@ -8,6 +8,7 @@
     <orderEntry type="module" module-name="Fetch_Fields" />
     <orderEntry type="module" module-name="worldquant" />
     <orderEntry type="module" module-name="Dig_Alpha_6ways_evaluate" />
+    <orderEntry type="module" module-name="wlan-sec-test-tool" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="GOOGLE" />
