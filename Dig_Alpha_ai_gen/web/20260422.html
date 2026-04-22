@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>通过的 Alpha — 2026-04-22</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 30px;
+      color: #333;
+    }
+    h1 { color: #2c3e50; margin-bottom: 8px; font-size: 22px; }
+    .summary { color: #888; margin-bottom: 24px; font-size: 15px; }
+    .btn-all {
+      display: inline-block;
+      margin-bottom: 28px;
+      padding: 9px 22px;
+      background: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+    .btn-all:hover { opacity: 0.85; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    th {
+      background: #2c3e50;
+      color: white;
+      padding: 13px 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+    tr:hover td { background: #f0f7ff; }
+    .expr {
+      font-family: monospace;
+      font-size: 13px;
+      color: #555;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover { text-decoration: underline; }
+    .tag-sharpe   { color: #27ae60; font-weight: bold; }
+    .tag-fitness  { color: #8e44ad; font-weight: bold; }
+    .tag-turnover { color: #e67e22; font-weight: bold; }
+    .tag-returns  { color: #2980b9; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>Alpha 回测结果 — 2026-04-22</h1>
+<p class="summary">共 <strong>24</strong> 个 alpha 完成回测</p>
+<button class="btn-all" id="btnAll">▶ 一键访问全部 (24)</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>字段</th>
+        <th>Alpha 表达式</th>
+        <th>Sharpe</th>
+        <th>Fitness</th>
+        <th>Turnover</th>
+        <th>Returns</th>
+        <th>链接</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    const BASE  = "https://platform.worldquantbrain.com/alpha/";
+    const items = [
+  { id: "akWez1Vw", field: "gc_001_callput_spread_rank_270d", expr: `rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))`, sharpe: "0.97", fitness: "0.45", turnover: "0.3059", returns: "6.71%" },
+  { id: "Jj5o2NQE", field: "gc_002_callput_zscore_180d", expr: `ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5),60)`, sharpe: "-0.07", fitness: "-0.01", turnover: "0.4788", returns: "-0.37%" },
+  { id: "N15L2KA7", field: "gc_003_termstruct_rank_30v180", expr: `rank(ts_backfill(implied_volatility_mean_30,5)-ts_backfill(implied_volatility_mean_180,5))`, sharpe: "0.07", fitness: "0.01", turnover: "0.2682", returns: "0.71%" },
+  { id: "LLlEzZK6", field: "gc_005_neg_put_rank_270d", expr: `rank(-ts_backfill(implied_volatility_put_270,5))`, sharpe: "0.02", fitness: "0.0", turnover: "0.0545", returns: "0.39%" },
+  { id: "MP5dz3Xn", field: "gc_004_mean_skew_zscore_270d", expr: `ts_zscore(ts_backfill(implied_volatility_mean_skew_270,5),60)`, sharpe: "0.11", fitness: "0.01", turnover: "0.4798", returns: "0.49%" },
+  { id: "om9RGZ15", field: "gc_006_callput_demeaned_rank_270d", expr: `rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5)-ts_mean(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),60))`, sharpe: "0.1", fitness: "0.01", turnover: "0.4497", returns: "0.46%" },
+  { id: "E5rNzMR1", field: "gc_007_call_put_ratio_rank_360d", expr: `rank(ts_backfill(implied_volatility_call_360,5)/ts_backfill(implied_volatility_put_360,5))`, sharpe: "0.8", fitness: "0.38", turnover: "0.2859", returns: "6.31%" },
+  { id: "RRk9KJAz", field: "gc_009_callput_zscore_720d", expr: `ts_zscore(ts_backfill(implied_volatility_call_720,5)-ts_backfill(implied_volatility_put_720,5),60)`, sharpe: "0.14", fitness: "0.02", turnover: "0.4634", returns: "0.75%" },
+  { id: "xAmVWO0l", field: "gc_010_mean_skew_rank_360d", expr: `rank(ts_backfill(implied_volatility_mean_skew_360,5))`, sharpe: "0.98", fitness: "0.5", turnover: "0.3395", returns: "8.93%" },
+  { id: "KPwvQavg", field: "gc_013_parkinson_histvol_zscore_120d", expr: `ts_zscore(ts_backfill(parkinson_volatility_120,5)-ts_backfill(historical_volatility_120,5),60)`, sharpe: "0.71", fitness: "0.48", turnover: "0.1335", returns: "6.10%" },
+  { id: "leRE9Xd7", field: "gc_012_skew_delta_rank_270d_10d", expr: `rank(ts_delta(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),10))`, sharpe: "0.57", fitness: "0.11", turnover: "0.6099", returns: "2.34%" },
+  { id: "78K3MQn1", field: "gc_011_vrp_zscore_180d", expr: `ts_zscore(ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5),60)`, sharpe: "0.36", fitness: "0.13", turnover: "0.2358", returns: "3.00%" },
+  { id: "ZYWgMjdn", field: "gc_015_callput_zscore_1080d", expr: `ts_zscore(ts_backfill(implied_volatility_call_1080,5)-ts_backfill(implied_volatility_put_1080,5),60)`, sharpe: "0.19", fitness: "0.03", turnover: "0.4638", returns: "1.01%" },
+  { id: "A1OemvVY", field: "gc_016_termstruct_ratio_10v360", expr: `rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_360,5))`, sharpe: "-0.27", fitness: "-0.07", turnover: "0.2866", returns: "-2.11%" },
+  { id: "O05RVbqp", field: "gc_014_mean_skew_rank_1080d", expr: `rank(ts_backfill(implied_volatility_mean_skew_1080,5))`, sharpe: "0.86", fitness: "0.39", turnover: "0.347", returns: "6.97%" },
+  { id: "om9RrXqk", field: "gc_019_callput_zscore_90d", expr: `ts_zscore(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5),40)`, sharpe: "-0.13", fitness: "-0.01", turnover: "0.5009", returns: "-0.59%" },
+  { id: "58qrezJ1", field: "gc_018_callput_spread_rank_360d", expr: `rank(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5))`, sharpe: "0.88", fitness: "0.4", turnover: "0.301", returns: "6.28%" },
+  { id: "9qA8mj7r", field: "gc_017_skew_delta_270d_20d", expr: `ts_delta(ts_backfill(implied_volatility_mean_skew_270,5),20)`, sharpe: "-0.0", fitness: "-0.0", turnover: "0.5862", returns: "-0.01%" },
+  { id: "LLlE3ene", field: "gc_020_neg_corr_callput_270d", expr: `-ts_corr(ts_backfill(implied_volatility_call_270,5),ts_backfill(implied_volatility_put_270,5),30)`, sharpe: "-0.04", fitness: "-0.01", turnover: "0.0806", returns: "-0.34%" },
+  { id: "P0Xx8KzJ", field: "gc_021_skew_tsrank_diff_180v360", expr: `ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),60)-ts_rank(ts_backfill(implied_volatility_mean_skew_360,5),60)`, sharpe: "-0.59", fitness: "-0.11", turnover: "0.6037", returns: "-2.15%" },
+  { id: "e7qNElE6", field: "gc_022_call_norm_rank_270d", expr: `rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_mean_270,5))`, sharpe: "0.89", fitness: "0.43", turnover: "0.2914", returns: "6.89%" },
+  { id: "mLxdQ9g5", field: "gc_023_neg_put_norm_zscore_270d", expr: `-ts_zscore(ts_backfill(implied_volatility_put_270,5)/ts_backfill(implied_volatility_mean_270,5),60)`, sharpe: "0.09", fitness: "0.01", turnover: "0.4747", returns: "0.48%" },
+  { id: "A1OeEaYR", field: "gc_024_skew_delta_rank_180d_5d", expr: `rank(ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),5))`, sharpe: "0.44", fitness: "0.06", turnover: "0.7177", returns: "1.47%" },
+  { id: "A1OeEg0R", field: "gc_025_neg_put_norm_zscore_180d", expr: `-ts_zscore(ts_backfill(implied_volatility_put_180,5)/ts_backfill(implied_volatility_mean_180,5),60)`, sharpe: "0.08", fitness: "0.01", turnover: "0.4795", returns: "0.41%" }
+];
+
+    const tbody = document.getElementById("tableBody");
+
+    // ── 动态渲染每行 alpha ──────────────────────────────────
+    items.forEach((item, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${item.field}</td>
+        <td class="expr">${item.expr}</td>
+        <td class="tag-sharpe">${item.sharpe}</td>
+        <td class="tag-fitness">${item.fitness}</td>
+        <td class="tag-turnover">${item.turnover}</td>
+        <td class="tag-returns">${item.returns}</td>
+        <td><a href="${BASE}${item.id}" target="_blank">${item.id}</a></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // ── 一键打开：每隔 300ms 打开一个，防止浏览器拦截 ────────
+    document.getElementById("btnAll").addEventListener("click", () => {
+      items.forEach((item, i) => {
+        setTimeout(() => window.open(BASE + item.id, "_blank"), i * 300);
+      });
+    });
+  </script>
+
+</body>
+</html>

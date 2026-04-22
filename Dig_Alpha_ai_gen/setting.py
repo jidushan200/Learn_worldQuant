@@ -12,14 +12,14 @@ SIMULATION_SETTINGS = {
     "region":         "USA",          # 市场：美国
     "universe":       "TOP3000",      # 股票池：市值前3000
     "delay":          1,              # 延迟：1天
-    "decay":          0,              # 衰减：不衰减
-    "neutralization": "SUBINDUSTRY",  # 中性化：子行业
+    "decay":          4,              # 衰减：不衰减
+    "neutralization": "MARKET",  # 中性化：子行业
     "truncation":     0.08,           # 截断：单只股票权重上限8%
     "pasteurization": "ON",           # 去极值：开启
     "unitHandling":   "VERIFY",       # 单位检查：验证
     "nanHandling":    "OFF",          # NaN处理：关闭
     "language":       "FASTEXPR",     # 表达式语言
-    "visualization":  False,          # 可视化：关闭
+    "visualization":  False           # 可视化：关闭
 }
 
 # ---------- 超时 / 刷新 / 重试 ----------

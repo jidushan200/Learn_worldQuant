@@ -1,202 +1,127 @@
 [
-  {
-    "name": "v4_A1_put90_ivbase40_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),40),40),10)"
-  },
-  {
-    "name": "v4_A2_put90_ivbase60_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),60),40),10)"
-  },
-  {
-    "name": "v4_A3_put90_ivbase90_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),90),40),10)"
-  },
-  {
-    "name": "v4_A4_put90_ivbase180_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),10)"
-  },
-  {
-    "name": "v4_A5_put90_ivbase240_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),10)"
-  },
-  {
-    "name": "v4_B1_put90_iv120_decay5",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)"
-  },
-  {
-    "name": "v4_B2_put90_iv120_decay8",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),8)"
-  },
-  {
-    "name": "v4_B3_put90_iv120_decay15",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),15)"
-  },
-  {
-    "name": "v4_B4_put90_iv120_decay20",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),20)"
-  },
-  {
-    "name": "v4_C1_put90_iv120_mean3",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),3)"
-  },
-  {
-    "name": "v4_C2_put90_iv120_mean8",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),8)"
-  },
-  {
-    "name": "v4_C3_put90_iv120_mean10",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
-  },
-  {
-    "name": "v4_C4_put90_iv120_mean12",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),12)"
-  },
-  {
-    "name": "v4_D1_put90_z20_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),20),10)"
-  },
-  {
-    "name": "v4_D2_put90_z30_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),30),10)"
-  },
-  {
-    "name": "v4_D3_put90_z60_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),60),10)"
-  },
-  {
-    "name": "v4_D4_put90_z80_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),80),10)"
-  },
-  {
-    "name": "v4_E1_put90_delta5_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,5))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
-  },
-  {
-    "name": "v4_E2_put90_delta10_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,10))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
-  },
-  {
-    "name": "v4_E3_put90_delta15_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
-  },
-  {
-    "name": "v4_E4_put90_delta30_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,30))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
-  },
-  {
-    "name": "v4_F1_put180_iv180_decay5",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)"
-  },
-  {
-    "name": "v4_F2_put180_iv180_decay8",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),8)"
-  },
-  {
-    "name": "v4_F3_put180_iv180_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)"
-  },
-  {
-    "name": "v4_F4_put180_iv180_decay15",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),15)"
-  },
-  {
-    "name": "v4_F5_put180_iv180_decay20",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),20)"
-  },
-  {
-    "name": "v4_F6_put180_iv180_mean5",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),5)"
-  },
-  {
-    "name": "v4_F7_put180_iv180_mean10",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)"
-  },
-  {
-    "name": "v4_G1_delta15_put180_iv60_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),60),40),10)"
-  },
-  {
-    "name": "v4_G2_delta15_put180_iv90_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),90),40),10)"
-  },
-  {
-    "name": "v4_G3_delta15_put180_iv180_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),180),40),10)"
-  },
-  {
-    "name": "v4_G4_delta15_put180_iv240_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),240),40),10)"
-  },
-  {
-    "name": "v4_H1_delta15_put90_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),10)"
-  },
-  {
-    "name": "v4_H2_delta15_put90_iv120_mean5",
-    "expr": "ts_mean(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40),5)"
-  },
-  {
-    "name": "v4_H3_delta15_put90_iv90_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),90),40),10)"
-  },
-  {
-    "name": "v4_H4_delta15_put90_iv180_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),10)"
-  },
-  {
-    "name": "v4_H5_delta15_put90_iv240_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,15))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),10)"
-  },
-  {
-    "name": "v4_I1_put90_bf3_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),120),40),10)"
-  },
-  {
-    "name": "v4_I2_put90_bf3_iv120_mean5",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),120),40),5)"
-  },
-  {
-    "name": "v4_I3_put90_bf3_iv180_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,3)-ts_mean(ts_backfill(implied_volatility_put_90,3),180),40),10)"
-  },
-  {
-    "name": "v4_I4_put90_bf10_iv120_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,10)-ts_mean(ts_backfill(implied_volatility_put_90,10),120),40),10)"
-  },
-  {
-    "name": "v4_J1_put90put180_ivsum_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*(ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)+ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),10)"
-  },
-  {
-    "name": "v4_J2_put90put180_ivsum_mean5",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*(ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)+ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40)),5)"
-  },
-  {
-    "name": "v4_J3_put90put180_ivproduct_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),120),40)*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),120),40),10)"
-  },
-  {
-    "name": "v4_K1_put90_iv150_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),150),40),10)"
-  },
-  {
-    "name": "v4_K2_put90_iv200_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),200),40),10)"
-  },
-  {
-    "name": "v4_K3_put180_iv150_decay10",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_180,5)-ts_mean(ts_backfill(implied_volatility_put_180,5),150),40),10)"
-  },
-  {
-    "name": "v4_L1_put90_iv180_mean5",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),5)"
-  },
-  {
-    "name": "v4_L2_put90_iv240_mean5",
-    "expr": "ts_mean(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),240),40),5)"
-  },
-  {
-    "name": "v4_L3_put90_iv180_decay8",
-    "expr": "ts_decay_linear(rank(-ts_delta(close,20))*ts_zscore(ts_backfill(implied_volatility_put_90,5)-ts_mean(ts_backfill(implied_volatility_put_90,5),180),40),8)"
-  }
-]
+    {
+      "name": "gc_001_callput_spread_rank_270d",
+      "expr": "rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_002_callput_zscore_180d",
+      "expr": "ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_003_termstruct_rank_30v180",
+      "expr": "rank(ts_backfill(implied_volatility_mean_30,5)-ts_backfill(implied_volatility_mean_180,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_004_mean_skew_zscore_270d",
+      "expr": "ts_zscore(ts_backfill(implied_volatility_mean_skew_270,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_005_neg_put_rank_270d",
+      "expr": "rank(-ts_backfill(implied_volatility_put_270,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_006_callput_demeaned_rank_270d",
+      "expr": "rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5)-ts_mean(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),60))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_007_call_put_ratio_rank_360d",
+      "expr": "rank(ts_backfill(implied_volatility_call_360,5)/ts_backfill(implied_volatility_put_360,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_008_skew_momentum_270d_20d",
+      "expr": "ts_delta(ts_backfill(implied_volatility_call_270,5),20)-ts_delta(ts_backfill(implied_volatility_put_270,5),20)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_009_callput_zscore_720d",
+      "expr": "ts_zscore(ts_backfill(implied_volatility_call_720,5)-ts_backfill(implied_volatility_put_720,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_010_mean_skew_rank_360d",
+      "expr": "rank(ts_backfill(implied_volatility_mean_skew_360,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_011_vrp_zscore_180d",
+      "expr": "ts_zscore(ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_012_skew_delta_rank_270d_10d",
+      "expr": "rank(ts_delta(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),10))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_013_parkinson_histvol_zscore_120d",
+      "expr": "ts_zscore(ts_backfill(parkinson_volatility_120,5)-ts_backfill(historical_volatility_120,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_014_mean_skew_rank_1080d",
+      "expr": "rank(ts_backfill(implied_volatility_mean_skew_1080,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_015_callput_zscore_1080d",
+      "expr": "ts_zscore(ts_backfill(implied_volatility_call_1080,5)-ts_backfill(implied_volatility_put_1080,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_016_termstruct_ratio_10v360",
+      "expr": "rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_360,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_017_skew_delta_270d_20d",
+      "expr": "ts_delta(ts_backfill(implied_volatility_mean_skew_270,5),20)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_018_callput_spread_rank_360d",
+      "expr": "rank(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_019_callput_zscore_90d",
+      "expr": "ts_zscore(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5),40)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_020_neg_corr_callput_270d",
+      "expr": "-ts_corr(ts_backfill(implied_volatility_call_270,5),ts_backfill(implied_volatility_put_270,5),30)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_021_skew_tsrank_diff_180v360",
+      "expr": "ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),60)-ts_rank(ts_backfill(implied_volatility_mean_skew_360,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_022_call_norm_rank_270d",
+      "expr": "rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_mean_270,5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_023_neg_put_norm_zscore_270d",
+      "expr": "-ts_zscore(ts_backfill(implied_volatility_put_270,5)/ts_backfill(implied_volatility_mean_270,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_024_skew_delta_rank_180d_5d",
+      "expr": "rank(ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),5))",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    },
+    {
+      "name": "gc_025_neg_put_norm_zscore_180d",
+      "expr": "-ts_zscore(ts_backfill(implied_volatility_put_180,5)/ts_backfill(implied_volatility_mean_180,5),60)",
+      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    }
+  ]

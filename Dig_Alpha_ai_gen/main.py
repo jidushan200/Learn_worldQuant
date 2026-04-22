@@ -27,7 +27,8 @@ def _load_alpha_list() -> list[dict]:
     for item in alphas:
         name     = item["name"]
         expr     = item["expr"]
-        settings = item.get("settings", SIMULATION_SETTINGS)
+        custom   = item.get("setting", {})            # 合并设置：以 SIMULATION_SETTINGS 为默认底，
+        settings = {**SIMULATION_SETTINGS, **custom}  # alpha.json 中定义的字段按需覆盖，未定义的字段保留默认值
 
         payload = {
             "type":     "REGULAR",
@@ -43,17 +44,29 @@ def _load_alpha_list() -> list[dict]:
     return alpha_list
 
 
-def _get_session() -> object:
+def _get_session(max_retries: int = 3, retry_delay: float = 5.0) -> object:
     need_new = (
         not hasattr(_thread_local, "sess")
         or _thread_local.sess is None
         or time.time() - _thread_local.session_start > SESSION_REFRESH_INTERVAL
     )
     if need_new:
-        sess, status = create_authenticated_session()
-        _thread_local.sess       = sess
-        _thread_local.session_start = time.time()
-        print(f"  🔑 [线程 {threading.current_thread().name}] 认证成功: {status}")
+        last_err = None
+        for attempt in range(1, max_retries + 1):
+            try:
+                sess, status = create_authenticated_session()
+                _thread_local.sess          = sess
+                _thread_local.session_start = time.time()
+                print(f"  🔑 [线程 {threading.current_thread().name}] 认证成功: {status}")
+                last_err = None
+                break
+            except Exception as e:
+                last_err = e
+                print(f"  ⚠️  [线程 {threading.current_thread().name}] 认证失败 (第 {attempt}/{max_retries} 次): {e}")
+                if attempt < max_retries:
+                    time.sleep(retry_delay)
+        if last_err:
+            raise last_err
 
     return _thread_local.sess
 
@@ -64,7 +77,12 @@ def _process_one(item: dict, index: int, total: int) -> dict:
     expr     = payload["regular"]
     settings = payload["settings"]
 
-    sess = _get_session()
+    try:
+        sess = _get_session()
+    except Exception as e:
+        err = f"认证失败: {e}"
+        log_result(index, total, None, field_id, expr, settings, None, err)
+        return {"alpha_id": None, "field_id": field_id, "expr": expr, "error": err}
 
     # ── 提交回测 ─────────────────────────────────────────────
     alpha_id, err, _ = submit_and_wait(
@@ -107,8 +125,8 @@ def main():
     total      = len(alpha_list)
     log_start(total)
 
-    all_results    = []
-    results_lock   = threading.Lock()
+    all_results     = []
+    results_lock    = threading.Lock()
     completed_count = 0
 
     with ThreadPoolExecutor(

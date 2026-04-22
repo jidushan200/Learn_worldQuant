@@ -1,0 +1,204 @@
+{"type": "start", "timestamp": "2026-04-22 21:38:36", "total": 25}
+{"QP5Ovd5K","expr":"(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5)","sharpe":2.13,"fitness":0.77,"turnover":0.7707}
+【2026_04_22 21:40:32】
+{"gJoXe7Mv","expr":"ts_zscore(ts_backfill(implied_volatility_mean_skew_180,5),60)","sharpe":-0.02,"fitness":-0.0,"turnover":1.0353}
+【2026_04_22 21:41:01】
+{"kqLvNeKk","expr":"rank((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))/ts_backfill(implied_volatility_mean_90,5))","sharpe":1.39,"fitness":0.31,"turnover":0.8716}
+【2026_04_22 21:41:02】
+{"P0Xxov9L","expr":"ts_backfill(implied_volatility_mean_30,5)-ts_backfill(implied_volatility_mean_180,5)","sharpe":0.1,"fitness":0.01,"turnover":0.7484}
+【2026_04_22 21:42:52】
+{"d5lYWxzw","expr":"rank(ts_backfill(implied_volatility_mean_skew_270,5))","sharpe":1.15,"fitness":0.32,"turnover":0.792}
+【2026_04_22 21:43:29】
+{"e7qN5bRl","expr":"rank(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))","sharpe":1.3,"fitness":0.29,"turnover":0.8807}
+【2026_04_22 21:44:40】
+{"akWeKVM1","expr":"ts_delta(ts_backfill(implied_volatility_call_180,5),20)-ts_delta(ts_backfill(implied_volatility_put_180,5),20)","sharpe":-0.79,"fitness":-0.18,"turnover":1.1012}
+【2026_04_22 21:45:08】
+{"YPW81lrw","expr":"ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5)","sharpe":0.08,"fitness":0.01,"turnover":0.2772}
+【2026_04_22 21:45:47】
+{"gJoXedG0","expr":"rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_put_270,5))","sharpe":1.76,"fitness":0.51,"turnover":0.7531}
+【2026_04_22 21:46:53】
+{"YPW81O66","expr":"ts_zscore((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),40)","sharpe":-0.19,"fitness":-0.01,"turnover":1.1386}
+【2026_04_22 21:47:21】
+{"RRk9Exxb","expr":"ts_zscore(ts_backfill(implied_volatility_call_180,5),60)-ts_zscore(ts_backfill(implied_volatility_put_180,5),60)","sharpe":-0.33,"fitness":-0.03,"turnover":1.029}
+【2026_04_22 21:48:01】
+{"kqLvaqPK","expr":"ts_backfill(parkinson_volatility_30,5)/ts_backfill(historical_volatility_30,5)","sharpe":-0.28,"fitness":-0.07,"turnover":0.2448}
+【2026_04_22 21:49:14】
+{"A1OexM3Q","expr":"ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),10)","sharpe":-0.45,"fitness":-0.07,"turnover":1.1909}
+【2026_04_22 21:50:22】
+{"2rn95Q1Y","expr":"rank(ts_backfill(implied_volatility_mean_skew_90,5))","sharpe":0.67,"fitness":0.15,"turnover":0.8154}
+【2026_04_22 21:51:39】
+{"XgYVakql","expr":"ts_rank(ts_backfill(implied_volatility_call_180,5),60)-ts_rank(ts_backfill(implied_volatility_put_180,5),60)","sharpe":-0.18,"fitness":-0.01,"turnover":1.0562}
+【2026_04_22 21:52:55】
+{"zqJgd5zo","expr":"ts_backfill(implied_volatility_mean_10,5)-ts_backfill(implied_volatility_mean_90,5)","sharpe":0.1,"fitness":0.01,"turnover":0.8148}
+【2026_04_22 21:52:57】
+{"blWJaqoM","expr":"rank(ts_backfill(implied_volatility_mean_60,5)-ts_backfill(parkinson_volatility_60,5))","sharpe":0.25,"fitness":0.05,"turnover":0.3912}
+【2026_04_22 21:54:02】
+{"e7qNaQQl","expr":"(ts_backfill(implied_volatility_mean_360,5)-ts_backfill(implied_volatility_mean_30,5))/ts_backfill(implied_volatility_mean_180,5)","sharpe":0.21,"fitness":0.03,"turnover":0.7519}
+【2026_04_22 21:55:39】
+{"A1OexLWR","expr":"rank(ts_delta(ts_backfill(implied_volatility_mean_skew_360,5),20))","sharpe":0.6,"fitness":0.07,"turnover":1.0119}
+【2026_04_22 21:56:39】
+{"6XYZMGpK","expr":"ts_zscore(ts_backfill(implied_volatility_call_720,5)-ts_backfill(implied_volatility_put_720,5),60)","sharpe":-0.13,"fitness":-0.01,"turnover":1.0271}
+【2026_04_22 21:56:45】
+{"leREaYa5","expr":"(ts_backfill(implied_volatility_call_60,5)-ts_backfill(implied_volatility_put_60,5))-(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))","sharpe":-0.38,"fitness":-0.06,"turnover":1.1828}
+【2026_04_22 21:58:35】
+{"zqJgAqOR","expr":"-ts_corr(ts_backfill(implied_volatility_call_90,5),ts_backfill(implied_volatility_put_90,5),30)","sharpe":-0.42,"fitness":-0.16,"turnover":0.1191}
+【2026_04_22 22:00:16】
+{"88KVGba7","expr":"rank(-ts_backfill(implied_volatility_mean_skew_30,5))","sharpe":-0.45,"fitness":-0.07,"turnover":0.9116}
+【2026_04_22 22:00:44】
+{"58qrGbaz","expr":"ts_zscore(ts_backfill(implied_volatility_call_180,5)/ts_backfill(historical_volatility_180,5),40)","sharpe":0.46,"fitness":0.08,"turnover":0.7066}
+【2026_04_22 22:01:01】
+{"58qrG6kn","expr":"ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),60)-0.5","sharpe":0.03,"fitness":0.0,"turnover":0.9756}
+【2026_04_22 22:03:21】
+{"type": "end", "timestamp": "2026-04-22 22:03:21", "total": 25, "succeeded": 25, "failed": 0}
+{"type": "start", "timestamp": "2026-04-22 22:07:02", "total": 25}
+{"A1OeLEqg","expr":"ts_decay_linear(ts_scale(ts_backfill(est_cashflow_op,60),252),22)-ts_decay_linear(ts_scale(ts_backfill(est_capex,60),252),22)","sharpe":0.94,"fitness":0.49,"turnover":0.027}
+【2026_04_22 22:08:23】
+{"XgYVNZzm","expr":"rank(ts_zscore(ts_backfill(cashflow_op,60),252)-ts_zscore(ts_backfill(capex,60),252))","sharpe":0.64,"fitness":0.29,"turnover":0.024}
+【2026_04_22 22:09:28】
+{"gJoXrlAm","expr":"rank(ts_backfill(cashflow_op,60)/ts_backfill(assets,60))","sharpe":0.26,"fitness":0.14,"turnover":0.013}
+【2026_04_22 22:09:32】
+{"QP5OOZmr","expr":"ts_decay_linear(ts_zscore(ts_backfill(operating_income,60),252),11)","sharpe":0.86,"fitness":0.57,"turnover":0.0463}
+【2026_04_22 22:10:41】
+{"om9RR7pE","expr":"rank(ts_delta(ts_backfill(cashflow_op,60),252)/ts_backfill(assets,60))","sharpe":0.19,"fitness":0.05,"turnover":0.0184}
+【2026_04_22 22:10:56】
+{"VkYZZnV0","expr":"ts_decay_linear(ts_rank(ts_backfill(ebitda,60),252),22)","sharpe":0.15,"fitness":0.04,"turnover":0.0205}
+【2026_04_22 22:12:08】
+{"mLxddO01","expr":"ts_zscore(ts_backfill(income,60)/ts_backfill(assets,60),252)","sharpe":0.53,"fitness":0.23,"turnover":0.0619}
+【2026_04_22 22:12:21】
+{"O05RRwGq","expr":"rank((ts_backfill(cashflow_op,60)-ts_backfill(capex,60))/ts_backfill(revenue,60))","sharpe":0.14,"fitness":0.05,"turnover":0.0137}
+【2026_04_22 22:12:44】
+{"wpJ33en1","expr":"ts_decay_linear(rank(ts_backfill(cashflow_op,60)-ts_backfill(capex,60)),22)","sharpe":0.19,"fitness":0.08,"turnover":0.0084}
+【2026_04_22 22:14:33】
+{"Gr3XXG6P","expr":"rank(ts_delta(ts_backfill(inventory_turnover,60),252))","sharpe":0.23,"fitness":0.06,"turnover":0.0359}
+【2026_04_22 22:15:28】
+{"MP5dd028","expr":"ts_decay_linear(rank((ts_backfill(cashflow_op,60)/ts_backfill(revenue,60))*(ts_delta(ts_backfill(inventory_turnover,60),252)/ts_backfill(inventory_turnover,60))),22)","sharpe":-0.03,"fitness":-0.0,"turnover":0.0245}
+【2026_04_22 22:16:45】
+{"vRJZZYPz","expr":"ts_decay_linear(ts_zscore(ts_backfill(est_cashflow_op,60),252),22)","sharpe":0.37,"fitness":0.14,"turnover":0.0532}
+【2026_04_22 22:17:29】
+{"P0Xxxb9q","expr":"rank(ts_backfill(working_capital,60)/ts_backfill(revenue,60))","sharpe":-0.6,"fitness":-0.43,"turnover":0.0148}
+【2026_04_22 22:18:56】
+{"1YnOOAMX","expr":"ts_decay_linear(rank(ts_delta(ts_backfill(cashflow_op,60),252)/ts_backfill(assets,60))*rank(ts_delta(ts_backfill(inventory_turnover,60),252)),22)","sharpe":0.03,"fitness":0.0,"turnover":0.0217}
+【2026_04_22 22:19:23】
+{"mLxddn6W","expr":"ts_decay_linear(ts_zscore(ts_backfill(ebit,60),252),11)","sharpe":0.4,"fitness":0.17,"turnover":0.0684}
+【2026_04_22 22:19:32】
+{"0mKxN3oG","expr":"rank(-ts_backfill(debt,60)/ts_backfill(ebitda,60))","sharpe":-0.82,"fitness":-0.65,"turnover":0.0141}
+【2026_04_22 22:21:35】
+{"58qrAoKJ","expr":"ts_decay_linear(ts_scale(ts_backfill(ebitda,60),252)-ts_scale(ts_backfill(capex,60),252),22)","sharpe":0.39,"fitness":0.17,"turnover":0.0172}
+【2026_04_22 22:21:55】
+{"om9RJAjk","expr":"ts_decay_linear(rank(ts_backfill(operating_income,60)/ts_backfill(assets,60)),22)","sharpe":0.3,"fitness":0.17,"turnover":0.0159}
+【2026_04_22 22:23:20】
+{"A1Oerkll","expr":"ts_zscore(ts_backfill(cashflow_op,60),126)-ts_zscore(ts_backfill(income,60),126)","sharpe":0.64,"fitness":0.27,"turnover":0.1742}
+【2026_04_22 22:24:39】
+{"vRJZpdpA","expr":"rank(ts_backfill(est_cashflow_op,60)/ts_backfill(est_capex,60))","sharpe":0.46,"fitness":0.25,"turnover":0.0159}
+【2026_04_22 22:24:40】
+{"mLxd08N1","expr":"ts_decay_linear(ts_rank(ts_backfill(cashflow_op,60)/ts_backfill(assets,60),252),22)","sharpe":0.72,"fitness":0.29,"turnover":0.0235}
+【2026_04_22 22:25:09】
+{"E5rN86V0","expr":"rank(ts_delta(ts_backfill(cashflow_op,60),252)/ts_backfill(revenue,60))","sharpe":-0.05,"fitness":-0.01,"turnover":0.019}
+【2026_04_22 22:27:11】
+{"om9RJJ82","expr":"ts_decay_linear(ts_zscore(ts_backfill(cashflow_op,60)-ts_backfill(capex,60),126),22)","sharpe":0.56,"fitness":0.27,"turnover":0.1279}
+【2026_04_22 22:27:58】
+{"om9RJGWE","expr":"ts_decay_linear(rank(ts_backfill(return_assets,60))*rank(ts_delta(ts_backfill(inventory_turnover,60),252)),22)","sharpe":-0.06,"fitness":-0.01,"turnover":0.0235}
+【2026_04_22 22:28:22】
+{"vRJZpWAd","expr":"ts_decay_linear(ts_zscore(ts_backfill(est_ebitda,60),252)-ts_zscore(ts_backfill(est_capex,60),252),22)","sharpe":0.75,"fitness":0.4,"turnover":0.0558}
+【2026_04_22 22:30:27】
+{"type": "end", "timestamp": "2026-04-22 22:30:27", "total": 25, "succeeded": 25, "failed": 0}
+{"type": "start", "timestamp": "2026-04-22 22:33:18", "total": 25}
+{"akWez1Vw","expr":"rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))","sharpe":0.97,"fitness":0.45,"turnover":0.3059}
+【2026_04_22 22:36:00】
+{"MP5dz3Xn","expr":"ts_zscore(ts_backfill(implied_volatility_mean_skew_270,5),60)","sharpe":0.11,"fitness":0.01,"turnover":0.4798}
+【2026_04_22 22:36:48】
+{"LLlEzZK6","expr":"rank(-ts_backfill(implied_volatility_put_270,5))","sharpe":0.02,"fitness":0.0,"turnover":0.0545}
+【2026_04_22 22:36:56】
+{"om9RGZ15","expr":"rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5)-ts_mean(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),60))","sharpe":0.1,"fitness":0.01,"turnover":0.4497}
+【2026_04_22 22:38:54】
+{"E5rNzMR1","expr":"rank(ts_backfill(implied_volatility_call_360,5)/ts_backfill(implied_volatility_put_360,5))","sharpe":0.8,"fitness":0.38,"turnover":0.2859}
+【2026_04_22 22:39:34】
+{"zqJgGxzo","expr":"ts_delta(ts_backfill(implied_volatility_call_270,5),20)-ts_delta(ts_backfill(implied_volatility_put_270,5),20)","sharpe":-0.14,"fitness":-0.02,"turnover":0.5347}
+【2026_04_22 22:40:08】
+{"RRk9KJAz","expr":"ts_zscore(ts_backfill(implied_volatility_call_720,5)-ts_backfill(implied_volatility_put_720,5),60)","sharpe":0.14,"fitness":0.02,"turnover":0.4634}
+【2026_04_22 22:41:00】
+{"xAmVWO0l","expr":"rank(ts_backfill(implied_volatility_mean_skew_360,5))","sharpe":0.98,"fitness":0.5,"turnover":0.3395}
+【2026_04_22 22:41:16】
+{"leRE9Xd7","expr":"rank(ts_delta(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),10))","sharpe":0.57,"fitness":0.11,"turnover":0.6099}
+【2026_04_22 22:42:29】
+{"KPwvQavg","expr":"ts_zscore(ts_backfill(parkinson_volatility_120,5)-ts_backfill(historical_volatility_120,5),60)","sharpe":0.71,"fitness":0.48,"turnover":0.1335}
+【2026_04_22 22:42:39】
+{"78K3MQn1","expr":"ts_zscore(ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5),60)","sharpe":0.36,"fitness":0.13,"turnover":0.2358}
+【2026_04_22 22:44:11】
+{"O05RVbqp","expr":"rank(ts_backfill(implied_volatility_mean_skew_1080,5))","sharpe":0.86,"fitness":0.39,"turnover":0.347}
+【2026_04_22 22:44:37】
+{"ZYWgMjdn","expr":"ts_zscore(ts_backfill(implied_volatility_call_1080,5)-ts_backfill(implied_volatility_put_1080,5),60)","sharpe":0.19,"fitness":0.03,"turnover":0.4638}
+【2026_04_22 22:45:03】
+{"58qrezJ1","expr":"rank(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5))","sharpe":0.88,"fitness":0.4,"turnover":0.301}
+【2026_04_22 22:47:07】
+{"A1OemvVY","expr":"rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_360,5))","sharpe":-0.27,"fitness":-0.07,"turnover":0.2866}
+【2026_04_22 22:47:18】
+{"9qA8mj7r","expr":"ts_delta(ts_backfill(implied_volatility_mean_skew_270,5),20)","sharpe":-0.0,"fitness":-0.0,"turnover":0.5862}
+【2026_04_22 22:47:28】
+{"P0Xx8KzJ","expr":"ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),60)-ts_rank(ts_backfill(implied_volatility_mean_skew_360,5),60)","sharpe":-0.59,"fitness":-0.11,"turnover":0.6037}
+【2026_04_22 22:49:28】
+{"om9RrXqk","expr":"ts_zscore(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5),40)","sharpe":-0.13,"fitness":-0.01,"turnover":0.5009}
+【2026_04_22 22:49:52】
+{"e7qNElE6","expr":"rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_mean_270,5))","sharpe":0.89,"fitness":0.43,"turnover":0.2914}
+【2026_04_22 22:51:40】
+{"mLxdQ9g5","expr":"-ts_zscore(ts_backfill(implied_volatility_put_270,5)/ts_backfill(implied_volatility_mean_270,5),60)","sharpe":0.09,"fitness":0.01,"turnover":0.4747}
+【2026_04_22 22:53:36】
+{"LLlE3ene","expr":"-ts_corr(ts_backfill(implied_volatility_call_270,5),ts_backfill(implied_volatility_put_270,5),30)","sharpe":-0.04,"fitness":-0.01,"turnover":0.0806}
+【2026_04_22 22:54:15】
+{"A1OeEaYR","expr":"rank(ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),5))","sharpe":0.44,"fitness":0.06,"turnover":0.7177}
+【2026_04_22 22:55:21】
+{"A1OeEg0R","expr":"-ts_zscore(ts_backfill(implied_volatility_put_180,5)/ts_backfill(implied_volatility_mean_180,5),60)","sharpe":0.08,"fitness":0.01,"turnover":0.4795}
+【2026_04_22 22:56:02】
+{"type": "start", "timestamp": "2026-04-22 23:07:40", "total": 25}
+{"type": "start", "timestamp": "2026-04-22 23:07:51", "total": 25}
+{"akWez1Vw","expr":"rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))","sharpe":0.97,"fitness":0.45,"turnover":0.3059}
+【2026_04_22 23:09:27】
+{"Jj5o2NQE","expr":"ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5),60)","sharpe":-0.07,"fitness":-0.01,"turnover":0.4788}
+【2026_04_22 23:09:31】
+{"N15L2KA7","expr":"rank(ts_backfill(implied_volatility_mean_30,5)-ts_backfill(implied_volatility_mean_180,5))","sharpe":0.07,"fitness":0.01,"turnover":0.2682}
+【2026_04_22 23:10:41】
+{"LLlEzZK6","expr":"rank(-ts_backfill(implied_volatility_put_270,5))","sharpe":0.02,"fitness":0.0,"turnover":0.0545}
+【2026_04_22 23:11:38】
+{"MP5dz3Xn","expr":"ts_zscore(ts_backfill(implied_volatility_mean_skew_270,5),60)","sharpe":0.11,"fitness":0.01,"turnover":0.4798}
+【2026_04_22 23:12:01】
+{"om9RGZ15","expr":"rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5)-ts_mean(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),60))","sharpe":0.1,"fitness":0.01,"turnover":0.4497}
+【2026_04_22 23:12:19】
+{"E5rNzMR1","expr":"rank(ts_backfill(implied_volatility_call_360,5)/ts_backfill(implied_volatility_put_360,5))","sharpe":0.8,"fitness":0.38,"turnover":0.2859}
+【2026_04_22 23:13:32】
+{"—","expr":"ts_delta(ts_backfill(implied_volatility_call_270,5),20)-ts_delta(ts_backfill(implied_volatility_put_270,5),20)","error":"提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+【2026_04_22 23:13:36】
+{"RRk9KJAz","expr":"ts_zscore(ts_backfill(implied_volatility_call_720,5)-ts_backfill(implied_volatility_put_720,5),60)","sharpe":0.14,"fitness":0.02,"turnover":0.4634}
+【2026_04_22 23:14:18】
+{"xAmVWO0l","expr":"rank(ts_backfill(implied_volatility_mean_skew_360,5))","sharpe":0.98,"fitness":0.5,"turnover":0.3395}
+【2026_04_22 23:15:03】
+{"KPwvQavg","expr":"ts_zscore(ts_backfill(parkinson_volatility_120,5)-ts_backfill(historical_volatility_120,5),60)","sharpe":0.71,"fitness":0.48,"turnover":0.1335}
+【2026_04_22 23:17:21】
+{"leRE9Xd7","expr":"rank(ts_delta(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),10))","sharpe":0.57,"fitness":0.11,"turnover":0.6099}
+【2026_04_22 23:17:31】
+{"78K3MQn1","expr":"ts_zscore(ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5),60)","sharpe":0.36,"fitness":0.13,"turnover":0.2358}
+【2026_04_22 23:18:17】
+{"ZYWgMjdn","expr":"ts_zscore(ts_backfill(implied_volatility_call_1080,5)-ts_backfill(implied_volatility_put_1080,5),60)","sharpe":0.19,"fitness":0.03,"turnover":0.4638}
+【2026_04_22 23:19:50】
+{"A1OemvVY","expr":"rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_360,5))","sharpe":-0.27,"fitness":-0.07,"turnover":0.2866}
+【2026_04_22 23:20:19】
+{"O05RVbqp","expr":"rank(ts_backfill(implied_volatility_mean_skew_1080,5))","sharpe":0.86,"fitness":0.39,"turnover":0.347}
+【2026_04_22 23:20:34】
+{"om9RrXqk","expr":"ts_zscore(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5),40)","sharpe":-0.13,"fitness":-0.01,"turnover":0.5009}
+【2026_04_22 23:22:37】
+{"58qrezJ1","expr":"rank(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5))","sharpe":0.88,"fitness":0.4,"turnover":0.301}
+【2026_04_22 23:23:16】
+{"9qA8mj7r","expr":"ts_delta(ts_backfill(implied_volatility_mean_skew_270,5),20)","sharpe":-0.0,"fitness":-0.0,"turnover":0.5862}
+【2026_04_22 23:23:40】
+{"LLlE3ene","expr":"-ts_corr(ts_backfill(implied_volatility_call_270,5),ts_backfill(implied_volatility_put_270,5),30)","sharpe":-0.04,"fitness":-0.01,"turnover":0.0806}
+【2026_04_22 23:25:05】
+{"P0Xx8KzJ","expr":"ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),60)-ts_rank(ts_backfill(implied_volatility_mean_skew_360,5),60)","sharpe":-0.59,"fitness":-0.11,"turnover":0.6037}
+【2026_04_22 23:26:00】
+{"e7qNElE6","expr":"rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_mean_270,5))","sharpe":0.89,"fitness":0.43,"turnover":0.2914}
+【2026_04_22 23:26:10】
+{"mLxdQ9g5","expr":"-ts_zscore(ts_backfill(implied_volatility_put_270,5)/ts_backfill(implied_volatility_mean_270,5),60)","sharpe":0.09,"fitness":0.01,"turnover":0.4747}
+【2026_04_22 23:27:14】
+{"A1OeEaYR","expr":"rank(ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),5))","sharpe":0.44,"fitness":0.06,"turnover":0.7177}
+【2026_04_22 23:27:58】
+{"A1OeEg0R","expr":"-ts_zscore(ts_backfill(implied_volatility_put_180,5)/ts_backfill(implied_volatility_mean_180,5),60)","sharpe":0.08,"fitness":0.01,"turnover":0.4795}
+【2026_04_22 23:29:55】
+{"type": "end", "timestamp": "2026-04-22 23:29:55", "total": 25, "succeeded": 24, "failed": 1}

@@ -1,0 +1,93 @@
+*Thinking...*
+
+> The user wants me to do a direction confirmation, precise to the day. They want a specific plan with exact dates. Since today is April 22, 2026, I'll create a detailed timeline/roadmap.
+> 
+> Let me think about what they're asking. They want a day-by-day or date-specific action plan for the next steps in their Alpha generation/research process. I should create a concrete timeline with specific dates.
+> 
+> Let me plan this out carefully:
+> 
+> Current status: 1000+ Alphas generated
+> Today: April 22, 2026
+> 
+> I need to create a timeline that covers:
+> 1. Quality screening/backtesting phase
+> 2. Analysis/clustering phase
+> 
+> 
+> 3. Direction decision phase
+> 4. New generation phase
+> 
+> Now I'm thinking through reasonable timeframes for each phase and assigning specific dates to build out the full roadmap.
+
+## Alpha 研究路线图 · 精确日期确认
+
+**基准日期：2026年4月22日（今天）**
+
+---
+
+### 第一阶段：质量筛选期
+**2026年4月22日 — 2026年5月6日（共15天）**
+
+| 日期 | 任务 | 交付物 |
+|------|------|--------|
+| 4月22日 | 将全部1000个Alpha提交WorldQuant Brain回测 | 提交记录 |
+| 4月23日—4月27日 | 等待回测结果，整理原始输出数据 | 原始结果表 |
+| 4月28日 | 按Sharpe、Fitness、Turnover、Drawdown四个维度打分 | 评分矩阵 |
+| 4月29日—4月30日 | 筛除Fitness < 1.0 / Sharpe < 0.5 的Alpha | 淘汰名单 |
+| 5月1日—5月3日 | 对存活Alpha做相关性聚类，识别重复信号 | 聚类图 |
+| 5月4日—5月6日 | 识别表现最强的Setting组合和因子类别 | 热力图报告 |
+
+---
+
+### 第二阶段：方向决策期
+**2026年5月7日 — 2026年5月10日（共4天）**
+
+| 日期 | 任务 | 决策内容 |
+|------|------|---------|
+| 5月7日 | 分析哪个Neutralization层级胜出最多 | SUBINDUSTRY / INDUSTRY / SECTOR / MARKET 优先级排序 |
+| 5月8日 | 分析哪个因子类别（技术/基本面/期权/复合）胜出最多 | 下一批次的因子方向 |
+| 5月9日 | 分析哪个Region/Universe还未被充分探索 | CHN / TOP500 等候选 |
+| 5月10日 | **方向确认会议**，锁定下一阶段三个主攻方向 | **正式方向决策文档** |
+
+---
+
+### 第三阶段：新一轮Alpha生成期
+**2026年5月11日 — 2026年6月30日（共51天）**
+
+分三条并行轨道推进：
+
+**轨道A · 新Region（5月11日—5月31日）**
+- 5月11日—5月20日：生成500个 CHN / TOP3000 Alpha
+- 5月21日—5月31日：生成500个 EUR + JPN Alpha
+
+**轨道B · 新因子类别（5月11日—6月15日）**
+- 5月11日—5月25日：事件驱动类Alpha（盈利预期修正、分析师调整）200个
+- 5月26日—6月15日：跨资产信号类Alpha（credit proxy、利率敏感度）200个
+
+**轨道C · 复合Alpha精炼（6月1日—6月30日）**
+- 6月1日—6月10日：从存活Alpha中选出Top 30
+- 6月11日—6月20日：组合优化，构建加权复合Alpha
+- 6月21日—6月30日：最终回测验证，准备提交
+
+---
+
+### 关键节点汇总
+
+```
+4月22日 ──→ 5月6日 ──→ 5月10日 ──→ 6月30日
+  提交回测     筛选完毕     方向锁定     第二轮完成
+  （今天）    （15天后）   （19天后）   （69天后）
+```
+
+---
+
+### 现在需要你确认的三件事
+
+**① 回测资源确认**
+你目前在Brain上的回测配额是否足够支撑1000个Alpha同时提交？还是需要分批？
+
+**② 方向优先级确认**
+三条轨道（新Region / 新因子 / 复合精炼）中，你希望哪条最先启动？
+
+**③ 时间节奏确认**
+15天的筛选期是否符合你的实际节奏，还是需要压缩或延长？

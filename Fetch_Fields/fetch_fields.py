@@ -1,8 +1,7 @@
 from time import sleep
 import textwrap
 import pandas as pd
-from auth_client import create_authenticated_session
-from setting import SEARCH_SCOPE, DATASET_ID, FIELD_TYPE, OUTPUT_CSV
+from setting import FIELD_TYPE
 
 
 def get_datafields(
@@ -11,7 +10,7 @@ def get_datafields(
     dataset_id: str = '',
     search: str = '',
     field_type: str = FIELD_TYPE,
-    output_csv: str = OUTPUT_CSV
+    output_csv: str = 'output.csv'
 ) -> tuple:
     """
     拉取 WorldQuant BRAIN 数据字段，过滤后保存 CSV
@@ -22,7 +21,7 @@ def get_datafields(
         dataset_id  : 指定数据集，如 'fundamental6'
         search      : 关键词搜索（与 dataset_id 二选一）
         field_type  : 过滤字段类型，默认 'MATRIX'
-        output_csv  : 保存路径，默认 'fundamental6_fields.csv'
+        output_csv  : 保存路径
 
     返回:
         tuple: (df_filtered, datafields)
@@ -90,7 +89,7 @@ def get_datafields(
     print(f"已保存至 {output_csv}")
 
     # 额外保存只有 id 列的 CSV
-    ids_csv = output_csv.replace('.csv', '_ids.csv')
+    ids_csv = output_csv.replace('full_', 'id_')
     df_filtered[['id']].to_csv(ids_csv, index=False)
     print(f"已保存 id 列表至 {ids_csv}\n")
 
@@ -100,18 +99,3 @@ def get_datafields(
     print(f"字段 id 列表:\n[{wrapped}]\n")
 
     return df_filtered, datafields
-
-
-# ============================================================
-# 直接运行时的测试入口
-# ============================================================
-if __name__ == '__main__':
-    sess, status = create_authenticated_session()
-    print(f"认证状态: {status}\n")
-
-    df, datafields = get_datafields(
-        s=sess,
-        searchScope=SEARCH_SCOPE,
-        dataset_id=DATASET_ID
-    )
-    print(df[['id', 'description', 'coverage']].head(10))
