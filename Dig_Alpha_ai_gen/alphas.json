@@ -1,127 +1,27 @@
 [
+  {
+    "name": "gc_147_stability_weight",
+    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)",
+    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+  },
+  {
+    "name": "gc_148_stability_decay",
+    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)",
+    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":3,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+  },
     {
-      "name": "gc_001_callput_spread_rank_270d",
-      "expr": "rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_002_callput_zscore_180d",
-      "expr": "ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_003_termstruct_rank_30v180",
-      "expr": "rank(ts_backfill(implied_volatility_mean_30,5)-ts_backfill(implied_volatility_mean_180,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_004_mean_skew_zscore_270d",
-      "expr": "ts_zscore(ts_backfill(implied_volatility_mean_skew_270,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_005_neg_put_rank_270d",
-      "expr": "rank(-ts_backfill(implied_volatility_put_270,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_006_callput_demeaned_rank_270d",
-      "expr": "rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5)-ts_mean(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),60))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_007_call_put_ratio_rank_360d",
-      "expr": "rank(ts_backfill(implied_volatility_call_360,5)/ts_backfill(implied_volatility_put_360,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_008_skew_momentum_270d_20d",
-      "expr": "ts_delta(ts_backfill(implied_volatility_call_270,5),20)-ts_delta(ts_backfill(implied_volatility_put_270,5),20)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_009_callput_zscore_720d",
-      "expr": "ts_zscore(ts_backfill(implied_volatility_call_720,5)-ts_backfill(implied_volatility_put_720,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_010_mean_skew_rank_360d",
-      "expr": "rank(ts_backfill(implied_volatility_mean_skew_360,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_011_vrp_zscore_180d",
-      "expr": "ts_zscore(ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_012_skew_delta_rank_270d_10d",
-      "expr": "rank(ts_delta(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),10))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_013_parkinson_histvol_zscore_120d",
-      "expr": "ts_zscore(ts_backfill(parkinson_volatility_120,5)-ts_backfill(historical_volatility_120,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_014_mean_skew_rank_1080d",
-      "expr": "rank(ts_backfill(implied_volatility_mean_skew_1080,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_015_callput_zscore_1080d",
-      "expr": "ts_zscore(ts_backfill(implied_volatility_call_1080,5)-ts_backfill(implied_volatility_put_1080,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_016_termstruct_ratio_10v360",
-      "expr": "rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_360,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_017_skew_delta_270d_20d",
-      "expr": "ts_delta(ts_backfill(implied_volatility_mean_skew_270,5),20)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_018_callput_spread_rank_360d",
-      "expr": "rank(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_019_callput_zscore_90d",
-      "expr": "ts_zscore(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5),40)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_020_neg_corr_callput_270d",
-      "expr": "-ts_corr(ts_backfill(implied_volatility_call_270,5),ts_backfill(implied_volatility_put_270,5),30)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_021_skew_tsrank_diff_180v360",
-      "expr": "ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),60)-ts_rank(ts_backfill(implied_volatility_mean_skew_360,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_022_call_norm_rank_270d",
-      "expr": "rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_mean_270,5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_023_neg_put_norm_zscore_270d",
-      "expr": "-ts_zscore(ts_backfill(implied_volatility_put_270,5)/ts_backfill(implied_volatility_mean_270,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_024_skew_delta_rank_180d_5d",
-      "expr": "rank(ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),5))",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    },
-    {
-      "name": "gc_025_neg_put_norm_zscore_180d",
-      "expr": "-ts_zscore(ts_backfill(implied_volatility_put_180,5)/ts_backfill(implied_volatility_mean_180,5),60)",
-      "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-    }
-  ]
+    "name": "gc_144_reversal_decay5",
+    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(returns, 5)",
+    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":5,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+  },
+  {
+    "name": "gc_145_smooth_reversal",
+    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+  },
+  {
+    "name": "gc_146_12m_momentum",
+    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(close / ts_delay(close, 252) - 1, 20)",
+    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+  }
+]

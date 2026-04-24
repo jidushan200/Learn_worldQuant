@@ -4,7 +4,7 @@ import threading
 from datetime import datetime
 from setting import LOGS_DIR, LOG_BASE_NAME, BRAIN_URL_PREFIX
 
-_log_lock = threading.Lock()
+_log_lock      = threading.Lock()
 _log_file_path = None
 
 
@@ -30,57 +30,18 @@ def _get_log_path() -> str:
 
 
 def _fmt_ts() -> str:
-    """返回带括号的时间戳，如 【2026_04_20 14:24:29】"""
     return f"【{datetime.now().strftime('%Y_%m_%d %H:%M:%S')}】"
 
 
-def _build_result_line(obj: dict) -> str:
-    """
-    构建非标准 JSONL 行：首字段为 alpha_id 裸值（无 key）
-    例：{"6f3a2e91","expr":"rank(...)","sharpe":1.52,"fitness":1.23,"turnover":0.2840}
-    """
-    alpha_id = obj.get("alpha_id") or "—"
-    expr     = (obj.get("expr") or "").replace('"', '\\"')
-    error    = obj.get("error")
-
-    if error:
-        return f'{{"{alpha_id}","expr":"{expr}","error":"{error.replace(chr(34), chr(92)+chr(34))}"}}'
-
-    parts = [f'"{alpha_id}"', f'"expr":"{expr}"']
-
-    sharpe   = obj.get("sharpe")
-    fitness  = obj.get("fitness")
-    turnover = obj.get("turnover")
-
-    if sharpe   is not None: parts.append(f'"sharpe":{sharpe}')
-    if fitness  is not None: parts.append(f'"fitness":{fitness}')
-    if turnover is not None: parts.append(f'"turnover":{round(turnover, 4)}')
-
-    weight_max      = obj.get("weight_max")
-    sub_univ_sharpe = obj.get("sub_univ_sharpe")
-    self_corr       = obj.get("self_corr")
-
-    if weight_max      is not None: parts.append(f'"weight_max":{round(weight_max, 4)}')
-    if sub_univ_sharpe is not None: parts.append(f'"sub_univ_sharpe":{round(sub_univ_sharpe, 4)}')
-    if self_corr       is not None: parts.append(f'"self_corr":{round(self_corr, 4)}')
-
-    return "{" + ",".join(parts) + "}"
-
-
 def _log_entry(obj: dict):
-    """将日志写入文件并打印到控制台（线程安全）"""
+    """写入文件并打印到控制台（线程安全）"""
     with _log_lock:
         _print_entry(obj)
         with open(_get_log_path(), "a", encoding="utf-8") as f:
-            if obj.get("type") == "result":
-                f.write(_build_result_line(obj) + "\n")
-                f.write(_fmt_ts() + "\n")
-            else:
-                f.write(json.dumps(obj, ensure_ascii=False) + "\n")
+            f.write(json.dumps(obj, ensure_ascii=False) + "\n")
 
 
 def _print_entry(obj: dict):
-    """按 type 格式化打印到控制台"""
     t   = obj.get("type")
     pad = " " * 12
 
@@ -108,11 +69,9 @@ def _print_entry(obj: dict):
             turnover = obj.get("turnover")
 
             if None not in (sharpe, fitness, turnover):
-                # turnover API 返回小数（如 0.284），乘 100 转成百分比显示
                 to_pct = turnover * 100 if isinstance(turnover, (int, float)) and turnover <= 1 else turnover
                 print(f"{pad}sharpe    : {sharpe:.2f}    fitness  : {fitness:.2f}    turnover : {to_pct:.1f}%")
 
-            # 可选指标：有值才打印，没有整行跳过
             weight_max      = obj.get("weight_max")
             sub_univ_sharpe = obj.get("sub_univ_sharpe")
             self_corr       = obj.get("self_corr")

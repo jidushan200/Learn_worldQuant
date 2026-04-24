@@ -10,9 +10,7 @@ from logger import log_start, log_result, log_end
 from generate_web import generate_web
 from setting import (
     ALPHAS_FILE, SIMULATION_SETTINGS,
-    OUTPUT_ALL, OUTPUT_PASSED,
-    MAX_WAIT_SEC, SESSION_REFRESH_INTERVAL, MAX_CONCURRENT,
-    BRAIN_URL_PREFIX
+    MAX_WAIT_SEC, SESSION_REFRESH_INTERVAL, MAX_CONCURRENT
 )
 
 _thread_local = threading.local()
@@ -27,8 +25,8 @@ def _load_alpha_list() -> list[dict]:
     for item in alphas:
         name     = item["name"]
         expr     = item["expr"]
-        custom   = item.get("setting", {})            # 合并设置：以 SIMULATION_SETTINGS 为默认底，
-        settings = {**SIMULATION_SETTINGS, **custom}  # alpha.json 中定义的字段按需覆盖，未定义的字段保留默认值
+        custom   = item.get("setting", {})
+        settings = {**SIMULATION_SETTINGS, **custom}
 
         payload = {
             "type":     "REGULAR",
@@ -84,7 +82,6 @@ def _process_one(item: dict, index: int, total: int) -> dict:
         log_result(index, total, None, field_id, expr, settings, None, err)
         return {"alpha_id": None, "field_id": field_id, "expr": expr, "error": err}
 
-    # ── 提交回测 ─────────────────────────────────────────────
     alpha_id, err, _ = submit_and_wait(
         sess=sess,
         alpha_payload=payload,
@@ -94,7 +91,6 @@ def _process_one(item: dict, index: int, total: int) -> dict:
         log_result(index, total, None, field_id, expr, settings, None, err)
         return {"alpha_id": None, "field_id": field_id, "expr": expr, "error": err}
 
-    # ── 查询指标 ─────────────────────────────────────────────
     result, err = get_alpha_result(sess=sess, alpha_id=alpha_id)
     if err:
         log_result(index, total, alpha_id, field_id, expr, settings, None, err)
@@ -106,28 +102,13 @@ def _process_one(item: dict, index: int, total: int) -> dict:
     return result
 
 
-def _save(all_results: list, output_all: str, output_passed: str):
-    # ── 写入全部结果 ──────────────────────────────────────────
-    with open(output_all, "w", encoding="utf-8") as f:
-        for r in all_results:
-            f.write(json.dumps(r, ensure_ascii=False) + "\n")
-
-    # ── 写入成功拿到 alpha_id 的结果 ─────────────────────────
-    with open(output_passed, "w", encoding="utf-8") as f:
-        for r in all_results:
-            if r.get("alpha_id"):
-                r["url"] = BRAIN_URL_PREFIX + str(r["alpha_id"])
-                f.write(json.dumps(r, ensure_ascii=False) + "\n")
-
-
 def main():
     alpha_list = _load_alpha_list()
     total      = len(alpha_list)
     log_start(total)
 
-    all_results     = []
-    results_lock    = threading.Lock()
-    completed_count = 0
+    all_results  = []
+    results_lock = threading.Lock()
 
     with ThreadPoolExecutor(
         max_workers=MAX_CONCURRENT,
@@ -141,16 +122,9 @@ def main():
 
         for future in as_completed(futures):
             result = future.result()
-
             with results_lock:
                 all_results.append(result)
-                completed_count += 1
 
-                if completed_count % 10 == 0:
-                    _save(all_results, OUTPUT_ALL, OUTPUT_PASSED)
-                    print(f"  💾 已保存进度 ({completed_count}/{total})\n")
-
-    _save(all_results, OUTPUT_ALL, OUTPUT_PASSED)
     succeeded = sum(1 for r in all_results if r.get("alpha_id"))
     log_end(total, succeeded)
     generate_web()

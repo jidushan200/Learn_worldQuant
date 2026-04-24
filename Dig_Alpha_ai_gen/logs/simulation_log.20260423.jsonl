@@ -1,0 +1,676 @@
+{"type": "start", "timestamp": "2026-04-23 09:11:11", "total": 75}
+{"88KE0Qav","expr":"ts_backfill(rel_ret_comp,5)-returns","sharpe":1.05,"fitness":0.34,"turnover":1.4436}
+【2026_04_23 09:12:46】
+{"xAm2LY2m","expr":"rank(ts_sum(ts_backfill(rel_ret_all,5),5)-ts_sum(returns,5))","sharpe":1.46,"fitness":0.82,"turnover":0.582}
+【2026_04_23 09:14:28】
+{"xAm2L1wl","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5),10)-ts_sum(returns,10))","sharpe":1.08,"fitness":0.61,"turnover":0.4143}
+【2026_04_23 09:15:15】
+{"om9JboZ6","expr":"ts_zscore(ts_backfill(rel_ret_part,5)-returns,20)","sharpe":0.98,"fitness":0.25,"turnover":1.4275}
+【2026_04_23 09:15:27】
+{"akWQ0RZO","expr":"gap5 = ts_sum(ts_backfill(rel_ret_comp,5),5); stock5 = ts_sum(returns,5); rank(gap5-stock5)","sharpe":1.55,"fitness":0.88,"turnover":0.5832}
+【2026_04_23 09:16:09】
+{"MP5eEzjk","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5)-returns,20)/ts_std_dev(returns,20))","sharpe":1.15,"fitness":0.72,"turnover":0.3003}
+【2026_04_23 09:16:59】
+{"78Kv5Meb","expr":"rank(ts_backfill(rel_ret_all,5)-returns)","sharpe":1.12,"fitness":0.34,"turnover":1.3307}
+【2026_04_23 09:17:39】
+{"gJogl57Q","expr":"-ts_corr(ts_backfill(rel_ret_comp,5),returns,20)","sharpe":-0.44,"fitness":-0.13,"turnover":0.302}
+【2026_04_23 09:18:17】
+{"Jj5WAk8l","expr":"ts_zscore(ts_backfill(rel_ret_part,5),20)-ts_zscore(returns,20)","sharpe":0.92,"fitness":0.21,"turnover":1.4313}
+【2026_04_23 09:18:25】
+{"6XYoknzY","expr":"rank(ts_delta(ts_backfill(rel_ret_comp,5),5)-ts_delta(returns,5))","sharpe":1.1,"fitness":0.31,"turnover":1.3287}
+【2026_04_23 09:20:13】
+{"1YnlMqPk","expr":"rank((ts_backfill(rel_ret_all,5)-returns)/ts_std_dev(returns,20))","sharpe":1.15,"fitness":0.32,"turnover":1.3302}
+【2026_04_23 09:20:22】
+{"xAm2Zq3J","expr":"rank(ts_sum(ts_backfill(rel_ret_part,5),10)/ts_std_dev(returns,20))","sharpe":0.5,"fitness":0.12,"turnover":0.4204}
+【2026_04_23 09:21:19】
+{"P0XYV98w","expr":"rank(ts_backfill(rel_ret_all,5))+rank(-returns)","sharpe":1.09,"fitness":0.3,"turnover":1.4019}
+【2026_04_23 09:22:50】
+{"2rnXYdx8","expr":"ts_zscore(ts_backfill(rel_ret_comp,5)-returns,60)","sharpe":1.18,"fitness":0.34,"turnover":1.4364}
+【2026_04_23 09:22:53】
+{"Jj5W9Kaj","expr":"rank(ts_backfill(pv13_custretsig_retsig,5))","sharpe":-1.44,"fitness":-0.46,"turnover":1.338}
+【2026_04_23 09:22:54】
+{"mLx0vAnp","expr":"ts_zscore(ts_backfill(rel_ret_comp,5),60)-ts_rank(returns,60)","sharpe":0.58,"fitness":0.09,"turnover":1.437}
+【2026_04_23 09:25:21】
+{"gJog2R30","expr":"rank(ts_backfill(rel_ret_part,5))*rank(-ts_sum(returns,20))","sharpe":0.47,"fitness":0.11,"turnover":0.9462}
+【2026_04_23 09:26:22】
+{"N15JZrEX","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5)-returns,10))","sharpe":1.07,"fitness":0.61,"turnover":0.4136}
+【2026_04_23 09:28:03】
+{"blWrwqgm","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5),5)-ts_sum(returns,5))","sharpe":1.54,"fitness":0.88,"turnover":0.5832}
+【2026_04_23 09:28:05】
+{"0mKNJMwv","expr":"rank(ts_backfill(rel_ret_all,5))*rank(-ts_std_dev(returns,20))","sharpe":0.01,"fitness":0.0,"turnover":0.9439}
+【2026_04_23 09:28:20】
+{"3qnkN9v0","expr":"rank(ts_backfill(rel_ret_all,5)/(abs(returns)+0.001))","sharpe":-0.35,"fitness":-0.05,"turnover":1.336}
+【2026_04_23 09:29:29】
+{"9qAdnWao","expr":"rank(ts_sum(ts_backfill(rel_ret_part,5)-returns,15))","sharpe":0.57,"fitness":0.26,"turnover":0.3376}
+【2026_04_23 09:30:03】
+{"MP5er01o","expr":"rank(ts_backfill(rel_ret_cust,5)-returns)","sharpe":1.19,"fitness":0.38,"turnover":1.3262}
+【2026_04_23 09:30:22】
+{"78Kvp3Y8","expr":"ts_zscore(ts_backfill(rel_ret_cust,5)-returns,40)","sharpe":1.24,"fitness":0.36,"turnover":1.4323}
+【2026_04_23 09:31:48】
+{"om9JdJRk","expr":"rank(ts_backfill(rel_ret_comp,5)+ts_backfill(rel_ret_part,5)-2*returns)","sharpe":1.12,"fitness":0.34,"turnover":1.3318}
+【2026_04_23 09:32:09】
+{"mLx0v1q5","expr":"ts_regression(ts_sum(ts_backfill(fnd6_newqv1300_ivltq,60),252),ts_step(1),756,rettype=2)","sharpe":1.35,"fitness":1.06,"turnover":0.0071}
+【2026_04_23 09:32:42】
+{"0mKNJZGv","expr":"rank(ts_delta(ts_backfill(rd_expense,60),252)/ts_backfill(assets,60))","sharpe":-1.07,"fitness":-0.47,"turnover":0.0535}
+【2026_04_23 09:34:26】
+{"Jj5W9azO","expr":"ts_regression(ts_sum(ts_backfill(capex,60),252),ts_step(1),504,rettype=2)","sharpe":-0.16,"fitness":-0.04,"turnover":0.0092}
+【2026_04_23 09:34:28】
+{"N15JZZr7","expr":"ts_regression(ts_sum(ts_backfill(ppent,60),252),ts_step(1),756,rettype=2)","sharpe":0.14,"fitness":0.04,"turnover":0.0083}
+【2026_04_23 09:35:05】
+{"P0XYkNv7","expr":"rank(ts_regression(ts_backfill(sales,60),ts_step(1),756,rettype=2))","sharpe":0.54,"fitness":0.26,"turnover":0.0144}
+【2026_04_23 09:36:44】
+{"e7qVXpPg","expr":"rank(ts_delta(ts_backfill(fnd6_newqv1300_ivltq,60),252)/ts_backfill(assets,60))","sharpe":-0.24,"fitness":-0.06,"turnover":0.0284}
+【2026_04_23 09:37:12】
+{"vRJpW36b","expr":"ts_regression(ts_sum(ts_backfill(rd_expense,60),252),ts_step(1),756,rettype=2)","sharpe":0.24,"fitness":0.1,"turnover":0.0137}
+【2026_04_23 09:37:45】
+{"om9Jx2Qb","expr":"rank(ts_regression(ts_backfill(cashflow_op,60),ts_step(1),504,rettype=2))","sharpe":0.14,"fitness":0.03,"turnover":0.0138}
+【2026_04_23 09:38:35】
+{"QP5Nwe7G","expr":"ts_zscore(ts_delta(ts_backfill(capex,60),252),252)","sharpe":0.46,"fitness":0.15,"turnover":0.1089}
+【2026_04_23 09:38:43】
+{"wpJ20OlY","expr":"rank(ts_delta(ts_backfill(ppent,60),252)/ts_backfill(revenue,60))","sharpe":-0.43,"fitness":-0.19,"turnover":0.03}
+【2026_04_23 09:39:49】
+{"78KveK1Z","expr":"ts_regression(ts_sum(ts_backfill(cashflow_op,60),252),ts_step(1),756,rettype=2)","sharpe":0.32,"fitness":0.13,"turnover":0.0079}
+【2026_04_23 09:40:46】
+{"leR5o7M5","expr":"rank(ts_regression(ts_backfill(ebitda,60),ts_step(1),756,rettype=2))","sharpe":0.03,"fitness":0.0,"turnover":0.0122}
+【2026_04_23 09:41:31】
+{"0mKN1AVk","expr":"ts_zscore(ts_backfill(rd_expense,60)/ts_backfill(revenue,60),252)","sharpe":-0.59,"fitness":-0.21,"turnover":0.0806}
+【2026_04_23 09:41:40】
+{"RRklGmo0","expr":"ts_regression(ts_sum(ts_backfill(ppent,60),252),ts_step(1),504,rettype=2)","sharpe":-0.04,"fitness":-0.01,"turnover":0.0095}
+【2026_04_23 09:43:35】
+{"xAm2JbLW","expr":"rank(ts_delta(ts_backfill(sales,60),252)/ts_backfill(sales,60)*ts_delta(ts_backfill(cashflow_op,60),252)/ts_backfill(assets,60))","sharpe":1.17,"fitness":0.6,"turnover":0.0413}
+【2026_04_23 09:44:57】
+{"vRJpWOm3","expr":"rank(ts_regression(ts_backfill(revenue,60),ts_step(1),504,rettype=2))","sharpe":0.66,"fitness":0.38,"turnover":0.0171}
+【2026_04_23 09:45:07】
+{"A1OroV0W","expr":"ts_zscore(ts_delta(ts_backfill(fnd6_newqv1300_ivltq,60),252),252)","sharpe":-0.23,"fitness":-0.05,"turnover":0.0925}
+【2026_04_23 09:45:28】
+{"Gr3KZK90","expr":"rank(ts_regression(ts_backfill(anl4_capex_mean,60),ts_step(1),504,rettype=2))","sharpe":-0.15,"fitness":-0.03,"turnover":0.0163}
+【2026_04_23 09:46:52】
+{"kqLWzp0L","expr":"ts_zscore(ts_regression(ts_backfill(cashflow_op,60),ts_step(1),252,rettype=2),252)","sharpe":0.66,"fitness":0.25,"turnover":0.0399}
+【2026_04_23 09:49:06】
+{"E5r89jZK","expr":"rank(ts_delta(ts_backfill(goodwill,60),252)/ts_backfill(assets,60)*ts_delta(ts_backfill(revenue,60),252)/ts_backfill(revenue,60))","sharpe":-0.04,"fitness":-0.0,"turnover":0.038}
+【2026_04_23 09:49:17】
+{"pw1M92qX","expr":"ts_regression(ts_backfill(return_assets,60),ts_step(1),756,rettype=2)","sharpe":-0.36,"fitness":-0.26,"turnover":0.0606}
+【2026_04_23 09:49:21】
+{"e7qGl76O","expr":"rank((ts_delta(ts_backfill(capex,60),252)+ts_delta(ts_backfill(rd_expense,60),252))/ts_backfill(assets,60))","sharpe":-0.65,"fitness":-0.29,"turnover":0.0229}
+【2026_04_23 09:50:55】
+{"wpJG8Kxx","expr":"rank(ts_regression(ts_backfill(invested_capital,60),ts_step(1),756,rettype=2))","sharpe":0.25,"fitness":0.08,"turnover":0.012}
+【2026_04_23 09:51:04】
+{"xAmGK0NJ","expr":"slope = ts_regression(ts_backfill(news_pct_1min,60),ts_step(1),5,rettype=2); winsorize(-ts_backfill(news_max_up_ret,60)*abs(slope),std=4)","sharpe":1.57,"fitness":0.93,"turnover":0.6537}
+【2026_04_23 09:52:35】
+{"P0XzJ9YK","expr":"ts_zscore(ts_backfill(capex,60)/ts_backfill(assets,60),252)","sharpe":-0.05,"fitness":-0.01,"turnover":0.0774}
+【2026_04_23 09:53:00】
+{"A1OzRYjR","expr":"rank(ts_delta(ts_backfill(invested_capital,60),252)/ts_backfill(assets,60))","sharpe":-0.2,"fitness":-0.06,"turnover":0.0312}
+【2026_04_23 09:54:19】
+{"E5rzZgq9","expr":"rank(ts_backfill(news_pct_10min,60)-ts_backfill(news_pct_1min,60))","sharpe":0.35,"fitness":0.06,"turnover":0.2808}
+【2026_04_23 09:55:40】
+{"P0XzJwAK","expr":"ts_zscore(ts_backfill(scl12_sentiment,5),20)","sharpe":-0.25,"fitness":-0.02,"turnover":1.2346}
+【2026_04_23 09:55:45】
+{"WjWzE93O","expr":"-rank(ts_backfill(news_max_up_ret,60))*rank(ts_backfill(snt_buzz,5))","sharpe":0.1,"fitness":0.01,"turnover":0.7835}
+【2026_04_23 09:56:23】
+{"npOq1Kex","expr":"rank(ts_backfill(snt_buzz_ret,5))","sharpe":0.47,"fitness":0.06,"turnover":0.7951}
+【2026_04_23 09:58:36】
+{"Gr3zqgP3","expr":"rank(ts_backfill(scl12_buzz,5)*ts_backfill(scl12_sentiment,5))","sharpe":-0.15,"fitness":-0.01,"turnover":1.0434}
+【2026_04_23 09:59:19】
+{"e7qGl1Zg","expr":"-ts_zscore(ts_backfill(news_max_up_ret,60),20)*sign(ts_regression(ts_backfill(news_pct_1min,60),ts_step(1),10,rettype=2))","sharpe":-0.17,"fitness":-0.01,"turnover":0.7179}
+【2026_04_23 10:00:27】
+{"RRkzJKM1","expr":"ts_zscore(ts_backfill(snt_value,5),20)","sharpe":0.28,"fitness":0.02,"turnover":1.2127}
+【2026_04_23 10:01:30】
+{"58q5Z2R6","expr":"rank(-ts_backfill(news_max_dn_ret,60))","sharpe":0.15,"fitness":0.02,"turnover":0.5146}
+【2026_04_23 10:02:05】
+{"1YnKq86k","expr":"rank(ts_backfill(scl12_sentiment,5)*rank(-ts_backfill(news_max_dn_ret,60)))","sharpe":0.26,"fitness":0.02,"turnover":1.0356}
+【2026_04_23 10:03:22】
+{"d5lz52ZE","expr":"rank(ts_delta(ts_backfill(scl12_buzz,5),5))","sharpe":-0.22,"fitness":-0.02,"turnover":1.1439}
+【2026_04_23 10:04:17】
+{"Gr3zr193","expr":"ts_zscore(ts_backfill(news_pct_30min,60),20)-ts_zscore(ts_backfill(news_pct_120min,60),20)","sharpe":-0.21,"fitness":-0.02,"turnover":0.6174}
+【2026_04_23 10:05:09】
+{"vRJGR3nr","expr":"rank(ts_backfill(snt_buzz,5)*sign(ts_backfill(scl12_sentiment,5)))","sharpe":0.17,"fitness":0.01,"turnover":1.0419}
+【2026_04_23 10:06:09】
+{"xAmGAg2p","expr":"-rank(ts_backfill(news_max_up_ret,60))*ts_zscore(ts_backfill(scl12_sentiment,5),60)","sharpe":0.74,"fitness":0.13,"turnover":1.3123}
+【2026_04_23 10:06:40】
+{"KPwzPxlj","expr":"rank(ts_sum(ts_backfill(snt_buzz_ret,5),5))","sharpe":0.72,"fitness":0.15,"turnover":0.4005}
+【2026_04_23 10:07:24】
+{"P0Xz0XxE","expr":"ts_zscore(ts_backfill(news_atr_ratio,60),20)*sign(ts_backfill(scl12_sentiment,5))","sharpe":-0.5,"fitness":-0.06,"turnover":1.2062}
+【2026_04_23 10:09:15】
+{"om9Gm9X6","expr":"rank(ts_regression(ts_backfill(news_pct_10min,60),ts_step(1),5,rettype=2))","sharpe":0.06,"fitness":0.0,"turnover":0.4774}
+【2026_04_23 10:09:17】
+{"vRJGR5gd","expr":"rank(ts_backfill(news_pct_5_min,60)-ts_backfill(news_pct_1min,60))","sharpe":0.25,"fitness":0.04,"turnover":0.2712}
+【2026_04_23 10:09:42】
+{"j2dG2jm5","expr":"rank(ts_delta(ts_backfill(snt_value,5),5))","sharpe":0.05,"fitness":0.0,"turnover":1.1452}
+【2026_04_23 10:11:52】
+{"vRJGRr5Q","expr":"ts_zscore(ts_backfill(scl12_buzz,5)-ts_mean(ts_backfill(scl12_buzz,5),20),60)","sharpe":-0.73,"fitness":-0.12,"turnover":1.1731}
+【2026_04_23 10:12:25】
+{"88KJ8jMl","expr":"-rank(ts_backfill(news_max_up_ret,60))*rank(ts_backfill(scl12_buzz,5))","sharpe":0.54,"fitness":0.12,"turnover":0.8929}
+【2026_04_23 10:12:38】
+{"9qAMqGOK","expr":"rank(ts_backfill(snt_buzz_bfl,5)*ts_backfill(scl12_sentiment,5))","sharpe":0.22,"fitness":0.02,"turnover":1.0448}
+【2026_04_23 10:14:06】
+{"E5rz5NGK","expr":"-ts_zscore(ts_backfill(news_max_up_ret,60),60)*rank(ts_backfill(scl12_sentiment,5))","sharpe":0.16,"fitness":0.01,"turnover":0.8967}
+【2026_04_23 10:14:14】
+{"npOqpmLd","expr":"rank(ts_backfill(news_pct_1min,60)*sign(ts_backfill(scl12_sentiment,5)))","sharpe":0.45,"fitness":0.05,"turnover":0.9824}
+【2026_04_23 10:14:27】
+{"XgYzg3al","expr":"rank(ts_regression(ts_backfill(news_pct_5_min,60),ts_step(1),10,rettype=2)*sign(ts_backfill(scl12_sentiment,5)))","sharpe":0.56,"fitness":0.06,"turnover":1.0083}
+【2026_04_23 10:17:07】
+{"type": "end", "timestamp": "2026-04-23 10:17:07", "total": 75, "succeeded": 75, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 10:48:35", "total": 150}
+{"Jj5zwpOl","expr":"rank(ts_backfill(implied_volatility_mean_30,5)/ts_backfill(implied_volatility_mean_360,5))","sharpe":-0.08,"fitness":-0.01,"turnover":0.6413}
+【2026_04_23 10:51:08】
+{"xAmG6Njg","expr":"rank(ts_backfill(implied_volatility_call_90,5)/ts_backfill(implied_volatility_mean_90,5))","sharpe":1.37,"fitness":0.31,"turnover":0.8708}
+【2026_04_23 10:52:05】
+{"qMmG10rO","expr":"-rank(ts_backfill(implied_volatility_put_90,5)/ts_backfill(implied_volatility_mean_90,5))","sharpe":1.39,"fitness":0.31,"turnover":0.8676}
+【2026_04_23 10:53:12】
+{"xAmG6vpp","expr":"rank(ts_backfill(implied_volatility_call_60,5)/ts_backfill(implied_volatility_mean_60,5))","sharpe":1.29,"fitness":0.26,"turnover":0.9456}
+【2026_04_23 10:54:25】
+{"3qnPbGP0","expr":"ts_zscore(ts_delta(ts_backfill(implied_volatility_call_180,5),5)-ts_delta(ts_backfill(implied_volatility_put_180,5),5),20)","sharpe":-0.31,"fitness":-0.02,"turnover":1.2413}
+【2026_04_23 10:54:38】
+{"mLx73Qk5","expr":"-ts_zscore(ts_backfill(implied_volatility_put_90,5),40)","sharpe":-1.77,"fitness":-0.6,"turnover":0.7641}
+【2026_04_23 10:56:04】
+{"npOqJlxM","expr":"rank(ts_backfill(parkinson_volatility_60,5)/ts_backfill(historical_volatility_60,5))","sharpe":-0.21,"fitness":-0.05,"turnover":0.1436}
+【2026_04_23 10:56:39】
+{"pw1GXk9q","expr":"rank(ts_delta(ts_backfill(implied_volatility_mean_180,5),5))","sharpe":1.49,"fitness":0.39,"turnover":0.9458}
+【2026_04_23 10:56:57】
+{"xAmG8AVg","expr":"rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(historical_volatility_180,5))","sharpe":1.54,"fitness":0.41,"turnover":0.7711}
+【2026_04_23 10:59:00】
+{"XgYVakql","expr":"ts_rank(ts_backfill(implied_volatility_call_180,5),60)-ts_rank(ts_backfill(implied_volatility_put_180,5),60)","sharpe":-0.18,"fitness":-0.01,"turnover":1.0562}
+【2026_04_23 10:59:38】
+{"j2dGRvpj","expr":"rank(ts_backfill(implied_volatility_mean_skew_90,5)-ts_backfill(implied_volatility_mean_skew_180,5))","sharpe":0.05,"fitness":0.0,"turnover":1.0064}
+【2026_04_23 10:59:40】
+{"KPwzdx5j","expr":"-rank(ts_backfill(implied_volatility_put_60,5)/ts_backfill(implied_volatility_mean_60,5))","sharpe":1.32,"fitness":0.27,"turnover":0.9423}
+【2026_04_23 11:01:52】
+{"3qnPrYLg","expr":"rank(ts_backfill(implied_volatility_call_90,5))-rank(ts_backfill(implied_volatility_put_90,5))","sharpe":1.3,"fitness":0.26,"turnover":0.9416}
+【2026_04_23 11:02:03】
+{"P0XzaqnL","expr":"rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_360,5))","sharpe":-0.08,"fitness":-0.01,"turnover":0.6644}
+【2026_04_23 11:02:24】
+{"3qnPrzwP","expr":"rank(ts_backfill(implied_volatility_mean_skew_180,5)-ts_backfill(implied_volatility_mean_skew_360,5))","sharpe":0.21,"fitness":0.02,"turnover":0.9117}
+【2026_04_23 11:04:15】
+{"A1OzZ77Q","expr":"rank(ts_delta(ts_backfill(implied_volatility_call_180,5),5)/ts_backfill(implied_volatility_mean_180,5))","sharpe":0.98,"fitness":0.17,"turnover":1.0201}
+【2026_04_23 11:05:31】
+{"npOqR8El","expr":"ts_zscore(ts_backfill(implied_volatility_mean_90,5)-ts_backfill(historical_volatility_90,5),40)","sharpe":0.35,"fitness":0.06,"turnover":0.5785}
+【2026_04_23 11:05:41】
+{"A1OzZNMR","expr":"-ts_zscore(ts_backfill(implied_volatility_put_270,5),40)","sharpe":-1.38,"fitness":-0.39,"turnover":0.7687}
+【2026_04_23 11:06:40】
+{"N15zmNaE","expr":"ts_zscore(ts_delta(ts_backfill(implied_volatility_mean_skew_180,5),10),40)","sharpe":-0.55,"fitness":-0.06,"turnover":1.1589}
+【2026_04_23 11:07:40】
+{"58q50J0k","expr":"rank(ts_backfill(implied_volatility_call_90,5))-rank(ts_backfill(implied_volatility_put_180,5))","sharpe":1.36,"fitness":0.29,"turnover":0.8479}
+【2026_04_23 11:07:50】
+{"akWzZQ19","expr":"rank(ts_delta(ts_backfill(implied_volatility_mean_60,5),5))","sharpe":1.16,"fitness":0.26,"turnover":0.9326}
+【2026_04_23 11:08:50】
+{"xAmG8E3n","expr":"ts_rank(ts_backfill(implied_volatility_mean_skew_180,5),40)-0.5","sharpe":-0.0,"fitness":-0.0,"turnover":0.9971}
+【2026_04_23 11:10:06】
+{"YPWzKVbq","expr":"-ts_zscore(ts_backfill(implied_volatility_put_180,5)/ts_backfill(historical_volatility_180,5),60)","sharpe":-0.83,"fitness":-0.22,"turnover":0.6087}
+【2026_04_23 11:11:15】
+{"88KJdm8V","expr":"rank((ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))*ts_zscore(ts_backfill(volume,5),20))","sharpe":-0.34,"fitness":-0.03,"turnover":1.1243}
+【2026_04_23 11:12:03】
+{"blWz55jR","expr":"rank((ts_backfill(cashflow_op,60)-ts_backfill(capex,60))/cap)","sharpe":0.52,"fitness":0.35,"turnover":0.0193}
+【2026_04_23 11:13:57】
+{"Gr3XXG6P","expr":"rank(ts_delta(ts_backfill(inventory_turnover,60),252))","sharpe":0.23,"fitness":0.06,"turnover":0.0359}
+【2026_04_23 11:14:19】
+{"QP5zLjLp","expr":"rank(-ts_backfill(assets,60)/ts_backfill(cashflow_op,60))","sharpe":-0.69,"fitness":-0.42,"turnover":0.0136}
+【2026_04_23 11:15:56】
+{"WjWz6ajN","expr":"ts_zscore(ts_backfill(implied_volatility_mean_30,5)/ts_backfill(implied_volatility_mean_180,5),40)","sharpe":1.17,"fitness":0.3,"turnover":0.7942}
+【2026_04_23 11:16:55】
+{"akWzqojO","expr":"ts_zscore(ts_backfill(cashflow_op,60)/ts_backfill(revenue,60),252)","sharpe":-0.13,"fitness":-0.03,"turnover":0.0616}
+【2026_04_23 11:17:31】
+{"A1OzMGxY","expr":"rank(ts_backfill(cashflow_op,60)/ts_backfill(ebitda,60))","sharpe":0.38,"fitness":0.12,"turnover":0.0139}
+【2026_04_23 11:19:09】
+{"P0Xxxb9q","expr":"rank(ts_backfill(working_capital,60)/ts_backfill(revenue,60))","sharpe":-0.6,"fitness":-0.43,"turnover":0.0148}
+【2026_04_23 11:19:40】
+{"gJoGEbEg","expr":"rank(ts_delta(ts_backfill(cashflow_op,60)/ts_backfill(revenue,60),252))","sharpe":-0.51,"fitness":-0.19,"turnover":0.0267}
+【2026_04_23 11:19:55】
+{"9qAMLxj2","expr":"ts_zscore(ts_backfill(ebit,60)/ts_backfill(revenue,60),252)","sharpe":-0.13,"fitness":-0.03,"turnover":0.0604}
+【2026_04_23 11:20:52】
+{"j2dGbo55","expr":"rank(ts_backfill(cashflow_op,60)/ts_backfill(income,60))","sharpe":0.18,"fitness":0.06,"turnover":0.0265}
+【2026_04_23 11:21:38】
+{"9qAMLkV9","expr":"ts_decay_linear(ts_zscore(ts_backfill(income,60)/ts_backfill(assets,60),252),22)","sharpe":0.59,"fitness":0.28,"turnover":0.0424}
+【2026_04_23 11:22:57】
+{"pw1GA3e3","expr":"ts_decay_linear(rank(ts_backfill(operating_income,60)/ts_backfill(invested_capital,60)),22)","sharpe":0.36,"fitness":0.22,"turnover":0.0164}
+【2026_04_23 11:23:04】
+{"3qnPZ2xX","expr":"ts_zscore(ts_backfill(operating_income,60)/ts_backfill(revenue,60),252)","sharpe":0.2,"fitness":0.05,"turnover":0.0597}
+【2026_04_23 11:23:09】
+{"QP5zL8Jp","expr":"rank(ts_backfill(revenue,60)/ts_backfill(assets,60))","sharpe":0.7,"fitness":0.49,"turnover":0.0147}
+【2026_04_23 11:24:31】
+{"O05zE3rq","expr":"ts_decay_linear(rank(ts_backfill(revenue,60)/ts_backfill(capex,60)),22)","sharpe":0.17,"fitness":0.05,"turnover":0.0117}
+【2026_04_23 11:24:39】
+{"kqLGlr1P","expr":"rank(-ts_backfill(debt,60)/ts_backfill(cashflow_op,60))","sharpe":-0.71,"fitness":-0.49,"turnover":0.0149}
+【2026_04_23 11:26:46】
+{"2rn6dEqb","expr":"rank(ts_delta(ts_backfill(operating_income,60)/ts_backfill(revenue,60),252))","sharpe":-0.27,"fitness":-0.09,"turnover":0.0378}
+【2026_04_23 11:27:59】
+{"vRJGgn2b","expr":"ts_decay_linear(ts_zscore(ts_backfill(cashflow_op,60)-ts_backfill(income,60),252),22)","sharpe":0.04,"fitness":0.0,"turnover":0.0395}
+【2026_04_23 11:28:38】
+{"vRJGgzow","expr":"rank(ts_delta(ts_backfill(return_assets,60),252))","sharpe":0.0,"fitness":0.0,"turnover":0.0388}
+【2026_04_23 11:29:31】
+{"vRJGgJpQ","expr":"rank(ts_backfill(cashflow_op,60)/cap)","sharpe":0.77,"fitness":0.67,"turnover":0.0204}
+【2026_04_23 11:29:47】
+{"j2dGm0AW","expr":"ts_decay_linear(rank(ts_backfill(ebitda,60)/ts_backfill(invested_capital,60)),22)","sharpe":0.22,"fitness":0.11,"turnover":0.0115}
+【2026_04_23 11:31:43】
+{"npOqVNma","expr":"rank(-ts_backfill(invested_capital,60)/ts_backfill(revenue,60))","sharpe":0.67,"fitness":0.41,"turnover":0.015}
+【2026_04_23 11:32:17】
+{"akWzvLrW","expr":"ts_decay_linear(rank(ts_backfill(cashflow_op,60)/ts_backfill(assets,60))*rank(ts_delta(ts_backfill(inventory_turnover,60),252)),22)","sharpe":-0.08,"fitness":-0.02,"turnover":0.0212}
+【2026_04_23 11:32:39】
+{"KPwzarOE","expr":"ts_decay_linear(ts_zscore(ts_backfill(cashflow_op,60)/ts_backfill(revenue,60),252),22)","sharpe":-0.11,"fitness":-0.02,"turnover":0.0375}
+【2026_04_23 11:33:25】
+{"d5lzLKLx","expr":"rank(ts_delta(ts_backfill(ebitda,60)/ts_backfill(assets,60),252))","sharpe":0.13,"fitness":0.03,"turnover":0.0242}
+【2026_04_23 11:33:37】
+{"vRJGgZgd","expr":"trade_when(pcr_oi_270 < 1, rank(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5)), -1)","sharpe":0.84,"fitness":0.42,"turnover":0.2178}
+【2026_04_23 11:34:45】
+{"pw1GOxGV","expr":"-rank(ts_backfill(pcr_oi_270,5))","sharpe":-0.33,"fitness":-0.11,"turnover":0.0724}
+【2026_04_23 11:34:57】
+{"j2dGmxWj","expr":"ts_decay_linear(rank(ts_backfill(cashflow_op,60)/ts_backfill(revenue,60))*rank(ts_delta(ts_backfill(inventory_turnover,60),252)),22)","sharpe":-0.11,"fitness":-0.03,"turnover":0.0208}
+【2026_04_23 11:35:41】
+{"mLx79N25","expr":"trade_when(pcr_oi_90 < 1, ts_zscore(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5),40), -1)","sharpe":-0.27,"fitness":-0.05,"turnover":0.3383}
+【2026_04_23 11:36:34】
+{"XgYz63Ez","expr":"-ts_zscore(ts_backfill(pcr_vol_180,5),60)","sharpe":1.09,"fitness":0.29,"turnover":0.5385}
+【2026_04_23 11:37:34】
+{"O05zv01v","expr":"rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(historical_volatility_180,5))","sharpe":0.82,"fitness":0.37,"turnover":0.3009}
+【2026_04_23 11:38:41】
+{"58q5V89o","expr":"rank((ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))*ts_zscore(ts_backfill(volume,5),20))","sharpe":-0.32,"fitness":-0.05,"turnover":0.6218}
+【2026_04_23 11:38:48】
+{"QP5zdk8W","expr":"trade_when(pcr_oi_180 < 1, ts_zscore(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5),60), -1)","sharpe":0.05,"fitness":0.0,"turnover":0.3131}
+【2026_04_23 11:40:13】
+{"leRGZbRe","expr":"-rank(ts_backfill(pcr_oi_270,5)-ts_mean(ts_backfill(pcr_oi_270,5),60))","sharpe":0.49,"fitness":0.17,"turnover":0.0922}
+【2026_04_23 11:40:19】
+{"leRE9Xd7","expr":"rank(ts_delta(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),10))","sharpe":0.57,"fitness":0.11,"turnover":0.6099}
+【2026_04_23 11:41:03】
+{"78KmVq1Q","expr":"rank((ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))/ts_backfill(historical_volatility_180,5))","sharpe":0.74,"fitness":0.33,"turnover":0.2941}
+【2026_04_23 11:41:50】
+{"6XY0bPwJ","expr":"-rank(ts_backfill(pcr_vol_270,5))","sharpe":-0.35,"fitness":-0.08,"turnover":0.4096}
+【2026_04_23 11:41:51】
+{"Jj5zLXZE","expr":"rank(ts_regression(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),ts_step(1),10,rettype=2))","sharpe":0.42,"fitness":0.08,"turnover":0.3915}
+【2026_04_23 11:42:39】
+{"E5rzAgb1","expr":"trade_when(pcr_oi_360 < 1, ts_zscore(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5),60), -1)","sharpe":-0.25,"fitness":-0.04,"turnover":0.3161}
+【2026_04_23 11:43:17】
+{"LLlzxg22","expr":"-ts_zscore(ts_backfill(pcr_oi_270,5),60)","sharpe":0.29,"fitness":0.07,"turnover":0.164}
+【2026_04_23 11:43:28】
+{"pw1GgKYq","expr":"trade_when(pcr_vol_270 < 1, ts_zscore(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),40), -1)","sharpe":-0.14,"fitness":-0.02,"turnover":0.4074}
+【2026_04_23 11:45:00】
+{"RRkzL1q1","expr":"-rank(ts_backfill(pcr_oi_180,5))","sharpe":-0.49,"fitness":-0.21,"turnover":0.0627}
+【2026_04_23 11:45:09】
+{"58q5VzQ5","expr":"rank((ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5))/ts_backfill(implied_volatility_mean_270,5))","sharpe":0.88,"fitness":0.43,"turnover":0.2903}
+【2026_04_23 11:46:21】
+{"E5rNzMR1","expr":"rank(ts_backfill(implied_volatility_call_360,5)/ts_backfill(implied_volatility_put_360,5))","sharpe":0.8,"fitness":0.38,"turnover":0.2859}
+【2026_04_23 11:48:48】
+{"d5lzwoWE","expr":"-ts_zscore(ts_backfill(pcr_vol_360,5),60)","sharpe":0.63,"fitness":0.13,"turnover":0.5361}
+【2026_04_23 11:49:03】
+{"P0XzEKNL","expr":"rank(ts_backfill(implied_volatility_mean_skew_270,5)*ts_zscore(-ts_backfill(pcr_oi_270,5),40))","sharpe":0.17,"fitness":0.02,"turnover":0.2688}
+【2026_04_23 11:49:11】
+{"ZYWzL8Y8","expr":"trade_when(pcr_oi_270 < ts_mean(ts_backfill(pcr_oi_270,5),60), ts_zscore(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),40), -1)","sharpe":0.1,"fitness":0.01,"turnover":0.299}
+【2026_04_23 11:50:43】
+{"LLlzeL0M","expr":"-rank(ts_backfill(pcr_oi_90,5))","sharpe":-0.15,"fitness":-0.04,"turnover":0.0661}
+【2026_04_23 11:52:10】
+{"0mKgoqK8","expr":"rank(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))*(-rank(ts_backfill(pcr_oi_180,5)))","sharpe":-0.99,"fitness":-0.52,"turnover":0.1934}
+【2026_04_23 11:52:34】
+{"leRGxOZO","expr":"ts_zscore(ts_backfill(implied_volatility_call_270,5)-ts_backfill(implied_volatility_put_270,5),20)","sharpe":0.34,"fitness":0.06,"turnover":0.5568}
+【2026_04_23 11:53:05】
+{"0mKgoW6q","expr":"ts_zscore(ts_sum(ts_backfill(rel_ret_comp,5),5)-ts_sum(returns,5),20)","sharpe":1.48,"fitness":0.7,"turnover":0.6724}
+【2026_04_23 11:54:05】
+{"58q5R6NX","expr":"rank(ts_sum(ts_backfill(rel_ret_cust,5),10)-ts_sum(returns,10))","sharpe":0.95,"fitness":0.51,"turnover":0.4111}
+【2026_04_23 11:55:41】
+{"RRkzXd1g","expr":"rank((ts_backfill(implied_volatility_mean_skew_270,5)+ts_backfill(implied_volatility_mean_skew_180,5))*(-ts_backfill(pcr_oi_270,5)))","sharpe":-0.88,"fitness":-0.52,"turnover":0.1948}
+【2026_04_23 11:56:54】
+{"WjWzkVao","expr":"ts_zscore(ts_sum(ts_backfill(rel_ret_all,5),20)-ts_sum(returns,20),40)","sharpe":0.99,"fitness":0.51,"turnover":0.3844}
+【2026_04_23 11:58:04】
+{"akWzJ7P1","expr":"ts_zscore(ts_backfill(rel_ret_comp,5)-returns,20)","sharpe":1.05,"fitness":0.27,"turnover":1.4276}
+【2026_04_23 11:58:41】
+{"MP5zw13M","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5),10)/ts_std_dev(returns,20))","sharpe":0.57,"fitness":0.16,"turnover":0.4299}
+【2026_04_23 11:59:00】
+{"0mKgorvv","expr":"rank(ts_mean(ts_backfill(rel_ret_all,5),5)-ts_mean(returns,5))","sharpe":1.45,"fitness":0.82,"turnover":0.5822}
+【2026_04_23 11:59:37】
+{"wpJG635d","expr":"rank(ts_regression(ts_backfill(rel_ret_comp,5)-returns,ts_step(1),10,rettype=2))","sharpe":1.03,"fitness":0.41,"turnover":0.7027}
+【2026_04_23 12:01:10】
+{"MP5zwVq9","expr":"rank(ts_backfill(rel_ret_all,5)-ts_backfill(rel_ret_comp,5))","sharpe":-0.33,"fitness":-0.03,"turnover":1.2098}
+【2026_04_23 12:02:16】
+{"Gr3zV7LZ","expr":"rank(ts_sum(ts_backfill(rel_ret_all,5),5))*rank(-ts_sum(returns,5))","sharpe":1.43,"fitness":0.69,"turnover":0.6428}
+【2026_04_23 12:02:39】
+{"Jj5zlJ92","expr":"ts_zscore(ts_sum(ts_backfill(rel_ret_part,5),5)-ts_sum(returns,5),20)","sharpe":1.45,"fitness":0.67,"turnover":0.6726}
+【2026_04_23 12:03:13】
+{"ZYWzkR71","expr":"ts_zscore(ts_backfill(pv13_custretsig_retsig,5),40)","sharpe":-1.29,"fitness":-0.39,"turnover":1.4228}
+【2026_04_23 12:04:39】
+{"leRGJpW8","expr":"rank(ts_std_dev(ts_backfill(rel_ret_all,5),20)-ts_std_dev(returns,20))","sharpe":0.24,"fitness":0.14,"turnover":0.1097}
+【2026_04_23 12:05:12】
+{"wpJGXgQQ","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5)+ts_backfill(rel_ret_part,5)-2*returns,5))","sharpe":1.43,"fitness":0.81,"turnover":0.5831}
+【2026_04_23 12:06:42】
+{"vRJGaVKb","expr":"rank(ts_sum(ts_backfill(rel_ret_cust,5),15)-ts_sum(returns,15))","sharpe":0.66,"fitness":0.33,"turnover":0.3338}
+【2026_04_23 12:06:47】
+{"O05zKvKY","expr":"ts_zscore(ts_backfill(rel_ret_all,5),60)*sign(-returns)","sharpe":-0.64,"fitness":-0.1,"turnover":1.411}
+【2026_04_23 12:06:54】
+{"2rn6P78P","expr":"rank(ts_backfill(rel_ret_all,5)/(abs(ts_backfill(rel_ret_all,5))+abs(returns)+0.001))","sharpe":-0.35,"fitness":-0.05,"turnover":1.336}
+【2026_04_23 12:10:20】
+{"MP5eEzjk","expr":"rank(ts_sum(ts_backfill(rel_ret_comp,5)-returns,20)/ts_std_dev(returns,20))","sharpe":1.15,"fitness":0.72,"turnover":0.3003}
+【2026_04_23 12:11:29】
+{"A1OzqNMl","expr":"rank(ts_sum(ts_backfill(rel_ret_all,5),5)-ts_sum(returns,5))*rank(-ts_sum(returns,10))","sharpe":1.18,"fitness":0.69,"turnover":0.4895}
+【2026_04_23 12:12:07】
+{"Jj5zRQXn","expr":"ts_rank(ts_backfill(rel_ret_all,5)-returns,60)-0.5","sharpe":1.11,"fitness":0.31,"turnover":1.3868}
+【2026_04_23 12:12:28】
+{"78Kvp3Y8","expr":"ts_zscore(ts_backfill(rel_ret_cust,5)-returns,40)","sharpe":1.24,"fitness":0.36,"turnover":1.4323}
+【2026_04_23 12:13:38】
+{"E5rzozxK","expr":"rank(ts_sum(ts_backfill(rel_ret_all,5)-returns,15))","sharpe":0.7,"fitness":0.36,"turnover":0.3361}
+【2026_04_23 12:14:37】
+{"rKrGQ8G1","expr":"rank(ts_backfill(rel_ret_comp,5))*rank(-returns)","sharpe":1.13,"fitness":0.31,"turnover":1.3525}
+【2026_04_23 12:15:08】
+{"j2dGNp7O","expr":"ts_zscore(ts_sum(ts_backfill(rel_ret_part,5),10)-ts_sum(returns,10),40)","sharpe":1.18,"fitness":0.59,"turnover":0.4847}
+【2026_04_23 12:16:37】
+{"blWz7eop","expr":"rank((ts_backfill(rel_ret_comp,5)-returns)/ts_std_dev(returns,10))","sharpe":1.23,"fitness":0.34,"turnover":1.3282}
+【2026_04_23 12:17:01】
+{"j2dGlLao","expr":"rank(ts_delta(ts_backfill(assets,60),252)/ts_backfill(assets,60))","sharpe":-0.03,"fitness":-0.0,"turnover":0.0283}
+【2026_04_23 12:19:52】
+{"Gr3z0Y10","expr":"rank(ts_regression(ts_sum(ts_backfill(rd_expense,60),252)+ts_sum(ts_backfill(capex,60),252),ts_step(1),756,rettype=2))","sharpe":-0.78,"fitness":-0.4,"turnover":0.01}
+【2026_04_23 12:20:27】
+{"kqLGkQml","expr":"rank(-ts_delta(ts_backfill(debt,60),252)/ts_backfill(assets,60))","sharpe":-0.05,"fitness":-0.01,"turnover":0.0317}
+【2026_04_23 12:22:11】
+{"58q57M2X","expr":"ts_zscore(ts_backfill(rel_ret_all,5)-returns,20)*rank(-ts_sum(returns,5))","sharpe":0.91,"fitness":0.22,"turnover":1.4371}
+【2026_04_23 12:22:23】
+{"VkYzw7R8","expr":"ts_zscore(ts_backfill(goodwill,60)/ts_backfill(assets,60),252)","sharpe":-0.33,"fitness":-0.09,"turnover":0.0716}
+【2026_04_23 12:23:54】
+{"E5rz0V61","expr":"ts_regression(ts_sum(ts_backfill(capex,60)+ts_backfill(rd_expense,60),252),ts_step(1),504,rettype=2)","sharpe":-0.42,"fitness":-0.19,"turnover":0.0104}
+【2026_04_23 12:24:55】
+{"pw1GJMdg","expr":"rank(ts_delta(ts_backfill(revenue,60),252)/ts_backfill(revenue,60))","sharpe":-0.48,"fitness":-0.25,"turnover":0.0429}
+【2026_04_23 12:26:12】
+{"zqJGw7ZX","expr":"rank(ts_delta(ts_backfill(ppent,60),504)/ts_backfill(assets,60))","sharpe":0.03,"fitness":0.0,"turnover":0.0234}
+【2026_04_23 12:27:55】
+{"88KJkMq7","expr":"ts_regression(ts_sum(ts_backfill(rd_expense,60),126),ts_step(1),504,rettype=2)","sharpe":-0.03,"fitness":-0.0,"turnover":0.0168}
+【2026_04_23 12:28:36】
+{"wpJGOmmY","expr":"rank(ts_regression(ts_backfill(return_assets,60),ts_step(1),504,rettype=2))","sharpe":-0.19,"fitness":-0.05,"turnover":0.0202}
+【2026_04_23 12:29:54】
+{"akWzMYw2","expr":"rank(ts_delta(ts_backfill(fnd6_newqv1300_ivltq,60),252)/ts_backfill(revenue,60))","sharpe":-0.24,"fitness":-0.06,"turnover":0.0285}
+【2026_04_23 12:30:03】
+{"blWzV7rK","expr":"rank(ts_delta(ts_backfill(revenue,60),252)*ts_regression(ts_sum(ts_backfill(capex,60),252),ts_step(1),252,rettype=2))","sharpe":-0.37,"fitness":-0.11,"turnover":0.0357}
+【2026_04_23 12:31:28】
+{"N15zqklo","expr":"ts_zscore(ts_backfill(fnd6_newqv1300_ivltq,60)/ts_backfill(assets,60),252)","sharpe":-0.33,"fitness":-0.1,"turnover":0.0812}
+【2026_04_23 12:31:35】
+{"QP5zqnQQ","expr":"rank(ts_regression(ts_backfill(ebitda,60)/ts_backfill(assets,60),ts_step(1),756,rettype=2))","sharpe":-0.55,"fitness":-0.22,"turnover":0.0156}
+【2026_04_23 12:33:23】
+{"om9GAlzE","expr":"ts_regression(ts_sum(ts_backfill(invested_capital,60),252),ts_step(1),756,rettype=2)","sharpe":0.09,"fitness":0.02,"turnover":0.008}
+【2026_04_23 12:34:24】
+{"3qnP3p9N","expr":"rank(ts_delta(ts_backfill(goodwill,60),252)/ts_backfill(assets,60))","sharpe":-0.29,"fitness":-0.08,"turnover":0.0231}
+【2026_04_23 12:34:52】
+{"blWzV6Nl","expr":"ts_zscore(ts_delta(ts_backfill(ppent,60),252)/ts_backfill(assets,60),252)","sharpe":-0.86,"fitness":-0.41,"turnover":0.0935}
+【2026_04_23 12:36:21】
+{"0mKg9G96","expr":"rank(ts_regression(ts_sum(ts_backfill(fnd6_newqv1300_ivltq,60),252),ts_step(1),504,rettype=2))","sharpe":-0.48,"fitness":-0.16,"turnover":0.0111}
+【2026_04_23 12:36:50】
+{"A1OzYenR","expr":"rank(ts_delta(ts_backfill(invested_capital,60),252)/ts_backfill(revenue,60))","sharpe":-0.33,"fitness":-0.12,"turnover":0.0302}
+【2026_04_23 12:37:03】
+{"leRGk1zA","expr":"rank(ts_regression(ts_sum(ts_backfill(capex,60),252),ts_step(1),756,rettype=2)*ts_delta(ts_backfill(revenue,60),252)/ts_backfill(revenue,60))","sharpe":-0.58,"fitness":-0.24,"turnover":0.0341}
+【2026_04_23 12:38:06】
+{"akWzMmj1","expr":"rank(ts_regression(ts_backfill(cashflow_op,60)/ts_backfill(assets,60),ts_step(1),756,rettype=2))","sharpe":-0.22,"fitness":-0.05,"turnover":0.0148}
+【2026_04_23 12:39:00】
+{"QP5zqRgW","expr":"ts_zscore(ts_regression(ts_backfill(fnd6_newqv1300_ivltq,60),ts_step(1),504,rettype=2),252)","sharpe":-0.84,"fitness":-0.37,"turnover":0.0342}
+【2026_04_23 12:39:06】
+{"kqLGbzYk","expr":"rank(ts_backfill(fnd6_newqv1300_ivltq,60)/ts_backfill(revenue,60))","sharpe":-0.23,"fitness":-0.07,"turnover":0.015}
+【2026_04_23 12:39:54】
+{"78KmQOv2","expr":"rank(ts_regression(ts_sum(ts_backfill(ppent,60),252),ts_step(1),756,rettype=2)*ts_delta(ts_backfill(revenue,60),252)/ts_backfill(revenue,60))","sharpe":-0.23,"fitness":-0.07,"turnover":0.0358}
+【2026_04_23 12:42:18】
+{"mLx7AeJ6","expr":"rank(ts_regression(ts_backfill(assets,60),ts_step(1),756,rettype=2))","sharpe":0.36,"fitness":0.13,"turnover":0.0122}
+【2026_04_23 12:42:27】
+{"88KJr7Pl","expr":"ts_zscore(ts_regression(ts_sum(ts_backfill(capex,60)+ts_backfill(rd_expense,60),252),ts_step(1),756,rettype=2),252)","sharpe":-1.35,"fitness":-0.79,"turnover":0.0201}
+【2026_04_23 12:42:59】
+{"mLx7AxAp","expr":"winsorize(-ts_backfill(news_max_up_ret,60)*ts_zscore(ts_backfill(volume,5),20),std=4)","sharpe":-0.39,"fitness":-0.07,"turnover":1.117}
+【2026_04_23 12:43:43】
+{"e7qGKxm6","expr":"rank(-ts_backfill(news_pct_1min,60)*sign(ts_delta(close,5)))","sharpe":0.4,"fitness":0.05,"turnover":0.605}
+【2026_04_23 12:45:13】
+{"vRJG9rqd","expr":"rank(-ts_delta(ts_backfill(scl12_buzz,5),5))*rank(-returns)","sharpe":1.35,"fitness":0.37,"turnover":1.2942}
+【2026_04_23 12:46:11】
+{"rKrGLeo9","expr":"rank(-ts_delta(close,5)/ts_std_dev(returns,20))*rank(-ts_backfill(news_max_up_ret,60))","sharpe":1.51,"fitness":0.6,"turnover":0.63}
+【2026_04_23 12:46:34】
+{"2rn6Rj6b","expr":"rank(-ts_zscore(ts_backfill(news_max_up_ret,60),20)*sign(ts_delta(close,1)))","sharpe":0.34,"fitness":0.03,"turnover":1.1979}
+【2026_04_23 12:46:47】
+{"KPwz6zrz","expr":"winsorize(-ts_backfill(news_max_up_ret,60)*rank(-ts_zscore(ts_backfill(scl12_sentiment,5),20)),std=4)","sharpe":0.36,"fitness":0.07,"turnover":0.7937}
+【2026_04_23 12:48:11】
+{"2rn6R6jP","expr":"-ts_zscore(ts_backfill(scl12_sentiment,5)-ts_delay(ts_backfill(scl12_sentiment,5),5),20)","sharpe":0.35,"fitness":0.03,"turnover":1.3676}
+【2026_04_23 12:48:11】
+{"9qAMK3WV","expr":"rank(-ts_backfill(news_max_up_ret,60))*rank(-ts_delta(ts_backfill(snt_buzz,5),5))","sharpe":0.4,"fitness":0.06,"turnover":0.963}
+【2026_04_23 12:49:05】
+{"QP5zjxYQ","expr":"rank(-ts_backfill(news_max_up_ret,60))*rank(-ts_backfill(news_pct_1min,60))","sharpe":0.31,"fitness":0.07,"turnover":0.4395}
+【2026_04_23 12:49:47】
+{"RRkzYgOn","expr":"-rank(ts_backfill(news_pct_1min,60))*rank(ts_std_dev(returns,20))","sharpe":-0.07,"fitness":-0.01,"turnover":0.2029}
+【2026_04_23 12:50:10】
+{"1YnKmvJR","expr":"winsorize(-ts_backfill(news_max_up_ret,60)*ts_regression(ts_backfill(scl12_sentiment,5),ts_step(1),10,rettype=2),std=4)","sharpe":0.72,"fitness":0.22,"turnover":0.8528}
+【2026_04_23 12:52:30】
+{"LLlzXb1M","expr":"-ts_zscore(ts_backfill(news_max_up_ret,60),40)*rank(-ts_backfill(scl12_buzz,5))","sharpe":0.09,"fitness":0.01,"turnover":0.7922}
+【2026_04_23 12:52:55】
+{"VkYzlEzb","expr":"rank(-ts_delta(ts_backfill(snt_buzz,5),10))*rank(-ts_backfill(news_max_up_ret,60))","sharpe":0.31,"fitness":0.04,"turnover":0.9617}
+【2026_04_23 12:53:32】
+{"ZYWzljN3","expr":"slope5min = ts_regression(ts_backfill(news_pct_5_min,60),ts_step(1),5,rettype=2); winsorize(-ts_backfill(news_max_up_ret,60)*abs(slope5min),std=4)","sharpe":1.08,"fitness":0.53,"turnover":0.6617}
+【2026_04_23 12:54:29】
+{"blWzPLjZ","expr":"-rank(ts_backfill(news_max_up_ret,60)/(ts_backfill(news_max_dn_ret,60)+0.001))","sharpe":0.49,"fitness":0.07,"turnover":0.5843}
+【2026_04_23 12:55:07】
+{"KPwz87K1","expr":"rank(-ts_backfill(news_max_up_ret,60))*rank(ts_delta(ts_backfill(news_max_dn_ret,60),5))","sharpe":0.52,"fitness":0.11,"turnover":0.6748}
+【2026_04_23 12:55:51】
+{"9qAM6Vjo","expr":"-ts_zscore(ts_backfill(news_max_up_ret,60),20)*sign(ts_delta(ts_backfill(scl12_buzz,5),5))","sharpe":0.77,"fitness":0.1,"turnover":1.1667}
+【2026_04_23 12:56:16】
+{"P0Xzlo5J","expr":"winsorize(-rank(ts_backfill(news_max_up_ret,60))*rank(-ts_backfill(scl12_sentiment,5)),std=4)","sharpe":0.32,"fitness":0.05,"turnover":0.8895}
+【2026_04_23 12:57:10】
+{"VkYzlZrV","expr":"slope10min = ts_regression(ts_backfill(news_pct_10min,60),ts_step(1),5,rettype=2); rank(-ts_backfill(news_max_up_ret,60)*abs(slope10min))","sharpe":0.35,"fitness":0.07,"turnover":0.4593}
+【2026_04_23 12:57:51】
+{"XgYzlzP8","expr":"rank(-ts_backfill(snt_buzz_ret,5))*rank(ts_std_dev(returns,20))","sharpe":-0.16,"fitness":-0.03,"turnover":0.6272}
+【2026_04_23 12:58:10】
+{"rKrGzVr8","expr":"-rank(ts_backfill(news_pct_1min,60))*rank(-ts_backfill(scl12_sentiment,5))","sharpe":-0.27,"fitness":-0.03,"turnover":0.7918}
+【2026_04_23 12:58:25】
+{"xAmGzLqJ","expr":"-rank(ts_backfill(news_max_up_ret,60))*rank(ts_zscore(ts_backfill(scl12_buzz,5),20))","sharpe":0.62,"fitness":0.13,"turnover":0.866}
+【2026_04_23 12:59:51】
+{"3qnPnqgN","expr":"rank(-ts_delta(ts_backfill(scl12_buzz,5),5))*rank(ts_delta(close,5)/ts_std_dev(returns,20))","sharpe":-1.24,"fitness":-0.33,"turnover":1.0007}
+【2026_04_23 13:00:55】
+{"qMmGmMa1","expr":"winsorize(-ts_backfill(news_max_up_ret,60)*rank(ts_delta(returns,5)),std=4)","sharpe":0.74,"fitness":0.21,"turnover":0.9927}
+【2026_04_23 13:01:01】
+{"YPWzWZ9J","expr":"slope30min = ts_regression(ts_backfill(news_pct_30min,60),ts_step(1),5,rettype=2); winsorize(-ts_backfill(news_max_up_ret,60)*abs(slope30min),std=4)","sharpe":1.14,"fitness":0.57,"turnover":0.6803}
+【2026_04_23 13:02:52】
+{"type": "end", "timestamp": "2026-04-23 13:02:52", "total": 150, "succeeded": 150, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 13:59:01", "total": 150}
+{"d5lz0kvX","expr":"rank(ts_delta(ts_backfill(implied_volatility_call_90,5),10))","sharpe":0.76,"fitness":0.15,"turnover":0.8662}
+【2026_04_23 14:01:23】
+{"QP5zVMXp","expr":"rank(ts_backfill(implied_volatility_mean_30,5)/ts_backfill(historical_volatility_30,5))","sharpe":0.24,"fitness":0.04,"turnover":0.3773}
+【2026_04_23 14:01:29】
+{"RRkz8MQz","expr":"-ts_zscore(ts_backfill(implied_volatility_put_30,5),40)","sharpe":-1.66,"fitness":-0.54,"turnover":0.7736}
+【2026_04_23 14:01:29】
+{"ZYWznqVn","expr":"ts_zscore(ts_delta(ts_backfill(implied_volatility_mean_skew_90,5),10),40)","sharpe":-0.76,"fitness":-0.1,"turnover":1.173}
+【2026_04_23 14:03:42】
+{"xAmGk9Lm","expr":"ts_zscore(ts_backfill(implied_volatility_mean_30,5)/ts_backfill(implied_volatility_mean_180,5),60)","sharpe":1.01,"fitness":0.24,"turnover":0.8069}
+【2026_04_23 14:03:42】
+{"mLx7bA05","expr":"rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_mean_270,5))","sharpe":1.75,"fitness":0.51,"turnover":0.7534}
+【2026_04_23 14:03:56】
+{"gJoGM9Z0","expr":"rank(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_90,5))","sharpe":-0.13,"fitness":-0.01,"turnover":0.7008}
+【2026_04_23 14:05:54】
+{"3qnPR9xN","expr":"rank(ts_regression(ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5),ts_step(1),20,rettype=2))","sharpe":-0.26,"fitness":-0.04,"turnover":0.3297}
+【2026_04_23 14:06:34】
+{"VkYzP0E0","expr":"ts_rank(ts_backfill(implied_volatility_mean_30,5),60)-0.5","sharpe":1.72,"fitness":0.6,"turnover":0.699}
+【2026_04_23 14:07:01】
+{"9qAMrkqV","expr":"rank(ts_backfill(parkinson_volatility_180,5)/ts_backfill(historical_volatility_180,5))","sharpe":-0.88,"fitness":-0.48,"turnover":0.067}
+【2026_04_23 14:08:55】
+{"xAmGkEPm","expr":"rank(ts_backfill(implied_volatility_mean_skew_90,5)*(ts_backfill(implied_volatility_mean_30,5)/ts_backfill(implied_volatility_mean_90,5)))","sharpe":0.72,"fitness":0.16,"turnover":0.8168}
+【2026_04_23 14:09:14】
+{"npOq81Zx","expr":"rank(ts_backfill(implied_volatility_call_30,5))","sharpe":0.03,"fitness":0.0,"turnover":0.2979}
+【2026_04_23 14:10:49】
+{"E5rzeWM0","expr":"-rank(ts_backfill(implied_volatility_put_180,5)/ts_backfill(implied_volatility_mean_180,5))","sharpe":1.79,"fitness":0.52,"turnover":0.7629}
+【2026_04_23 14:12:05】
+{"xAmGdanJ","expr":"rank(ts_backfill(implied_volatility_call_270,5)/ts_backfill(historical_volatility_180,5))","sharpe":1.01,"fitness":0.35,"turnover":0.3695}
+【2026_04_23 14:12:43】
+{"leRG36p7","expr":"rank(ts_backfill(implied_volatility_mean_180,5)-ts_backfill(historical_volatility_180,5))","sharpe":-0.06,"fitness":-0.01,"turnover":0.2708}
+【2026_04_23 14:13:16】
+{"O05zxZwd","expr":"ts_zscore(ts_delta(ts_backfill(implied_volatility_call_90,5),5),40)","sharpe":0.71,"fitness":0.12,"turnover":1.0613}
+【2026_04_23 14:15:33】
+{"A1Oz7Gle","expr":"-rank(ts_backfill(implied_volatility_put_60,5)/ts_backfill(historical_volatility_60,5))","sharpe":-0.21,"fitness":-0.03,"turnover":0.3829}
+【2026_04_23 14:16:09】
+{"E5rzeG8P","expr":"ts_zscore(ts_backfill(implied_volatility_mean_skew_270,5),40)","sharpe":0.37,"fitness":0.04,"turnover":1.0564}
+【2026_04_23 14:16:09】
+{"leRG39QN","expr":"-rank(ts_backfill(implied_volatility_put_360,5))","sharpe":0.04,"fitness":0.01,"turnover":0.1956}
+【2026_04_23 14:18:49】
+{"P0XzO8VM","expr":"rank(ts_delta(ts_backfill(implied_volatility_mean_10,5)/ts_backfill(implied_volatility_mean_180,5),5))","sharpe":0.72,"fitness":0.11,"turnover":0.9786}
+【2026_04_23 14:18:56】
+{"9qAM729q","expr":"rank(ts_backfill(implied_volatility_mean_270,5))","sharpe":-0.02,"fitness":-0.0,"turnover":0.1484}
+【2026_04_23 14:19:14】
+{"npOqNp2M","expr":"rank(ts_backfill(implied_volatility_mean_60,5)/ts_backfill(implied_volatility_mean_360,5))","sharpe":-0.22,"fitness":-0.03,"turnover":0.6782}
+【2026_04_23 14:21:02】
+{"LLlzGjNa","expr":"rank(ts_backfill(parkinson_volatility_90,5)/ts_backfill(historical_volatility_90,5))","sharpe":-0.57,"fitness":-0.25,"turnover":0.1062}
+【2026_04_23 14:21:41】
+{"gJoG8OEO","expr":"rank(ts_delta(ts_backfill(implied_volatility_call_360,5)-ts_backfill(implied_volatility_put_360,5),20))","sharpe":-0.21,"fitness":-0.02,"turnover":0.9752}
+【2026_04_23 14:21:52】
+{"kqLGPlOg","expr":"rank(ts_backfill(implied_volatility_mean_skew_30,5)*ts_backfill(implied_volatility_mean_30,5))","sharpe":0.78,"fitness":0.16,"turnover":0.8862}
+【2026_04_23 14:22:25】
+{"58q5p76X","expr":"rank(ts_delta(ts_backfill(ebit,60)/ts_backfill(revenue,60),252))","sharpe":-0.36,"fitness":-0.12,"turnover":0.0282}
+【2026_04_23 14:23:19】
+{"pw1GNzMg","expr":"ts_zscore(ts_backfill(cashflow_op,60)-ts_backfill(income,60),252)","sharpe":0.34,"fitness":0.1,"turnover":0.0634}
+【2026_04_23 14:24:04】
+{"N15zbRYL","expr":"rank(ts_delta(ts_backfill(income,60)/ts_backfill(assets,60),252))","sharpe":-0.02,"fitness":-0.0,"turnover":0.0388}
+【2026_04_23 14:25:51】
+{"78KmzGxO","expr":"rank(-ts_delta(ts_backfill(debt,60)/ts_backfill(assets,60),252))","sharpe":-0.26,"fitness":-0.08,"turnover":0.0291}
+【2026_04_23 14:27:41】
+{"j2dG6VnE","expr":"rank(ts_backfill(cashflow_op,60)/ts_backfill(assets,60)-ts_backfill(income,60)/ts_backfill(assets,60))","sharpe":0.32,"fitness":0.16,"turnover":0.0184}
+【2026_04_23 14:27:45】
+{"j2dG6MWQ","expr":"rank(-ts_delta(ts_backfill(working_capital,60)/ts_backfill(assets,60),252))","sharpe":0.53,"fitness":0.21,"turnover":0.0281}
+【2026_04_23 14:28:58】
+{"XgYzoOvz","expr":"rank(ts_delta(ts_backfill(revenue,60),252)/ts_backfill(revenue,60))","sharpe":-0.41,"fitness":-0.22,"turnover":0.034}
+【2026_04_23 14:29:10】
+{"78Kmzr6x","expr":"rank(ts_backfill(ebit,60)/ts_backfill(debt,60))","sharpe":0.0,"fitness":0.0,"turnover":0.0144}
+【2026_04_23 14:29:21】
+{"O05zGlo1","expr":"rank(ts_backfill(revenue,60)/cap)","sharpe":0.95,"fitness":0.94,"turnover":0.0222}
+【2026_04_23 14:30:22】
+{"gJoXrlAm","expr":"rank(ts_backfill(cashflow_op,60)/ts_backfill(assets,60))","sharpe":0.26,"fitness":0.14,"turnover":0.013}
+【2026_04_23 14:31:13】
+{"om9Gq57k","expr":"rank(ts_delta((ts_backfill(cashflow_op,60)-ts_backfill(capex,60))/cap,252))","sharpe":0.82,"fitness":0.47,"turnover":0.0388}
+【2026_04_23 14:31:33】
+{"N15z7kMp","expr":"rank(ts_delta(ts_backfill(ebitda,60),252))","sharpe":-0.01,"fitness":-0.0,"turnover":0.0162}
+【2026_04_23 14:32:44】
+{"2rn6lPlw","expr":"ts_zscore(-ts_delta(ts_backfill(debt,60)/ts_backfill(assets,60),252),252)","sharpe":0.57,"fitness":0.21,"turnover":0.0724}
+【2026_04_23 14:32:47】
+{"j2dGjnvk","expr":"ts_zscore(ts_delta(ts_backfill(ebitda,60)/ts_backfill(revenue,60),252),252)","sharpe":0.35,"fitness":0.13,"turnover":0.0712}
+【2026_04_23 14:34:13】
+{"e7qGzx1d","expr":"rank(ts_backfill(cashflow_op,60)/ts_backfill(invested_capital,60))","sharpe":0.38,"fitness":0.23,"turnover":0.0138}
+【2026_04_23 14:35:28】
+{"E5rzle6R","expr":"rank(ts_delta(ts_backfill(operating_income,60)/ts_backfill(invested_capital,60),252))","sharpe":0.2,"fitness":0.06,"turnover":0.0386}
+【2026_04_23 14:35:30】
+{"d5lzjW2w","expr":"ts_zscore(ts_backfill(working_capital,60)/ts_backfill(revenue,60),252)","sharpe":-0.23,"fitness":-0.06,"turnover":0.0557}
+【2026_04_23 14:36:57】
+{"blWzjA3K","expr":"rank(-ts_delta(ts_backfill(invested_capital,60),252)/ts_backfill(invested_capital,60))","sharpe":0.39,"fitness":0.17,"turnover":0.0261}
+【2026_04_23 14:38:30】
+{"gJoGjLng","expr":"rank(-ts_backfill(capex,60)/ts_backfill(cashflow_op,60))","sharpe":-0.61,"fitness":-0.41,"turnover":0.0127}
+【2026_04_23 14:38:45】
+{"rKrGjxJ1","expr":"ts_zscore(ts_delta((ts_backfill(cashflow_op,60)-ts_backfill(capex,60))/cap,252),252)","sharpe":0.98,"fitness":0.59,"turnover":0.0918}
+【2026_04_23 14:39:52】
+{"88KJ3obo","expr":"rank(ts_backfill(operating_income,60)/(ts_delta(ts_backfill(revenue,60),252)+1))","sharpe":0.45,"fitness":0.23,"turnover":0.0361}
+【2026_04_23 14:41:09】
+{"pw1GPX9V","expr":"rank(-ts_delta(ts_backfill(working_capital,60),252))","sharpe":0.5,"fitness":0.21,"turnover":0.0245}
+【2026_04_23 14:41:20】
+{"2rn6OkVP","expr":"ts_zscore(ts_backfill(return_assets,60),504)","sharpe":0.38,"fitness":0.15,"turnover":0.0534}
+【2026_04_23 14:42:09】
+{"mLx7gOG1","expr":"rank((ts_backfill(cashflow_op,60)-ts_backfill(capex,60))/ts_backfill(invested_capital,60))","sharpe":0.3,"fitness":0.16,"turnover":0.0136}
+【2026_04_23 14:42:26】
+{"wpJGYJp1","expr":"rank(ts_backfill(ebitda,60)/ts_backfill(debt,60))","sharpe":0.01,"fitness":0.0,"turnover":0.0145}
+【2026_04_23 14:43:38】
+{"vRJGklAG","expr":"rank(ts_backfill(implied_volatility_call_180,5)/ts_backfill(implied_volatility_put_180,5))","sharpe":0.98,"fitness":0.49,"turnover":0.2967}
+【2026_04_23 14:45:07】
+{"YPWz5g3o","expr":"-rank(ts_backfill(pcr_oi_30,5))","sharpe":-0.38,"fitness":-0.15,"turnover":0.1285}
+【2026_04_23 14:45:23】
+{"VkYz67ZJ","expr":"-ts_zscore(ts_backfill(pcr_oi_30,5),40)","sharpe":-0.02,"fitness":-0.0,"turnover":0.2107}
+【2026_04_23 14:45:49】
+{"LLlz9MAn","expr":"-rank(ts_backfill(pcr_vol_30,5))","sharpe":-0.49,"fitness":-0.13,"turnover":0.4096}
+【2026_04_23 14:46:41】
+{"6XY0r2JP","expr":"rank(-ts_delta(ts_backfill(pcr_oi_270,5),5))","sharpe":0.2,"fitness":0.03,"turnover":0.3323}
+【2026_04_23 14:48:25】
+{"gJoGQ5JQ","expr":"rank(-ts_backfill(pcr_oi_180,5)*ts_backfill(implied_volatility_mean_skew_180,5))","sharpe":-0.95,"fitness":-0.61,"turnover":0.1939}
+【2026_04_23 14:48:31】
+{"RRkzbJab","expr":"-ts_zscore(ts_backfill(pcr_vol_60,5),60)","sharpe":0.73,"fitness":0.17,"turnover":0.5447}
+【2026_04_23 14:49:54】
+{"P0Xz2WlL","expr":"ts_zscore(ts_backfill(implied_volatility_call_270,5)/ts_backfill(implied_volatility_put_270,5),40)","sharpe":0.13,"fitness":0.02,"turnover":0.4808}
+【2026_04_23 14:50:46】
+{"MP5zaANM","expr":"rank(-(ts_backfill(pcr_vol_270,5)-ts_backfill(pcr_oi_270,5)))","sharpe":-0.13,"fitness":-0.01,"turnover":0.3802}
+【2026_04_23 14:51:39】
+{"zqJG8Qnd","expr":"-rank(ts_backfill(pcr_oi_180,5)-ts_mean(ts_backfill(pcr_oi_180,5),60))","sharpe":0.62,"fitness":0.25,"turnover":0.085}
+【2026_04_23 14:52:33】
+{"xAmG3mVp","expr":"rank(ts_backfill(implied_volatility_call_90,5)-ts_backfill(implied_volatility_put_90,5))*(-rank(ts_backfill(pcr_oi_90,5)))","sharpe":-0.78,"fitness":-0.33,"turnover":0.2306}
+【2026_04_23 14:53:08】
+{"akWzbnz1","expr":"-ts_zscore(ts_delta(ts_backfill(pcr_oi_270,5),5),40)","sharpe":-0.25,"fitness":-0.04,"turnover":0.3781}
+【2026_04_23 14:54:22】
+{"Gr3zbG3O","expr":"-rank(ts_backfill(pcr_oi_60,5))","sharpe":-0.16,"fitness":-0.04,"turnover":0.1273}
+【2026_04_23 14:54:43】
+{"akWzbanW","expr":"-rank(ts_backfill(pcr_oi_10,5))","sharpe":-0.61,"fitness":-0.31,"turnover":0.1128}
+【2026_04_23 14:56:17】
+{"6XY0jG6p","expr":"-rank(ts_backfill(pcr_oi_180,5))*rank(ts_backfill(implied_volatility_mean_30,5)/ts_backfill(implied_volatility_mean_180,5))","sharpe":-0.22,"fitness":-0.06,"turnover":0.1916}
+【2026_04_23 14:56:32】
+{"type": "start", "timestamp": "2026-04-23 15:03:19", "total": 4}
+{"—","expr":"ts_mean(rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5)),30)","error":"轮询失败: 504 <html>
+<head><title>504 Gateway Time-out</title></head>
+<body>
+<center><h1>504 Gateway Time-out</h1></center>
+</body>
+</html>
+"}
+【2026_04_23 15:03:43】
+{"type": "start", "timestamp": "2026-04-23 15:04:44", "total": 4}
+{"—","expr":"ts_mean(rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5)),30)","error":"提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+【2026_04_23 15:06:16】
+{"—","expr":"ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),40)","error":"提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+【2026_04_23 15:06:37】
+{"type": "start", "timestamp": "2026-04-23 15:47:45", "total": 4}
+{"O05z8zJY","expr":"ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),40)","sharpe":2.64,"fitness":3.01,"turnover":0.0624}
+【2026_04_23 15:49:22】
+{"2rn6mOV5","expr":"ts_mean(ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),60),30)","sharpe":0.14,"fitness":0.03,"turnover":0.1331}
+【2026_04_23 15:49:26】
+{"vRJG2kGw","expr":"ts_mean(rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5)),30)","sharpe":2.02,"fitness":1.77,"turnover":0.0721}
+【2026_04_23 15:50:42】
+{"9qAMW5zo","expr":"0.7*ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),30)+0.3*ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),10)","sharpe":2.5,"fitness":2.74,"turnover":0.115}
+【2026_04_23 15:51:50】
+{"type": "end", "timestamp": "2026-04-23 15:51:50", "total": 4, "succeeded": 4, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 15:59:07", "total": 4}
+{"2rn6mOV5","expr":"ts_mean(ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),60),30)","sharpe":0.14,"fitness":0.03,"turnover":0.1331}
+【2026_04_23 16:00:40】
+{"O05z8zJY","expr":"ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),40)","sharpe":2.64,"fitness":3.01,"turnover":0.0624}
+【2026_04_23 16:00:50】
+{"vRJG2kGw","expr":"ts_mean(rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5)),30)","sharpe":2.02,"fitness":1.77,"turnover":0.0721}
+【2026_04_23 16:02:28】
+{"9qAMW5zo","expr":"0.7*ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),30)+0.3*ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),10)","sharpe":2.5,"fitness":2.74,"turnover":0.115}
+【2026_04_23 16:04:25】
+{"type": "end", "timestamp": "2026-04-23 16:04:25", "total": 4, "succeeded": 4, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 16:13:46", "total": 4}
+{"vRJG2kGw","expr":"ts_mean(rank((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5)),30)","sharpe":2.02,"fitness":1.77,"turnover":0.0721}
+【2026_04_23 16:16:06】
+{"2rn6mOV5","expr":"ts_mean(ts_zscore((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),60),30)","sharpe":0.14,"fitness":0.03,"turnover":0.1331}
+【2026_04_23 16:16:22】
+{"O05z8zJY","expr":"ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),40)","sharpe":2.64,"fitness":3.01,"turnover":0.0624}
+【2026_04_23 16:16:22】
+{"9qAMW5zo","expr":"0.7*ts_mean((ts_backfill(implied_volatility_call_180,5)-ts_backfill(implied_volatility_put_180,5))/ts_backfill(implied_volatility_mean_180,5),30)+0.3*ts_mean((ts_backfill(implied_volatility_call_30,5)-ts_backfill(implied_volatility_put_30,5))/ts_backfill(implied_volatility_mean_30,5),10)","sharpe":2.5,"fitness":2.74,"turnover":0.115}
+【2026_04_23 16:17:57】
+{"type": "end", "timestamp": "2026-04-23 16:17:57", "total": 4, "succeeded": 4, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 21:51:22", "total": 2}
+{"type": "result", "timestamp": "2026-04-23 21:52:58", "index": 1, "total": 2, "alpha_id": "QP5g3YKK", "url": "https://platform.worldquantbrain.com/alpha/QP5g3YKK", "field_id": "gc_104_cfafat_ev_fullversion_smooth40", "expr": "ts_mean((cashflow_op - fnd6_txpd - fnd6_intpn - capex) / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.25, "fitness": 0.14, "turnover": 0.0458, "returns": 0.0395, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 21:53:00", "index": 2, "total": 2, "alpha_id": "N153QeaX", "url": "https://platform.worldquantbrain.com/alpha/N153QeaX", "field_id": "gc_105_cfim_ev_yield_smooth40", "expr": "ts_mean((cashflow_op - capex) / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.68, "fitness": 0.64, "turnover": 0.065, "returns": 0.1124, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 21:53:00", "total": 2, "succeeded": 2, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 22:02:09", "total": 3}
+{"type": "result", "timestamp": "2026-04-23 22:03:46", "index": 1, "total": 3, "alpha_id": "zqJ08Gqo", "url": "https://platform.worldquantbrain.com/alpha/zqJ08Gqo", "field_id": "gc_110_cfim_ev_smooth20", "expr": "ts_mean((cashflow_op - capex) / enterprise_value, 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.12, "fitness": 0.05, "turnover": 0.0901, "returns": 0.0202, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:03:52", "index": 3, "total": 3, "alpha_id": "xAmW3G3N", "url": "https://platform.worldquantbrain.com/alpha/xAmW3G3N", "field_id": "gc_112_cfim_ev_zscore40", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.13, "fitness": 0.48, "turnover": 0.3384, "returns": 0.062, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:06:39", "index": 2, "total": 3, "alpha_id": "1YnPZe6J", "url": "https://platform.worldquantbrain.com/alpha/1YnPZe6J", "field_id": "gc_111_cfim_ev_smooth60", "expr": "ts_mean((cashflow_op - capex) / enterprise_value, 60)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.56, "fitness": 0.49, "turnover": 0.0548, "returns": 0.094, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 22:06:39", "total": 3, "succeeded": 3, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 22:12:20", "total": 7}
+{"type": "result", "timestamp": "2026-04-23 22:13:41", "index": 3, "total": 7, "alpha_id": "N153V3Kw", "url": "https://platform.worldquantbrain.com/alpha/N153V3Kw", "field_id": "gc_115_cfim_zscore40_smooth5", "expr": "ts_mean(ts_zscore((cashflow_op - capex) / enterprise_value, 40), 5)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.93, "fitness": 0.51, "turnover": 0.1685, "returns": 0.05, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:15:02", "index": 4, "total": 7, "alpha_id": "Gr3xORqG", "url": "https://platform.worldquantbrain.com/alpha/Gr3xORqG", "field_id": "gc_116_cfim_zscore40_smooth10", "expr": "ts_mean(ts_zscore((cashflow_op - capex) / enterprise_value, 40), 10)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.0, "fitness": 0.66, "turnover": 0.1234, "returns": 0.0545, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:15:28", "index": 1, "total": 7, "alpha_id": "0mK6jbb2", "url": "https://platform.worldquantbrain.com/alpha/0mK6jbb2", "field_id": "gc_113_cfim_zscore20", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.82, "fitness": 0.26, "turnover": 0.4709, "returns": 0.0479, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:15:30", "index": 2, "total": 7, "alpha_id": "zqJ0blnG", "url": "https://platform.worldquantbrain.com/alpha/zqJ0blnG", "field_id": "gc_114_cfim_zscore60", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 60)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.23, "fitness": 0.6, "turnover": 0.278, "returns": 0.0659, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:17:17", "index": 6, "total": 7, "alpha_id": "P0X8MErp", "url": "https://platform.worldquantbrain.com/alpha/P0X8MErp", "field_id": "gc_118_cfim_zscore40_plus_accrual", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 40) + ts_zscore((cashflow_op - income) / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.36, "fitness": 0.64, "turnover": 0.3409, "returns": 0.0754, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:17:33", "index": 7, "total": 7, "alpha_id": "KPwQmebg", "url": "https://platform.worldquantbrain.com/alpha/KPwQmebg", "field_id": "gc_119_cfim_zscore40_plus_gp", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 40) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.62, "fitness": 0.87, "turnover": 0.3416, "returns": 0.0994, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:18:07", "index": 5, "total": 7, "alpha_id": "om9rowdn", "url": "https://platform.worldquantbrain.com/alpha/om9rowdn", "field_id": "gc_117_cfim_zscore40_smooth20", "expr": "ts_mean(ts_zscore((cashflow_op - capex) / enterprise_value, 40), 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.01, "fitness": 0.66, "turnover": 0.0877, "returns": 0.0537, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 22:18:07", "total": 7, "succeeded": 7, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 22:32:27", "total": 2}
+{"type": "result", "timestamp": "2026-04-23 22:34:57", "index": 1, "total": 2, "alpha_id": "2rnWA3Xw", "url": "https://platform.worldquantbrain.com/alpha/2rnWA3Xw", "field_id": "gc_127_119_decay5", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 40) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 5, "neutralization": "SUBINDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.3, "fitness": 0.84, "turnover": 0.1862, "returns": 0.0775, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:35:29", "index": 2, "total": 2, "alpha_id": "qMm37M0A", "url": "https://platform.worldquantbrain.com/alpha/qMm37M0A", "field_id": "gc_128_119_industry_neutral", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 40) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.54, "fitness": 0.89, "turnover": 0.331, "returns": 0.1094, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 22:35:29", "total": 2, "succeeded": 2, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 22:51:17", "total": 3}
+{"type": "result", "timestamp": "2026-04-23 22:52:52", "index": 2, "total": 3, "alpha_id": "3qn5GJR6", "url": "https://platform.worldquantbrain.com/alpha/3qn5GJR6", "field_id": "gc_130_industry_smooth3", "expr": "ts_mean(ts_zscore((cashflow_op - capex) / enterprise_value, 40) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40), 3)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.21, "fitness": 0.78, "turnover": 0.2053, "returns": 0.0844, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:53:08", "index": 3, "total": 3, "alpha_id": "3qn5G2PZ", "url": "https://platform.worldquantbrain.com/alpha/3qn5G2PZ", "field_id": "gc_131_cfim60_gp20_industry", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 60) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.74, "fitness": 0.98, "turnover": 0.3766, "returns": 0.1198, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 22:53:12", "index": 1, "total": 3, "alpha_id": "Jj51321n", "url": "https://platform.worldquantbrain.com/alpha/Jj51321n", "field_id": "gc_129_rank_industry", "expr": "ts_rank((cashflow_op - capex) / enterprise_value, 40) + ts_rank(fnd6_newa1v1300_gp / enterprise_value, 40)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.32, "fitness": 0.68, "turnover": 0.3423, "returns": 0.0913, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 22:53:12", "total": 3, "succeeded": 3, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 22:59:43", "total": 3}
+{"type": "result", "timestamp": "2026-04-23 23:01:17", "index": 3, "total": 3, "alpha_id": "Jj51oeEA", "url": "https://platform.worldquantbrain.com/alpha/Jj51oeEA", "field_id": "gc_134_cfo80_gp15", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 15)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.79, "fitness": 0.98, "turnover": 0.4019, "returns": 0.1209, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 23:02:44", "index": 1, "total": 3, "alpha_id": "WjW030Jd", "url": "https://platform.worldquantbrain.com/alpha/WjW030Jd", "field_id": "gc_132_cfo80_gp20", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.75, "fitness": 1.0, "turnover": 0.3634, "returns": 0.118, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 23:03:27", "index": 2, "total": 3, "alpha_id": "P0X8xbzK", "url": "https://platform.worldquantbrain.com/alpha/P0X8xbzK", "field_id": "gc_133_cfo60_gp15", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 60) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 15)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.77, "fitness": 0.96, "turnover": 0.4145, "returns": 0.1221, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 23:03:27", "total": 3, "succeeded": 3, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 23:19:01", "total": 3}
+{"type": "result", "timestamp": "2026-04-23 23:20:30", "index": 2, "total": 3, "alpha_id": "rKrVGjbE", "url": "https://platform.worldquantbrain.com/alpha/rKrVGjbE", "field_id": "gc_142_add_volume", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(volume / ts_mean(volume, 60), 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 1.63, "fitness": 0.71, "turnover": 0.5704, "returns": 0.1075, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 23:21:23", "index": 3, "total": 3, "alpha_id": "j2dxGeXj", "url": "https://platform.worldquantbrain.com/alpha/j2dxGeXj", "field_id": "gc_143_add_reversal", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(returns, 5)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 2.04, "fitness": 0.91, "turnover": 0.7063, "returns": 0.1415, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "result", "timestamp": "2026-04-23 23:21:24", "index": 1, "total": 3, "alpha_id": "Gr3xzgoP", "url": "https://platform.worldquantbrain.com/alpha/Gr3xzgoP", "field_id": "gc_141_add_momentum", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(returns, 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": null, "sharpe": 0.86, "fitness": 0.3, "turnover": 0.4771, "returns": 0.0572, "checks_pass": true, "checks_detail": [], "weight_max": null, "sub_univ_sharpe": null, "self_corr": null}
+{"type": "end", "timestamp": "2026-04-23 23:21:24", "total": 3, "succeeded": 3, "failed": 0}
+{"type": "start", "timestamp": "2026-04-23 23:31:40", "total": 5}
+{"type": "result", "timestamp": "2026-04-23 23:31:48", "index": 1, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_147_stability_weight", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "完成但 alpha 为空"}
+{"type": "result", "timestamp": "2026-04-23 23:31:48", "index": 2, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_148_stability_decay", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 3, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "完成但 alpha 为空"}
+{"type": "start", "timestamp": "2026-04-23 23:32:07", "total": 5}
+{"type": "result", "timestamp": "2026-04-23 23:33:01", "index": 2, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_148_stability_decay", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 3, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+{"type": "result", "timestamp": "2026-04-23 23:33:01", "index": 1, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_147_stability_weight", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+{"type": "result", "timestamp": "2026-04-23 23:33:06", "index": 3, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_144_reversal_decay5", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(returns, 5)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 5, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+{"type": "result", "timestamp": "2026-04-23 23:33:53", "index": 5, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_146_12m_momentum", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(close / ts_delay(close, 252) - 1, 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+{"type": "result", "timestamp": "2026-04-23 23:33:58", "index": 4, "total": 5, "alpha_id": null, "url": null, "field_id": "gc_145_smooth_reversal", "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20)", "settings": {"instrumentType": "EQUITY", "region": "USA", "universe": "TOP3000", "delay": 1, "decay": 0, "neutralization": "INDUSTRY", "truncation": 0.08, "pasteurization": "ON", "unitHandling": "VERIFY", "nanHandling": "OFF", "language": "FASTEXPR", "visualization": false}, "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"}
+{"type": "end", "timestamp": "2026-04-23 23:33:58", "total": 5, "succeeded": 0, "failed": 5}
