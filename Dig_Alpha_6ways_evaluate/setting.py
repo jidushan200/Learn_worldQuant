@@ -30,4 +30,4 @@ LOGS_DIR      = "logs"
 LOG_BASE_NAME = "probe_log"
 
 # ── 字段来源 ───────────────────────────────────────────────
-FIELDS_CSV = r"..\Fetch_Fields\fundamental6_fields_ids.csv"
+FIELDS_CSV = r"..\Fetch_Fields\id_fundamental6_Company_Fundamental_Data_for_Equity_fields.csv"

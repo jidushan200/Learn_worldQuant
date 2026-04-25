@@ -36,11 +36,11 @@ WEB_DIR          = "web"
 BRAIN_URL_PREFIX = "https://platform.worldquantbrain.com/alpha/"
 
 # ---------- AI 递归优化 ----------
-MAX_ITERATIONS      = 50
+MAX_ITERATIONS      = 50            # 循环的次数，main.py有方法
 TARGET_SHARPE       = 1.3
 TARGET_FITNESS      = 1.00
 TARGET_GRADE        = "EXCELLENT"   # 达到此 grade 即停止，顺序: INFERIOR < AVERAGE < GOOD < EXCELLENT < SPECTACULAR
-ALPHAS_PER_ROUND    = 8
+ALPHAS_PER_ROUND    = 8             # 每次生成的Alpha数量
 INITIAL_PROMPT_FILE = "strategy_prompt.txt"
 
 # ---------- AI 研判（回测后由 GPT-5.4 评审） ----------
