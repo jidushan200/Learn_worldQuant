@@ -1,329 +1,282 @@
 """
-构建发给 AI 的 prompt —— 初始轮 / 迭代轮
-支持从 knowledge/ 目录加载字段、函数、范例、论文等参考资料
+链式 Prompt 构建器
+──────────────────
+第 1 轮: SYSTEM_PROMPT + 知识库 + 策略思路 + SETTING_SPEC + OUTPUT_FORMAT
+第 N 轮: (知识库) + 最优 alpha 详情 + 年度表格 + 差距分析
+                  + 上轮失败表达式 + SETTING_SPEC + OUTPUT_FORMAT
+
+不做逐轮历史累加。每轮只看「当前最优」和「上轮结果」。
 """
 
-import os
-import glob
+from knowledge_loader import load_knowledge
+from prompt_utils import (
+    SYSTEM_PROMPT, SETTING_SPEC, OUTPUT_FORMAT,
+    grade_ge,
+)
 from setting import (
     TARGET_SHARPE, TARGET_FITNESS, TARGET_GRADE,
-    ALPHAS_PER_ROUND, INITIAL_PROMPT_FILE, KNOWLEDGE_DIR,
-    KNOWLEDGE_EVERY_ROUND,
+    SIMULATION_SETTINGS, ALPHAS_PER_ROUND,
+    SETTING_CHANGE_THRESHOLD,
 )
 
+try:
+    from setting import KNOWLEDGE_EVERY_ROUND
+except ImportError:
+    KNOWLEDGE_EVERY_ROUND = False
+
 
 # ═══════════════════════════════════════════════════════════
-#  知识库加载
+#  内部工具
 # ═══════════════════════════════════════════════════════════
 
-_KNOWLEDGE_FILES = {
-    "fields.md":    "## 平台数据字段参考",
-    "functions.md": "## 平台函数参考",
-    "examples.md":  "## 成功 Alpha 表达式范例",
-    "papers.md":    "## 论文 / 因子研究参考",
-    "tips.md":      "## 调参技巧与经验",
-}
+def _default_settings_block() -> str:
+    """把 SIMULATION_SETTINGS 格式化成 prompt 段落，告诉 AI 当前默认配置"""
+    s = SIMULATION_SETTINGS
+    return (
+        "## 当前默认回测设置（AI 输出的 setting 会覆盖这些默认值）\n"
+        f"- region: {s.get('region', 'USA')}\n"
+        f"- universe: {s.get('universe', 'TOP3000')}\n"
+        f"- delay: {s.get('delay', 1)}\n"
+        f"- decay: {s.get('decay', 0)}\n"
+        f"- neutralization: {s.get('neutralization', 'MARKET')}\n"
+        f"- truncation: {s.get('truncation', 0.08)}\n"
+        f"- pasteurization: {s.get('pasteurization', 'ON')}\n"
+        f"- nanHandling: {s.get('nanHandling', 'OFF')}\n\n"
+    )
 
 
-def _load_knowledge() -> str:
-    """加载 knowledge/ 目录下的所有参考资料，拼成 prompt 段落"""
-    if not os.path.isdir(KNOWLEDGE_DIR):
+def _yearly_table(yearly_stats: list[dict] | None) -> str:
+    if not yearly_stats:
+        return "（无年度数据）"
+    rows = [
+        "| 年份 | Sharpe | Returns | Drawdown | Turnover |",
+        "|------|--------|---------|----------|----------|",
+    ]
+    for y in sorted(yearly_stats, key=lambda x: x.get("year", 0)):
+        yr = y.get("year", "?")
+        sh = y.get("sharpe", 0) or 0
+        rt = y.get("returns", 0) or 0
+        dd = y.get("drawdown", 0) or 0
+        to = y.get("turnover", 0) or 0
+        flag = " 🔴" if sh < 0 else (" 🟡" if sh < 0.5 else "")
+        rows.append(
+            f"| {yr} | {sh:.4f}{flag} | {rt * 100:.2f}% "
+            f"| {dd * 100:.2f}% | {to:.4f} |"
+        )
+    return "\n".join(rows)
+
+
+def _gap_analysis(best: dict) -> str:
+    sh = best.get("sharpe", 0) or 0
+    fi = best.get("fitness", 0) or 0
+    to = best.get("turnover", 0) or 0
+
+    lines = []
+
+    if sh < TARGET_SHARPE:
+        lines.append(
+            f"- Sharpe 差距 {TARGET_SHARPE - sh:.4f}："
+            f"尝试增强信号强度、降噪、或组合互补因子"
+        )
+    if fi < TARGET_FITNESS:
+        lines.append(
+            f"- Fitness 差距 {TARGET_FITNESS - fi:.4f}："
+            f"fitness ≈ sharpe × √days × (1 - maxDD)，需综合改善"
+        )
+    if to > 0.7:
+        lines.append(
+            f"- Turnover = {to:.4f} 偏高："
+            f"加大 decay、用更平滑的算子（ts_mean / ewma 等）"
+        )
+    elif 0 < to < 0.01:
+        lines.append(
+            f"- Turnover = {to:.4f} 偏低："
+            f"因子过于静态，可加入短期动量/事件信号"
+        )
+
+    yearly = best.get("yearly_stats", [])
+    neg = [y for y in yearly if (y.get("sharpe", 0) or 0) < 0]
+    if neg:
+        yrs = ", ".join(str(y.get("year", "?")) for y in neg)
+        lines.append(
+            f"- {len(neg)} 年 Sharpe 为负 ({yrs})："
+            f"这些年份因子失效，考虑自适应机制或减少过拟合"
+        )
+
+    return "\n".join(lines) if lines else "- 各项指标已接近目标，做微调即可"
+
+
+def _failed_exprs(last_results: list[dict] | None) -> str:
+    if not last_results:
         return ""
 
-    sections = []
+    items = []
+    for r in last_results:
+        expr = r.get("expr", "?")
+        if r.get("error"):
+            items.append(f"  ❌ `{expr}` → 错误: {r['error']}")
+        elif r.get("alpha_id") and not grade_ge(r.get("grade", ""), TARGET_GRADE):
+            gr = r.get("grade", "?")
+            sh = r.get("sharpe", 0) or 0
+            items.append(f"  ⚠️ `{expr}` → Grade={gr}, Sharpe={sh:.4f}")
 
-    # 1. 先加载预定义的文件（按固定顺序）
-    loaded_files = set()
-    for filename, title in _KNOWLEDGE_FILES.items():
-        path = os.path.join(KNOWLEDGE_DIR, filename)
-        if os.path.exists(path):
-            content = _read_file(path)
-            if content:
-                sections.append(f"{title}\n{content}")
-                loaded_files.add(filename)
-
-    # 2. 再加载目录下其他 .md / .txt 文件
-    for path in sorted(glob.glob(os.path.join(KNOWLEDGE_DIR, "*"))):
-        fname = os.path.basename(path)
-        if fname in loaded_files:
-            continue
-        if not fname.endswith((".md", ".txt")):
-            continue
-        content = _read_file(path)
-        if content:
-            nice_name = os.path.splitext(fname)[0].replace("_", " ").title()
-            sections.append(f"## 参考资料: {nice_name}\n{content}")
-
-    if not sections:
+    if not items:
         return ""
 
     return (
-        "\n\n---\n"
-        "# 📚 参考知识库（请充分利用以下信息来设计 alpha）\n\n"
-        + "\n\n".join(sections)
-        + "\n\n---\n\n"
+        "## 上轮未达标的表达式（请避免相似方向）\n"
+        + "\n".join(items)
     )
 
 
-def _read_file(path: str, max_chars: int = 15000) -> str:
-    """读取文件，超长则截断"""
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            content = f.read().strip()
-        if len(content) > max_chars:
-            content = content[:max_chars] + f"\n\n... (截断，原文共 {len(content)} 字符)"
-        return content
-    except Exception as e:
-        print(f"  ⚠️  读取 {path} 失败: {e}")
-        return ""
-
-
 # ═══════════════════════════════════════════════════════════
-#  系统 Prompt
-# ═══════════════════════════════════════════════════════════
-
-SYSTEM_PROMPT = (
-    "你是 WorldQuant Brain 平台的量化 alpha 表达式专家。\n"
-    "你精通 FASTEXPR 语法，熟悉平台支持的所有数据字段和函数。\n"
-    "你的目标：生成能通过平台全部 checks、grade 达到 GOOD 或以上的 alpha。\n"
-    "你还需要为每个 alpha 选择最合适的回测参数（setting），而不是千篇一律。\n\n"
-    "重要规则：\n"
-    "1. 只使用参考资料中列出的字段和函数，不要编造不存在的字段/函数\n"
-    "2. 仔细参考成功范例的结构和风格\n"
-    "3. 结合论文思路设计有经济学逻辑的因子\n"
-    "4. 关注自相关、换手率、覆盖率等 checks 指标"
-)
-
-
-# ═══════════════════════════════════════════════════════════
-#  Setting 说明 & 输出格式
-# ═══════════════════════════════════════════════════════════
-
-SETTING_SPEC = (
-    "## 回测参数说明（setting 字段）\n"
-    "每个 alpha 必须包含 setting 字段，可选值如下：\n\n"
-    "| 参数 | 可选值 | 说明 |\n"
-    "|------|--------|------|\n"
-    '| instrumentType | "EQUITY" | 固定 |\n'
-    '| region | "USA", "CHN", "EUR", "ASI", "GLB" | 市场区域 |\n'
-    '| universe | "TOP200", "TOP500", "TOP1000", "TOP2000", "TOP3000" | 股票池 |\n'
-    "| delay | 0, 1 | 信号延迟天数 |\n"
-    "| decay | 0~20 整数 | 线性衰减天数 |\n"
-    '| neutralization | "NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY" | 中性化 |\n'
-    "| truncation | 0.01~0.10 | 截断比例 |\n"
-    '| pasteurization | "ON", "OFF" | 巴氏灭菌 |\n'
-    '| unitHandling | "VERIFY", "NONE" | 单位处理 |\n'
-    '| nanHandling | "ON", "OFF" | NaN处理 |\n'
-    '| language | "FASTEXPR" | 固定 |\n\n'
-    "选择建议：\n"
-    "- 动量/反转类：decay 偏高(6-12)，neutralization 用 SUBINDUSTRY\n"
-    "- 基本面质量类：decay 偏低(2-6)，neutralization 用 MARKET 或 INDUSTRY\n"
-    "- 高换手因子：truncation 调低(0.05)，decay 调高\n"
-    "- 低频因子：delay=1，decay 可较低\n"
-)
-
-OUTPUT_FORMAT = (
-    "## 输出格式\n"
-    "先用 2-3 句话简述设计思路，然后 **严格** 输出如下 JSON 数组：\n\n"
-    "```json\n"
-    "[\n"
-    "  {\n"
-    '    "name": "alpha_001_xxx",\n'
-    '    "expr": "rank(ts_zscore(return_equity, 252)) ...",\n'
-    '    "setting": {\n'
-    '      "instrumentType": "EQUITY",\n'
-    '      "region": "USA",\n'
-    '      "universe": "TOP3000",\n'
-    '      "delay": 1,\n'
-    '      "decay": 4,\n'
-    '      "neutralization": "MARKET",\n'
-    '      "truncation": 0.08,\n'
-    '      "pasteurization": "ON",\n'
-    '      "unitHandling": "VERIFY",\n'
-    '      "nanHandling": "OFF",\n'
-    '      "language": "FASTEXPR"\n'
-    "    }\n"
-    "  }\n"
-    "]\n"
-    "```\n\n"
-    "**注意：每个 alpha 的 setting 应根据因子特性单独调参，不要所有 alpha 用同样的 setting。**\n"
-)
-
-
-# ═══════════════════════════════════════════════════════════
-#  Grade 工具
-# ═══════════════════════════════════════════════════════════
-
-GRADE_ORDER = ["INFERIOR", "WEAK", "NORMAL", "GOOD", "STRONG", "EXCELLENT"]
-
-
-def grade_ge(actual: str, target: str) -> bool:
-    """判断 actual grade 是否 >= target grade"""
-    actual_upper = (actual or "").strip().upper()
-    target_upper = (target or "").strip().upper()
-    if actual_upper not in GRADE_ORDER or target_upper not in GRADE_ORDER:
-        return False
-    return GRADE_ORDER.index(actual_upper) >= GRADE_ORDER.index(target_upper)
-
-
-# ═══════════════════════════════════════════════════════════
-#  加载用户策略思路
-# ═══════════════════════════════════════════════════════════
-
-def load_initial_idea() -> str:
-    if not os.path.exists(INITIAL_PROMPT_FILE):
-        return ""
-    with open(INITIAL_PROMPT_FILE, "r", encoding="utf-8") as f:
-        return f.read().strip()
-
-
-# ═══════════════════════════════════════════════════════════
-#  第 1 轮 Prompt（始终带知识库）
+#  首轮 Prompt
 # ═══════════════════════════════════════════════════════════
 
 def build_initial_prompt(idea: str) -> tuple[str, str]:
-    knowledge = _load_knowledge()
+    knowledge = load_knowledge()
 
-    user = (
-        f"## 用户策略思路\n{idea}\n\n"
-        f"{knowledge}"
-        f"## 任务\n"
+    system = SYSTEM_PROMPT
+
+    user = f"## 用户策略思路\n{idea}\n\n"
+
+    if knowledge:
+        user += knowledge
+
+    user += _default_settings_block()
+
+    user += (
+        "## 任务\n"
         f"请根据以上思路和参考资料，生成 {ALPHAS_PER_ROUND} 个多样化的 alpha 表达式。\n\n"
-        f"## 要求\n"
-        f"1. 使用 FASTEXPR 语法，**只使用参考资料中列出的字段和函数**\n"
-        f"2. 每个 alpha 之间应有显著差异（不同因子、不同窗口期、不同组合方式）\n"
+        "## 要求\n"
+        "1. 使用 FASTEXPR 语法，**只使用参考资料中列出的字段和函数**\n"
+        "2. 每个 alpha 之间应有显著差异（不同因子、不同窗口期、不同组合方式）\n"
         f"3. **核心目标：grade 达到 {TARGET_GRADE} 或以上**\n"
         f"   （参考指标：Sharpe >= {TARGET_SHARPE}，Fitness >= {TARGET_FITNESS}）\n"
-        f"4. name 字段用简短英文标识因子含义\n"
-        f"5. 考虑因子的经济学逻辑和衰减特性\n"
-        f"6. 每个 alpha 必须包含独立的 setting，根据因子特性单独调参\n"
-        f"7. 重视通过平台全部 checks（低自相关、足够覆盖率、合理换手等）\n"
-        f"8. 参考成功范例的结构，但不要照抄\n\n"
-        f"{SETTING_SPEC}\n"
-        f"{OUTPUT_FORMAT}\n"
+        "4. name 字段用简短英文标识因子含义\n"
+        "5. 考虑因子的经济学逻辑和衰减特性\n"
+        "6. **请先根据策略特性选定一组最合适的 setting（universe / delay / decay / neutralization 等），所有 alpha 使用相同的 setting**\n"
+        "   （后续迭代会锁定该 setting 专注优化表达式，只有长期无提升时才调参）\n"
+        "7. 重视通过平台全部 checks（低自相关、足够覆盖率、合理换手等）\n"
+        "8. 参考成功范例的结构，但不要照抄\n"
+        '9. **region 必须为 "USA"，不要使用其他区域**\n\n'
+        f"{SETTING_SPEC}\n\n"
+        f"{OUTPUT_FORMAT}\n\n"
+        "**注意：所有 alpha 请使用同一组 setting，只在表达式上做差异化。**\n"
     )
-    return SYSTEM_PROMPT, user
+
+    return system, user
 
 
 # ═══════════════════════════════════════════════════════════
-#  第 N 轮 Prompt（根据开关决定是否带知识库）
+#  迭代 Prompt（链式：只看当前最优 + 上轮结果）
 # ═══════════════════════════════════════════════════════════
 
 def build_iteration_prompt(
     idea: str,
     iteration: int,
-    history: list[dict],
+    best_alpha: dict | None,
+    last_results: list[dict] | None,
+    no_improve_count: int = 0,
 ) -> tuple[str, str]:
 
-    if KNOWLEDGE_EVERY_ROUND:
-        knowledge = _load_knowledge()
-        knowledge_hint = ""
-    else:
-        knowledge = ""
-        knowledge_hint = "（参考资料已在第1轮提供，请继续基于那些字段和函数设计）\n\n"
+    # ── best_alpha 为 None（历史全部失败），回退首轮 + 失败提示 ──
+    if best_alpha is None:
+        system, user = build_initial_prompt(idea)
 
-    hist_text = _format_history(history)
+        failed = _failed_exprs(last_results)
+        if failed:
+            user += (
+                "\n## ⚠️ 重要提示：上轮所有 alpha 全部失败！\n"
+                "最常见原因是**使用了平台不存在的字段名**。\n"
+                "请 **严格只使用** 参考资料「Fields」中列出的字段 id，不要编造字段。\n"
+                "例如：`return_equity` 是真实字段，但 `roe`、`roa`、`gpoa`、`fcf_to_assets` 不是。\n\n"
+                f"{failed}\n"
+            )
 
-    all_ok = [
-        r for h in history for r in h["results"]
-        if isinstance(r.get("sharpe"), (int, float)) and not r.get("error")
-    ]
-    best_sh = max((r["sharpe"] for r in all_ok), default=0)
-    best_fi = max((r.get("fitness", 0) for r in all_ok), default=0)
-    best_gr = _best_grade([r.get("grade", "") for r in all_ok])
+        return system, user
+
+    # ── 正常迭代：有 best_alpha ──
+    knowledge = load_knowledge() if KNOWLEDGE_EVERY_ROUND else ""
+
+    expr = best_alpha.get("expr", "?")
+    stg = best_alpha.get("settings_used", {})
+    sh = best_alpha.get("sharpe", 0) or 0
+    fi = best_alpha.get("fitness", 0) or 0
+    to = best_alpha.get("turnover", 0) or 0
+    rt = best_alpha.get("returns", 0) or 0
+    dd = best_alpha.get("drawdown", 0) or 0
+    gr = best_alpha.get("grade", "N/A")
+    yearly = _yearly_table(best_alpha.get("yearly_stats"))
+    gap = _gap_analysis(best_alpha)
+    failed = _failed_exprs(last_results)
+
+    # ── system ──
+    system = (
+        f"{SYSTEM_PROMPT}\n\n"
+        "你正在进行链式迭代优化。\n"
+        "每轮你会收到「当前全局最优 alpha」的完整评估，你的任务是在此基础上改进。\n"
+        "\n"
+        f"目标: Grade >= {TARGET_GRADE}, Sharpe >= {TARGET_SHARPE}, "
+        f"Fitness >= {TARGET_FITNESS}\n"
+    )
+    if knowledge:
+        system += f"\n{knowledge}\n"
+
+    # ── user ──
+    grade_status = "✅" if grade_ge(gr, TARGET_GRADE) else "❌"
+    sharpe_status = "✅" if sh >= TARGET_SHARPE else f"❌ 差 {TARGET_SHARPE - sh:.4f}"
+    fitness_status = "✅" if fi >= TARGET_FITNESS else f"❌ 差 {TARGET_FITNESS - fi:.4f}"
+    turnover_status = "⚠️ 偏高" if to > 0.7 else ("⚠️ 偏低" if 0 < to < 0.01 else "正常")
 
     user = (
-        f"## 用户策略思路\n{idea}\n\n"
-        f"{knowledge}"
-        f"{knowledge_hint}"
-        f"## 目标\n"
-        f"- **核心目标：grade 达到 {TARGET_GRADE} 或以上**\n"
-        f"- 参考指标：Sharpe >= {TARGET_SHARPE}，Fitness >= {TARGET_FITNESS}\n\n"
-        f"## 当前进度\n"
-        f"- 已完成 {len(history)} 轮，即将开始第 {iteration} 轮\n"
-        f"- 历史最佳 Sharpe = {best_sh:.4f}，Fitness = {best_fi:.4f}，"
-        f"最佳 Grade = {best_gr or 'N/A'}\n\n"
-        f"## 历史回测结果\n{hist_text}\n\n"
-        f"## 第 {iteration} 轮任务\n"
-        f"请仔细分析以上所有历史结果和参考资料，然后：\n"
-        f"1. 总结哪些因子方向/结构有效，哪些无效或报错\n"
-        f"2. 重点关注 **grade** 和 **checks 通过情况**，找出制约 grade 的瓶颈\n"
-        f"3. 对效果好的 alpha 做深入变体（调窗口、调权重、换组合方式、加入新因子）\n"
-        f"4. **同时优化 setting 参数**（对比不同 decay/neutralization/universe 的效果）\n"
-        f"5. 引入 1-2 个全新思路（可参考论文），避免局部最优\n"
-        f"6. 生成 {ALPHAS_PER_ROUND} 个 **全新的、未测试过的** alpha 表达式\n"
-        f"7. **只使用参考资料中列出的字段和函数**，绝不编造\n"
-        f"8. 绝不重复之前已测试的表达式\n\n"
-        f"{SETTING_SPEC}\n"
+        f"## 第 {iteration} 轮优化\n\n"
+        "## 策略方向（供参考）\n"
+        f"{idea}\n\n"
+        "## 当前全局最优 Alpha\n"
+        f"- 表达式: `{expr}`\n"
+        f"- Settings: decay={stg.get('decay', '?')}, "
+        f"neutralization={stg.get('neutralization', '?')}, "
+        f"universe={stg.get('universe', '?')}\n\n"
+        "### 评估结果\n"
+        "| 指标 | 当前值 | 目标 | 状态 |\n"
+        "|------|--------|------|------|\n"
+        f"| Grade | {gr} | >= {TARGET_GRADE} | {grade_status} |\n"
+        f"| Sharpe | {sh:.4f} | >= {TARGET_SHARPE} | {sharpe_status} |\n"
+        f"| Fitness | {fi:.4f} | >= {TARGET_FITNESS} | {fitness_status} |\n"
+        f"| Turnover | {to:.4f} | — | {turnover_status} |\n"
+        f"| Returns | {rt * 100:.2f}% | — | — |\n"
+        f"| Drawdown | {dd * 100:.2f}% | — | — |\n\n"
+        "### 年度表现\n"
+        f"{yearly}\n\n"
+        "## 差距分析与改进建议\n"
+        f"{gap}\n"
+    )
+
+    # ── 连续无提升 → 提示 AI 换 setting ──
+    if no_improve_count >= SETTING_CHANGE_THRESHOLD:
+        user += (
+            f"\n## ⚠️ 已连续 {no_improve_count} 轮无提升！\n"
+            "当前 setting 可能已到瓶颈，**请大胆调整回测参数**：\n"
+            "- 换 neutralization（如 MARKET → SUBINDUSTRY 或反之）\n"
+            "- 换 decay（如 4 → 8 或 2）\n"
+            "- 换 universe（如 TOP3000 → TOP1000）\n"
+            "- 同时尝试完全不同的因子逻辑方向\n\n"
+        )
+
+    if failed:
+        user += f"\n{failed}\n"
+
+    user += (
+        "\n## 要求\n"
+        "请在当前最优 alpha 的基础上改进。你可以：\n"
+        "1. 调整表达式结构（加入新算子、组合因子、改变窗口期）\n"
+        "2. 调整 settings（decay、neutralization 等）\n"
+        "3. 保留有效的核心逻辑，针对性改进薄弱环节\n"
+        "4. **只使用参考资料中列出的字段和函数，不要编造不存在的字段**\n\n"
+        f"请生成 {ALPHAS_PER_ROUND} 个改进方案。\n\n"
+        f"{SETTING_SPEC}\n\n"
         f"{OUTPUT_FORMAT}\n"
     )
-    return SYSTEM_PROMPT, user
 
-
-# ═══════════════════════════════════════════════════════════
-#  格式化历史记录
-# ═══════════════════════════════════════════════════════════
-
-def _format_history(history: list[dict]) -> str:
-    lines = []
-    for h in history:
-        it = h["iteration"]
-        results = h["results"]
-        lines.append(f"\n### 第 {it} 轮")
-
-        ok = [r for r in results if r.get("sharpe") is not None and not r.get("error")]
-        fail = [r for r in results if r.get("error")]
-
-        if ok:
-            ok.sort(key=lambda x: x.get("sharpe", 0), reverse=True)
-            lines.append("✅ 成功：")
-            for r in ok:
-                name = r.get("field_id", "?")
-                sh   = _f(r.get("sharpe"), 4)
-                fi   = _f(r.get("fitness"), 4)
-                to   = _pct(r.get("turnover"))
-                ret  = _pct(r.get("returns"), 2)
-                dd   = _pct(r.get("drawdown"), 2)
-                gr   = r.get("grade", "N/A")
-                chk  = r.get("checks_pass", "N/A")
-                expr = r.get("expr", "?")
-                stg  = r.get("settings_used", {})
-                dec  = stg.get("decay", "?")
-                neu  = stg.get("neutralization", "?")
-                uni  = stg.get("universe", "?")
-                lines.append(
-                    f"  {name}  Grade={gr} Sharpe={sh} Fitness={fi} "
-                    f"Turnover={to} Returns={ret} Drawdown={dd} "
-                    f"Checks={chk} "
-                    f"[decay={dec}, neut={neu}, univ={uni}]"
-                )
-                lines.append(f"    expr: {expr}")
-
-        if fail:
-            lines.append("❌ 失败：")
-            for r in fail:
-                name = r.get("field_id", "?")
-                lines.append(f"  {name}: {r.get('error', '?')}")
-                lines.append(f"    expr: {r.get('expr', '?')}")
-
-    return "\n".join(lines)
-
-
-def _best_grade(grades: list[str]) -> str:
-    best_idx = -1
-    best_val = ""
-    for g in grades:
-        g_upper = (g or "").strip().upper()
-        if g_upper in GRADE_ORDER:
-            idx = GRADE_ORDER.index(g_upper)
-            if idx > best_idx:
-                best_idx = idx
-                best_val = g_upper
-    return best_val
-
-
-def _f(v, d=2):
-    return f"{v:.{d}f}" if isinstance(v, (int, float)) else "N/A"
-
-def _pct(v, d=1):
-    return f"{v * 100:.{d}f}%" if isinstance(v, (int, float)) else "N/A"
+    return system, user

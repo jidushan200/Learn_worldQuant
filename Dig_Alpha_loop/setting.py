@@ -36,22 +36,18 @@ WEB_DIR          = "web"
 BRAIN_URL_PREFIX = "https://platform.worldquantbrain.com/alpha/"
 
 # ---------- AI 递归优化 ----------
-MAX_ITERATIONS      = 50            # 循环的次数，main.py有方法
-TARGET_SHARPE       = 1.3
+#ALPHAS_PER_ROUND：每轮生成的Alpha数量
+#TARGET_GRADE目标评分
+MAX_ITERATIONS      = 50
+TARGET_SHARPE       = 1.5
 TARGET_FITNESS      = 1.00
-TARGET_GRADE        = "EXCELLENT"   # 达到此 grade 即停止，顺序: INFERIOR < AVERAGE < GOOD < EXCELLENT < SPECTACULAR
-ALPHAS_PER_ROUND    = 8             # 每次生成的Alpha数量
+TARGET_GRADE        = "GOOD"
+ALPHAS_PER_ROUND    = 6
 INITIAL_PROMPT_FILE = "strategy_prompt.txt"
 
-# ---------- AI 研判（回测后由 GPT-5.4 评审） ----------
-JUDGE_ENABLED     = True
-JUDGE_PROMPT_TMPL = (
-    "你是一位量化 Alpha 研究员。下面是一条 BRAIN alpha 的回测结果：\n"
-    "{result_json}\n\n"
-    "请从 Sharpe、Turnover、Drawdown、Fitness 四个维度给出简短评价，"
-    "并判断该 alpha 是否值得提交（PASS / FAIL），最后给出改进建议。"
-)
+# ---------- Setting 锁定策略 ----------
+SETTING_CHANGE_THRESHOLD = 4
 
 # ---------- AI 辅助知识库发送次数 ----------
 KNOWLEDGE_DIR         = "knowledge"
-KNOWLEDGE_EVERY_ROUND = False       # True=每轮都发知识库, False=只第1轮发
+KNOWLEDGE_EVERY_ROUND = False

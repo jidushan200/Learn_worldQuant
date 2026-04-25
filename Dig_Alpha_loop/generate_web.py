@@ -79,7 +79,7 @@ def _build_session_block(s: dict) -> str:
   </div>"""
 
 
-def generate_web():
+def generate_web(best_alpha: dict | None = None):
     today      = datetime.now().strftime("%Y-%m-%d")
     today_file = datetime.now().strftime("%Y%m%d")
     os.makedirs(WEB_DIR, exist_ok=True)

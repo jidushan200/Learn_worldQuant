@@ -11,6 +11,7 @@
     <orderEntry type="module" module-name="wlan-sec-test-tool" />
     <orderEntry type="module" module-name="Dig_Alpha_loop" />
     <orderEntry type="module" module-name="Dig_Alpha_loop" />
+    <orderEntry type="module" module-name="test_demo" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="GOOGLE" />

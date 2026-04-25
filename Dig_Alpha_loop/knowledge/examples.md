@@ -1,5 +1,3 @@
-已全部删除所有「范例+数字」编号，格式纯净可直接后续追加内容，完整文本如下：
-
 # 成功 Alpha 表达式范例
 以下 alpha 曾在平台获得 GOOD 或以上 grade，供参考结构和风格。
 
@@ -541,5 +539,3 @@ expr: -1 * (1.5 * scale(indneutralize(indneutralize(rank(cond(((close-low)-(high
 name: alpha_101
 expr: (close - open) / ((high - low) + 0.001)
 说明: 日内开合价差/全日波动幅度，经典日内趋势原始因子
-
-后续你直接在文末追加新 `##` 区块即可，格式完全统一。
