@@ -1,0 +1,142 @@
+前 6 轮的共同问题不是“思想错了”，而是表达式大面积出现 `alpha 为空`，说明核心瓶颈首先是字段可用性/时间序列处理方式，而不是权重微调。第 7 轮我会优先采用更稳健的“截面 rank + 基本面原始字段/变化 + 价格反转”结构，减少容易导致全空值的写法；同时通过更细的 neutralization、较高 decay、适度 truncation 来改善 self-correlation、sub-universe sharpe 和 weight checks。  
+
+```json
+[
+  {
+    "name": "alpha_701_quality_value_reversal_combo",
+    "expr": "add(multiply(0.52, rank(add(add(multiply(0.30, return_equity), multiply(0.24, return_on_assets)), add(multiply(0.22, gross_profit_assets), multiply(0.24, fcf_assets))))), multiply(0.48, rank(reverse(ts_mean(returns, 7)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_702_efficiency_margin_short_rebound",
+    "expr": "add(multiply(0.58, rank(add(add(multiply(0.34, gross_margin), multiply(0.28, asset_turnover)), add(multiply(0.20, gross_profit_assets), multiply(0.18, return_on_assets))))), multiply(0.42, rank(reverse(ts_mean(returns, 12)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_703_quality_improvement_contra",
+    "expr": "add(multiply(0.57, rank(add(add(multiply(0.32, ts_av_diff(return_equity, 63)), multiply(0.28, ts_av_diff(fcf_assets, 63))), add(multiply(0.22, gross_profit_assets), multiply(0.18, asset_turnover))))), multiply(0.43, rank(reverse(ts_mean(returns, 9)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_704_stable_profitability_reversal",
+    "expr": "add(multiply(0.60, rank(add(add(multiply(0.26, reverse(ts_std_dev(return_equity, 126))), multiply(0.24, reverse(ts_std_dev(return_on_assets, 126)))), add(multiply(0.28, gross_profit_assets), multiply(0.22, gross_margin))))), multiply(0.40, rank(reverse(ts_mean(returns, 6)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_705_dual_horizon_reversal_quality",
+    "expr": "add(multiply(0.54, rank(add(add(multiply(0.28, return_equity), multiply(0.22, return_on_assets)), add(multiply(0.16, gross_margin), add(multiply(0.18, gross_profit_assets), multiply(0.16, fcf_assets)))))), add(multiply(0.28, rank(reverse(ts_mean(returns, 5)))), multiply(0.18, rank(reverse(ts_mean(returns, 15))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_706_conditional_lowvol_quality_rebound",
+    "expr": "trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.45, add(multiply(0.62, rank(add(add(multiply(0.34, fcf_assets), multiply(0.24, gross_margin)), add(multiply(0.22, return_on_assets), multiply(0.20, gross_profit_assets))))), multiply(0.38, rank(reverse(ts_mean(returns, 8))))), -1)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.03,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_707_quality_acceleration_meanrev",
+    "expr": "add(multiply(0.56, rank(add(add(multiply(0.30, ts_av_diff(return_on_assets, 126)), multiply(0.26, ts_av_diff(asset_turnover, 126))), add(multiply(0.24, gross_margin), multiply(0.20, gross_profit_assets))))), multiply(0.44, rank(reverse(ts_mean(returns, 10)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SECTOR",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_708_quality_minus_crowding_reversal",
+    "expr": "add(multiply(0.50, rank(add(add(multiply(0.26, return_equity), multiply(0.22, fcf_assets)), add(multiply(0.18, gross_profit_assets), multiply(0.14, gross_margin))))), add(multiply(0.34, rank(reverse(ts_mean(returns, 7)))), multiply(0.16, rank(reverse(ts_mean(volume, 20))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

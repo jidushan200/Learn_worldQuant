@@ -1,0 +1,82 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_802_cashflow_margin_rebound_stable",
+    "expr": "add(multiply(0.60, rank(add(add(multiply(0.30, fcf_assets), multiply(0.26, gross_margin)), add(multiply(0.24, gross_profit_assets), multiply(0.20, return_on_assets))))), multiply(0.40, rank(reverse(ts_mean(returns, 11)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_801_quality_reversal_simpleblend",
+    "expr": "add(multiply(0.58, rank(add(add(multiply(0.32, return_equity), multiply(0.24, return_on_assets)), add(multiply(0.24, gross_profit_assets), multiply(0.20, asset_turnover))))), multiply(0.42, rank(reverse(ts_mean(returns, 7)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_803_quality_stability_reversal_v2",
+    "expr": "add(multiply(0.56, rank(add(add(multiply(0.28, reverse(ts_std_dev(return_equity, 126))), multiply(0.24, reverse(ts_std_dev(return_on_assets, 126)))), add(multiply(0.26, gross_profit_assets), multiply(0.22, gross_margin))))), multiply(0.44, rank(reverse(ts_mean(returns, 8)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_804_quality_improvers_shortrev_v2",
+    "expr": "add(multiply(0.54, rank(add(add(multiply(0.30, ts_av_diff(return_equity, 63)), multiply(0.26, ts_av_diff(fcf_assets, 63))), add(multiply(0.24, gross_profit_assets), multiply(0.20, asset_turnover))))), multiply(0.46, rank(reverse(ts_mean(returns, 6)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_806_lowvol_scaled_quality_rebound",
+    "expr": "add(multiply(0.50, rank(add(add(multiply(0.26, fcf_assets), multiply(0.22, gross_margin)), add(multiply(0.18, gross_profit_assets), multiply(0.14, return_on_assets))))), add(multiply(0.32, rank(reverse(ts_mean(returns, 8)))), multiply(0.18, rank(reverse(ts_std_dev(returns, 20))))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_805_dual_reversal_quality_flow",
+    "expr": "add(multiply(0.52, rank(add(add(multiply(0.28, return_equity), multiply(0.22, fcf_assets)), add(multiply(0.18, gross_profit_assets), add(multiply(0.16, gross_margin), multiply(0.16, asset_turnover)))))), add(multiply(0.30, rank(reverse(ts_mean(returns, 5)))), multiply(0.18, rank(reverse(ts_mean(returns, 17))))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_807_efficiency_profitability_contra_new",
+    "expr": "add(multiply(0.55, rank(add(add(multiply(0.30, asset_turnover), multiply(0.26, gross_margin)), add(multiply(0.24, return_on_assets), multiply(0.20, gross_profit_assets))))), multiply(0.45, rank(reverse(ts_mean(returns, 13)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_808_tradewhen_quality_reversal_gate",
+    "expr": "trade_when(rank(ts_mean(volume, 20)) > 0.35, add(multiply(0.59, rank(add(add(multiply(0.32, return_equity), multiply(0.24, fcf_assets)), add(multiply(0.24, gross_profit_assets), multiply(0.20, gross_margin))))), multiply(0.41, rank(reverse(ts_mean(returns, 7))))), -1)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  }
+]

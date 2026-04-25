@@ -1,0 +1,82 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_201_quality_rev_roe_gpa_6d",
+    "expr": "rank(group_neutralize(add(multiply(0.55, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.45, ts_zscore(ts_backfill(gross_profit_assets, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 6)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_202_quality_rev_roa_turnover_12d",
+    "expr": "rank(group_neutralize(add(multiply(0.6, ts_zscore(ts_backfill(return_on_assets, 252), 252)), multiply(0.4, ts_zscore(ts_backfill(asset_turnover, 252), 252))), subindustry)) * rank(reverse(ts_mean(returns, 12)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_203_fcf_margin_contra_8d",
+    "expr": "rank(group_neutralize(add(multiply(0.5, ts_zscore(ts_backfill(fcf_assets, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(gross_margin, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 8)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_204_broad_quality_reversal_10d",
+    "expr": "rank(group_neutralize(add(add(multiply(0.3, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.25, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(multiply(0.25, ts_zscore(ts_backfill(gross_profit_assets, 252), 252)), multiply(0.2, ts_zscore(ts_backfill(asset_turnover, 252), 252)))), subindustry)) * rank(reverse(ts_mean(returns, 10)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_205_quality_stability_rev",
+    "expr": "rank(group_neutralize(add(multiply(0.65, reverse(ts_std_dev(ts_backfill(return_on_assets, 126), 126))), multiply(0.35, ts_zscore(ts_backfill(gross_profit_assets, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 7)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_206_quality_change_rebound",
+    "expr": "rank(group_neutralize(add(multiply(0.5, ts_av_diff(ts_backfill(return_equity, 252), 126)), multiply(0.5, ts_av_diff(ts_backfill(fcf_assets, 252), 126))), industry)) * rank(reverse(ts_mean(returns, 9)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_207_conditional_lowvol_quality_rev",
+    "expr": "trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.3, rank(group_neutralize(add(multiply(0.5, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(gross_margin, 252), 252))), subindustry)) * rank(reverse(ts_mean(returns, 5))), -1)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_208_scaled_quality_shortterm_meanrev",
+    "expr": "scale(rank(group_neutralize(add(add(multiply(0.22, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.22, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(add(multiply(0.2, ts_zscore(ts_backfill(gross_profit_assets, 252), 252)), multiply(0.18, ts_zscore(ts_backfill(fcf_assets, 252), 252))), add(multiply(0.1, ts_zscore(ts_backfill(gross_margin, 252), 252)), multiply(0.08, ts_zscore(ts_backfill(asset_turnover, 252), 252))))), subindustry)) * rank(reverse(ts_mean(returns, 14))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  }
+]

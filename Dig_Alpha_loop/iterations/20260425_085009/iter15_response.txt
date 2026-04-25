@@ -1,0 +1,142 @@
+前 14 轮几乎全部“alpha 为空”，核心问题大概率不是经济逻辑，而是表达式可用性/覆盖率：你大量使用的基本面字段在当前数据集或该 universe 上可能不可用、覆盖极低，或与某些时序函数组合后直接产出全空。第 15 轮我建议转向更稳妥结构：减少复杂嵌套、避免 `trade_when/hump/group_neutralize` 叠太多层，优先用“加法融合而非乘法相乘”，并通过 setting 上提高 decay、采用 INDUSTRY/SUBINDUSTRY 中性化和更保守 truncation 来改善 checks，另外加入 1-2 个“仅价格/量价微观结构”的新思路，防止再次因基本面字段覆盖问题全军覆没。
+
+```json
+[
+  {
+    "name": "alpha_1501_quality_reversal_additive_11d_ind",
+    "expr": "add(add(multiply(0.22, rank(ts_zscore(return_equity, 252))), multiply(0.20, rank(ts_zscore(return_on_assets, 252)))), add(add(multiply(0.18, rank(ts_zscore(gross_profit_assets, 252))), multiply(0.14, rank(ts_zscore(fcf_assets, 252)))), add(multiply(0.10, rank(ts_zscore(asset_turnover, 252))), multiply(0.16, rank(reverse(ts_mean(returns, 11)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1502_fcf_margin_fastrevert_9d_subind",
+    "expr": "add(add(multiply(0.28, rank(ts_zscore(fcf_assets, 252))), multiply(0.24, rank(ts_zscore(gross_margin, 252)))), add(add(multiply(0.18, rank(ts_zscore(gross_profit_assets, 252))), multiply(0.12, rank(ts_zscore(return_on_assets, 252)))), multiply(0.18, rank(reverse(ts_mean(returns, 9))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1503_stable_quality_reversal_10d_market",
+    "expr": "add(add(multiply(0.20, rank(reverse(ts_std_dev(return_equity, 126)))), multiply(0.18, rank(reverse(ts_std_dev(return_on_assets, 126))))), add(add(multiply(0.22, rank(ts_zscore(gross_profit_assets, 252))), multiply(0.16, rank(ts_zscore(gross_margin, 252)))), add(multiply(0.10, rank(ts_zscore(fcf_assets, 252))), multiply(0.20, rank(reverse(ts_mean(returns, 10)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "MARKET",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1504_quality_improver_rebound_13d_ind",
+    "expr": "add(add(multiply(0.24, rank(ts_av_diff(return_equity, 126))), multiply(0.22, rank(ts_av_diff(fcf_assets, 126)))), add(add(multiply(0.16, rank(ts_zscore(gross_profit_assets, 252))), multiply(0.12, rank(ts_zscore(asset_turnover, 252)))), add(multiply(0.10, rank(ts_zscore(return_on_assets, 252))), multiply(0.16, rank(reverse(ts_mean(returns, 13)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1505_dual_horizon_quality_reversal_4_16",
+    "expr": "add(add(multiply(0.20, rank(ts_zscore(return_equity, 252))), multiply(0.16, rank(ts_zscore(return_on_assets, 252)))), add(add(multiply(0.16, rank(ts_zscore(gross_profit_assets, 252))), multiply(0.12, rank(ts_zscore(fcf_assets, 252)))), add(add(multiply(0.12, rank(ts_zscore(gross_margin, 252))), multiply(0.10, rank(ts_zscore(asset_turnover, 252)))), add(multiply(0.08, rank(reverse(ts_mean(returns, 4)))), multiply(0.14, rank(reverse(ts_mean(returns, 16))))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1506_efficiency_quality_shortrev_14d_sector",
+    "expr": "add(add(multiply(0.26, rank(ts_zscore(asset_turnover, 252))), multiply(0.22, rank(ts_zscore(gross_margin, 252)))), add(add(multiply(0.18, rank(ts_zscore(return_on_assets, 252))), multiply(0.14, rank(ts_zscore(gross_profit_assets, 252)))), add(multiply(0.08, rank(ts_zscore(fcf_assets, 252))), multiply(0.18, rank(reverse(ts_mean(returns, 14)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SECTOR",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1507_price_only_shortterm_reversal_lowvol",
+    "expr": "add(multiply(0.62, rank(reverse(ts_mean(returns, 7)))), multiply(0.38, rank(reverse(ts_std_dev(returns, 20)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1508_oversold_illiquidity_rebound_new",
+    "expr": "add(add(multiply(0.46, rank(reverse(ts_mean(returns, 6)))), multiply(0.24, rank(reverse(ts_mean(volume, 20))))), multiply(0.30, rank(reverse(ts_std_dev(returns, 15)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.03,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
