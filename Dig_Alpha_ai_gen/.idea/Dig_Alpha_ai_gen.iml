@@ -9,6 +9,8 @@
     <orderEntry type="module" module-name="worldquant" />
     <orderEntry type="module" module-name="Dig_Alpha_6ways_evaluate" />
     <orderEntry type="module" module-name="wlan-sec-test-tool" />
+    <orderEntry type="module" module-name="Dig_Alpha_loop" />
+    <orderEntry type="module" module-name="Dig_Alpha_loop" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="GOOGLE" />

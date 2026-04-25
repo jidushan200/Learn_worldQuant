@@ -1,0 +1,142 @@
+以下设计围绕“高质量基本面横截面选股 + 短期反转入场时机”展开，并通过不同的质量定义、反转窗口、组合结构和中性化方式来拉开 alpha 间差异。为提升通过 checks 的概率，我尽量采用稳健字段、横截面 rank/组内 rank、适度 decay 与行业链条中性化，避免过度集中和过高自相关。
+
+```json
+[
+  {
+    "name": "alpha_001_roe_roa_rev5",
+    "expr": "rank(ts_zscore(return_equity,252) + ts_zscore(return_assets,252)) * rank(-ts_mean(returns,5))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_fcfasset_rev10",
+    "expr": "rank(ts_zscore((cashflow_op-capex)/assets,252)) * rank(-ts_mean(returns,10))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_gpoa_turnover_rev7",
+    "expr": "rank(ts_zscore((revenue-ebitda+ebitda-net_income)/assets,252) + ts_zscore(revenue/assets,252)) * rank(-ts_mean(returns,7))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SECTOR",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_margin_rev20",
+    "expr": "rank(ts_zscore(ebitda/revenue,252) + ts_zscore(net_income/revenue,252)) * rank(-ts_mean(returns,20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_quality_blend_rev5_15",
+    "expr": "rank(ts_zscore(return_equity,252) + ts_zscore(return_assets,252) + ts_zscore(cashflow_op/assets,252) + ts_zscore(revenue/assets,252)) * rank(-(ts_mean(returns,5)+ts_mean(returns,15)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_groupq_rev_rank",
+    "expr": "group_rank(ts_zscore(return_equity,252) + ts_zscore((cashflow_op-capex)/assets,252), subindustry) * rank(-ts_rank(returns,12))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_stable_quality_snapback",
+    "expr": "rank(-ts_std_dev(return_equity,252) + ts_zscore(return_assets,252) + ts_zscore(ebitda/revenue,252)) * rank(-ts_delta(close,5)/close)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "MARKET",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_sizeaware_quality_reversal",
+    "expr": "rank(ts_zscore(return_equity,252) + ts_zscore(revenue/assets,252) + ts_zscore((cashflow_op-capex)/assets,252)) * rank(-ts_mean(returns,8)) * rank(-market_cap)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SECTOR",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

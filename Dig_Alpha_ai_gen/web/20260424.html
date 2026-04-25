@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alpha 回测结果 — 2026-04-24</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 30px;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+    .summary {
+      color: #888;
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .session-block {
+      margin-bottom: 40px;
+    }
+    .session-header {
+      background: #2c3e50;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px 6px 0 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    th {
+      background: #34495e;
+      color: white;
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 13px;
+    }
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tr:hover td { background: #f0f7ff; }
+    .expr {
+      font-family: monospace;
+      font-size: 12px;
+      color: #555;
+      word-break: break-word;
+      max-width: 640px;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover { text-decoration: underline; }
+    .tag-sharpe   { color: #27ae60; font-weight: bold; }
+    .tag-fitness  { color: #8e44ad; font-weight: bold; }
+    .tag-turnover { color: #e67e22; font-weight: bold; }
+    .tag-returns  { color: #2980b9; font-weight: bold; }
+    .tag-grade    { color: #c0392b; font-weight: bold; }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .expr {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Alpha 回测结果 — 2026-04-24</h1>
+  <p class="summary">今日累计 <strong>95</strong> 个成功，共 15 次执行</p>
+  
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 10:59:10　共提交 5 个，成功 3 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_145_smooth_reversal</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.07</td>
+          <td class="tag-fitness">1.20</td>
+          <td class="tag-turnover">48.5%</td>
+          <td class="tag-returns">16.22%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/wpJPWrOv" target="_blank" rel="noopener noreferrer">wpJPWrOv</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_146_12m_momentum</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(close / ts_delay(close, 252) - 1, 20)</td>
+          <td class="tag-sharpe">0.97</td>
+          <td class="tag-fitness">0.39</td>
+          <td class="tag-turnover">37.0%</td>
+          <td class="tag-returns">6.04%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Jj511aKE" target="_blank" rel="noopener noreferrer">Jj511aKE</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_144_reversal_decay5</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(returns, 5)</td>
+          <td class="tag-sharpe">1.77</td>
+          <td class="tag-fitness">1.18</td>
+          <td class="tag-turnover">26.2%</td>
+          <td class="tag-returns">11.68%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLlrrYl6" target="_blank" rel="noopener noreferrer">LLlrrYl6</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 11:21:17　共提交 4 个，成功 4 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_149_reversal_3d</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 3), 20)</td>
+          <td class="tag-sharpe">2.05</td>
+          <td class="tag-fitness">1.13</td>
+          <td class="tag-turnover">53.1%</td>
+          <td class="tag-returns">16.02%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/RRkvRbL0" target="_blank" rel="noopener noreferrer">RRkvRbL0</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_151_vol_adj_reversal</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5) / ts_std_dev(returns, 20), 20)</td>
+          <td class="tag-sharpe">2.02</td>
+          <td class="tag-fitness">1.15</td>
+          <td class="tag-turnover">48.7%</td>
+          <td class="tag-returns">15.66%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/MP52PavL" target="_blank" rel="noopener noreferrer">MP52PavL</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_150_reversal_10d</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 10), 20)</td>
+          <td class="tag-sharpe">1.83</td>
+          <td class="tag-fitness">1.04</td>
+          <td class="tag-turnover">44.5%</td>
+          <td class="tag-returns">14.45%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/leRNeKXn" target="_blank" rel="noopener noreferrer">leRNeKXn</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_152_subindustry</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.12</td>
+          <td class="tag-fitness">1.14</td>
+          <td class="tag-turnover">48.9%</td>
+          <td class="tag-returns">14.13%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/6XY2X0oJ" target="_blank" rel="noopener noreferrer">6XY2X0oJ</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 11:38:42　共提交 4 个，成功 4 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_154_subind_decay5</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.68</td>
+          <td class="tag-fitness">1.06</td>
+          <td class="tag-turnover">26.6%</td>
+          <td class="tag-returns">10.52%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/om9k8k05" target="_blank" rel="noopener noreferrer">om9k8k05</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_155_subind_half_rev</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - 0.5 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.02</td>
+          <td class="tag-fitness">1.09</td>
+          <td class="tag-turnover">43.1%</td>
+          <td class="tag-returns">12.55%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/88K25Zga" target="_blank" rel="noopener noreferrer">88K25Zga</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_153_subind_lowvol</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20) - ts_zscore(ts_std_dev(returns, 20), 20)</td>
+          <td class="tag-sharpe">2.08</td>
+          <td class="tag-fitness">1.07</td>
+          <td class="tag-turnover">49.0%</td>
+          <td class="tag-returns">12.93%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/E5r2O9P1" target="_blank" rel="noopener noreferrer">E5r2O9P1</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_156_subind_3d</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 3), 20)</td>
+          <td class="tag-sharpe">2.08</td>
+          <td class="tag-fitness">1.06</td>
+          <td class="tag-turnover">53.4%</td>
+          <td class="tag-returns">13.79%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/E5r215WR" target="_blank" rel="noopener noreferrer">E5r215WR</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 11:53:03　共提交 4 个，成功 4 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_158_replace_rev_with_mom</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(ts_mean(returns, 60), 120)</td>
+          <td class="tag-sharpe">0.76</td>
+          <td class="tag-fitness">0.27</td>
+          <td class="tag-turnover">35.3%</td>
+          <td class="tag-returns">4.60%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Jj52q13x" target="_blank" rel="noopener noreferrer">Jj52q13x</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_159_halfrev_halfmom</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + 0.5 * ts_zscore(ts_mean(returns, 60), 120) - 0.5 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.72</td>
+          <td class="tag-fitness">0.84</td>
+          <td class="tag-turnover">42.6%</td>
+          <td class="tag-returns">10.24%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/2rn2MWWJ" target="_blank" rel="noopener noreferrer">2rn2MWWJ</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_157_add_mom60</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(ts_mean(returns, 60), 120) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.47</td>
+          <td class="tag-fitness">0.66</td>
+          <td class="tag-turnover">46.0%</td>
+          <td class="tag-returns">9.25%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/RRkvMxOe" target="_blank" rel="noopener noreferrer">RRkvMxOe</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_160_fcf120_gp40</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.14</td>
+          <td class="tag-fitness">1.21</td>
+          <td class="tag-turnover">42.7%</td>
+          <td class="tag-returns">13.70%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/leRNqq75" target="_blank" rel="noopener noreferrer">leRNqq75</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 12:49:44　共提交 6 个，成功 6 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_163_fcf_minus_income_gpEV</td>
+          <td class="expr">ts_zscore(((cashflow_op - capex) - income) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.92</td>
+          <td class="tag-fitness">1.04</td>
+          <td class="tag-turnover">42.5%</td>
+          <td class="tag-returns">12.45%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/88K2qpWV" target="_blank" rel="noopener noreferrer">88K2qpWV</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_161_fcf_assets_gpEV_rev5</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / assets, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.70</td>
+          <td class="tag-fitness">0.85</td>
+          <td class="tag-turnover">42.2%</td>
+          <td class="tag-returns">10.43%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/VkYRoazA" target="_blank" rel="noopener noreferrer">VkYRoazA</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_162_fcfEV_gp_assets_rev5</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / assets, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.22</td>
+          <td class="tag-fitness">0.49</td>
+          <td class="tag-turnover">44.7%</td>
+          <td class="tag-returns">7.27%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/N152oerX" target="_blank" rel="noopener noreferrer">N152oerX</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_164_decay5_fcf120_gp40</td>
+          <td class="expr">ts_decay_linear(ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20), 5)</td>
+          <td class="tag-sharpe">1.71</td>
+          <td class="tag-fitness">1.14</td>
+          <td class="tag-turnover">23.1%</td>
+          <td class="tag-returns">10.28%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Jj52LoEm" target="_blank" rel="noopener noreferrer">Jj52LoEm</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_165_fcf150_gp40_rev5</td>
+          <td class="expr">1.5 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.15</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">37.4%</td>
+          <td class="tag-returns">12.51%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/e7qWJZYO" target="_blank" rel="noopener noreferrer">e7qWJZYO</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_166_fcf120_gp40_halfrev</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 0.5 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.00</td>
+          <td class="tag-fitness">1.16</td>
+          <td class="tag-turnover">35.1%</td>
+          <td class="tag-returns">11.88%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/O052v30q" target="_blank" rel="noopener noreferrer">O052v30q</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 13:02:16　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_167_fcf125_gp40_rev100</td>
+          <td class="expr">1.25 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.15</td>
+          <td class="tag-fitness">1.23</td>
+          <td class="tag-turnover">39.8%</td>
+          <td class="tag-returns">13.08%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/MP52weE9" target="_blank" rel="noopener noreferrer">MP52weE9</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_168_fcf175_gp40_rev100</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.13</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">35.4%</td>
+          <td class="tag-returns">12.01%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/78K2O5oO" target="_blank" rel="noopener noreferrer">78K2O5oO</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_169_fcf150_gp40_rev075</td>
+          <td class="expr">1.5 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 0.75 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.08</td>
+          <td class="tag-fitness">1.22</td>
+          <td class="tag-turnover">34.3%</td>
+          <td class="tag-returns">11.74%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/zqJLaxkd" target="_blank" rel="noopener noreferrer">zqJLaxkd</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_170_fcf150_gp40_rev050</td>
+          <td class="expr">1.5 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 0.5 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.99</td>
+          <td class="tag-fitness">1.18</td>
+          <td class="tag-turnover">31.1%</td>
+          <td class="tag-returns">10.86%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/zqJLXKwR" target="_blank" rel="noopener noreferrer">zqJLXKwR</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_172_decay7_fcf150_gp40</td>
+          <td class="expr">ts_decay_linear(1.5 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20), 7)</td>
+          <td class="tag-sharpe">1.61</td>
+          <td class="tag-fitness">1.15</td>
+          <td class="tag-turnover">17.2%</td>
+          <td class="tag-returns">8.72%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/pw1pQgog" target="_blank" rel="noopener noreferrer">pw1pQgog</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_171_decay3_fcf150_gp40</td>
+          <td class="expr">ts_decay_linear(1.5 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20), 3)</td>
+          <td class="tag-sharpe">1.86</td>
+          <td class="tag-fitness">1.22</td>
+          <td class="tag-turnover">24.5%</td>
+          <td class="tag-returns">10.51%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/WjWxKmWk" target="_blank" rel="noopener noreferrer">WjWxKmWk</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_173_fcf200_gp40_rev100</td>
+          <td class="expr">2.0 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.11</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">33.7%</td>
+          <td class="tag-returns">11.57%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/3qn2gY70" target="_blank" rel="noopener noreferrer">3qn2gY70</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_174_fcf150_gp40_rev025</td>
+          <td class="expr">1.5 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 0.25 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.86</td>
+          <td class="tag-fitness">1.10</td>
+          <td class="tag-turnover">28.1%</td>
+          <td class="tag-returns">9.88%</td>
+          <td class="tag-grade">N/A</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLl2OkYm" target="_blank" rel="noopener noreferrer">LLl2OkYm</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 14:10:56　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_176_fcf180_gp40_rev100</td>
+          <td class="expr">1.8 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.13</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">35.0%</td>
+          <td class="tag-returns">11.92%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLl2gZoa" target="_blank" rel="noopener noreferrer">LLl2gZoa</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_177_fcf190_gp40_rev100</td>
+          <td class="expr">1.9 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.12</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">34.3%</td>
+          <td class="tag-returns">11.74%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/A1O2gxrR" target="_blank" rel="noopener noreferrer">A1O2gxrR</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_175_fcf160_gp40_rev100</td>
+          <td class="expr">1.6 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.14</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">36.5%</td>
+          <td class="tag-returns">12.31%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/YPW92aoA" target="_blank" rel="noopener noreferrer">YPW92aoA</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_178_fcf175_gp30_rev100</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.16</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">34.9%</td>
+          <td class="tag-returns">11.84%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/XgYO2xm5" target="_blank" rel="noopener noreferrer">XgYO2xm5</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_180_fcf175_gp40_rev100_r3</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 3), 20)</td>
+          <td class="tag-sharpe">2.07</td>
+          <td class="tag-fitness">1.14</td>
+          <td class="tag-turnover">38.0%</td>
+          <td class="tag-returns">11.63%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/om9knmAE" target="_blank" rel="noopener noreferrer">om9knmAE</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_179_fcf175_gp50_rev100</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 1.25 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.10</td>
+          <td class="tag-fitness">1.22</td>
+          <td class="tag-turnover">35.7%</td>
+          <td class="tag-returns">12.11%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/WjWxNQ8x" target="_blank" rel="noopener noreferrer">WjWxNQ8x</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_181_fcf175_gp40_rev100_r7</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 7), 20)</td>
+          <td class="tag-sharpe">2.04</td>
+          <td class="tag-fitness">1.18</td>
+          <td class="tag-turnover">34.2%</td>
+          <td class="tag-returns">11.51%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/om9knenv" target="_blank" rel="noopener noreferrer">om9knenv</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_182_fcf175_gp40_rev100_z30</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 30)</td>
+          <td class="tag-sharpe">2.10</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">34.3%</td>
+          <td class="tag-returns">11.97%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/rKrnbPqo" target="_blank" rel="noopener noreferrer">rKrnbPqo</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 14:25:09　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_185_fcf175_gp75_rev090</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 0.9 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.13</td>
+          <td class="tag-fitness">1.25</td>
+          <td class="tag-turnover">33.7%</td>
+          <td class="tag-returns">11.54%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/leRN7mrA" target="_blank" rel="noopener noreferrer">leRN7mrA</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_183_fcf165_gp75_rev100</td>
+          <td class="expr">1.65 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.17</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">35.7%</td>
+          <td class="tag-returns">12.05%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/1Yn2J9Lm" target="_blank" rel="noopener noreferrer">1Yn2J9Lm</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_184_fcf170_gp75_rev100</td>
+          <td class="expr">1.7 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.16</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">35.3%</td>
+          <td class="tag-returns">11.95%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/XgYO1Qq1" target="_blank" rel="noopener noreferrer">XgYO1Qq1</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_186_fcf175_gp75_rev110</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.1 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">36.1%</td>
+          <td class="tag-returns">12.14%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/RRkvdn9j" target="_blank" rel="noopener noreferrer">RRkvdn9j</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_189_fcf180_gp75_rev100</td>
+          <td class="expr">1.8 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.15</td>
+          <td class="tag-fitness">1.25</td>
+          <td class="tag-turnover">34.5%</td>
+          <td class="tag-returns">11.74%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/rKrnAbv1" target="_blank" rel="noopener noreferrer">rKrnAbv1</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_187_fcf175_gp60_rev100</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.6 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.16</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">34.6%</td>
+          <td class="tag-returns">11.71%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/KPw2kkep" target="_blank" rel="noopener noreferrer">KPw2kkep</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_190_fcf170_gp90_rev100</td>
+          <td class="expr">1.7 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.9 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.15</td>
+          <td class="tag-fitness">1.25</td>
+          <td class="tag-turnover">35.6%</td>
+          <td class="tag-returns">12.05%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/qMmwg6GP" target="_blank" rel="noopener noreferrer">qMmwg6GP</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_188_fcf175_gp90_rev100</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.9 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.14</td>
+          <td class="tag-fitness">1.25</td>
+          <td class="tag-turnover">35.2%</td>
+          <td class="tag-returns">11.95%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/MP52kGRr" target="_blank" rel="noopener noreferrer">MP52kGRr</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 14:35:19　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_192_fcf178_gp75_rev110</td>
+          <td class="expr">1.78 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.1 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">35.9%</td>
+          <td class="tag-returns">12.07%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/e7qWromg" target="_blank" rel="noopener noreferrer">e7qWromg</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_193_fcf175_gp70_rev110</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.7 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.1 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">36.0%</td>
+          <td class="tag-returns">12.10%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/MP52xm98" target="_blank" rel="noopener noreferrer">MP52xm98</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_191_fcf172_gp75_rev110</td>
+          <td class="expr">1.72 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.1 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">36.4%</td>
+          <td class="tag-returns">12.20%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/wpJvegn1" target="_blank" rel="noopener noreferrer">wpJvegn1</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_196_fcf175_gp75_rev115</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.15 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.19</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">36.7%</td>
+          <td class="tag-returns">12.28%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/88K2LnQl" target="_blank" rel="noopener noreferrer">88K2LnQl</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_195_fcf175_gp75_rev105</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.05 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.17</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">35.5%</td>
+          <td class="tag-returns">11.99%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/VkYR88w0" target="_blank" rel="noopener noreferrer">VkYR88w0</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_194_fcf175_gp80_rev110</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.8 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.1 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">36.2%</td>
+          <td class="tag-returns">12.17%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/1Yn2gd9k" target="_blank" rel="noopener noreferrer">1Yn2gd9k</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_197_fcf168_gp75_rev100</td>
+          <td class="expr">1.68 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.16</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">35.5%</td>
+          <td class="tag-returns">11.99%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Gr37oKRx" target="_blank" rel="noopener noreferrer">Gr37oKRx</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_198_fcf172_gp70_rev105</td>
+          <td class="expr">1.72 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.7 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.05 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">35.7%</td>
+          <td class="tag-returns">12.01%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/P0XA1zoJ" target="_blank" rel="noopener noreferrer">P0XA1zoJ</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 14:57:37　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_200_fcf175_gp75_rev114</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.14 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.19</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">36.6%</td>
+          <td class="tag-returns">12.25%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/O052ZoQd" target="_blank" rel="noopener noreferrer">O052ZoQd</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_201_fcf175_gp75_rev116</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.16 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.19</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">36.8%</td>
+          <td class="tag-returns">12.30%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/qMmwlXYP" target="_blank" rel="noopener noreferrer">qMmwlXYP</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_199_fcf175_gp75_rev112</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.12 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.18</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">36.4%</td>
+          <td class="tag-returns">12.19%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/78K21w9Z" target="_blank" rel="noopener noreferrer">78K21w9Z</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_202_fcf175_gp75_rev118</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.18 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.20</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">37.1%</td>
+          <td class="tag-returns">12.35%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/WjWxGYdj" target="_blank" rel="noopener noreferrer">WjWxGYdj</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_204_fcf172_gp75_rev115</td>
+          <td class="expr">1.72 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.15 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.19</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">37.0%</td>
+          <td class="tag-returns">12.34%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/e7qW0N5J" target="_blank" rel="noopener noreferrer">e7qW0N5J</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_203_fcf175_gp75_rev120</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.20 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.20</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">37.3%</td>
+          <td class="tag-returns">12.41%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/O052ZgQg" target="_blank" rel="noopener noreferrer">O052ZgQg</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_205_fcf178_gp75_rev115</td>
+          <td class="expr">1.78 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.15 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.19</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">36.5%</td>
+          <td class="tag-returns">12.21%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/gJo0M5nQ" target="_blank" rel="noopener noreferrer">gJo0M5nQ</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_206_fcf175_gp70_rev115</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.70 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.15 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.19</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">36.6%</td>
+          <td class="tag-returns">12.24%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/O052x0A7" target="_blank" rel="noopener noreferrer">O052x0A7</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 15:12:10　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_207_fcf175_gp75_rev122</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.22 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.20</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">37.5%</td>
+          <td class="tag-returns">12.46%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/qMmw6J5K" target="_blank" rel="noopener noreferrer">qMmw6J5K</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_210_fcf175_gp75_rev128</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.28 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.21</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">38.2%</td>
+          <td class="tag-returns">12.62%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/RRkvmReo" target="_blank" rel="noopener noreferrer">RRkvmReo</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_208_fcf175_gp75_rev124</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.24 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.21</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">37.8%</td>
+          <td class="tag-returns">12.51%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/VkYRG138" target="_blank" rel="noopener noreferrer">VkYRG138</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_209_fcf175_gp75_rev126</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.26 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.21</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">38.0%</td>
+          <td class="tag-returns">12.57%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/leRNWZOl" target="_blank" rel="noopener noreferrer">leRNWZOl</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_211_fcf175_gp75_rev130</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.30 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.22</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">38.5%</td>
+          <td class="tag-returns">12.67%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/KPw2GGEE" target="_blank" rel="noopener noreferrer">KPw2GGEE</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_213_fcf175_gp75_rev135</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.35 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.22</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">39.1%</td>
+          <td class="tag-returns">12.79%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/6XY2pp0L" target="_blank" rel="noopener noreferrer">6XY2pp0L</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_212_fcf175_gp75_rev132</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.32 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.22</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">38.7%</td>
+          <td class="tag-returns">12.72%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/1Yn2pplW" target="_blank" rel="noopener noreferrer">1Yn2pplW</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_214_fcf175_gp75_rev140</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.40 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.23</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">39.6%</td>
+          <td class="tag-returns">12.92%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/6XY2lV9G" target="_blank" rel="noopener noreferrer">6XY2lV9G</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 15:34:43　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_216_fcf175_gp75_rev150</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.50 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.24</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">40.7%</td>
+          <td class="tag-returns">13.15%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/blWKRlzK" target="_blank" rel="noopener noreferrer">blWKRlzK</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_217_fcf175_gp75_rev155</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.55 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.25</td>
+          <td class="tag-fitness">1.28</td>
+          <td class="tag-turnover">41.3%</td>
+          <td class="tag-returns">13.26%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/WjWxPQzG" target="_blank" rel="noopener noreferrer">WjWxPQzG</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_215_fcf175_gp75_rev145</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.45 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.24</td>
+          <td class="tag-fitness">1.28</td>
+          <td class="tag-turnover">40.2%</td>
+          <td class="tag-returns">13.04%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/XgYOWExm" target="_blank" rel="noopener noreferrer">XgYOWExm</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_219_fcf175_gp75_rev170</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.70 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.26</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">42.8%</td>
+          <td class="tag-returns">13.57%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLl29q31" target="_blank" rel="noopener noreferrer">LLl29q31</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_218_fcf175_gp75_rev160</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.60 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.25</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">41.8%</td>
+          <td class="tag-returns">13.37%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/ZYW10x5Y" target="_blank" rel="noopener noreferrer">ZYW10x5Y</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_222_fcf175_gp75_rev200</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 2.00 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.27</td>
+          <td class="tag-fitness">1.26</td>
+          <td class="tag-turnover">45.7%</td>
+          <td class="tag-returns">14.13%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/9qA2VwXo" target="_blank" rel="noopener noreferrer">9qA2VwXo</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_220_fcf175_gp75_rev180</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.80 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.26</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">43.8%</td>
+          <td class="tag-returns">13.77%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/VkYR630w" target="_blank" rel="noopener noreferrer">VkYR630w</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_221_fcf175_gp75_rev190</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.90 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.27</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">44.8%</td>
+          <td class="tag-returns">13.95%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/1Yn2xjxK" target="_blank" rel="noopener noreferrer">1Yn2xjxK</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 18:29:49　共提交 8 个，成功 8 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_224_fcf175_gp75_rev162</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.62 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.25</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">42.0%</td>
+          <td class="tag-returns">13.41%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/pw1pLJ1j" target="_blank" rel="noopener noreferrer">pw1pLJ1j</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_223_fcf175_gp75_rev158</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.58 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.25</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">41.6%</td>
+          <td class="tag-returns">13.32%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/58q2X3VX" target="_blank" rel="noopener noreferrer">58q2X3VX</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_225_fcf175_gp75_rev166</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.66 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.25</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">42.4%</td>
+          <td class="tag-returns">13.49%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/vRJoQnxr" target="_blank" rel="noopener noreferrer">vRJoQnxr</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_227_fcf175_gp75_rev174</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.74 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.26</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">43.2%</td>
+          <td class="tag-returns">13.66%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/mLxlvXLX" target="_blank" rel="noopener noreferrer">mLxlvXLX</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_226_fcf175_gp75_rev170</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.70 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.26</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">42.8%</td>
+          <td class="tag-returns">13.57%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLl29q31" target="_blank" rel="noopener noreferrer">LLl29q31</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_229_fcf175_gp75_rev182</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.82 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.26</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">44.0%</td>
+          <td class="tag-returns">13.81%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Jj529NXO" target="_blank" rel="noopener noreferrer">Jj529NXO</a></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>gc_230_fcf175_gp75_rev186</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.86 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.27</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">44.4%</td>
+          <td class="tag-returns">13.88%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/0mKaJL02" target="_blank" rel="noopener noreferrer">0mKaJL02</a></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>gc_228_fcf175_gp75_rev178</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.78 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">2.26</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">43.6%</td>
+          <td class="tag-returns">13.73%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/mLxlvnA1" target="_blank" rel="noopener noreferrer">mLxlvnA1</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 19:14:30　共提交 6 个，成功 4 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_new_001_fcf_gp_rawret</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.70 * ts_zscore(returns, 20)</td>
+          <td class="tag-sharpe">1.71</td>
+          <td class="tag-fitness">1.24</td>
+          <td class="tag-turnover">27.8%</td>
+          <td class="tag-returns">14.62%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/9qA3ZJX9" target="_blank" rel="noopener noreferrer">9qA3ZJX9</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_new_003_fcf_gp_sum5</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.70 * ts_zscore(ts_sum(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.44</td>
+          <td class="tag-fitness">1.07</td>
+          <td class="tag-turnover">25.5%</td>
+          <td class="tag-returns">13.99%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/ZYW9PAK8" target="_blank" rel="noopener noreferrer">ZYW9PAK8</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_new_002_fcf_gp_rev3</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.70 * ts_zscore(ts_mean(returns, 3), 20)</td>
+          <td class="tag-sharpe">1.61</td>
+          <td class="tag-fitness">1.19</td>
+          <td class="tag-turnover">27.9%</td>
+          <td class="tag-returns">15.12%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/zqJEKdjK" target="_blank" rel="noopener noreferrer">zqJEKdjK</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_new_004_fcf_rev_rawret</td>
+          <td class="expr">1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(revenue / enterprise_value, 40) - 1.70 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.56</td>
+          <td class="tag-fitness">1.18</td>
+          <td class="tag-turnover">26.1%</td>
+          <td class="tag-returns">14.96%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Jj5kMWVE" target="_blank" rel="noopener noreferrer">Jj5kMWVE</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-24 19:31:51　共提交 6 个，成功 6 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>gc_branch_003_gpoa_rev</td>
+          <td class="expr">ts_zscore(fnd6_newa1v1300_gp / assets, 120) - 0.8 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">0.64</td>
+          <td class="tag-fitness">0.31</td>
+          <td class="tag-turnover">20.4%</td>
+          <td class="tag-returns">4.67%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLlwjj5n" target="_blank" rel="noopener noreferrer">LLlwjj5n</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>gc_branch_001_roe_rev</td>
+          <td class="expr">ts_zscore(return_equity, 120) - 0.8 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.34</td>
+          <td class="tag-fitness">0.93</td>
+          <td class="tag-turnover">19.7%</td>
+          <td class="tag-returns">9.46%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/MP5nW8bk" target="_blank" rel="noopener noreferrer">MP5nW8bk</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>gc_branch_002_roa_rev</td>
+          <td class="expr">ts_zscore(return_assets, 120) - 0.8 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">1.28</td>
+          <td class="tag-fitness">0.87</td>
+          <td class="tag-turnover">19.8%</td>
+          <td class="tag-returns">9.12%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Gr3NaM7Q" target="_blank" rel="noopener noreferrer">Gr3NaM7Q</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>gc_branch_005_margin_rev</td>
+          <td class="expr">ts_zscore(fnd6_newa1v1300_gp / revenue, 120) - 0.8 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">0.54</td>
+          <td class="tag-fitness">0.25</td>
+          <td class="tag-turnover">20.3%</td>
+          <td class="tag-returns">4.39%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/rKrw35za" target="_blank" rel="noopener noreferrer">rKrw35za</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>gc_branch_004_fcf_asset_rev</td>
+          <td class="expr">ts_zscore((cashflow_op - capex) / assets, 120) - 0.8 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">0.94</td>
+          <td class="tag-fitness">0.51</td>
+          <td class="tag-turnover">20.4%</td>
+          <td class="tag-returns">6.02%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/npOlJdVq" target="_blank" rel="noopener noreferrer">npOlJdVq</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>gc_branch_006_asset_turn_rev</td>
+          <td class="expr">ts_zscore(revenue / assets, 120) - 0.8 * ts_zscore(ts_mean(returns, 5), 20)</td>
+          <td class="tag-sharpe">0.88</td>
+          <td class="tag-fitness">0.50</td>
+          <td class="tag-turnover">20.1%</td>
+          <td class="tag-returns">6.58%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/akW8YKYO" target="_blank" rel="noopener noreferrer">akW8YKYO</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+</body>
+</html>

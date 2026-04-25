@@ -1,27 +1,146 @@
 [
   {
-    "name": "gc_147_stability_weight",
-    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)",
-    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    "name": "gc_223_fcf175_gp75_rev158",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.58 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
   },
   {
-    "name": "gc_148_stability_decay",
-    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore((ts_max(close, 3) - ts_min(close, 3)) / ts_delay(close, 3), 60)",
-    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":3,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
-  },
-    {
-    "name": "gc_144_reversal_decay5",
-    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(returns, 5)",
-    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":5,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    "name": "gc_224_fcf175_gp75_rev162",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.62 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
   },
   {
-    "name": "gc_145_smooth_reversal",
-    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) - ts_zscore(ts_mean(returns, 5), 20)",
-    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    "name": "gc_225_fcf175_gp75_rev166",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.66 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
   },
   {
-    "name": "gc_146_12m_momentum",
-    "expr": "ts_zscore((cashflow_op - capex) / enterprise_value, 80) + ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 20) + ts_zscore(close / ts_delay(close, 252) - 1, 20)",
-    "setting": {"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"INDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}
+    "name": "gc_226_fcf175_gp75_rev170",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.70 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "gc_227_fcf175_gp75_rev174",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.74 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "gc_228_fcf175_gp75_rev178",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.78 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "gc_229_fcf175_gp75_rev182",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.82 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "gc_230_fcf175_gp75_rev186",
+    "expr": "1.75 * ts_zscore((cashflow_op - capex) / enterprise_value, 120) + 0.75 * ts_zscore(fnd6_newa1v1300_gp / enterprise_value, 40) - 1.86 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
   }
 ]

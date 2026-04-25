@@ -1,0 +1,138 @@
+[
+  {
+    "name": "alpha_1101_ind_stablequality_margin_rev4_add",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))), add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252)))), 0.79), multiply(rank(reverse(ts_mean(returns, 4))), 0.21)), industry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1102_subind_qualityeff_rev4_weighted",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252)))), 0.72), multiply(rank(reverse(ts_mean(returns, 4))), 0.28)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1103_ind_rankmult_stablequality_rev4_v2",
+    "expr": "group_neutralize(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))), reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)))), rank(reverse(ts_mean(returns, 4)))), industry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1104_subind_qualitystability_turnover_rev3",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(ebit, assets), 252), 63), 252)), reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252))), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252))), 0.67), multiply(rank(reverse(ts_mean(returns, 3))), 0.33)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1105_ind_qualitydelta_stablemargin_rev4",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_delta(ts_backfill(divide(ebit, assets), 252), 63), 252), ts_zscore(ts_delta(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252))), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252))), 0.64), multiply(rank(reverse(ts_mean(returns, 4))), 0.36)), industry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1106_subind_lowdebt_effquality_rev4",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(debt, assets), 252), 252))), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252)))), 0.74), multiply(rank(reverse(ts_mean(returns, 4))), 0.26)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1107_ind_tradegate_stablemargin_rev4_tighter",
+    "expr": "trade_when(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))), add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252)))) > 0.74, group_neutralize(rank(reverse(ts_mean(returns, 4))), industry), rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))), add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252)))) < 0.56)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.03,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1108_market_qualitycash_eff_rev4",
+    "expr": "add(multiply(group_neutralize(rank(add(add(add(ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252)), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252)))), industry), 0.77), multiply(group_neutralize(rank(reverse(ts_mean(returns, 4))), industry), 0.23))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "MARKET",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]

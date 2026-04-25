@@ -1,0 +1,12 @@
+我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
+- 结合短期反转信号（5-20日收益率的均值回归）择时入场
+- 使用 ts_zscore 标准化不同因子
+- 探索不同的组合权重、窗口期和因子组合方式
+
+约束：
+- FASTEXPR 语法
+- 回测 USA TOP3000 EQUITY
+- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks

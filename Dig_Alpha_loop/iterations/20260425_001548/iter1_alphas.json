@@ -1,0 +1,34 @@
+[
+  {
+    "name": "alpha_001_roe_rev",
+    "expr": "rank(ts_zscore(return_equity,252)) + rank(ts_zscore(return_assets,252)) - rank(ts_zscore(ts_mean(returns,5),20))"
+  },
+  {
+    "name": "alpha_002_fcf_shortrev",
+    "expr": "rank(ts_zscore((cashflow_op-capex)/assets,252)) - rank(ts_zscore(ts_mean(returns,10),30))"
+  },
+  {
+    "name": "alpha_003_margin_turn",
+    "expr": "rank(ts_zscore(revenue/assets,252)) + rank(ts_zscore(ebitda/revenue,252)) - rank(ts_zscore(ts_delta(close,7)/ts_delay(close,7),25))"
+  },
+  {
+    "name": "alpha_004_income_asset",
+    "expr": "rank(ts_zscore(net_income/assets,252)) + rank(ts_zscore(cashflow_op/assets,252)) - rank(ts_zscore(ts_mean(returns,15),40))"
+  },
+  {
+    "name": "alpha_005_quality_interact",
+    "expr": "rank(ts_zscore(return_equity,252))*rank(-ts_zscore(ts_mean(returns,5),20)) + rank(ts_zscore(cashflow_op/assets,252))"
+  },
+  {
+    "name": "alpha_006_gpoa_proxy",
+    "expr": "rank(ts_zscore((revenue-ebitda)/assets,252)) + rank(ts_zscore(revenue/assets,252)) - rank(ts_zscore(ts_mean(returns,8),25))"
+  },
+  {
+    "name": "alpha_007_capdisc_rev",
+    "expr": "rank(ts_zscore(cashflow_op/assets,252)) - rank(ts_zscore(capex/assets,252)) - rank(ts_zscore(ts_mean(returns,12),30))"
+  },
+  {
+    "name": "alpha_008_stable_quality",
+    "expr": "rank(ts_zscore(ts_mean(return_equity,63),252)) + rank(ts_zscore(ts_mean(return_assets,63),252)) - rank(ts_zscore(ts_mean(returns,20),60))"
+  }
+]

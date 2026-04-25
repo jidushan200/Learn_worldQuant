@@ -1,0 +1,499 @@
+=== SYSTEM ===
+你是 WorldQuant Brain 平台的量化 alpha 表达式专家。
+你精通 FASTEXPR 语法，熟悉平台支持的所有数据字段和函数。
+你的目标：生成能通过平台全部 checks、grade 达到 GOOD 或以上的 alpha。
+你还需要为每个 alpha 选择最合适的回测参数（setting），而不是千篇一律。
+
+重要规则：
+1. 只使用参考资料中列出的字段和函数，不要编造不存在的字段/函数
+2. 仔细参考成功范例的结构和风格
+3. 结合论文思路设计有经济学逻辑的因子
+4. 关注自相关、换手率、覆盖率等 checks 指标
+
+=== USER ===
+## 用户策略思路
+我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
+- 结合短期反转信号（5-20日收益率的均值回归）择时入场
+- 使用 ts_zscore 标准化不同因子
+- 探索不同的组合权重、窗口期和因子组合方式
+
+约束：
+- FASTEXPR 语法
+- 回测 USA TOP3000 EQUITY
+- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks
+
+
+
+---
+# 📚 参考知识库（请充分利用以下信息来设计 alpha）
+
+## 平台函数参考
+操作符	类别	描述，参数/备注
+abs(x)	Arithmetic	返回数字的绝对值，去除负号。
+add(x, y, filter=false), x + y	Arithmetic	将两个或多个输入逐元素相加。设置 filter=true 可在求和前将 NaN 视为 0。
+densify(x)	Arithmetic	将包含许多分桶的分组字段转换为仅包含现有分桶的较少数量，以提高计算效率。
+divide(x, y), x / y	Arithmetic	执行除法运算：x 除以 y。
+inverse(x)	Arithmetic	返回输入的倒数：1 / x。
+log(x)	Arithmetic	计算输入值的自然对数。常用于对正值数据进行变换。
+max(x, y, ...)	Arithmetic	返回所有输入中的最大值。至少需要两个输入。
+min(x, y, ...)	Arithmetic	返回所有输入中的最小值。至少需要两个输入。
+multiply(x, y, ..., filter=false), x * y	Arithmetic	将两个或多个输入逐元素相乘。设置 filter=true 可在乘法前将 NaN 视为 0。
+power(x, y)	Arithmetic	计算 x 的 y 次幂。
+reverse(x)	Arithmetic	返回输入的相反数：-x。
+sign(x)	Arithmetic	返回数字的符号：正数返回 +1，负数返回 -1，零返回 0。若输入为 NaN，则返回 NaN。
+signed_power(x, y)	Arithmetic	计算 x 的 y 次幂，同时保留 x 的符号。
+sqrt(x)	Arithmetic	返回 x 的非负平方根。等同于 power(x, 0.5)。如需保留符号的平方根，请使用 signed_power(x, 0.5)。
+subtract(x, y, filter=false), x - y	Arithmetic	从左到右执行减法：x - y - …。支持两个或多个输入。设置 filter=true 可在减法前将 NaN 视为 0。
+and(input1, input2)	Logical	若两个输入均为 1（真），则返回 1；否则返回 0（假）。
+if_else(input1, input2, input3)	Logical	根据条件返回两个值之一。若条件为真，返回第一个值；若为假，返回第二个值。
+input1 < input2	Logical	若 input1 小于 input2，返回 1（真）；否则返回 0（假）。
+input1 <= input2	Logical	若 input1 小于或等于 input2，返回 1（真）；否则返回 0（假）。
+input1 == input2	Logical	若 input1 与 input2 相等，返回 1（真）；否则返回 0（假）。
+input1 > input2	Logical	若 input1 大于 input2，返回 1（真）；否则返回 0（假）。
+input1 >= input2	Logical	若 input1 大于或等于 input2，返回 1（真）；否则返回 0（假）。
+input1 != input2	Logical	若 input1 与 input2 不相等，返回 1（真）；否则返回 0（假）。
+is_nan(input)	Logical	若输入为 NaN，返回 1；否则返回 0。
+not(x)	Logical	返回 x 的逻辑否定。当 x 为 1（真）时返回 0；当 x 为 0（假）时返回 1。
+or(input1, input2)	Logical	若任一输入为真（值为 1），则返回 1；否则返回 0。
+days_from_last_change(x)	Time Series	计算自给定变量最近一次发生数值变化以来的天数。
+hump(x, hump=0.01)	Time Series	限制输入变化的数量和幅度，从而降低换手率。
+kth_element(x, d, k, ignore="NaN")	Time Series	从过去 d 天的时间序列中返回第 K 个值，可选择忽略特定值（如 NaN）。常用于回填缺失数据。
+last_diff_value(x, d)	Time Series	返回过去 d 天内与当前 x 值不同的最近一个有效值。
+ts_arg_max(x, d)	Time Series	返回过去 d 天内最大值出现至今的天数。若今日为最大值则返回 0，昨日为最大值则返回 1，依此类推。
+ts_arg_min(x, d)	Time Series	返回过去 d 天内最小值出现至今的天数。若今日为最小值则返回 0，昨日为最小值则返回 1，依此类推。
+ts_av_diff(x, d)	Time Series	计算当前值与过去 d 天均值之差，在均值计算中忽略 NaN 值。即 x - ts_mean(x, d) 且忽略 NaN。
+ts_backfill(x, lookback=d, k=1)	Time Series	将时间序列中的缺失值（NaN）替换为指定回溯窗口内最近的有效值，以改善数据覆盖并降低缺失数据带来的风险。
+ts_corr(x, y, d)	Time Series	计算过去 d 天内两个变量 x 和 y 之间的皮尔逊相关系数，衡量它们的联动程度。
+ts_count_nans(x, d)	Time Series	统计过去 d 天内数据序列中缺失值（NaN）的数量。
+ts_covariance(y, x, d)	Time Series	计算过去 d 天内两个时间序列变量 y 和 x 之间的协方差。
+ts_decay_linear(x, d, dense=false)	Time Series	在指定天数内对时间序列数据应用线性衰减，通过平均近期值来平滑数据，降低旧数据或缺失数据的影响。
+ts_delay(x, d)	Time Series	返回变量 x 在 d 天前的值。用于访问历史数据点。
+ts_delta(x, d)	Time Series	计算当前值与 d 天前值之间的差值。常用于衡量时间序列数据的变化或动量。
+ts_mean(x, d)	Time Series	计算变量 x 在过去 d 天的简单平均值（均值）。
+ts_product(x, d)	Time Series	返回过去 d 天内 x 值的乘积。用于计算几何平均和复利收益或增长率。
+ts_quantile(x, d, driver="gaussian")	Time Series	计算输入的滚动排名，并使用指定概率分布（默认为高斯/正态分布）的逆累积分布函数进行转换，以在滚动窗口内对数据分布进行归一化或重塑。
+ts_rank(x, d, constant=0)	Time Series	在过去指定天数内对每个工具的变量值进行排名，返回当前值的排名（可选择加一个常数）。用于归一化时间序列数据并突出相对表现。
+ts_regression(y, x, d, lag=0, rettype=0)	Time Series	返回与回归函数相关的各种参数。
+ts_scale(x, d, constant=0)	Time Series	根据指定时期内的最小值和最大值将时间序列缩放到 0–1 范围，并可选择添加常数偏移。
+ts_std_dev(x, d)	Time Series	计算数据序列 x 在过去 d 天的标准差，衡量值在此期间偏离均值的程度。
+ts_step(1)	Time Series	返回一个按日递增的计数器。
+ts_sum(x, d)	Time Series	对过去 d 天内 x 的值求和。
+ts_zscore(x, d)	Time Series	计算时间序列的 Z 分数，显示今日值与近期均值的偏离程度（以标准差为单位）。用于标准化和比较时间序列值。
+normalize(x, useStd=false, limit=0.0)	Cross Sectional	通过减去市场均值对每日截面数据进行中心化处理；可选择除以截面标准差并将结果限制在 [-limit, +limit] 范围内。计算均值/标准差时忽略 NaN。
+quantile(x, driver=gaussian, sigma=1.0)	Cross Sectional	对 Alpha 值向量进行排序和位移，然后应用选定的统计分布（高斯、柯西或均匀）以减少异常值影响。sigma 参数控制输出的尺度。
+rank(x, rate=2)	Cross Sectional	在所有工具中对输入 x 的值进行排名，返回在 0.0 到 1.0 之间均匀分布的值。用于归一化数据并减少异常值影响。
+scale(x, scale=1, longscale=1, shortscale=1)	Cross Sectional	缩放输入，使所有工具的绝对值的总和等于指定的账面规模。允许使用可选参数分别为多头和空头头寸设置不同的缩放比例。
+winsorize(x, std=4)	Cross Sectional	将数据值限制在均值的指定标准差范围内，以减少极端异常值的影响。
+zscore(x)	Cross Sectional	计算 Z 分数，描述一个值与其所在组均值之间的关系，以标准差为单位衡量。
+vec_avg(x)	Vector	对每个工具和日期的向量字段中的所有元素计算均值（平均值），将向量数据转换为单个矩阵值。
+vec_sum(x)	Vector	计算向量字段中所有值的总和。
+bucket(...)	Transformational	根据任何数据字段的排名值创建自定义分组（分桶）。这些分桶可与分组运算符（如 group_neutralize、group_rank、group_zscore 等）结合使用。
+trade_when(x, y, z)	Transformational	仅在满足特定条件时更改 Alpha 值，否则保持先前值；并可在退出条件下通过赋值为 NaN 来平仓。用于降低换手率并控制交易执行时机。
+group_backfill(x, group, d, std=4.0)	Group	对于同一组内的工具，通过计算过去 d 天内所有非 NaN 值的缩尾均值来填充缺失值（NaN）。缩尾均值通过基于指定标准差倍数（默认 4.0）修剪极端值来计算。
+group_mean(x, weight, group)	Group	计算每个指定组内数据字段的调和平均值。
+group_neutralize(x, group)	Group	通过从每个值中减去组均值来中性化组内 Alpha 值。组可以是行业、板块、国家或任何自定义分组。
+group_rank(x, group)	Group	根据输入字段对组内每个元素进行排名，赋值为 0.0 到 1.0 之间。用于比较同一组内的项目（如同行业股票）。
+group_scale(x, group)	Group	将组内值归一化到 0 到 1 的范围，使数据在不同组之间可比。
+group_zscore(x, group)	Group	计算组内每个值的 Z 分数，显示其与组均值偏离的程度（以标准差为单位）。用于相对组内其他值进行比较。
+
+## 成功 Alpha 表达式范例
+# 成功 Alpha 表达式范例
+
+以下 alpha 曾在平台获得 GOOD 或以上 grade，供参考结构和风格。
+
+## 范例 1: 基本面质量 + 动量
+name: quality_momentum
+expr: rank(ts_zscore(return_equity, 252)) * rank(-ts_std_dev(returns, 60))
+说明: ROE 的长期 Z-score 与低波动结合，稳定质量因子
+setting: delay=1, decay=4, neutralization=INDUSTRY, universe=TOP3000
+
+## 范例 2: 盈利修正
+name: earnings_revision
+expr: rank(ts_delta(est_eps, 60) / (ts_std_dev(est_eps, 252) + 0.001))
+说明: EPS 预期变化标准化，捕捉分析师上调
+setting: delay=1, decay=6, neutralization=SUBINDUSTRY, universe=TOP3000
+
+## 范例 3: 现金流价值
+name: cf_yield_stable
+expr: group_rank(ts_mean(cashflow_op, 252) / market_cap, subindustry)
+说明: 稳定经营现金流收益率，行业内排名
+setting: delay=1, decay=3, neutralization=MARKET, universe=TOP2000
+
+## 范例 4: 短期反转 + 流动性
+name: reversal_liquidity
+expr: -rank(ts_zscore(returns, 5)) * rank(ts_mean(volume, 20) / ts_mean(volume, 120))
+说明: 5日反转 × 流动性改善，低自相关版本
+setting: delay=1, decay=8, neutralization=SUBINDUSTRY, universe=TOP3000
+
+## 范例 5: 多因子复合
+name: composite_value_quality
+expr: rank(rank(book_value / market_cap) + rank(cashflow_op / market_cap) + rank(return_equity))
+说明: 价值 + 现金流 + 质量的等权复合
+setting: delay=1, decay=5, neutralization=INDUSTRY, universe=TOP3000
+
+（注意：以上为示例结构，请勿原样提交，需要做变体和创新）
+
+## 论文 / 因子研究参考
+Skip to main content
+WorldQuant BRAIN Help Center home page
+BRAIN platform Community FAQ Submit a request hong(XZ75807)  English (United States) 
+WorldQuant BRAIN  Community  中文论坛
+Search
+【论文合集】量化研究推荐论文(持续更新中） Pinned
+Followed by 164 people
+
+KJ42842
+1 year ago Edited
+正如我们所知道的，与任何其他领域的研究一样，阅读论文也是量化研究不可或缺的一环，尤其是在前期的起步阶段。阅读论文不仅是从中学习知识和获取灵感，更是与学界业界前人的研究成果进行接轨，与全世界的量化同行进行交流探讨。
+
+我们将在此贴中持续更新推荐论文，相信读者在本身阅读的过程中就会有所收获和成长，Brain提供的强大的研究框架和丰富的数据集可以帮助大家快速实现论文中的Idea，并以此基础之上进行进一步的改进和扩展。将理论赋予实践，最终得到真知。
+
+News
+
+Cross-Firm Information Flows and the Predictability of Stock Returns
+Tomorrow's Fish and Chip Paper? Slowly incorporated News and the Cross-section of Stock Returns
+Predictability of Industry Returns After M&A Announcements
+Intraday News Trading: The Reciprocal Relationships Between the Stock Market and Economic News
+News-Based Links and Cross-firm Return Predictability
+Economic Links and Predictable Returns
+News Co-Occurrence, Attention Spillover and Return Probability 
+The Momentum of News
+[MAPC] Predictability of Industry Returns After M&A Announcements
+[MAPC] M&A Due Diligence, Post-Acquisition Performance, and Financial Reporting for Business Combinations
+[MAPC] Institutional Trading Around M&A Announcements
+[MAPC] Extraordinary Acquirers
+Fundamental
+
+Are Cash Flows Better Stock Return Predictors than Profits?
+The Invisible Burden
+Stock Recommendations from Stochastic Discounted Cash Flows
+Back to Fundamentals: The Accrual-Cash Flow Correlation, the Inverted-U Pattern, and Stock Returns
+The intangibles premium: Risk or mispricing?
+Intangible Capital and the Investment-q Relation
+Small-Minus-Big Predicts Betting-Against-Beta: Implications for International Equity Allocation and Market Timing
+Overvalued Equity and Financing Decisions
+Fact, Fiction, and the Size Effect
+Profitability, R&D Investments and the Cross-Section of Stock Returns
+Duration-Driven Returns
+The Best of Strategies for the Worst of Times: Can Portfolios be Crisis Proofed?
+Intangible Value
+Understanding the Performance of the Equity Value Factor
+An Augmented q-Factor Model with Expected Growth
+PV
+
+Penny Wise, Dollar Foolish: Buy-Sell Imbalances On and Around Round Numbers
+Relative Strength Strategies for Investing
+Good Volatility, Bad Volatility and the Cross-Section of Stock Returns
+Volume Cyclicality. Reliable capital investment signals based on trading volume information
+Reference-dependent preferences and the risk-return trade-off
+The Volatility of Liquidity and Expected Stock Returns
+Does Realized Skewness Predict the Cross-Section of Equity Returns?
+Ambiguity and Investor Behavior
+Measuring downside risk — realized semi-variance
+Sell-Order Liquidity and the Cross-Section of Expected Stock Returns
+Asset Pricing and Sports Betting 
+Frog in the Pan: Continuous Information and Momentum
+Investor Attention, Visual Price Pattern, and Momentum Investing
+New Evidence of the Marginal Predictive Content of Small and Large Jumps
+Institutional Herding and Information Cascades: Evidence from daily trades
+Liquidity Shocks and Stock Market Reactions
+Overnight Returns, Daytime Reversals, and Future Stock Returns
+Factor Investing: Get Your Exposures Right!
+Anomalies in the China A-share Market
+Call auction, continuous trading and closing price formation
+Day trading and illiquidity premia: Evidence from China
+Expected Return, Volume, and Mispricing
+Underreaction, Overreaction, and Dynamic Autocorrelation of Stock Returns
+Short-term Momentum
+Sentiment
+
+Textual Sentiment, Option Characteristics, and Stock Return Predictability
+Socialmedia
+
+Online reviews can predict long-term returns of individual stocks
+News Diffusion in Social Networks and Stock Market
+Option
+
+Disagreement in Option Market and Cross Section Stock Returns
+Center of Volume Mass: Does Options Trading Predict Stock Returns?
+Unusual Option Activity: Is it Smart to Follow ‘Smart Money’?
+What Does Individual Option Volatility Smirk Tell Us About Future Equity Returns?
+Do Option-Based Measures of Stock Mispricing Find Investment Opportunities or Market Frictions?
+Stock Return Autocorrelations and Expected Option Returns
+Bid and Ask Prices of Index Put Options: Which Predicts the Underlying Stock Returns?
+Stock Return Extrapolation, Option Prices, and Variance Risk Premium
+Cross Impact in Derivative Markets
+The Information Content of Option Demand
+Testing for Asset Price Bubbles using Options Data
+Dividend capture returns: anomaly or risk premium? Evidence from the equity Options markets
+The Only Constant Is Change: Nonconstant Volatility and Implied Volatility Spreads
+Extracting risk-neutral probability distributions from option prices using trading volume as a filter
+Analyst
+
+Analyst Following Along the Supply Chain
+Are Analyst Short-Term Trade Ideas Valuable?
+Uncovering Expected Returns: Information in Analyst Coverage Proxies
+Shared analyst coverage: Unifying momentum spillover effects
+Currency and Stock Returns: An Example of Market Inattention
+First Impression Bias: Evidence from Analyst Forecasts
+Rational Inattention and Analyst Forecast Accuracy
+Earnings
+
+Earnings Quality on the Street
+Investor Learning, Earnings Signals, and Stock Returns
+Earnings Volatility, Ambiguity, and Crisis-Period Stock Returns
+Non-GAAP Earnings and the Earnings Quality Trade-off
+Famous Firms, Earnings Clusters, and the Stock Market
+Let Me Sleep on It: Sleep and Investor Reactions to Earnings Surprises
+Valuation Ratios, Surprises, Uncertainty or Sentiment: How Does Financial Machine Learning Predict Returns From Earnings Announcements? 
+Uncertainty Resolution Before Earnings Announcements
+Earning Surprise and Implied Volatility: Could New Information Increase Uncertainty?
+Three Trading Signals Generated Systematically from Earnings Conference Calls
+Post-Earnings-Announcement Drift in Global Markets: Evidence from an Information Shock
+Other
+
+Are Return Seasonalities Due to Risk or Mispricing? Evidence from Seasonal Reversals
+Propagating Momentum Information Through Global Supply Chain Networks
+The Unintended Impact of Academic Research on Asset Returns
+Machine Learning for Stock Selection
+Firm Life Cycle, Expectation Errors and Future Stock Returns
+Corporate ESG Profiles and Investor Horizons
+Are Stock-Market Anomalies Anomalous After All?
+Do ESG Funds Make Stakeholder-Friendly Investments?
+Employee Satisfaction and Long-run Stock Returns
+[MAPC] The Stock Market Valuation of Human Capital Creation
+[MAPC] Are Online Job Postings Informative to Investors? 
+Institutions
+
+Decision-based Trades: An Analysis of Institutional Investors Information Advantages
+Filing Speed, Information Leakage, and Price Formation
+ESG Preference, Institutional Trading, and Stock Return Patterns
+Tracking Retail Investor Activity
+Insider
+
+What Insiders Know About Future Earnings and How They Use it: Evidence from Insider Trades
+Asymmetric Information and the Distribution of Trading Volume
+Insider Trading and Networked Directors
+Disclosure of Financial Statement Line Items and Insider Trading Around Earnings Announcements
+Institutional Ownership and Insider-Trading Behavior: Evidence From Index Rebalance
+The Dollar Profits to Insider Trading
+Information Asymmetry and Insider Trading
+Insider Trading Patterns
+Macro
+
+Realized semibetas: disentangling "good" and "bad" downside risks
+Betting Against Beta
+Investor Behavior, Sentiment and Macroeconomic Announcements
+Downside Beta and Equity Returns around the World
+Premium for Heightened Uncertainty: Explaining Pre-Announcement Market Returns
+Diversifying Macroeconomic Factors-For Better or for Worse
+Model
+
+Which Investors Matter for Equity Valuations and Expected Returns?
+Corporate Governance and Equity Prices 
+Factor Momentum Everywhere
+Using Partial Least Squares in Archival Accounting Research: An Application to Earnings Quality Measuring
+Earnings Uncertainty and Attention
+Quantitative Fundamentals. Application of Piotroski F-Score on Non-U.S. Markets
+Compound Returns
+A Fibonacci Heap Based Ensemble Model for Stock Price Prediction
+Time-Series and Cross-Sectional Stock Return Forecasting: New Machine Learning Methods
+Stock Market Volatility: A Review of the Empirical Literature
+Decomposing Momentum
+Skewness Preference and Market Anomalies
+Market Fragmentation and Contagion
+A Reexamination of Factor Momentum: How Strong is It?
+Have Risk Premia Vanished?
+Factored In: Carbon Reduction and Active Exposure in U.S. Equity Portfolios
+Risk
+
+Risk Price Variation: The Missing Half of Empirical Asset Pricing
+Downside Risk
+An Analysis of the Amihud Illiquidity Premium
+Extreme Downside Risk and Expected Stock Returns
+Implied Equity Duration: A Measure of Pandemic Shutdown Risk
+Using Abnormal Analyst Coverage to Unlock New Evidence on Stock Price Crash Risk
+Are Return Seasonalities Due to Risk or Mispricing? Evidence from Seasonal Reversals
+Short-Interest
+
+Strategic Rebalancing
+
+77
+Comments
+1 commentSort by 
+
+KJ42842
+1 year ago
+Note:
+
+在阅读Paper时候，很多同学往往看到几十页的长度便直接劝退，其实那只是因为你还没有学会阅读Paper的正确方法。Paper不需要逐字逐句的阅读，而是带着目的迅速寻找最核心的信息：研究观点，结果表现，逻辑解释，具体实现。前三者大家可以在Abstract和Conclusion里面得到来自作者的精要概括，逻辑解释一般可以在Explanation的部分找到，具体实现可以在Model，Method, Measure以及Data等部分找到；而其他例如文献综述等次要部分则可根据自己的感兴趣程度进行选读。按此方法，随着Paper阅读数量的增加，便会发现可以在短时间内轻松读完一篇Paper。
+请不要理解和期待一篇Paper就是一个Alpha。绝大部分的Paper都是提供一个Idea和其背后的逻辑，在你学习了很多个这样的Idea之后，你会自然地产生很多自己的Idea。单独一篇Paper的Idea在实现后很可能会看到一定的信号，但是它可能没有达到提交的标准，这是很正常的。这时你需要运用已有知识和经验对其进行雕琢，使其达到可以提交标准。即使这篇Paper的工作暂时无法转化成Alpha，也不需要沮丧，因为相信在阅读的过程中你已经学习到了丰富的知识和经验，这些知识和经验正在构筑你的专业能力，它们可能会启发你对之前的研究工作的改进，也可能会与未来的某些知识相结合在某些时刻发挥作用。量化研究是一个知识经验密集型的行业，前期需要大量扎实的积累，然后在后期获得丰硕的回报。他山之石，可以攻玉。鹤鸣九皋，声闻于野。
+
+31
+
+Post is closed for comments.
+Didn't find what you were looking for?
+© 2026 WorldQuant BRAIN®. All Rights Reserved.
+
+## 调参技巧与经验
+# 调参经验与踩坑记录
+
+## 常见报错
+- "field not found": 字段名拼写错误或该 region 不支持
+- "operator not found": 函数名错误，检查 functions.md
+- "division by zero": 加 epsilon，如 (x + 0.001)
+- "NaN too many": 数据覆盖率不够，换更大的 universe 或更短的窗口
+
+## 降低自相关的技巧
+- 用 ts_zscore 而不是原始值
+- 加 decay（4-10 天）
+- 避免纯价格类因子（close, high, low），优先用 returns 和比率
+- 复合多因子比单因子自相关更低
+
+## 提高 fitness 的技巧
+- Sharpe 高但 fitness 低 → 通常是某个 check 没过
+- 检查 turnover: 太高则加 decay，太低则减少 decay
+- 检查 drawdown: 加 neutralization 可以降低回撤
+- SUBINDUSTRY 中性化效果最好但可能降低 Sharpe
+
+## 不同 region 注意事项
+- USA: 字段最全，TOP3000 覆盖好
+- CHN: 部分基本面字段缺失，建议 TOP1000
+- EUR/ASI: 注意时区和数据延迟
+
+## setting 组合经验
+- 最稳妥: delay=1, decay=6, neutralization=SUBINDUSTRY, universe=TOP3000
+- 激进: delay=0, decay=2, neutralization=MARKET, universe=TOP2000
+- 低频: delay=1, decay=10, neutralization=INDUSTRY, universe=TOP3000
+
+## 参考资料: Fields.
+id	description	dataset	category	subcategory	region	delay	universe	type	dateCoverage	coverage	userCount	alphaCount	themes
+assets	Assets - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	43932	139739	[]
+assets_curr	Current Assets - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	3408	14466	[]
+bookvalue_ps	Book Value Per Share	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	2518	9542	[]
+capex	Capital Expenditures	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	11417	26589	[]
+cash	Cash	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	2479	11467	[]
+cash_st	Cash and Short-Term Investments	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1533	8286	[]
+cashflow	Cashflow (Annual)	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	2744	9389	[]
+cashflow_dividends	Cash Dividends (Cash Flow)	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	2538	5775	[]
+cashflow_fin	Financing Activities - Net Cash Flow	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1861	7414	[]
+cashflow_invst	Investing Activities - Net Cash Flow	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1248	4801	[]
+cashflow_op	Operating Activities - Net Cash Flow	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	6063	14045	[]
+cogs	Cost of Goods Sold	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1942	9885	[]
+current_ratio	Current Ratio	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1868	6828	[]
+debt	Debt	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	9974	26638	[]
+debt_lt	Long-Term Debt - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	8163	15239	[]
+debt_st	Debt in Current Liabilities	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	4016	9659	[]
+depre_amort	Depreciation and Amortization - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1164	4546	[]
+ebit	Earnings Before Interest and Taxes	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	8156	19363	[]
+ebitda	Earnings Before Interest	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	7653	19463	[]
+employee	Employees	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1330	5168	[]
+enterprise_value	Enterprise Value	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	9212	37918	[]
+eps	Earnings Per Share (Basic) - Including Extraordinary Items	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	3360	16264	[]
+equity	Common/Ordinary Equity - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	5760	21438	[]
+fnd6_acdo	Current Assets of Discontinued Operations	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	4196	9097	[]
+fnd6_acodo	Other Current Assets Excl Discontinued Operations	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1412	3139	[]
+fnd6_acox	Current Assets - Other - Sundry	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1447	2739	[]
+fnd6_acqgdwl	Acquired Assets - Goodwill	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	690	1283	[]
+fnd6_acqintan	Acquired Assets - Intangibles	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	295	610	[]
+fnd6_adesinda_curcd	ISO Currency Code - Company Annual Market	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1892	3947	[]
+fnd6_aldo	Long-term Assets of Discontinued Operations	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	659	1355	[]
+fnd6_am	Amortization of Intangibles	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	521	1490	[]
+fnd6_aodo	Other Assets excluding Discontinued Operations	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	460	868	[]
+fnd6_aox	Assets - Other - Sundry	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	678	1308	[]
+fnd6_aqc	Acquisitions	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	944	1386	[]
+fnd6_aqi	Acquisitions - Income Contribution	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	200	297	[]
+fnd6_aqs	Acquisitions - Sales Contribution	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	170	393	[]
+fnd6_beta	beta	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	284	652	[]
+fnd6_capxv	Capital Expend Property, Plant and Equipment Schd V	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	961	2007	[]
+fnd6_ceql	Common Equity - Liquidation Value	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	547	1937	[]
+fnd6_ch	Cash	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	565	1818	[]
+fnd6_ci	Comprehensive Income - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	468	1993	[]
+fnd6_cibegni	Comp Inc - Beginning Net Income	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	287	819	[]
+fnd6_cicurr	Comp Inc - Currency Trans Adj	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1227	2333	[]
+fnd6_cidergl	Comp Inc - Derivative Gains/Losses	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	338	576	[]
+fnd6_cik	nonimportant technical code	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	795	1975	[]
+fnd6_cimii	Comprehensive Income - Noncontrolling Interest	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	181	386	[]
+fnd6_ciother	Comp. Inc. - Other Adj.	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	4083	5304	[]
+fnd6_cipen	Comprehensive Income - Minimum Pension Adjustment	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	380	862	[]
+fnd6_cisecgl	Comp Inc - Securities Gains/Losses	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	771	1291	[]
+fnd6_citotal	Comprehensive Income - Parent	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	250	669	[]
+fnd6_city	the city where a company's corporate headquarters or home office is located	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	790	1799	[]
+fnd6_cld2	Capitalized Leases - Due in 2nd Year	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	720	1392	[]
+fnd6_cld3	Capitalized Leases - Due in 3rd Year	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	848	1550	[]
+fnd6_cld4	Capitalized Leases - Due in 4th Year	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	1008	1624	[]
+fnd6_cld5	Capitalized Leases - Due in 5th Year	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	809	1275	[]
+fnd6_cptmfmq_actq	Current Assets - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundamental-data', 'name': 'Fundamental Data'}	USA	1	TOP3000	MATRIX	1	0.5	323	687	[]
+fnd6_cptmfmq_atq	Assets - Total	{'id': 'fundamental6', 'name': 'Company Fundamental Data for Equity'}	{'id': 'fundamental', 'name': 'Fundamental'}	{'id': 'fundamental-fundament
+
+... (截断，原文共 155380 字符)
+
+---
+
+## 任务
+请根据以上思路和参考资料，生成 8 个多样化的 alpha 表达式。
+
+## 要求
+1. 使用 FASTEXPR 语法，**只使用参考资料中列出的字段和函数**
+2. 每个 alpha 之间应有显著差异（不同因子、不同窗口期、不同组合方式）
+3. **核心目标：grade 达到 GOOD 或以上**
+   （参考指标：Sharpe >= 1.3，Fitness >= 1.0）
+4. name 字段用简短英文标识因子含义
+5. 考虑因子的经济学逻辑和衰减特性
+6. 每个 alpha 必须包含独立的 setting，根据因子特性单独调参
+7. 重视通过平台全部 checks（低自相关、足够覆盖率、合理换手等）
+8. 参考成功范例的结构，但不要照抄
+
+## 回测参数说明（setting 字段）
+每个 alpha 必须包含 setting 字段，可选值如下：
+
+| 参数 | 可选值 | 说明 |
+|------|--------|------|
+| instrumentType | "EQUITY" | 固定 |
+| region | "USA", "CHN", "EUR", "ASI", "GLB" | 市场区域 |
+| universe | "TOP200", "TOP500", "TOP1000", "TOP2000", "TOP3000" | 股票池 |
+| delay | 0, 1 | 信号延迟天数 |
+| decay | 0~20 整数 | 线性衰减天数 |
+| neutralization | "NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY" | 中性化 |
+| truncation | 0.01~0.10 | 截断比例 |
+| pasteurization | "ON", "OFF" | 巴氏灭菌 |
+| unitHandling | "VERIFY", "NONE" | 单位处理 |
+| nanHandling | "ON", "OFF" | NaN处理 |
+| language | "FASTEXPR" | 固定 |
+
+选择建议：
+- 动量/反转类：decay 偏高(6-12)，neutralization 用 SUBINDUSTRY
+- 基本面质量类：decay 偏低(2-6)，neutralization 用 MARKET 或 INDUSTRY
+- 高换手因子：truncation 调低(0.05)，decay 调高
+- 低频因子：delay=1，decay 可较低
+
+## 输出格式
+先用 2-3 句话简述设计思路，然后 **严格** 输出如下 JSON 数组：
+
+```json
+[
+  {
+    "name": "alpha_001_xxx",
+    "expr": "rank(ts_zscore(return_equity, 252)) ...",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+**注意：每个 alpha 的 setting 应根据因子特性单独调参，不要所有 alpha 用同样的 setting。**
+

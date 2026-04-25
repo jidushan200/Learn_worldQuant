@@ -1,0 +1,142 @@
+本轮重点沿着你第12轮最强结构继续深化：**高质量/高效率基本面 + 更短周期反转（2-4日）**，并优先使用历史上显著更稳的 **SUBINDUSTRY / INDUSTRY 中性化**、适中的 decay 与较低 truncation 来改善 checks。新增的全新思路主要放在 **质量稳定性惩罚** 与 **盈利质量改善 × 反转交互** 两条线上，尽量避免重复你已测过的简单加总模板。
+
+```json
+[
+  {
+    "name": "alpha_1301_subind_qualityeff_accrual_rev2",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, assets), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252)), add(ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))))), 0.68), multiply(rank(reverse(ts_mean(returns, 2))), 0.32)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1302_subind_rankmult_qualitycash_rev2",
+    "expr": "group_neutralize(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, assets), 252), 252), ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252)), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), add(ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))))), rank(reverse(ts_mean(returns, 2)))), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1303_ind_qualitystable_eff_rev3",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252)), add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(ebit, assets), 252), 63), 252)), reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252))))), 0.7), multiply(rank(reverse(ts_mean(returns, 3))), 0.3)), industry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1304_subind_qualityimprove_margin_rev2",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_delta(ts_backfill(divide(ebit, assets), 252), 63), 252), ts_zscore(ts_delta(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252)), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252))), 0.62), multiply(rank(reverse(ts_mean(returns, 2))), 0.38)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1305_ind_tradegate_qualityeff_accrual_rev3",
+    "expr": "trade_when(rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252)), add(ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))))) > 0.66, group_neutralize(rank(reverse(ts_mean(returns, 3))), industry), rank(add(add(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252)), add(ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252), reverse(ts_zscore(ts_backfill(divide(subtract(ebit, cashflow_op), assets), 252), 252))))) < 0.48)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1306_subind_stablefcf_margin_rev3",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252)), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252)), add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), reverse(ts_zscore(ts_std_dev(ts_backfill(divide(ebit, assets), 252), 63), 252))))), 0.71), multiply(rank(reverse(ts_mean(returns, 3))), 0.29)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1307_subind_efficiency_lowdebt_rev2",
+    "expr": "group_neutralize(add(multiply(rank(add(add(add(ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252)), ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252)), add(ts_zscore(ts_backfill(divide(ebit, assets), 252), 252), reverse(ts_zscore(ts_backfill(divide(debt, assets), 252), 252))))), 0.66), multiply(rank(reverse(ts_mean(returns, 2))), 0.34)), subindustry)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_1308_market_qualityimprove_stability_rankmult",
+    "expr": "add(multiply(group_neutralize(multiply(rank(add(add(add(ts_zscore(ts_delta(ts_backfill(divide(ebit, assets), 252), 63), 252), ts_zscore(ts_delta(ts_backfill(divide(cashflow_op, assets), 252), 63), 252)), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252)), add(reverse(ts_zscore(ts_std_dev(ts_backfill(divide(ebit, assets), 252), 63), 252)), reverse(ts_zscore(ts_std_dev(ts_backfill(divide(cashflow_op, assets), 252), 63), 252))))), rank(reverse(ts_mean(returns, 4)))), industry), 0.82), multiply(group_neutralize(rank(reverse(ts_mean(returns, 4))), industry), 0.18))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "MARKET",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

@@ -1,0 +1,710 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_002_fcf_reversal",
+    "expr": "rank(add(ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252), ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252))) * rank(reverse(ts_mean(returns, 10)))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_004_quality_bucketed_reversal",
+    "expr": "multiply(group_rank(add(ts_zscore(ts_backfill(divide(ebit, assets), 252), 252), ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252)), densify(bucket(rank(ts_backfill(divide(debt, assets), 252)), range='0,1,0.1'))), rank(reverse(ts_mean(returns, 7))))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": "zqJE77xO",
+    "expr": "rank(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252))) * rank(reverse(ts_mean(returns, 5)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.09,
+    "fitness": 0.69,
+    "turnover": 0.1963,
+    "returns": 0.0778,
+    "drawdown": 0.083,
+    "margin": 0.000793,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 1.09,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.69,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1963,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1963,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.75,
+        "limit": 0.47,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.75,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_001_qrev_roe_gpa",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简评**\n\n- **Sharpe: 1.09**  \n  有一定预测能力，但不强。通常提交级别 alpha 更希望 Sharpe 明显更高，1.09 偏弱。\n\n- **Turnover: 0.1963**  \n  换手率不高，比较健康，说明信号相对稳定，交易成本压力不大。这是一个优点。\n\n- **Drawdown: 0.083**  \n  回撤 8.3%，不算特别差，风险表现中规中矩，可接受但不突出。\n\n- **Fitness: 0.69**  \n  Fitness 偏低，通常说明综合质量不足，稳定性、收益效率或可实施性仍有明显提升空间。\n\n**结论：FAIL**\n\n虽然该 alpha 的**换手和回撤还可以**，但 **Sharpe 偏低、Fitness 不足，而且 grade=INFERIOR、checks_pass=false**，综合来看**不值得直接提交**。\n\n**改进建议**\n\n1. **增强基本面端信号质量**  \n   当前核心是 ROE / 毛利资产比这类质量因子，可尝试：\n   - 对 `ebit/equity`、`(saleq-cogs)/assets` 做 **行业中性化**\n   - 替换为更稳定的质量指标，如 `operating_income/assets`、`gross_profit/assets`、`fcf/assets`\n\n2. **优化短期反转腿**  \n   现在使用 `rank(reverse(ts_mean(returns, 5)))`，5 日反转较容易受噪声影响。可尝试：\n   - 拉长到 10~20 天\n   - 用 `ts_zscore` 或 `decay` 平滑\n   - 改成 `-ts_rank(returns, n)` 之类更稳的形式\n\n3. **降低乘法结构带来的信号稀释**  \n   当前是两个 rank 直接相乘，容易让一端弱信号把整体压缩。可尝试：\n   - `0.6 * quality + 0.4 * reversal`\n   - 或先分别标准化再做加权组合，而不是纯乘法\n\n4. **处理数据滞后和缺失问题**  \n   虽然用了 `ts_backfill`，但 252 天回填可能引入过旧信息。建议：\n   - 缩短 backfill 窗口\n   - 检查财务数据更新时间与可交易时点是否匹配\n   - 避免因陈旧基本面数据导致 alpha 失真\n\n5. **补做中性化与风险控制**  \n   若 checks 未通过，常见原因可能是暴露过重。建议检查：\n   - 行业暴露\n   - Size / Beta / Volatility 暴露\n   - 国家或流动性偏离\n\n6. **提高稳健性而非只追求收益**  \n   建议做子区间、子市场、年份切分测试。如果 Sharpe 在不同阶段不稳定，即使样本内尚可，也不建议提交。\n\n如果你愿意，我可以进一步**直接给你几版可替换的 BRAIN alpha 表达式**，朝着“提高 Sharpe / Fitness、保持低 Turnover”的方向改写。"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_006_hump_smoothed_quality_rev",
+    "expr": "hump(rank(add(ts_zscore(ts_backfill(divide(ebit, equity), 252), 252), ts_zscore(ts_backfill(divide(subtract(cashflow_op, capex), assets), 252), 252))) * rank(reverse(ts_mean(returns, 6))), 0.01)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": "QP5Ax1mX",
+    "expr": "rank(add(ts_zscore(ts_delta(ts_backfill(divide(ebit, assets), 252), 63), 252), ts_zscore(ts_delta(ts_backfill(divide(cashflow_op, assets), 252), 63), 252))) * rank(reverse(ts_mean(returns, 20)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.38,
+    "fitness": 0.18,
+    "turnover": 0.0936,
+    "returns": 0.0288,
+    "drawdown": 0.1147,
+    "margin": 0.000615,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.38,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.18,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.0936,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.0936,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.29,
+        "limit": 0.16,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.29,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_005_quality_change_reversal",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简评**\n\n- **Sharpe: 0.38**  \n  偏低，说明单位风险收益较弱，信号稳定性和实盘价值都不足。\n\n- **Turnover: 0.0936**  \n  换手不高，这一点是优点，交易成本压力相对较小，也说明信号较偏中低频。\n\n- **Drawdown: 0.1147**  \n  回撤不算特别夸张，但结合较低收益和 Sharpe 来看，承担这类回撤并不划算，风险收益比一般。\n\n- **Fitness: 0.18**  \n  明显偏弱，通常说明综合表现不过关，alpha 有效性不足。\n\n**结论：FAIL**\n\n原因很直接：  \n- Sharpe 太低  \n- Fitness 太低  \n- grade 已经是 **INFERIOR**  \n- `checks_pass = false`，说明连基础检查都没通过\n\n因此**不值得直接提交**。\n\n**改进建议**\n\n1. **优化信号结构，降低“质量变化 + 短期反转”之间的冲突**  \n   目前基本面变化和 20 日反转直接相乘，容易导致信号过于苛刻或相互抵消。可尝试：\n   - 改为加权相加而非相乘\n   - 分层组合：先做 quality change，再叠加较弱的 reversal 滤波\n\n2. **调整基本面变化的观察窗口**  \n   现在用 `63` 天变化、`252` 天标准化，可能偏慢且稀疏。可测试：\n   - `ts_delta(..., 21)`、`42`、`126`\n   - 更短或更长的 zscore 窗口，提升时效性\n\n3. **改进反转腿**  \n   `reverse(ts_mean(returns, 20))` 比较简单，噪声可能较大。可以尝试：\n   - 更短周期反转，如 5/10 日\n   - 对波动率做调整后的反转\n   - 用 `rank(-returns)` 类更直接的短期超跌定义\n\n4. **增强稳健性**  \n   当前只用了 `ebit/assets` 和 `cashflow_op/assets` 两个质量指标，建议加入：\n   - `gross_profit/assets`\n   - `roa`、`roe`\n   - accruals 或资产增长类指标  \n   形成更完整的 quality improvement 因子\n\n5. **检查失效来源**  \n   因为 `checks_pass = false`，应重点排查：\n   - 是否存在过度依赖缺失值回填\n   - 信号覆盖率是否不足\n   - 是否行业/市场暴露过强\n   - 是否由少数时期或少数股票驱动\n\n**一句话总结**：  \n这是一个**思路合理但当前实现效果较差**的 alpha，低 Sharpe、低 Fitness、检查未通过，**建议继续迭代，不建议提交**。"
+    }
+  },
+  {
+    "alpha_id": "d5l6MXog",
+    "expr": "trade_when(rank(add(ts_zscore(ts_backfill(divide(ebit, assets), 252), 252), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252))) > 0.55, rank(reverse(ts_mean(returns, 8))), rank(add(ts_zscore(ts_backfill(divide(ebit, assets), 252), 252), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), assets), 252), 252))) < 0.35)",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.58,
+    "fitness": 0.27,
+    "turnover": 0.2168,
+    "returns": 0.0487,
+    "drawdown": 0.0849,
+    "margin": 0.00045,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.58,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.27,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.2168,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.2168,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.48,
+        "limit": 0.25,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.48,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_007_tradewhen_quality_pullback",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "FAIL",
+      "comment": "简评如下：\n\n- **Sharpe: 0.58**  \n  偏低，说明风险调整后收益不强，alpha 稳定性和有效性都比较一般。通常这个水平很难算是有竞争力的提交结果。\n\n- **Turnover: 0.2168**  \n  换手率中等偏低，这一点还可以，说明信号不是特别噪声化，交易成本压力不算太大。\n\n- **Drawdown: 0.0849**  \n  回撤 8.49%，不算特别差，但结合较低 Sharpe 来看，承担了这部分回撤却没有换来足够高的收益，性价比一般。\n\n- **Fitness: 0.27**  \n  明显偏低，通常这意味着综合表现不足，信号质量、稳健性或可实现性存在问题。\n\n### 结论\n**FAIL**\n\n这个 alpha **不值得直接提交**。核心问题是 **Sharpe 和 Fitness 都太弱**，虽然 Turnover 和 Drawdown 不算失控，但整体表现仍属于低质量信号，和回测中的 **INFERIOR** 评级一致。\n\n### 改进建议\n1. **增强核心因子质量**  \n   当前主要是质量因子（EBIT/Assets、毛利/Assets）叠加短期回撤买入逻辑，建议重新检验：\n   - 质量信号是否有足够横截面区分度；\n   - 是否需要行业/市值中性化；\n   - 是否要对基本面信号做更长周期平滑。\n\n2. **优化 trade_when 触发条件**  \n   目前是“高质量 + 短期下跌时买入”，但 8 日 returns 均值反转可能较弱。可尝试：\n   - 改成更短或更长的回撤窗口；\n   - 用 `ts_rank` / `ts_zscore` 替代简单均值；\n   - 加入波动率过滤，避免接飞刀。\n\n3. **降低退出条件的钝化问题**  \n   退出条件只是质量 rank < 0.35，可能导致持仓滞后。可以尝试加入：\n   - 价格修复后的止盈退出；\n   - 动量转弱退出；\n   - 更明确的持仓时长控制。\n\n4. **提升稳健性**  \n   建议做分层测试：\n   - 不同市场阶段；\n   - 不同行业；\n   - 不同市值桶。  \n   看是否只是局部样本有效。\n\n5. **考虑加入正交信息**  \n   仅靠质量 + pullback 容易拥挤，可混合：\n   - 盈利预期修正；\n   - 现金流质量；\n   - 低波/残差反转；\n   - 分析师预期变化等。\n\n如果你愿意，我还可以进一步**直接帮你把这条 alpha 改写成几个更可能通过的 BRAIN 版本**。"
+    }
+  },
+  {
+    "alpha_id": "ZYW98klQ",
+    "expr": "rank(add(ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252), ts_zscore(ts_backfill(divide(ts_backfill(fnd6_cptmfmq_saleq, 252), assets), 252), 252))) * rank(reverse(ts_mean(returns, 15)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.26,
+    "fitness": 0.1,
+    "turnover": 0.1147,
+    "returns": 0.0177,
+    "drawdown": 0.0934,
+    "margin": 0.000308,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.26,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.1,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1147,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1147,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.24,
+        "limit": 0.11,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.24,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_003_margin_turnover_combo",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe: 0.26**  \n  很低，风险调整后收益较差，说明信号稳定性和有效性不足。\n\n- **Turnover: 0.1147**  \n  换手不算高，交易频率适中，这一项中性偏好，不是主要问题。\n\n- **Drawdown: 0.0934**  \n  回撤约 9.34%，绝对值不算特别夸张，但结合很低的 Sharpe 看，承担这类回撤并不划算。\n\n- **Fitness: 0.1**  \n  很弱，通常说明综合表现不足，预测能力和可交易性都偏差。\n\n**是否值得提交：FAIL**\n\n理由：  \n该 alpha 的 **Sharpe 和 Fitness 明显偏低**，且整体评级为 **INFERIOR**、**checks_pass = false**，说明目前没有达到可提交标准。虽然换手尚可、回撤也不算失控，但核心收益质量太弱，不建议提交。\n\n**改进建议**\n\n1. **增强基本面信号质量**  \n   当前表达式主要结合了 **毛利率/销售效率 + 反转因子**，但效果较弱。可尝试：\n   - 对毛利率使用更稳定的版本，如 `ts_mean` / `ts_rank` 平滑；\n   - 引入盈利质量、现金流、资产周转改善等二级指标，而不只是静态水平。\n\n2. **优化反转项**  \n   现在使用 `rank(reverse(ts_mean(returns, 15)))`，15 日反转可能过短且噪音较大。可测试：\n   - 更长窗口如 20/30 日；\n   - 改成 `ts_zscore` 或 `ts_rank` 形式；\n   - 与动量分开测试，确认市场更适合反转还是趋势。\n\n3. **降低噪音与极值影响**  \n   虽然用了 `ts_backfill` 和 `ts_zscore`，但仍可能受异常值影响。可尝试：\n   - `winsorize` / `truncate`；\n   - 行业内标准化或中性化；\n   - 分别测试单因子效果，确认是哪一部分拖累整体。\n\n4. **检查因子相关性与重复暴露**  \n   `sale/assets` 与毛利率类指标可能共同指向某些风格暴露，导致信息增量不足。建议：\n   - 单独回测每个子项；\n   - 查看与现有常见质量、价值、反转因子的相关性；\n   - 提升因子正交性。\n\n5. **做行业/市值中性化**  \n   基本面类信号容易带来行业偏置，建议在组合前增加：\n   - 行业中性；\n   - 市值中性；\n   - 必要时 beta 中性。  \n   这通常有助于提升 Sharpe 和 checks 通过率。\n\n如果你愿意，我可以进一步**直接帮你改写这条 BRAIN alpha 表达式**，给出 3 个更可能通过的改进版本。"
+    }
+  },
+  {
+    "alpha_id": "gJo5lK7J",
+    "expr": "group_neutralize(rank(add(ts_zscore(ts_backfill(divide(cashflow_op, assets), 252), 252), ts_zscore(ts_backfill(divide(subtract(ts_backfill(fnd6_cptmfmq_saleq, 252), ts_backfill(cogs, 252)), ts_backfill(fnd6_cptmfmq_saleq, 252)), 252), 252))) * rank(reverse(ts_mean(returns, 5))), subindustry)",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.1,
+    "fitness": 0.64,
+    "turnover": 0.1999,
+    "returns": 0.0669,
+    "drawdown": 0.0731,
+    "margin": 0.000669,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 1.1,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.64,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1999,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1999,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.63,
+        "limit": 0.48,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.63,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_008_indneu_quality_shortrev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "MARKET",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe: 1.1**  \n  偏弱。说明风险调整后收益不够突出，通常不属于很有竞争力的 alpha。\n\n- **Turnover: 0.1999**  \n  尚可。换手不算高，交易成本压力相对可控，这一点是正面的。\n\n- **Drawdown: 0.0731**  \n  中等偏高。回撤不算失控，但结合 Sharpe 看，策略承受的波动与回撤对应的收益并不够吸引人。\n\n- **Fitness: 0.64**  \n  偏低。通常说明综合表现、稳定性或可实盘性不足，难以算是高质量候选。\n\n**是否值得提交：FAIL**\n\n理由：\n1. **Grade = INFERIOR**\n2. **checks_pass = false**\n3. 核心指标里 **Sharpe 和 Fitness 都偏弱**\n4. 虽然换手尚可，但不足以弥补整体质量问题\n\n**改进建议**\n\n1. **增强信号纯度**  \n   当前因子把“质量”与“短期反转”直接相乘，可能引入噪声。可尝试：\n   - 改为加权求和而非相乘\n   - 分别排序后控制单边暴露\n   - 降低短期反转项权重\n\n2. **优化时间窗口**  \n   - 质量因子的 `252` 窗口可能偏长、更新慢  \n   - 短反转用了 `ts_mean(returns, 5)`，可测试 `3/10/20` 天窗口\n   - 尝试让慢因子与快因子频率更匹配\n\n3. **改进基本面定义**  \n   目前质量部分用了：\n   - `cashflow_op / assets`\n   - `(sales - cogs) / sales`\n   \n   可补充或替换为更稳健指标：\n   - ROA / ROE\n   - gross profitability\n   - accruals\n   - operating margin stability\n\n4. **加强去极值与稳健化处理**  \n   对基本面字段虽然有 `backfill + zscore`，但可能仍受异常值影响。可尝试：\n   - winsorize / truncate\n   - decay 平滑\n   - 波动调整\n\n5. **检查中性化层级**  \n   当前只做了 `subindustry` 中性化。可进一步测试：\n   - industry / sector 中性化\n   - beta / size 中性化\n   以减少非目标风险暴露\n\n6. **降低回撤、提升 Fitness**  \n   - 加入波动过滤或市场状态过滤\n   - 对反转信号做条件触发，例如只在质量分层内做短反转\n   - 避免在高波动或财报扰动期过度交易\n\n**结论**  \n这条 alpha **目前不建议提交（FAIL）**。建议重点围绕 **提升 Sharpe 和 Fitness** 做结构调整，而不是单纯压低换手。"
+    }
+  }
+]
