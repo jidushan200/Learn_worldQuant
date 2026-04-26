@@ -1,57 +1,67 @@
 """
-从 AI 返回的文本中提取 alpha JSON 数组
+解析 AI 返回的 alpha JSON —— 新格式：[{name, expr, setting}, ...]
 """
 
 import json
 import re
+from setting import DEFAULT_SETTING
 
 
-def parse_alphas_from_response(text: str) -> list[dict]:
+def parse_alpha_list(raw: str) -> list[dict]:
     """
-    尝试多种方式从 AI 回复中提取 [{"name":..., "expr":...}, ...]
+    从 AI 原始回复中提取 alpha 列表。
+    返回 [{name, expr, setting}, ...]
     """
+    text = raw.strip()
 
-    # 1) ```json ... ``` 代码块
-    for m in re.finditer(r"```(?:json)?\s*\n(.*?)\n\s*```", text, re.DOTALL):
-        result = _try_parse(m.group(1))
-        if result:
-            return result
+    # 去掉 markdown 代码块
+    m = re.search(r"```(?:json)?\s*(\[.*?])\s*```", text, re.S)
+    if m:
+        text = m.group(1)
+    else:
+        start = text.find("[")
+        end = text.rfind("]")
+        if start != -1 and end != -1 and end > start:
+            text = text[start:end + 1]
 
-    # 2) 裸 JSON 数组 [...]
-    for m in re.finditer(r"(\[\s*\{.*?\}\s*\])", text, re.DOTALL):
-        result = _try_parse(m.group(1))
-        if result:
-            return result
-
-    # 3) 整段文本
-    result = _try_parse(text.strip())
-    if result:
-        return result
-
-    raise ValueError(
-        "无法从 AI 响应中提取有效的 alpha JSON。\n"
-        f"响应前 500 字：{text[:500]}"
-    )
-
-
-def _try_parse(raw: str) -> list[dict] | None:
     try:
-        data = json.loads(raw)
-    except json.JSONDecodeError:
-        return None
+        arr = json.loads(text)
+    except json.JSONDecodeError as e:
+        print(f"  ❌ JSON 解析失败: {e}")
+        print(f"     原始文本前200字: {text[:200]}")
+        return []
 
-    if not isinstance(data, list) or not data:
-        return None
+    if not isinstance(arr, list):
+        print("  ❌ AI 返回的不是 JSON 数组")
+        return []
 
-    valid = []
-    for item in data:
-        if isinstance(item, dict) and "name" in item and "expr" in item:
-            entry = {
-                "name": str(item["name"]).strip(),
-                "expr": str(item["expr"]).strip(),
-            }
-            if "setting" in item and isinstance(item["setting"], dict):
-                entry["setting"] = item["setting"]
-            valid.append(entry)
+    results = []
+    for i, item in enumerate(arr):
+        if not isinstance(item, dict):
+            print(f"  ⚠️  第 {i} 个元素不是对象，跳过")
+            continue
 
-    return valid if valid else None
+        # 兼容 expr / expression 两种 key
+        expr = item.get("expr") or item.get("expression") or ""
+        expr = expr.strip()
+        if not expr:
+            print(f"  ⚠️  第 {i} 个元素没有 expr，跳过")
+            continue
+
+        name = item.get("name") or item.get("desc") or f"alpha_{i}"
+        name = name.strip()
+
+        # setting：AI 提供的优先，否则用默认值
+        raw_setting = item.get("setting") or item.get("settings") or {}
+        setting = {**DEFAULT_SETTING}
+        if isinstance(raw_setting, dict):
+            setting.update(raw_setting)
+
+        results.append({
+            "name": name,
+            "expr": expr,
+            "setting": setting,
+        })
+
+    print(f"  ✅ 成功解析 {len(results)} 个 alpha")
+    return results

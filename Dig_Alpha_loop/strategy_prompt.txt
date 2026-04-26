@@ -1,12 +1,41 @@
 我的策略方向：基本面质量因子 + 短期反转因子的组合。
 
 核心思路：
-- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
-- 结合短期反转信号（5-20日收益率的均值回归）择时入场
-- 使用 ts_zscore 标准化不同因子
-- 探索不同的组合权重、窗口期和因子组合方式
+-用不一样的角度思考，创建Alpha
+-以盈利，较高的夏普率为要求，进行制作
+-当方向不对的时候，要及时改正，不要一条道走到黑
+-为了最好的Alpha而努力，这是你的追求：INFERIOR (极差) → AVERAGE (合格) → GOOD (良好) → EXCELLENT (优秀) → SPECTACULAR (顶级)
 
 约束：
-- FASTEXPR 语法
+- 必须是合法的 FAST Expression 语法
 - 回测 USA TOP3000 EQUITY
-- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks
+- 只允许使用 fields.md 中列出的字段名，严禁编造字段
+- 只允许使用平台支持的函数
+
+输出格式要求：
+- 必须返回纯 JSON 数组，不要输出任何解释文字
+- 每个元素包含 name、expr、setting 三个字段
+- name：简短唯一的因子命名
+- expr：完整的 FAST Expression
+- setting：回测参数对象
+- 示例：
+[
+  {
+    "name": "quality_roe_rev5d",
+    "expr": "ts_zscore(divide(net_income, assets), 252) - 1.5 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

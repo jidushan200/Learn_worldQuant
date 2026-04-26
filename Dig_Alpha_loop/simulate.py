@@ -1,90 +1,71 @@
+"""
+Brain 平台回测：提交 alpha 并轮询等待结果
+"""
+
 import time
 from time import sleep
-import requests
-from requests.exceptions import ConnectionError, ProxyError, Timeout
-from setting import MAX_WAIT_SEC, MAX_RETRY
-
-# 需要重试的网络层异常
-_RETRYABLE = (ConnectionError, ProxyError, Timeout)
+from setting import MAX_WAIT_SEC, API_SIMULATION_URL, DEFAULT_SETTING
+from http_utils import request_with_retry
 
 
-def _get_with_retry(sess: requests.Session, url: str) -> requests.Response:
+def build_sim_payload(alpha: dict) -> dict:
     """
-    带 429 + 网络异常重试的 GET 请求，复用于轮询阶段
+    将 {name, expr, setting} 格式的 alpha 转成提交给 Brain API 的 payload
     """
-    r = None
-    for attempt in range(1, MAX_RETRY + 1):
-        try:
-            r = sess.get(url, timeout=30)
-        except _RETRYABLE as e:
-            wait = 15 * attempt          # 网络抖动，逐步拉长等待
-            print(f"  ⚠️  网络异常 (attempt {attempt}/{MAX_RETRY})，{wait}s 后重试: {e}")
-            sleep(wait)
-            continue
+    expr = alpha["expr"]
+    setting = alpha.get("setting", DEFAULT_SETTING)
 
-        if r.status_code == 429:
-            wait = int(r.headers.get("Retry-After", 10))
-            print(f"  ⚠️  轮询限流 (attempt {attempt}/{MAX_RETRY})，等待 {wait} 秒...")
-            sleep(wait)
-            continue
-
-        return r
-
-    return r   # 超出重试次数，返回最后一次响应（可能为 None）
+    return {
+        "type": "REGULAR",
+        "settings": setting,
+        "regular": expr,
+    }
 
 
-def submit_and_wait(
-    sess: requests.Session,
-    alpha_payload: dict,
-    max_wait_sec: int = MAX_WAIT_SEC
-) -> tuple:
+def submit_and_wait(sess, alpha: dict, max_wait_sec: int = MAX_WAIT_SEC) -> tuple:
     """
-    提交 alpha 回测任务，并轮询直到结果返回
+    提交 alpha 回测任务，并轮询直到结果返回。
+
+    参数：
+        sess:  已认证的 requests.Session
+        alpha: {"name": str, "expr": str, "setting": dict}
+              也兼容旧格式（直接传 payload dict 含 "regular" 键）
+
+    返回：
+        (alpha_id, error_msg, raw_json)
     """
 
-    # ── 1) 提交回测任务 ───────────────────────────────────────
-    r = None
-    for attempt in range(1, MAX_RETRY + 1):
-        try:
-            r = sess.post(
-                url="https://api.worldquantbrain.com/simulations",
-                json=alpha_payload,
-                timeout=30
-            )
-        except _RETRYABLE as e:
-            wait = 15 * attempt
-            print(f"  ⚠️  提交网络异常 (attempt {attempt}/{MAX_RETRY})，{wait}s 后重试: {e}")
-            sleep(wait)
-            continue
+    # ── 兼容新旧格式 ──
+    if "regular" in alpha:
+        payload = alpha
+        label = alpha.get("regular", "")[:40]
+    else:
+        payload = build_sim_payload(alpha)
+        label = alpha.get("name", alpha["expr"][:40])
 
-        if r.status_code == 429:
-            wait = int(r.headers.get("Retry-After", 10))
-            print(f"  ⚠️  提交限流 (attempt {attempt}/{MAX_RETRY})，等待 {wait} 秒...")
-            sleep(wait)
-            continue
-
-        break   # 非限流、非异常，跳出
+    # ── 1) 提交回测任务 ──
+    r = request_with_retry(sess, "POST", API_SIMULATION_URL, label=f"提交[{label}]", json=payload)
 
     if r is None:
         return None, "提交失败：重试耗尽仍未响应", None
     if r.status_code >= 400:
-        return None, f"提交失败: {r.status_code} {r.text}", None
+        return None, f"提交失败: {r.status_code} {r.text[:200]}", None
 
-    # ── 2) 获取进度查询地址 ───────────────────────────────────
+    # ── 2) 获取进度查询地址 ──
     progress_url = r.headers.get("Location")
     if not progress_url:
         return None, "响应缺少 Location", None
 
-    # ── 3) 轮询直到完成或超时 ─────────────────────────────────
+    # ── 3) 轮询直到完成或超时 ──
     elapsed = 0
     while elapsed < max_wait_sec:
 
-        p = _get_with_retry(sess, progress_url)
+        p = request_with_retry(sess, "GET", progress_url, label=f"轮询[{label}]")
 
         if p is None:
             return None, "轮询失败：重试耗尽仍无响应", None
         if p.status_code >= 400:
-            return None, f"轮询失败: {p.status_code} {p.text}", None
+            return None, f"轮询失败: {p.status_code} {p.text[:200]}", None
 
         retry_after = float(p.headers.get("Retry-After", 0))
 
@@ -93,6 +74,7 @@ def submit_and_wait(
             alpha_id = raw.get("alpha")
             if not alpha_id:
                 return None, "完成但 alpha 为空", raw
+            print(f"  ✅ [{label}] 回测完成 → alpha_id={alpha_id}")
             return alpha_id, None, raw
 
         start = time.time()

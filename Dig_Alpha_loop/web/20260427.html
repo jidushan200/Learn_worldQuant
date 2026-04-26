@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alpha 回测结果 — 2026-04-27</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 30px;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+    .summary {
+      color: #888;
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+    .session-block {
+      margin-bottom: 40px;
+    }
+    .session-header {
+      background: #2c3e50;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px 6px 0 0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    th {
+      background: #34495e;
+      color: white;
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 13px;
+    }
+    td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tr:hover td { background: #f0f7ff; }
+    .expr {
+      font-family: monospace;
+      font-size: 12px;
+      color: #555;
+      word-break: break-word;
+      max-width: 640px;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover { text-decoration: underline; }
+    .tag-sharpe   { color: #27ae60; font-weight: bold; }
+    .tag-fitness  { color: #8e44ad; font-weight: bold; }
+    .tag-turnover { color: #e67e22; font-weight: bold; }
+    .tag-returns  { color: #2980b9; font-weight: bold; }
+    .tag-grade    { color: #c0392b; font-weight: bold; }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .expr {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Alpha 回测结果 — 2026-04-27</h1>
+  <p class="summary">今日累计 <strong>52</strong> 个成功，共 12 次执行</p>
+  
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:00:33　共提交 6 个，成功 2 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_002_margin_revert</td>
+          <td class="expr">add(multiply(0.6,group_rank(add(rank(divide(ebit,sales)),rank(divide(cashflow_op,sales))),subindustry)),multiply(0.4,group_rank(ts_rank(subtract(ts_mean(close,7),close),15),subindustry)))</td>
+          <td class="tag-sharpe">0.59</td>
+          <td class="tag-fitness">0.29</td>
+          <td class="tag-turnover">22.1%</td>
+          <td class="tag-returns">5.30%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/e7qXMgLM" target="_blank" rel="noopener noreferrer">e7qXMgLM</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_003_fcf_strev</td>
+          <td class="expr">add(multiply(0.7,group_rank(add(rank(divide(subtract(cashflow_op,capex),assets)),rank(divide(bookvalue_ps,close))),subindustry)),multiply(0.3,group_rank(ts_zscore(subtract(ts_mean(close,3),close),15),subindustry)))</td>
+          <td class="tag-sharpe">0.98</td>
+          <td class="tag-fitness">0.66</td>
+          <td class="tag-turnover">16.2%</td>
+          <td class="tag-returns">7.23%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/2rn3V68N" target="_blank" rel="noopener noreferrer">2rn3V68N</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:08:58　共提交 6 个，成功 5 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_003_analyst_disp</td>
+          <td class="expr">add(multiply(0.65,group_rank(subtract(rank(earnings_certainty_rank_derivative),rank(earnings_per_share_standard_deviation)),subindustry)),multiply(0.35,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">-0.32</td>
+          <td class="tag-fitness">-0.10</td>
+          <td class="tag-turnover">17.6%</td>
+          <td class="tag-returns">-1.71%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/mLxEGPY5" target="_blank" rel="noopener noreferrer">mLxEGPY5</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_002_cf_revision</td>
+          <td class="expr">add(multiply(0.55,group_rank(ts_zscore(subtract(est_cashflow_op,ts_delay(est_cashflow_op,63)),126),subindustry)),multiply(0.25,group_rank(subtract(rank(correlation_last_60_days_spy),rank(beta_last_60_days_spy)),subindustry)),multiply(0.2,group_rank(ts_decay_linear(subtract(ts_mean(close,4),close),10),subindustry)))</td>
+          <td class="tag-sharpe">0.15</td>
+          <td class="tag-fitness">0.03</td>
+          <td class="tag-turnover">18.9%</td>
+          <td class="tag-returns">0.81%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/vRJWEVWv" target="_blank" rel="noopener noreferrer">vRJWEVWv</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_001_est_revision</td>
+          <td class="expr">add(multiply(0.6,group_rank(ts_zscore(subtract(est_eps,ts_delay(est_eps,63)),126),subindustry)),multiply(0.4,group_rank(ts_rank(subtract(ts_mean(close,5),close),15),subindustry)))</td>
+          <td class="tag-sharpe">1.18</td>
+          <td class="tag-fitness">0.47</td>
+          <td class="tag-turnover">26.0%</td>
+          <td class="tag-returns">4.13%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/qMmQab92" target="_blank" rel="noopener noreferrer">qMmQab92</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_005_bv_sentiment</td>
+          <td class="expr">add(multiply(0.55,group_rank(add(rank(ts_zscore(subtract(est_bookvalue_ps,ts_delay(est_bookvalue_ps,126)),252)),rank(analyst_revision_rank_derivative)),subindustry)),multiply(0.25,group_rank(subtract(0,rank(beta_last_90_days_spy)),subindustry)),multiply(0.2,group_rank(ts_rank(subtract(ts_mean(close,5),close),12),subindustry)))</td>
+          <td class="tag-sharpe">0.17</td>
+          <td class="tag-fitness">0.03</td>
+          <td class="tag-turnover">20.9%</td>
+          <td class="tag-returns">0.87%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/e7qXYga6" target="_blank" rel="noopener noreferrer">e7qXYga6</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_006_sales_expect</td>
+          <td class="expr">add(multiply(0.6,group_rank(subtract(rank(ts_zscore(subtract(est_sales,ts_delay(est_sales,63)),126)),rank(ts_std_dev(est_sales,126))),subindustry)),multiply(0.4,group_rank(ts_decay_linear(subtract(ts_mean(close,3),close),12),subindustry)))</td>
+          <td class="tag-sharpe">0.50</td>
+          <td class="tag-fitness">0.21</td>
+          <td class="tag-turnover">14.8%</td>
+          <td class="tag-returns">2.54%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLl0vdZ9" target="_blank" rel="noopener noreferrer">LLl0vdZ9</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:17:17　共提交 6 个，成功 5 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_003_quality_revision_rev</td>
+          <td class="expr">add(multiply(0.5,group_rank(add(rank(earnings_certainty_rank_derivative),rank(analyst_revision_rank_derivative)),subindustry)),multiply(0.3,group_rank(subtract(rank(cashflow_op),rank(capex)),subindustry)),multiply(0.2,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">0.17</td>
+          <td class="tag-fitness">0.02</td>
+          <td class="tag-turnover">38.1%</td>
+          <td class="tag-returns">0.80%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/akW50w55" target="_blank" rel="noopener noreferrer">akW50w55</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_001_eps_cf_rev</td>
+          <td class="expr">add(multiply(0.5,group_rank(ts_zscore(add(subtract(est_eps,ts_delay(est_eps,63)),subtract(est_cashflow_op,ts_delay(est_cashflow_op,63))),126),subindustry)),multiply(0.3,group_rank(subtract(rank(cashflow_op),rank(debt)),subindustry)),multiply(0.2,group_rank(ts_rank(subtract(ts_mean(close,5),close),15),subindustry)))</td>
+          <td class="tag-sharpe">0.32</td>
+          <td class="tag-fitness">0.07</td>
+          <td class="tag-turnover">31.9%</td>
+          <td class="tag-returns">1.44%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/XgYd3Mmm" target="_blank" rel="noopener noreferrer">XgYd3Mmm</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_002_margin_stability_rev</td>
+          <td class="expr">add(multiply(0.45,group_rank(subtract(rank(divide(ebit,assets)),rank(ts_std_dev(ebit,126))),subindustry)),multiply(0.35,group_rank(ts_zscore(subtract(est_sales,ts_delay(est_sales,63)),126),subindustry)),multiply(0.2,group_rank(ts_decay_linear(subtract(ts_mean(close,4),close),12),subindustry)))</td>
+          <td class="tag-sharpe">0.40</td>
+          <td class="tag-fitness">0.15</td>
+          <td class="tag-turnover">16.3%</td>
+          <td class="tag-returns">2.16%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Gr3Z2NqG" target="_blank" rel="noopener noreferrer">Gr3Z2NqG</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_005_profitability_lowbeta_rev</td>
+          <td class="expr">add(multiply(0.45,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.3,group_rank(subtract(rank(est_ebitda),rank(beta_last_60_days_spy)),subindustry)),multiply(0.25,group_rank(ts_rank(subtract(ts_mean(close,3),close),12),subindustry)))</td>
+          <td class="tag-sharpe">0.33</td>
+          <td class="tag-fitness">0.10</td>
+          <td class="tag-turnover">48.5%</td>
+          <td class="tag-returns">4.08%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/QP5w8PvK" target="_blank" rel="noopener noreferrer">QP5w8PvK</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_006_sales_eps_quality_rev</td>
+          <td class="expr">add(multiply(0.45,group_rank(ts_zscore(add(subtract(est_sales,ts_delay(est_sales,63)),subtract(est_eps,ts_delay(est_eps,63))),126),subindustry)),multiply(0.35,group_rank(subtract(rank(bookvalue_ps),rank(debt)),subindustry)),multiply(0.2,group_rank(ts_decay_linear(subtract(ts_mean(close,5),close),15),subindustry)))</td>
+          <td class="tag-sharpe">0.29</td>
+          <td class="tag-fitness">0.07</td>
+          <td class="tag-turnover">15.5%</td>
+          <td class="tag-returns">0.99%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/9qANnYGo" target="_blank" rel="noopener noreferrer">9qANnYGo</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:23:37　共提交 6 个，成功 6 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_002_stable_quality</td>
+          <td class="expr">add(multiply(0.5,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.25,group_rank(subtract(rank(divide(bookvalue_ps,close)),rank(beta_last_60_days_spy)),subindustry)),multiply(0.25,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),14),8),subindustry)))</td>
+          <td class="tag-sharpe">0.23</td>
+          <td class="tag-fitness">0.07</td>
+          <td class="tag-turnover">21.2%</td>
+          <td class="tag-returns">2.03%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/KPwW19Rp" target="_blank" rel="noopener noreferrer">KPwW19Rp</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_003_est_quality_rev</td>
+          <td class="expr">add(multiply(0.45,group_rank(add(rank(ts_zscore(subtract(est_eps,ts_delay(est_eps,63)),126)),rank(ts_zscore(subtract(est_sales,ts_delay(est_sales,63)),126))),subindustry)),multiply(0.3,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(capex,assets))),subindustry)),multiply(0.25,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,6),close),20),10),subindustry)))</td>
+          <td class="tag-sharpe">0.16</td>
+          <td class="tag-fitness">0.04</td>
+          <td class="tag-turnover">14.4%</td>
+          <td class="tag-returns">0.87%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/2rn3YLJJ" target="_blank" rel="noopener noreferrer">2rn3YLJJ</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_001_qrev</td>
+          <td class="expr">add(multiply(0.55,group_rank(add(rank(divide(cashflow_op,assets)),rank(divide(ebit,assets))),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,5),close),18),subindustry)))</td>
+          <td class="tag-sharpe">0.77</td>
+          <td class="tag-fitness">0.38</td>
+          <td class="tag-turnover">28.6%</td>
+          <td class="tag-returns">6.83%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/zqJlVRXE" target="_blank" rel="noopener noreferrer">zqJlVRXE</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_004_defensive_reversal</td>
+          <td class="expr">add(multiply(0.45,group_rank(add(rank(divide(cash,assets)),rank(current_ratio)),subindustry)),multiply(0.25,group_rank(subtract(rank(divide(ebitda,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.3,group_rank(subtract(ts_rank(subtract(ts_mean(close,5),close),18),rank(beta_last_30_days_spy)),subindustry)))</td>
+          <td class="tag-sharpe">-0.14</td>
+          <td class="tag-fitness">-0.03</td>
+          <td class="tag-turnover">22.9%</td>
+          <td class="tag-returns">-0.91%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/KPwW1V5E" target="_blank" rel="noopener noreferrer">KPwW1V5E</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_005_analyst_quality</td>
+          <td class="expr">add(multiply(0.4,group_rank(add(rank(earnings_certainty_rank_derivative),rank(analyst_revision_rank_derivative)),subindustry)),multiply(0.35,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.25,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,3),close),12),6),subindustry)))</td>
+          <td class="tag-sharpe">-0.13</td>
+          <td class="tag-fitness">-0.02</td>
+          <td class="tag-turnover">20.1%</td>
+          <td class="tag-returns">-0.66%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/pw19LGog" target="_blank" rel="noopener noreferrer">pw19LGog</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>alpha_006_value_quality_rev</td>
+          <td class="expr">add(multiply(0.4,group_rank(add(rank(divide(bookvalue_ps,close)),rank(divide(cashflow_op,assets))),subindustry)),multiply(0.3,group_rank(subtract(rank(divide(ebit,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.3,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,5),close),16),8),subindustry)))</td>
+          <td class="tag-sharpe">0.60</td>
+          <td class="tag-fitness">0.32</td>
+          <td class="tag-turnover">16.4%</td>
+          <td class="tag-returns">4.72%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/XgYd0e98" target="_blank" rel="noopener noreferrer">XgYd0e98</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:31:38　共提交 6 个，成功 2 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_001_quality_revision_reversal</td>
+          <td class="expr">add(multiply(0.5,group_rank(add(ts_zscore(analyst_revision_rank_derivative,126),ts_zscore(earnings_certainty_rank_derivative,126)),subindustry)),multiply(0.3,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.2,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,3),close),12),7),subindustry)))</td>
+          <td class="tag-sharpe">0.36</td>
+          <td class="tag-fitness">0.10</td>
+          <td class="tag-turnover">34.9%</td>
+          <td class="tag-returns">2.61%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/3qn88q5X" target="_blank" rel="noopener noreferrer">3qn88q5X</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_003_balance_sheet_reversal</td>
+          <td class="expr">add(multiply(0.45,group_rank(add(rank(current_ratio),rank(divide(cash,assets))),subindustry)),multiply(0.35,group_rank(subtract(rank(divide(bookvalue_ps,close)),rank(beta_last_90_days_spy)),subindustry)),multiply(0.2,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),18),9),subindustry)))</td>
+          <td class="tag-sharpe">-0.05</td>
+          <td class="tag-fitness">-0.00</td>
+          <td class="tag-turnover">25.9%</td>
+          <td class="tag-returns">-0.25%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/6XY55xx5" target="_blank" rel="noopener noreferrer">6XY55xx5</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:35:54　共提交 6 个，成功 5 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_002_cf_quality_rev</td>
+          <td class="expr">add(multiply(0.6,group_rank(ts_zscore(divide(cashflow_op,enterprise_value),126),subindustry)),multiply(0.4,group_rank(ts_rank(subtract(ts_mean(close,4),close),12),subindustry)))</td>
+          <td class="tag-sharpe">2.15</td>
+          <td class="tag-fitness">1.27</td>
+          <td class="tag-turnover">30.1%</td>
+          <td class="tag-returns">10.48%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/0mK118Pv" target="_blank" rel="noopener noreferrer">0mK118Pv</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_004_balance_sheet_defense</td>
+          <td class="expr">add(multiply(0.55,group_rank(ts_zscore(subtract(divide(cash,assets),divide(debt,assets)),126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,3),close),10),subindustry)))</td>
+          <td class="tag-sharpe">1.43</td>
+          <td class="tag-fitness">0.65</td>
+          <td class="tag-turnover">32.5%</td>
+          <td class="tag-returns">6.78%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLl009R6" target="_blank" rel="noopener noreferrer">LLl009R6</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_003_analyst_dispersion</td>
+          <td class="expr">add(multiply(0.6,group_rank(ts_zscore(subtract(earnings_per_share_estimate_count,earnings_per_share_standard_deviation),126),subindustry)),multiply(0.4,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">1.41</td>
+          <td class="tag-fitness">0.68</td>
+          <td class="tag-turnover">21.5%</td>
+          <td class="tag-returns">4.98%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/WjWvvOZN" target="_blank" rel="noopener noreferrer">WjWvvOZN</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_005_guidance_reversion</td>
+          <td class="expr">add(multiply(0.65,group_rank(ts_zscore(subtract(earnings_per_share_guidance_value,earnings_per_share_minimum),126),subindustry)),multiply(0.35,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,5),close),15),7),subindustry)))</td>
+          <td class="tag-sharpe">1.21</td>
+          <td class="tag-fitness">0.60</td>
+          <td class="tag-turnover">16.7%</td>
+          <td class="tag-returns">4.05%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/j2dqqPMQ" target="_blank" rel="noopener noreferrer">j2dqqPMQ</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_006_value_stability_rev</td>
+          <td class="expr">add(multiply(0.55,group_rank(ts_zscore(subtract(divide(bookvalue_ps,close),beta_last_90_days_spy),126),subindustry)),multiply(0.45,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,5),close),14),6),subindustry)))</td>
+          <td class="tag-sharpe">1.54</td>
+          <td class="tag-fitness">0.81</td>
+          <td class="tag-turnover">31.5%</td>
+          <td class="tag-returns">8.71%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/xAmJJWQg" target="_blank" rel="noopener noreferrer">xAmJJWQg</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:42:28　共提交 6 个，成功 6 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_003_margin_rev</td>
+          <td class="expr">add(multiply(0.6,group_rank(ts_zscore(divide(ebit,assets),126),subindustry)),multiply(0.4,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),12),6),subindustry)))</td>
+          <td class="tag-sharpe">1.59</td>
+          <td class="tag-fitness">0.73</td>
+          <td class="tag-turnover">31.0%</td>
+          <td class="tag-returns">6.53%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/1Yaqq95J" target="_blank" rel="noopener noreferrer">1Yaqq95J</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_002_fcf_asset_rev</td>
+          <td class="expr">add(multiply(0.55,group_rank(ts_zscore(divide(cashflow_op,assets),126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,5),close),14),subindustry)))</td>
+          <td class="tag-sharpe">1.99</td>
+          <td class="tag-fitness">0.77</td>
+          <td class="tag-turnover">57.5%</td>
+          <td class="tag-returns">8.70%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/QP211JLX" target="_blank" rel="noopener noreferrer">QP211JLX</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_001_cf_ev_rev</td>
+          <td class="expr">add(multiply(0.58,group_rank(ts_zscore(divide(cashflow_op,enterprise_value),126),subindustry)),multiply(0.42,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),12),5),subindustry)))</td>
+          <td class="tag-sharpe">2.27</td>
+          <td class="tag-fitness">1.22</td>
+          <td class="tag-turnover">41.5%</td>
+          <td class="tag-returns">12.03%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/A1gRRqvR" target="_blank" rel="noopener noreferrer">A1gRRqvR</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_004_balance_rev</td>
+          <td class="expr">add(multiply(0.57,group_rank(ts_zscore(subtract(divide(cash,assets),divide(debt,assets)),126),subindustry)),multiply(0.43,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,3),close),10),5),subindustry)))</td>
+          <td class="tag-sharpe">1.76</td>
+          <td class="tag-fitness">0.84</td>
+          <td class="tag-turnover">40.5%</td>
+          <td class="tag-returns">9.17%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/0mebbn1G" target="_blank" rel="noopener noreferrer">0mebbn1G</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_005_eps_quality_rev</td>
+          <td class="expr">add(multiply(0.56,group_rank(ts_zscore(divide(earnings_per_share_reported,close),126),subindustry)),multiply(0.44,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">2.40</td>
+          <td class="tag-fitness">1.10</td>
+          <td class="tag-turnover">56.3%</td>
+          <td class="tag-returns">11.82%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/6Xann3OL" target="_blank" rel="noopener noreferrer">6Xann3OL</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>alpha_006_value_quality_rev</td>
+          <td class="expr">add(multiply(0.54,group_rank(ts_zscore(divide(bookvalue_ps,close),126),subindustry)),multiply(0.46,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),13),6),subindustry)))</td>
+          <td class="tag-sharpe">1.63</td>
+          <td class="tag-fitness">0.84</td>
+          <td class="tag-turnover">43.8%</td>
+          <td class="tag-returns">11.61%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/mLrPPVm2" target="_blank" rel="noopener noreferrer">mLrPPVm2</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 00:50:30　共提交 6 个，成功 3 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_003_ebit_ev_rev7</td>
+          <td class="expr">add(multiply(0.6,group_rank(ts_zscore(divide(ebit,enterprise_value),126),subindustry)),multiply(0.4,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),14),7),subindustry)))</td>
+          <td class="tag-sharpe">1.78</td>
+          <td class="tag-fitness">0.94</td>
+          <td class="tag-turnover">35.9%</td>
+          <td class="tag-returns">10.07%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/xAPKKpqn" target="_blank" rel="noopener noreferrer">xAPKKpqn</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_004_fcf_asset_rev5</td>
+          <td class="expr">add(multiply(0.57,group_rank(ts_zscore(divide(est_fcf,assets),126),subindustry)),multiply(0.43,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),12),5),subindustry)))</td>
+          <td class="tag-sharpe">1.50</td>
+          <td class="tag-fitness">0.64</td>
+          <td class="tag-turnover">35.6%</td>
+          <td class="tag-returns">6.41%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/1YaqYaRX" target="_blank" rel="noopener noreferrer">1YaqYaRX</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_006_cfo_debt_rev7</td>
+          <td class="expr">add(multiply(0.59,group_rank(ts_zscore(divide(cashflow_op,debt),126),subindustry)),multiply(0.41,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,6),close),17),7),subindustry)))</td>
+          <td class="tag-sharpe">1.39</td>
+          <td class="tag-fitness">0.63</td>
+          <td class="tag-turnover">25.9%</td>
+          <td class="tag-returns">5.38%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/vReKR2R3" target="_blank" rel="noopener noreferrer">vReKR2R3</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 01:02:37　共提交 6 个，成功 1 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_003_ebita_rev_9</td>
+          <td class="expr">add(multiply(0.57,group_rank(ts_zscore(divide(ebit,assets),126),subindustry)),multiply(0.43,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">1.82</td>
+          <td class="tag-fitness">0.73</td>
+          <td class="tag-turnover">50.3%</td>
+          <td class="tag-returns">8.08%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/d5E2k5bX" target="_blank" rel="noopener noreferrer">d5E2k5bX</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 01:07:19　共提交 6 个，成功 5 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_002_certainty_reversal</td>
+          <td class="expr">add(multiply(0.5,group_rank(ts_zscore(earnings_certainty_rank_derivative,126),subindustry)),multiply(0.5,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">1.02</td>
+          <td class="tag-fitness">0.40</td>
+          <td class="tag-turnover">45.1%</td>
+          <td class="tag-returns">6.96%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/vReKwxdz" target="_blank" rel="noopener noreferrer">vReKwxdz</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_003_composite_reversal</td>
+          <td class="expr">add(multiply(0.54,group_rank(ts_zscore(composite_factor_score_derivative,126),subindustry)),multiply(0.46,group_rank(ts_rank(subtract(ts_mean(close,7),close),16),subindustry)))</td>
+          <td class="tag-sharpe">0.89</td>
+          <td class="tag-fitness">0.34</td>
+          <td class="tag-turnover">42.2%</td>
+          <td class="tag-returns">6.01%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/RR2Jj28g" target="_blank" rel="noopener noreferrer">RR2Jj28g</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_001_revision_reversal</td>
+          <td class="expr">add(multiply(0.52,group_rank(ts_zscore(analyst_revision_rank_derivative,126),subindustry)),multiply(0.48,group_rank(ts_rank(subtract(ts_mean(close,5),close),20),subindustry)))</td>
+          <td class="tag-sharpe">1.01</td>
+          <td class="tag-fitness">0.39</td>
+          <td class="tag-turnover">47.0%</td>
+          <td class="tag-returns">7.06%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/bloYG9wm" target="_blank" rel="noopener noreferrer">bloYG9wm</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_004_cashflow_eff_reversal</td>
+          <td class="expr">add(multiply(0.55,group_rank(ts_zscore(cashflow_efficiency_rank_derivative,126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,6),close),20),subindustry)))</td>
+          <td class="tag-sharpe">0.85</td>
+          <td class="tag-fitness">0.32</td>
+          <td class="tag-turnover">43.2%</td>
+          <td class="tag-returns">5.95%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/58aZng8X" target="_blank" rel="noopener noreferrer">58aZng8X</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_005_estimate_dispersion_rev</td>
+          <td class="expr">add(multiply(0.51,group_rank(ts_zscore(divide(subtract(earnings_per_share_maximum,earnings_per_share_minimum),add(abs(earnings_per_share_median_value),0.01)),126),subindustry)),multiply(-0.49,group_rank(ts_rank(subtract(ts_mean(close,5),close),18),subindustry)))</td>
+          <td class="tag-sharpe">-1.74</td>
+          <td class="tag-fitness">-0.81</td>
+          <td class="tag-turnover">32.7%</td>
+          <td class="tag-returns">-7.14%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/om318GNm" target="_blank" rel="noopener noreferrer">om318GNm</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 01:15:48　共提交 6 个，成功 6 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_002_fcf_ev_rev</td>
+          <td class="expr">add(multiply(0.55,group_rank(ts_zscore(divide(est_fcf,enterprise_value),252),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,7),close),20),subindustry)))</td>
+          <td class="tag-sharpe">2.04</td>
+          <td class="tag-fitness">0.91</td>
+          <td class="tag-turnover">51.9%</td>
+          <td class="tag-returns">10.28%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/zqPvZpj8" target="_blank" rel="noopener noreferrer">zqPvZpj8</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_003_margin_mr</td>
+          <td class="expr">add(multiply(0.5,group_rank(ts_zscore(divide(ebit,est_sales),252),subindustry)),multiply(0.5,group_rank(ts_rank(subtract(ts_mean(close,5),close),16),subindustry)))</td>
+          <td class="tag-sharpe">1.77</td>
+          <td class="tag-fitness">0.65</td>
+          <td class="tag-turnover">64.0%</td>
+          <td class="tag-returns">8.68%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/3qaMwWxZ" target="_blank" rel="noopener noreferrer">3qaMwWxZ</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_001_eps_cf_rev</td>
+          <td class="expr">add(multiply(0.52,group_rank(ts_zscore(add(divide(earnings_per_share_reported,close),divide(cashflow_op,cap)),252),subindustry)),multiply(0.48,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">2.64</td>
+          <td class="tag-fitness">1.28</td>
+          <td class="tag-turnover">59.8%</td>
+          <td class="tag-returns">13.97%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/pwVqmgJo" target="_blank" rel="noopener noreferrer">pwVqmgJo</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_004_quality_stability</td>
+          <td class="expr">add(multiply(0.54,group_rank(ts_zscore(subtract(divide(cashflow_op,assets),divide(debt,assets)),252),subindustry)),multiply(0.46,group_rank(ts_rank(subtract(ts_mean(close,8),close),22),subindustry)))</td>
+          <td class="tag-sharpe">1.71</td>
+          <td class="tag-fitness">0.73</td>
+          <td class="tag-turnover">48.0%</td>
+          <td class="tag-returns">8.81%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/P0wJNZ2M" target="_blank" rel="noopener noreferrer">P0wJNZ2M</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_005_analyst_value_rev</td>
+          <td class="expr">add(multiply(0.53,group_rank(ts_zscore(divide(anl4_ebit_mean,enterprise_value),252),subindustry)),multiply(0.47,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">2.38</td>
+          <td class="tag-fitness">1.14</td>
+          <td class="tag-turnover">58.8%</td>
+          <td class="tag-returns">13.49%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/78akWLz2" target="_blank" rel="noopener noreferrer">78akWLz2</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>alpha_006_profit_beta_rev</td>
+          <td class="expr">add(multiply(0.5,group_rank(ts_zscore(divide(est_netprofit,cap),252),subindustry)),multiply(0.3,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)),multiply(0.2,group_rank(ts_zscore(multiply(-1,beta_last_60_days_spy),126),subindustry)))</td>
+          <td class="tag-sharpe">2.72</td>
+          <td class="tag-fitness">1.39</td>
+          <td class="tag-turnover">50.5%</td>
+          <td class="tag-returns">13.28%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/Xg2jGvYz" target="_blank" rel="noopener noreferrer">Xg2jGvYz</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 01:26:49　共提交 6 个，成功 6 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_002_estprofit_rev_12</td>
+          <td class="expr">add(multiply(0.42,group_rank(ts_zscore(divide(est_netprofit,cap),252),subindustry)),multiply(0.33,group_rank(ts_zscore(divide(cashflow_op,assets),252),subindustry)),multiply(0.25,group_rank(ts_rank(subtract(ts_mean(close,7),close),20),subindustry)))</td>
+          <td class="tag-sharpe">2.61</td>
+          <td class="tag-fitness">1.44</td>
+          <td class="tag-turnover">38.0%</td>
+          <td class="tag-returns">11.58%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/xAPKqJEp" target="_blank" rel="noopener noreferrer">xAPKqJEp</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_003_analyst_quality_12</td>
+          <td class="expr">add(multiply(0.40,group_rank(ts_zscore(divide(anl4_ebit_mean,enterprise_value),252),subindustry)),multiply(0.35,group_rank(ts_zscore(divide(anl4_fcf_value,enterprise_value),252),subindustry)),multiply(0.25,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">2.14</td>
+          <td class="tag-fitness">1.08</td>
+          <td class="tag-turnover">40.7%</td>
+          <td class="tag-returns">10.29%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/O0b1YO3p" target="_blank" rel="noopener noreferrer">O0b1YO3p</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_001_quality_rev_12</td>
+          <td class="expr">add(multiply(0.44,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.36,group_rank(ts_zscore(divide(earnings_per_share_reported,close),252),subindustry)),multiply(0.20,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))</td>
+          <td class="tag-sharpe">2.30</td>
+          <td class="tag-fitness">1.43</td>
+          <td class="tag-turnover">30.8%</td>
+          <td class="tag-returns">11.86%</td>
+          <td class="tag-grade">Average</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/GrMqaJYG" target="_blank" rel="noopener noreferrer">GrMqaJYG</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_004_margin_revert_12</td>
+          <td class="expr">add(multiply(0.38,group_rank(ts_zscore(divide(ebit,enterprise_value),252),subindustry)),multiply(0.32,group_rank(ts_zscore(subtract(divide(cashflow_op,assets),divide(debt,assets)),252),subindustry)),multiply(0.30,group_rank(ts_rank(subtract(ts_mean(close,8),close),22),subindustry)))</td>
+          <td class="tag-sharpe">1.68</td>
+          <td class="tag-fitness">0.83</td>
+          <td class="tag-turnover">39.7%</td>
+          <td class="tag-returns">9.74%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/6Xan8Oep" target="_blank" rel="noopener noreferrer">6Xan8Oep</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_005_beta_balanced_12</td>
+          <td class="expr">add(multiply(0.38,group_rank(ts_zscore(divide(est_netprofit,cap),252),subindustry)),multiply(0.32,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.18,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)),multiply(0.12,group_rank(ts_zscore(multiply(-1,beta_last_60_days_spy),126),subindustry)))</td>
+          <td class="tag-sharpe">2.62</td>
+          <td class="tag-fitness">1.56</td>
+          <td class="tag-turnover">38.1%</td>
+          <td class="tag-returns">13.43%</td>
+          <td class="tag-grade">Good</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/LLgPjbE9" target="_blank" rel="noopener noreferrer">LLgPjbE9</a></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>alpha_006_revision_quality_12</td>
+          <td class="expr">add(multiply(0.34,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.31,group_rank(ts_zscore(divide(est_sales,enterprise_value),252),subindustry)),multiply(0.20,group_rank(ts_zscore(analyst_revision_rank_derivative,126),subindustry)),multiply(0.15,group_rank(ts_rank(subtract(ts_mean(close,5),close),16),subindustry)))</td>
+          <td class="tag-sharpe">1.53</td>
+          <td class="tag-fitness">0.84</td>
+          <td class="tag-turnover">36.8%</td>
+          <td class="tag-returns">11.03%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/leQLqgYx" target="_blank" rel="noopener noreferrer">leQLqgYx</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+</body>
+</html>

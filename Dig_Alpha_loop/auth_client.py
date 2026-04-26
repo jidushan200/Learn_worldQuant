@@ -2,6 +2,8 @@ from os import environ
 import requests
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
+from setting import API_AUTH_URL
+from http_utils import request_with_retry
 
 
 def load_credentials(env_file: str = ".env", account: str = None):
@@ -29,7 +31,9 @@ def create_authenticated_session(env_file: str = ".env", account: str = None):
     sess = requests.Session()
     sess.auth = HTTPBasicAuth(username, password)
 
-    resp = sess.post("https://api.worldquantbrain.com/authentication", timeout=30)
+    resp = request_with_retry(sess, "POST", API_AUTH_URL, label="认证")
+    if resp is None:
+        raise RuntimeError("认证失败：重试耗尽仍无响应")
     if resp.status_code >= 400:
         raise RuntimeError(f"认证失败: {resp.status_code} {resp.text}")
 

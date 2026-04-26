@@ -31,44 +31,25 @@ def _read_file(path: str, max_chars: int = 50000) -> str:
         return ""
 
 
-def load_knowledge() -> str:
-    """
-    加载 KNOWLEDGE_DIR 下的所有参考资料，拼接成一段 Markdown 文本。
-    优先加载 _KNOWLEDGE_FILES 中定义的文件（保序），
-    然后扫描目录中剩余的 .md / .txt 文件。
-    目录不存在或无内容时返回空字符串。
-    """
-    if not os.path.isdir(KNOWLEDGE_DIR):
+def _load_knowledge() -> str:
+    """加载 knowledge/ 文件夹下所有 .md 文件作为重定向时的参考资料"""
+    knowledge_dir = "knowledge"
+    if not os.path.isdir(knowledge_dir):
         return ""
 
-    sections = []
-
-    loaded_files = set()
-    for filename, title in _KNOWLEDGE_FILES.items():
-        path = os.path.join(KNOWLEDGE_DIR, filename)
-        if os.path.exists(path):
-            content = _read_file(path)
+    parts = []
+    for filename in sorted(os.listdir(knowledge_dir)):
+        if not filename.endswith(".md"):
+            continue
+        filepath = os.path.join(knowledge_dir, filename)
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = f.read().strip()
             if content:
-                sections.append(f"{title}\n{content}")
-                loaded_files.add(filename)
-
-    for path in sorted(glob.glob(os.path.join(KNOWLEDGE_DIR, "*"))):
-        fname = os.path.basename(path)
-        if fname in loaded_files:
+                label = filename.replace(".md", "").replace("_", " ").title()
+                parts.append(f"### {label}\n{content}")
+        except Exception as e:
+            print(f"  ⚠️ 加载 {filepath} 失败: {e}")
             continue
-        if not fname.endswith((".md", ".txt")):
-            continue
-        content = _read_file(path)
-        if content:
-            nice_name = os.path.splitext(fname)[0].replace("_", " ").title()
-            sections.append(f"## 参考资料: {nice_name}\n{content}")
 
-    if not sections:
-        return ""
-
-    return (
-        "\n\n---\n"
-        "# 📚 参考知识库（请充分利用以下信息来设计 alpha）\n\n"
-        + "\n\n".join(sections)
-        + "\n\n---\n\n"
-    )
+    return "\n\n".join(parts)

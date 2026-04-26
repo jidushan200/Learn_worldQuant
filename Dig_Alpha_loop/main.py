@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 import time
 import threading
@@ -13,7 +14,8 @@ from logger import log_start, log_result, log_end
 from generate_web import generate_web
 from prompt_utils import grade_ge
 from setting import (
-    ALPHAS_FILE, SIMULATION_SETTINGS,
+    DEFAULT_SETTING, SIMULATION_SETTINGS,
+    ALPHAS_FILE,
     MAX_WAIT_SEC, SESSION_REFRESH_INTERVAL, MAX_CONCURRENT,
     MAX_ITERATIONS, TARGET_SHARPE, TARGET_FITNESS, TARGET_GRADE,
 )
@@ -56,22 +58,35 @@ def _find_best(results: list[dict]) -> dict | None:
 
 
 # ═══════════════════════════════════════════════════════════
-#  Alpha 列表构建
+#  Alpha 列表构建（统一输出 {name, expr, setting} 格式）
 # ═══════════════════════════════════════════════════════════
 
+VALID_SETTING_KEYS = {
+    "instrumentType", "region", "universe", "delay", "decay",
+    "neutralization", "truncation", "pasteurization", "unitHandling",
+    "nanHandling", "language", "visualization",
+}
+
+
 def _build_alpha_list(alphas: list[dict]) -> list[dict]:
+    """
+    将 AI 输出的 alpha 列表标准化为 [{name, expr, setting}, ...]
+    setting 会与 SIMULATION_SETTINGS 合并，且只保留合法 key
+    """
     alpha_list = []
     for item in alphas:
-        name = item["name"]
-        expr = item["expr"]
+        name = item.get("name", "unnamed")
+        expr = item.get("expr", "")
         custom = item.get("setting", {})
-        settings = {**SIMULATION_SETTINGS, **custom}
-        payload = {
-            "type": "REGULAR",
-            "settings": settings,
-            "regular": expr,
-        }
-        alpha_list.append({"field_id": name, "payload": payload})
+        if not isinstance(custom, dict):
+            custom = {}
+        filtered = {k: v for k, v in custom.items() if k in VALID_SETTING_KEYS}
+        setting = {**SIMULATION_SETTINGS, **filtered}
+        alpha_list.append({
+            "name": name,
+            "expr": expr,
+            "setting": setting,
+        })
     return alpha_list
 
 
@@ -113,33 +128,35 @@ def _get_session(max_retries: int = 3, retry_delay: float = 5.0):
 # ═══════════════════════════════════════════════════════════
 
 def _process_one(item: dict, index: int, total: int) -> dict:
-    field_id = item["field_id"]
-    payload = item["payload"]
-    expr = payload["regular"]
-    settings = payload["settings"]
+    """
+    item: {name, expr, setting}
+    """
+    name     = item.get("name", f"alpha_{index}")
+    expr     = item["expr"]
+    settings = item.get("setting", DEFAULT_SETTING)
 
     try:
         sess = _get_session()
     except Exception as e:
         err = f"认证失败: {e}"
-        log_result(index, total, None, field_id, expr, settings, None, err)
-        return {"alpha_id": None, "field_id": field_id, "expr": expr, "error": err}
+        log_result(index, total, None, name, expr, settings, None, err)
+        return {"alpha_id": None, "name": name, "expr": expr, "error": err}
 
     alpha_id, err, _ = submit_and_wait(
-        sess=sess, alpha_payload=payload, max_wait_sec=MAX_WAIT_SEC
+        sess=sess, alpha=item, max_wait_sec=MAX_WAIT_SEC
     )
     if err:
-        log_result(index, total, None, field_id, expr, settings, None, err)
-        return {"alpha_id": None, "field_id": field_id, "expr": expr, "error": err}
+        log_result(index, total, None, name, expr, settings, None, err)
+        return {"alpha_id": None, "name": name, "expr": expr, "error": err}
 
     result, err = get_alpha_result(sess=sess, alpha_id=alpha_id)
     if err:
-        log_result(index, total, alpha_id, field_id, expr, settings, None, err)
-        return {"alpha_id": alpha_id, "field_id": field_id, "expr": expr, "error": err}
+        log_result(index, total, alpha_id, name, expr, settings, None, err)
+        return {"alpha_id": alpha_id, "name": name, "expr": expr, "error": err}
 
-    log_result(index, total, alpha_id, field_id, expr, settings, result, None)
-    result["field_id"] = field_id
-    result["expr"] = expr
+    log_result(index, total, alpha_id, name, expr, settings, result, None)
+    result["name"]          = name
+    result["expr"]          = expr
     result["settings_used"] = settings
     return result
 
@@ -174,7 +191,7 @@ def run_simulation(alpha_list: list[dict]) -> list[dict]:
 
 
 # ═══════════════════════════════════════════════════════════
-#  打印全局最佳 Alpha 详情（数据全部来自回测 response）
+#  打印全局最佳 Alpha 详情
 # ═══════════════════════════════════════════════════════════
 
 def _print_best_alpha(best: dict, improved: bool):
@@ -185,7 +202,7 @@ def _print_best_alpha(best: dict, improved: bool):
     dd = best.get("drawdown", 0) or 0
     gr = best.get("grade", "N/A")
     chk = best.get("checks_pass", "N/A")
-    name = best.get("field_id", "?")
+    name = best.get("name", "?")
     expr = best.get("expr", "?")
     stg = best.get("settings_used", {})
 
@@ -235,6 +252,71 @@ def _print_best_alpha(best: dict, improved: bool):
 
 
 # ═══════════════════════════════════════════════════════════
+#  鲁棒 JSON 提取（从可能带有 markdown / 分析文字的回复中）
+# ═══════════════════════════════════════════════════════════
+
+def _extract_json_from_text(text: str) -> list[dict] | None:
+    """
+    依次尝试多种方式从 AI 回复中提取 JSON 数组：
+      1. 直接 json.loads 整段文本
+      2. 提取 ```json ... ``` 代码块
+      3. 正则找最外层 [ ... ]
+    返回 list[dict] 或 None
+    """
+    # 方法 1：直接解析
+    try:
+        obj = json.loads(text.strip())
+        if isinstance(obj, list):
+            return obj
+    except (json.JSONDecodeError, ValueError):
+        pass
+
+    # 方法 2：提取 markdown 代码块
+    code_block_pattern = re.compile(
+        r'```(?:json)?\s*\n?(.*?)\n?\s*```', re.DOTALL
+    )
+    for match in code_block_pattern.finditer(text):
+        try:
+            obj = json.loads(match.group(1).strip())
+            if isinstance(obj, list):
+                return obj
+        except (json.JSONDecodeError, ValueError):
+            continue
+
+    # 方法 3：找最外层的 JSON 数组
+    bracket_pattern = re.compile(r'\[.*]', re.DOTALL)
+    match = bracket_pattern.search(text)
+    if match:
+        try:
+            obj = json.loads(match.group(0))
+            if isinstance(obj, list):
+                return obj
+        except (json.JSONDecodeError, ValueError):
+            pass
+
+    return None
+
+
+def _validate_alphas(raw_list: list[dict]) -> list[dict]:
+    """过滤掉无效 alpha"""
+    garbage_exprs = {"", "default", "true", "false", "...", "null", "None"}
+    valid = []
+    for item in raw_list:
+        if not isinstance(item, dict):
+            continue
+        name = item.get("name", "")
+        expr = item.get("expr", "")
+        if not expr or expr.strip() in garbage_exprs:
+            print(f"    ⚠️ 跳过无效 alpha: name={name!r}, expr={expr!r}")
+            continue
+        if "(" not in expr:
+            print(f"    ⚠️ 跳过无效 alpha (无函数调用): name={name!r}, expr={expr!r}")
+            continue
+        valid.append(item)
+    return valid
+
+
+# ═══════════════════════════════════════════════════════════
 #  AI 链式递归优化
 # ═══════════════════════════════════════════════════════════
 
@@ -242,7 +324,7 @@ def _run_auto():
     from ai_client import chat
     from prompt_utils import load_initial_idea
     from prompt_builder import build_initial_prompt, build_iteration_prompt
-    from alpha_parser import parse_alphas_from_response
+    from alpha_parser import parse_alpha_list
 
     idea = load_initial_idea()
     if not idea:
@@ -260,8 +342,12 @@ def _run_auto():
     best_alpha: dict | None = None
     last_results: list[dict] | None = None
     no_improve_count = 0
+    need_redirect = False                                          # ★ 新增：循环外初始化
 
     for iteration in range(1, MAX_ITERATIONS + 1):
+
+        need_redirect_this_round = need_redirect                   # ★ 新增：保存上轮的判定给本轮 prompt 用
+        need_redirect = False                                      # ★ 新增：立即清空，本轮回测后重新计算
 
         print(f"\n{'=' * 60}")
         print(f"  🔄  第 {iteration} / {MAX_ITERATIONS} 轮迭代")
@@ -274,6 +360,7 @@ def _run_auto():
             sys_p, user_p = build_iteration_prompt(
                 idea, iteration, best_alpha, last_results,
                 no_improve_count=no_improve_count,
+                need_redirect=need_redirect_this_round,            # ★ 新增：传入重定向标记
             )
 
         prompt_path = os.path.join(iter_dir, f"iter{iteration}_prompt.txt")
@@ -293,32 +380,70 @@ def _run_auto():
             f.write(response)
         print(f"  ✅ AI 响应: {len(response)} 字符")
 
-        # ── 3. 解析 alpha ──
+        # ── 3. 解析 alpha（三层 fallback） ──
         alphas = None
+
         try:
-            alphas = parse_alphas_from_response(response)
-        except ValueError:
-            print("  ⚠️  首次解析失败，要求 AI 重新输出 JSON ...")
+            alphas = parse_alpha_list(response)
+            if not alphas:
+                alphas = None
+        except (ValueError, Exception) as e:
+            print(f"  ⚠️  parse_alpha_list 失败: {e}")
+
+        if not alphas:
+            print("  🔧 尝试鲁棒 JSON 提取 ...")
+            raw_list = _extract_json_from_text(response)
+            if raw_list:
+                alphas = _validate_alphas(raw_list)
+                if alphas:
+                    print(f"  ✅ 鲁棒提取成功: {len(alphas)} 个有效 alpha")
+
+        if not alphas:
+            print("  ⚠️  仍然失败，要求 AI 重新输出纯 JSON ...")
             retry_msg = (
-                "你上次的输出无法被解析为有效 JSON 数组。\n"
-                "请 **只** 输出一个 JSON 数组，格式如下，不要包含任何其他文字：\n"
-                '```json\n[{"name": "...", "expr": "...", "setting": {...}}]\n```'
+                "你上一次回复无法被解析为有效 JSON。\n"
+                "请 **只** 输出一个 JSON 数组，不要输出任何其他文字、分析、或 markdown 标记。\n"
+                "格式要求：\n"
+                '[\n'
+                '  {\n'
+                '    "name": "alpha_001_descriptive_name",\n'
+                '    "expr": "rank(ts_zscore(divide(cashflow_op,assets),252))",\n'
+                '    "setting": {}\n'
+                '  },\n'
+                '  {\n'
+                '    "name": "alpha_002_descriptive_name",\n'
+                '    "expr": "rank(add(ts_zscore(return_equity,252),reverse(ts_mean(returns,5))))",\n'
+                '    "setting": {}\n'
+                '  }\n'
+                ']\n\n'
+                "请生成 5~8 个不同的 alpha 表达式。每个 expr 必须是完整的、可执行的表达式。"
             )
             try:
-                response2 = chat("", retry_msg)
+                response2 = chat(sys_p, retry_msg)
                 retry_path = os.path.join(
                     iter_dir, f"iter{iteration}_response_retry.txt"
                 )
                 with open(retry_path, "w", encoding="utf-8") as f:
                     f.write(response2)
-                alphas = parse_alphas_from_response(response2)
+
+                try:
+                    alphas = parse_alpha_list(response2)
+                    if not alphas:
+                        alphas = None
+                except (ValueError, Exception):
+                    pass
+
+                if not alphas:
+                    raw_list = _extract_json_from_text(response2)
+                    if raw_list:
+                        alphas = _validate_alphas(raw_list)
+
             except Exception as e2:
-                print(f"  ❌ 重试后仍失败: {e2}")
-                break
+                print(f"  ❌ 重试 AI 调用失败: {e2}")
 
         if not alphas:
-            print("  ❌ 未能获取到任何 alpha，终止")
-            break
+            print("  ❌ 本轮未能获取到任何有效 alpha，跳过本轮")
+            continue
 
         print(f"  ✅ 解析得到 {len(alphas)} 个 alpha")
 
@@ -333,6 +458,13 @@ def _run_auto():
         alpha_list = _build_alpha_list(alphas)
         print(f"\n  ▶ 开始回测 {len(alpha_list)} 个 alpha ...\n")
         results = run_simulation(alpha_list)
+
+        # ── 4.5 检查空 alpha 数量，决定下一轮是否重定向 ──        # ★ 新增：整段
+        empty_count = sum(1 for r in results if not r.get("alpha_id"))
+        if empty_count > 3:
+            need_redirect = True
+            print(f"  ⚠️ 本轮 {empty_count}/{len(results)} 个 Alpha 回测失败(> 3)，"
+                  f"下一轮将重新选择方向并注入 knowledge")
 
         # ── 5. 保存结果 ──
         results_path = os.path.join(iter_dir, f"iter{iteration}_results.json")
@@ -376,7 +508,6 @@ def _run_auto():
             print(f"  最终最优: Grade={best_alpha.get('grade')}, "
                   f"Sharpe={best_alpha.get('sharpe'):.4f}, "
                   f"Expr={best_alpha.get('expr')}")
-
 
 # ═══════════════════════════════════════════════════════════
 #  入口
