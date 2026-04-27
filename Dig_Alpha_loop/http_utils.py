@@ -1,7 +1,8 @@
 """
 公共 HTTP 请求工具 —— 统一处理重试、限流、网络异常
 """
-
+import os
+from dotenv import load_dotenv
 import requests
 from time import sleep
 from requests.exceptions import ConnectionError, ProxyError, Timeout
@@ -24,11 +25,11 @@ def _merge_headers(kwargs: dict) -> dict:
 
 
 def request_once(
-    sess: requests.Session,
-    method: str,
-    url: str,
-    label: str = "",
-    **kwargs
+        sess: requests.Session,
+        method: str,
+        url: str,
+        label: str = "",
+        **kwargs
 ) -> requests.Response | None:
     """
     单次 HTTP 请求，仅捕获网络异常返回 None，不重试。
@@ -43,11 +44,11 @@ def request_once(
 
 
 def request_with_retry(
-    sess: requests.Session,
-    method: str,
-    url: str,
-    label: str = "",
-    **kwargs
+        sess: requests.Session,
+        method: str,
+        url: str,
+        label: str = "",
+        **kwargs
 ) -> requests.Response | None:
     """
     带重试的 HTTP 请求（处理网络异常 + 429 限流）
@@ -74,3 +75,5 @@ def request_with_retry(
         return r
 
     return r
+
+2

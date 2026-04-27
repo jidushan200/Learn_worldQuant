@@ -76,9 +76,21 @@ SESSION_REFRESH_INTERVAL = 1800     # Session 刷新间隔（秒，30 分钟）
 #  目标门槛
 # ═══════════════════════════════════════════════════════════
 
-TARGET_GRADE   = "EXCELLENT"     #不要删：INFERIOR (极差) → AVERAGE (合格) → GOOD (良好) → EXCELLENT (优秀) → SPECTACULAR (顶级)
+TARGET_GRADE   = "SPECTACULAR"     #不要删：INFERIOR (极差) → AVERAGE (合格) → GOOD (良好) → EXCELLENT (优秀) → SPECTACULAR (顶级)
 TARGET_SHARPE  = 3
 TARGET_FITNESS = 2
+
+# ═══════════════════════════════════════════════════════════
+#  Grade 比较
+# ═══════════════════════════════════════════════════════════
+
+GRADE_SCORE = {
+    "INFERIOR":     1,
+    "AVERAGE":      2,
+    "GOOD":         3,
+    "EXCELLENT":    4,
+    "SPECTACULAR":  5,
+}
 
 # ═══════════════════════════════════════════════════════════
 #  提交 / 过滤门槛

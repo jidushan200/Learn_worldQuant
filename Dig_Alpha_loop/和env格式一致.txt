@@ -2,8 +2,8 @@
 #  WorldQuant Brain 账号（原有，不变）
 # ══════════════════════════════════════════════
 ACTIVE_ACCOUNT=ACC7
-BRAIN_USERNAME_ACC7=kongkong3307@163.com
-BRAIN_PASSWORD_ACC7=zkm94031607
+BRAIN_USERNAME_ACC7=账号
+BRAIN_PASSWORD_ACC7=密码
 
 # ══════════════════════════════════════════════
 #  AI 提供商选择: packy / poe / openai / anthropic
@@ -35,9 +35,9 @@ AI_PROVIDER=packy
 #
 #  注意：令牌分组必须匹配！不同模型属于不同分组
 #
-PACKY_API_KEY=sk-XKwdMQCXKJmke9CjHjqDpJG3v0qaAj0Mjp1UgF2FOsfNz1yy
+PACKY_API_KEY=密钥
 PACKY_MODEL=gpt-5.4
-PACKY_BASE_URL=https://www.packyapi.com/v1
+PACKY_BASE_URL=https://www.packyapi.com
 
 # ── Poe API（AI_PROVIDER=poe 时使用）──
 #  获取: https://poe.com/api → 创建 API Key

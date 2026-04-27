@@ -4,10 +4,17 @@ AI 客户端 - Responses API 流式请求（gpt-5.4）
 
 import requests
 import json
+import os
+from dotenv import load_dotenv
+from auth_client import get_required_env
 
-API_KEY  = "sk-XKwdMQCXKJmke9CjHjqDpJG3v0qaAj0Mjp1UgF2FOsfNz1yy"
-BASE_URL = "https://www.packyapi.com/v1"
-MODEL    = "gpt-5.4"
+# 加载 .env 文件中的环境变量
+load_dotenv()
+
+# 直接从环境变量读取，与 load_credentials 风格一致
+API_KEY = get_required_env("PACKY_API_KEY")
+MODEL = get_required_env("PACKY_MODEL")
+BASE_URL = get_required_env("PACKY_BASE_URL")
 
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",

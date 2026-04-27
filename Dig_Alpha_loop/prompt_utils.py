@@ -9,31 +9,15 @@ from setting import (
     PAPER_NOTES_FILE, MAX_PAPERS_CHARS,
     FIELDS_FILE, MAX_FIELDS_CHARS,
     MAX_IDEA_CHARS,
+    GRADE_SCORE
 )
 
 
-# ═══════════════════════════════════════════════════════════
-#  Grade 比较
-# ═══════════════════════════════════════════════════════════
-
-_GRADE_ORDER = {
-    "REJECT":  0,
-    "FAIL":    0,
-    "LOW":     1,
-    "MEDIUM":  2,
-    "MID":     2,
-    "HIGH":    3,
-    "GOOD":    4,
-    "GREAT":   5,
-    "SUPERIOR":6,
-}
-
-
-def grade_ge(a: str, b: str) -> bool:
-    """a 的 grade 是否 >= b"""
-    va = _GRADE_ORDER.get((a or "").upper().strip(), -1)
-    vb = _GRADE_ORDER.get((b or "").upper().strip(), -1)
-    return va >= vb
+def grade_ge(grade: str, target: str) -> bool:
+    """grade 的分数 >= target 的分数 就返回 True"""
+    my_score     = GRADE_SCORE.get(grade,  -1)
+    target_score = GRADE_SCORE.get(target, -1)
+    return my_score >= target_score
 
 
 # ═══════════════════════════════════════════════════════════

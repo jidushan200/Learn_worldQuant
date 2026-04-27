@@ -89,7 +89,7 @@
 </head>
 <body>
   <h1>Alpha 回测结果 — 2026-04-27</h1>
-  <p class="summary">今日累计 <strong>52</strong> 个成功，共 12 次执行</p>
+  <p class="summary">今日累计 <strong>57</strong> 个成功，共 13 次执行</p>
   
   <div class="session-block">
     <div class="session-header">
@@ -912,6 +912,82 @@
           <td class="tag-returns">11.03%</td>
           <td class="tag-grade">Inferior</td>
           <td><a href="https://platform.worldquantbrain.com/alpha/leQLqgYx" target="_blank" rel="noopener noreferrer">leQLqgYx</a></td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="session-block">
+    <div class="session-header">
+      🕐 2026-04-27 04:30:43　共提交 6 个，成功 5 个
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>字段</th>
+          <th>Alpha 表达式</th>
+          <th>Sharpe</th>
+          <th>Fitness</th>
+          <th>Turnover</th>
+          <th>Returns</th>
+          <th>Grade</th>
+          <th>链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>alpha_004_margin_cash_mr</td>
+          <td class="expr">add(rank(ts_zscore(divide(subtract(revenue, cogs), assets), 252)), rank(ts_zscore(divide(cashflow_op, debt), 252)))-rank(ts_rank(ts_delta(close, 3), 20))</td>
+          <td class="tag-sharpe">1.66</td>
+          <td class="tag-fitness">0.84</td>
+          <td class="tag-turnover">30.7%</td>
+          <td class="tag-returns">7.86%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/KPXKkvXx" target="_blank" rel="noopener noreferrer">KPXKkvXx</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>alpha_001_qrev_mr</td>
+          <td class="expr">add(rank(ts_zscore(divide(ebitda, assets), 252)), rank(ts_zscore(divide(cashflow_op, assets), 252)))-rank(ts_zscore(divide(subtract(close, ts_mean(close, 5)), ts_std_dev(close, 20)), 60))</td>
+          <td class="tag-sharpe">1.38</td>
+          <td class="tag-fitness">0.76</td>
+          <td class="tag-turnover">21.4%</td>
+          <td class="tag-returns">6.47%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/gJRYxGXg" target="_blank" rel="noopener noreferrer">gJRYxGXg</a></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>alpha_002_fcf_eps_rev</td>
+          <td class="expr">add(rank(ts_zscore(divide(est_fcf, enterprise_value), 252)), rank(ts_zscore(divide(subtract(earnings_per_share_reported, earnings_per_share_estimate_count), abs(earnings_per_share_average)), 126)))-rank(ts_rank(divide(close, ts_mean(close, 10)), 15))</td>
+          <td class="tag-sharpe">1.26</td>
+          <td class="tag-fitness">0.65</td>
+          <td class="tag-turnover">23.0%</td>
+          <td class="tag-returns">6.12%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/N1gXAz3q" target="_blank" rel="noopener noreferrer">N1gXAz3q</a></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>alpha_005_est_quality_rev</td>
+          <td class="expr">add(rank(ts_zscore(divide(est_ebitda, enterprise_value), 252)), rank(ts_zscore(divide(bookvalue_ps, close), 252)))-rank(ts_zscore(divide(subtract(close, ts_mean(close, 7)), ts_std_dev(close, 30)), 90))</td>
+          <td class="tag-sharpe">1.17</td>
+          <td class="tag-fitness">0.74</td>
+          <td class="tag-turnover">24.5%</td>
+          <td class="tag-returns">9.69%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/akAro0Mx" target="_blank" rel="noopener noreferrer">akAro0Mx</a></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>alpha_006_analyst_cf_reversal</td>
+          <td class="expr">add(rank(ts_zscore(analyst_revision_rank_derivative, 126)), rank(ts_zscore(cashflow_efficiency_rank_derivative, 126)))-rank(ts_rank(divide(subtract(close, ts_mean(close, 4)), ts_std_dev(close, 15)), 12))</td>
+          <td class="tag-sharpe">0.55</td>
+          <td class="tag-fitness">0.16</td>
+          <td class="tag-turnover">50.8%</td>
+          <td class="tag-returns">4.20%</td>
+          <td class="tag-grade">Inferior</td>
+          <td><a href="https://platform.worldquantbrain.com/alpha/O0b19q1J" target="_blank" rel="noopener noreferrer">O0b19q1J</a></td>
         </tr></tbody>
     </table>
   </div>

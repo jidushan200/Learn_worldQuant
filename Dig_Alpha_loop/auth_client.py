@@ -1,5 +1,6 @@
 from os import environ
 import requests
+import os
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
 from setting import API_AUTH_URL
@@ -8,20 +9,8 @@ from http_utils import request_with_retry
 
 def load_credentials(env_file: str = ".env", account: str = None):
     load_dotenv(env_file, override=False)
-
-    if not account:
-        account = (environ.get("ACTIVE_ACCOUNT") or "").strip()
-        if not account:
-            raise RuntimeError("请在 .env 配置 ACTIVE_ACCOUNT，或直接传入 account 参数")
-
-    username_key = f"BRAIN_USERNAME_{account}"
-    password_key = f"BRAIN_PASSWORD_{account}"
-
-    username = (environ.get(username_key) or "").strip()
-    password = (environ.get(password_key) or "").strip()
-
-    if not username or not password:
-        raise RuntimeError(f"未找到 {username_key} / {password_key}，请检查 .env")
+    username = get_required_env("BRAIN_USERNAME_ACC7")
+    password = get_required_env("BRAIN_PASSWORD_ACC7")
 
     return username, password
 
@@ -38,3 +27,14 @@ def create_authenticated_session(env_file: str = ".env", account: str = None):
         raise RuntimeError(f"认证失败: {resp.status_code} {resp.text}")
 
     return sess, resp.status_code
+
+def get_required_env(key: str) -> str:
+    """
+    从环境变量获取指定 key 的值，若不存在或为空则抛出 RuntimeError。
+    会自动调用 load_dotenv() 加载 .env 文件（可放在函数外全局调用一次）。
+    """
+    load_dotenv()  # 可放在模块顶层只调用一次，此处为保险
+    value = os.getenv(key)
+    if not value or not value.strip():
+        raise RuntimeError(f"环境变量 {key} 未设置或为空，请检查 .env 文件")
+    return value.strip()
