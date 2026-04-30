@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "add(multiply(0.52,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),ts_zscore(divide(ebit,assets),252))),multiply(0.48,add(ts_zscore(divide(subtract(ts_mean(close,5),close),close),25),ts_zscore(divide(subtract(ts_mean(close,15),close),close),60))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_margin_cf_rev",
+    "expr": "add(multiply(0.50,add(add(ts_zscore(divide(subtract(sales,cogs),assets),252),ts_zscore(divide(cashflow_op,sales),252)),multiply(-1,ts_zscore(divide(debt,assets),252)))),multiply(0.50,add(ts_zscore(divide(subtract(ts_mean(close,6),close),close),24),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,20)),ts_mean(close,20)),80)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_quality_sentiment_rev",
+    "expr": "add(multiply(0.42,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(sales,assets),252)),ts_zscore(divide(bookvalue_ps,close),252))),multiply(0.28,add(ts_zscore(analyst_revision_rank_derivative,252),ts_zscore(earnings_certainty_rank_derivative,252))),multiply(0.30,add(ts_zscore(divide(subtract(ts_mean(close,4),close),close),16),ts_zscore(divide(subtract(ts_mean(close,12),close),close),48))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_fundamental_accel_rev",
+    "expr": "add(multiply(0.55,add(add(ts_zscore(ts_delta(divide(cashflow_op,assets),252),126),126),ts_zscore(ts_delta(divide(subtract(sales,cogs),assets),252),126)),ts_zscore(divide(ebit,assets),252))),multiply(0.45,add(ts_zscore(divide(subtract(ts_mean(close,7),close),close),21),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,30)),ts_mean(close,30)),90)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_cash_rich_rebound",
+    "expr": "add(multiply(0.50,add(add(ts_zscore(divide(cash,assets),252),ts_zscore(divide(cashflow_op,assets),252)),multiply(-1,ts_zscore(divide(debt,assets),252)))),multiply(0.25,ts_zscore(divide(subtract(sales,cogs),assets),252)),multiply(0.25,add(ts_zscore(divide(subtract(ts_mean(close,5),close),close),20),ts_zscore(divide(subtract(ts_mean(close,10),close),close),40))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_efficiency_reversion",
+    "expr": "add(multiply(0.46,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(sales,assets),252)),ts_zscore(cashflow_efficiency_rank_derivative,252))),multiply(0.24,add(ts_zscore(composite_factor_score_derivative,252),ts_zscore(analyst_revision_rank_derivative,252))),multiply(0.30,add(ts_zscore(divide(subtract(ts_mean(close,8),close),close),24),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,25)),ts_mean(close,25)),75)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

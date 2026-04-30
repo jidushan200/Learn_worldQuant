@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Dig_Alpha_ai_gen.iml" filepath="$PROJECT_DIR$/.idea/Dig_Alpha_ai_gen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Dig_Alpha_loop/.idea/Dig_Alpha_loop.iml" filepath="$PROJECT_DIR$/../../Dig_Alpha_loop/.idea/Dig_Alpha_loop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../GM_Dig_Alpha/.idea/GM_Dig_Alpha.iml" filepath="$PROJECT_DIR$/../../GM_Dig_Alpha/.idea/GM_Dig_Alpha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../test_demo/.idea/test_demo.iml" filepath="$PROJECT_DIR$/../../test_demo/.idea/test_demo.iml" />
+    </modules>
+  </component>
+</project>

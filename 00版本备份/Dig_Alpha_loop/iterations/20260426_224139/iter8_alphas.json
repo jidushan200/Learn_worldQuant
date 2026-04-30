@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "add(add(rank(subtract(divide(cashflow_op,assets),divide(accruals,assets))),rank(subtract(divide(grossincome,assets),divide(sga,assets)))),add(rank(subtract(analyst_revision_rank_derivative,earnings_certainty_rank_derivative)),multiply(-1,rank(ts_mean(ts_delta(close,1),6)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_margin_sentiment_rev",
+    "expr": "add(add(rank(subtract(divide(ebit,assets),divide(debt_st,assets))),rank(subtract(divide(est_ebit,assets),divide(ebit,assets)))),add(rank(subtract(anl4_total_rec,anl4_norec)),multiply(-1,rank(ts_mean(ts_delta(close,1),8)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_cashprofit_reversal",
+    "expr": "add(add(rank(subtract(divide(cashflow_op,sales),divide(capex,sales))),rank(subtract(divide(netprofit,assets),divide(debt,assets)))),add(rank(subtract(est_netprofit,netprofit)),multiply(-1,rank(ts_mean(ts_delta(close,1),7)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_fcf_revision_rev",
+    "expr": "add(add(rank(subtract(divide(cashflow_op,enterprise_value),divide(debt,assets))),rank(subtract(divide(est_fcf,enterprise_value),divide(capex,enterprise_value)))),add(rank(subtract(analyst_revision_rank_derivative,anl4_dts_rspe)),multiply(-1,rank(ts_mean(ts_delta(close,1),9)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_balance_quality_rev",
+    "expr": "add(add(rank(subtract(divide(cash,assets),divide(debt_st,assets))),rank(subtract(current_ratio,divide(capex,assets)))),add(rank(subtract(dividend_estimate_value,dividend_previous_estimate_value)),multiply(-1,rank(ts_mean(ts_delta(close,1),10)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_alt_quality_rev",
+    "expr": "add(add(rank(subtract(divide(bookvalue_ps,close),divide(debt,assets))),rank(subtract(divide(cashflow_per_share_median_value,close),divide(dividend,close)))),add(rank(subtract(composite_factor_score_derivative,cashflow_efficiency_rank_derivative)),multiply(-1,rank(ts_mean(ts_delta(close,1),5)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

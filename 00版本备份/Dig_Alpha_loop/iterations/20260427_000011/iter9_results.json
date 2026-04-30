@@ -1,0 +1,213 @@
+[
+  {
+    "alpha_id": null,
+    "name": "alpha_001_epsrev_rev_9",
+    "expr": "add(multiply(0.54,group_rank(ts_zscore(divide(add(earnings_per_share_reported,subtract(earnings_per_share_reported,eps_estimate_value)),close),126),subindustry)),multiply(0.46,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"
+  },
+  {
+    "alpha_id": null,
+    "name": "alpha_002_cfoa_rev_9",
+    "expr": "add(multiply(0.58,group_rank(ts_zscore(divide(cashflow_op,assets),126),subindustry)),multiply(0.42,group_rank(ts_rank(subtract(ts_mean(close,5),close),16),subindustry)))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"
+  },
+  {
+    "alpha_id": null,
+    "name": "alpha_004_fcfasset_rev_9",
+    "expr": "add(multiply(0.56,group_rank(ts_zscore(divide(est_fcf,est_tot_assets),126),subindustry)),multiply(0.44,group_rank(ts_rank(subtract(ts_mean(close,7),close),20),subindustry)))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"
+  },
+  {
+    "alpha_id": null,
+    "name": "alpha_005_marginrev_rev_9",
+    "expr": "add(multiply(0.55,group_rank(ts_zscore(divide(ebit,sales),126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,6),close),17),subindustry)))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"
+  },
+  {
+    "alpha_id": null,
+    "name": "alpha_006_dualqual_rev_9",
+    "expr": "add(multiply(0.34,group_rank(ts_zscore(divide(earnings_per_share_reported,close),126),subindustry)),add(multiply(0.28,group_rank(ts_zscore(divide(cashflow_op,assets),126),subindustry)),multiply(0.38,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry))))",
+    "error": "提交失败: 429 {\"detail\":\"CONCURRENT_SIMULATION_LIMIT_EXCEEDED\"}"
+  },
+  {
+    "alpha_id": "d5E2k5bX",
+    "expr": "add(multiply(0.57,group_rank(ts_zscore(divide(ebit,assets),126),subindustry)),multiply(0.43,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.82,
+    "fitness": 0.73,
+    "turnover": 0.5029,
+    "returns": 0.0808,
+    "drawdown": 0.0402,
+    "margin": 0.000321,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.82
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.73
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.5029
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.5029
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.79,
+        "value": 0.85
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.73
+      }
+    ],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -37224.0,
+        "bookSize": 20000000,
+        "longCount": 1367,
+        "shortCount": 1367,
+        "turnover": 0.499,
+        "sharpe": -0.14,
+        "returns": -0.0037,
+        "drawdown": 0.0316,
+        "margin": -1.5e-05,
+        "fitness": -0.01,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 1421742.0,
+        "bookSize": 20000000,
+        "longCount": 1372,
+        "shortCount": 1371,
+        "turnover": 0.5117,
+        "sharpe": 3.3,
+        "returns": 0.1539,
+        "drawdown": 0.0125,
+        "margin": 0.000601,
+        "fitness": 1.81,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 446114.0,
+        "bookSize": 20000000,
+        "longCount": 1334,
+        "shortCount": 1331,
+        "turnover": 0.503,
+        "sharpe": 0.83,
+        "returns": 0.0443,
+        "drawdown": 0.0402,
+        "margin": 0.000176,
+        "fitness": 0.25,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1286183.0,
+        "bookSize": 20000000,
+        "longCount": 1389,
+        "shortCount": 1387,
+        "turnover": 0.5039,
+        "sharpe": 2.41,
+        "returns": 0.1281,
+        "drawdown": 0.0275,
+        "margin": 0.000509,
+        "fitness": 1.22,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 878532.0,
+        "bookSize": 20000000,
+        "longCount": 1418,
+        "shortCount": 1424,
+        "turnover": 0.4976,
+        "sharpe": 2.41,
+        "returns": 0.0879,
+        "drawdown": 0.0157,
+        "margin": 0.000353,
+        "fitness": 1.01,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_003_ebita_rev_9",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

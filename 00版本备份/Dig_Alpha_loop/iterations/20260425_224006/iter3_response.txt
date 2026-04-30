@@ -1,0 +1,108 @@
+质量+短期反转这类复合因子，最容易出问题的是低频基本面字段覆盖不足导致 alpha 为空，以及反转腿过快带来高换手/高自相关。这里我统一采用 **USA TOP3000 + delay=1 + decay=7 + INDUSTRY neutralization + nanHandling=ON**，并尽量使用覆盖更高的年报基本面字段、`ts_backfill` 提升有效覆盖、`hump` 平滑信号，以兼顾 checks、换手和子池表现。
+
+```json
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "rank(hump(add(multiply(0.6, add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_seq + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_at + 0.001), 252), 252))), multiply(0.4, reverse(ts_mean(returns, 10)))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_cashflow_reversal",
+    "expr": "rank(hump(add(multiply(0.55, add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_oancf, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(subtract(fnd6_newa1v1300_oancf, fnd6_newa1v1300_ivncf), fnd6_newa1v1300_at + 0.001), 252), 252))), multiply(0.45, reverse(ts_mean(returns, 6)))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_margin_turnover_rev",
+    "expr": "rank(hump(add(multiply(0.6, add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_revt + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252))), multiply(0.4, reverse(ts_mean(returns, 15)))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_efficiency_pullback",
+    "expr": "rank(hump(add(multiply(0.65, add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ebit, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_xsga, fnd6_newa1v1300_revt + 0.001), 252), 252)))), multiply(0.35, reverse(ts_mean(returns, 8)))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_balance_sheet_revert",
+    "expr": "rank(hump(add(multiply(0.6, add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(add(fnd6_newa1v1300_rect, fnd6_newa1v1300_invt), fnd6_newa1v1300_at + 0.001), 252), 252)))), multiply(0.4, reverse(ts_mean(returns, 12)))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_retained_quality_rev",
+    "expr": "rank(hump(add(multiply(0.55, add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_re, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_revt + 0.001), 252), 252))), multiply(0.45, reverse(ts_mean(returns, 18)))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

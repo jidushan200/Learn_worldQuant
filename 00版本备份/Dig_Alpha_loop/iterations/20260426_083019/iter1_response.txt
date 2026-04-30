@@ -1,0 +1,111 @@
+è¿ç»è®¾è®¡ç»ä¸éç¨`USA TOP3000`ã`delay=1`ãä¸­ç­`decay=6`ä¸`INDUSTRY`ä¸­æ§åï¼ä½ çä¸»ä¿¡å·æ¯ä½é¢åºæ¬é¢è´¨éï¼å å ç­æåè½¬åéè¦ä¸å®å¹³æ»æ¥åæ¢æåèªï¼åæ¶è¡ä¸ä¸­æ§åè½åå°âé«è´¨é=è¡ä¸æ´é²âå¸¦æ¥çåç§»ãè¡¨è¾¾å¼ä¸å°½éç¨å¯è¦ççè¾é«çç®åå­æ®µï¼å´ç»âçå©è´¨é/èµäº§æç/ç°éæµè´¨é + 5~20æ¥åè½¬âå6ç§ä¸åç»åã
+
+```json
+[
+  {
+    "name": "alpha_001_qrev_mix",
+    "expr": "rank(add(ts_zscore(divide(return_equity,add(abs(return_assets),1)),252),ts_zscore(reverse(ts_mean(ts_delta(close,5),15)),20)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_gpoa_revert",
+    "expr": "rank(add(ts_zscore(divide(subtract(revenue,cogs),assets),252),ts_zscore(reverse(ts_mean(divide(ts_delta(close,1),ts_delay(close,1)),10)),20)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_fcf_turn",
+    "expr": "rank(add(ts_zscore(divide(subtract(cashflow_op,capex),assets),252),ts_zscore(divide(sales,assets),252),ts_zscore(reverse(ts_mean(ts_delta(close,3),12)),18)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_margin_pull",
+    "expr": "rank(add(ts_zscore(divide(subtract(revenue,cogs),revenue),252),ts_zscore(divide(income,assets),252),ts_zscore(reverse(ts_mean(divide(subtract(close,ts_mean(close,10)),ts_mean(close,10)),10)),20)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_cash_roe_rev",
+    "expr": "rank(add(ts_zscore(divide(cashflow_op,equity),252),ts_zscore(return_equity,252),ts_zscore(reverse(ts_mean(ts_delta(close,2),10)),15)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_eff_quality",
+    "expr": "rank(add(ts_zscore(divide(ebitda,assets),252),ts_zscore(divide(sales,working_capital),252),ts_zscore(reverse(ts_mean(ts_delta(close,4),16)),24)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+- å¤æ³¨ï¼ç¬¬`3/4/6`æ¡ç¨äºä¸é¡¹ç¸å ï¼å¦æä½ çå¹³å°`add()`ä¸¥æ ¼åªæ¥å2åï¼æå¯ä»¥ä¸ä¸æ¡ç«å»æ¹åæä¸¤å±åµå¥çç­ä»·çæ¬ã
+- å¦æä½ æ¿æï¼æä¸ä¸æ­¥å¯ä»¥ç´æ¥ç»ä½ ä¸çâæ´ä¿å®ãä¸é¨å² checksâç6ä¸ªæ¿ä»£è¡¨è¾¾å¼ã

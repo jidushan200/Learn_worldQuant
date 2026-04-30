@@ -1,0 +1,227 @@
+ä¸é¢ç»ä½  6 ä¸ªæ´æ¿è¿ãä¸å°½éé¿å¼âä¸ä¸è½®ç¸ä¼¼åæ³âçæ¹æ¡ãæè·¯ä¸ææâè´¨éâæå¾æ´ç»ï¼å¹¶äºé£é©æå¶ãé¢æä¿®æ­£ãè¥è¿æçä¸æ´æç¡®çç­æåè½¬ï¼åæ¶å¤§èè°æ´äº `neutralization / decay / universe`ã
+
+**æ¹æ¡ 1**
+- **é»è¾**ï¼é«è´¨éç°éåé  + ä½èµæ¬å¼æ¯è´ + ç­æåè½¬
+- **è¡¨è¾¾å¼**
+```fasteexpr
+rank(add(
+    add(
+        ts_zscore(divide(cashflow_op,assets),252),
+        ts_zscore(divide(subtract(cashflow_op,capex),assets),252)
+    ),
+    add(
+        ts_zscore(divide(ebit,assets),252),
+        reverse(ts_zscore(ts_mean(returns,10),30))
+    )
+))
+```
+- **settings**
+```json
+{
+  "instrumentType": "EQUITY",
+  "region": "USA",
+  "universe": "TOP3000",
+  "delay": 1,
+  "decay": 8,
+  "neutralization": "SUBINDUSTRY",
+  "truncation": 0.05,
+  "pasteurization": "ON",
+  "unitHandling": "VERIFY",
+  "nanHandling": "ON",
+  "language": "FASTEXPR"
+}
+```
+- **ç¹è¯**ï¼æ¯ä½ å½åå¼å­æ´å¼ºè°âçç°éæµè´¨éâï¼å¹¶æåè½¬æ¹ææ´ç´æ¥ç `returns` åå¼åå½ï¼éå¸¸æ¯ `close-close_delay` æ´ç¨³ã
+
+**æ¹æ¡ 2**
+- **é»è¾**ï¼æ¯å©çäº§ç + èµäº§æç + ä½æ³¢å¨æ©ç½
+- **è¡¨è¾¾å¼**
+```fasteexpr
+rank(subtract(
+    add(
+        add(
+            ts_zscore(divide(subtract(sales,cogs),assets),252),
+            ts_zscore(divide(sales,assets),252)
+        ),
+        add(
+            ts_zscore(divide(return_equity,1),252),
+            reverse(ts_zscore(ts_mean(returns,5),20))
+        )
+    ),
+    add(
+        ts_zscore(historical_volatility_20,126),
+        ts_zscore(beta_last_60_days_spy,126)
+    )
+))
+```
+- **settings**
+```json
+{
+  "instrumentType": "EQUITY",
+  "region": "USA",
+  "universe": "TOP2000",
+  "delay": 1,
+  "decay": 6,
+  "neutralization": "INDUSTRY",
+  "truncation": 0.04,
+  "pasteurization": "ON",
+  "unitHandling": "VERIFY",
+  "nanHandling": "ON",
+  "language": "FASTEXPR"
+}
+```
+- **ç¹è¯**ï¼éå¯¹ä½  2019/2020/2023 è´ Sharpeï¼ä½æ³¢å¨åä½ beta çº¦æï¼å¸¸è½æ¹åè·¨å¹´ä»½ç¨³å®æ§å sub-universe è¡¨ç°ã
+
+**æ¹æ¡ 3**
+- **é»è¾**ï¼è¥è¿è´¨éï¼ä½åºæ¶ãä½åºå­ãä½è´¹ç¨ï¼+ åè½¬
+- **è¡¨è¾¾å¼**
+```fasteexpr
+rank(add(
+    add(
+        subtract(
+            ts_zscore(divide(sales,assets),252),
+            ts_zscore(divide(receivable,sales),252)
+        ),
+        subtract(
+            reverse(ts_zscore(divide(inventory,assets),252)),
+            ts_zscore(divide(add(sga_expense,rd_expense),sales),252)
+        )
+    ),
+    reverse(ts_zscore(ts_mean(returns,15),40))
+))
+```
+- **settings**
+```json
+{
+  "instrumentType": "EQUITY",
+  "region": "USA",
+  "universe": "TOP3000",
+  "delay": 1,
+  "decay": 10,
+  "neutralization": "SECTOR",
+  "truncation": 0.05,
+  "pasteurization": "ON",
+  "unitHandling": "VERIFY",
+  "nanHandling": "ON",
+  "language": "FASTEXPR"
+}
+```
+- **ç¹è¯**ï¼è¿æ¯æ´æ¢é»è¾æ¹åçä¸çï¼ä¸ååªç¯ ROE/ç°éæµï¼èæ¯ç¨âå¨è½¬æç + è´¹ç¨çºªå¾âç­è´¨éï¼å¾å¾åä¼ ç»çå©å å­æ§æ´ä½ã
+
+**æ¹æ¡ 4**
+- **é»è¾**ï¼åæå¸é¢ææ¹å + åºæ¬é¢è´¨é + åè½¬
+- **è¡¨è¾¾å¼**
+```fasteexpr
+rank(add(
+    add(
+        ts_zscore(divide(earnings_per_share_average,close),126),
+        ts_zscore(divide(sales_estimate_average,enterprise_value),126)
+    ),
+    add(
+        ts_zscore(divide(cashflow_op,equity),252),
+        reverse(ts_zscore(ts_mean(returns,7),21))
+    )
+))
+```
+- **settings**
+```json
+{
+  "instrumentType": "EQUITY",
+  "region": "USA",
+  "universe": "TOP1000",
+  "delay": 1,
+  "decay": 7,
+  "neutralization": "MARKET",
+  "truncation": 0.03,
+  "pasteurization": "ON",
+  "unitHandling": "VERIFY",
+  "nanHandling": "ON",
+  "language": "FASTEXPR"
+}
+```
+- **ç¹è¯**ï¼æ¢ç¶å½å TOP3000 å¡ä½ï¼ç´æ¥è¯ `TOP1000` æé«å¯äº¤ææ§ä¸æ°æ®è´¨éï¼é¢æç±»å å­å¨å¤§çæ± éå¸¸æ´ç¨³ï¼å¯è½æ´å®¹æè¿ checksã
+
+**æ¹æ¡ 5**
+- **é»è¾**ï¼å»æ æè´¨é + èªç±ç°éä»£ç + ä¸­æåè½¬
+- **è¡¨è¾¾å¼**
+```fasteexpr
+rank(add(
+    add(
+        subtract(
+            ts_zscore(divide(cashflow_op,assets),252),
+            ts_zscore(divide(add(debt,debt_lt),assets),252)
+        ),
+        subtract(
+            ts_zscore(divide(subtract(cashflow_op,capex),assets),252),
+            ts_zscore(divide(goodwill,assets),252)
+        )
+    ),
+    reverse(ts_zscore(ts_mean(returns,20),60))
+))
+```
+- **settings**
+```json
+{
+  "instrumentType": "EQUITY",
+  "region": "USA",
+  "universe": "TOP2000",
+  "delay": 1,
+  "decay": 9,
+  "neutralization": "SUBINDUSTRY",
+  "truncation": 0.05,
+  "pasteurization": "ON",
+  "unitHandling": "VERIFY",
+  "nanHandling": "ON",
+  "language": "FASTEXPR"
+}
+```
+- **ç¹è¯**ï¼è¿ä¸çæ´åâèµäº§è´åºè¡¨è´¨éâï¼å¯¹ 2022 ä»¥åç¯å¢éå¸¸æ´åå¥½ï¼ä¹è½éä½åä½ å½å alpha çèªã
+
+**æ¹æ¡ 6**
+- **é»è¾**ï¼æ°çå­æ®µæé è´¨éå å­ + ä»·æ ¼åè½¬ï¼å½»åºæ¢æ°æ®æºå£å¾
+- **è¡¨è¾¾å¼**
+```fasteexpr
+rank(add(
+    add(
+        ts_zscore(divide(fnd6_newa2v1300_oancf,fnd6_newa1v1300_at),252),
+        ts_zscore(divide(fnd6_newa1v1300_ebit,fnd6_newa1v1300_at),252)
+    ),
+    add(
+        subtract(
+            ts_zscore(divide(fnd6_newa2v1300_revt,fnd6_newa1v1300_at),252),
+            ts_zscore(divide(fnd6_newa2v1300_xsga,fnd6_newa2v1300_revt),252)
+        ),
+        reverse(ts_zscore(ts_mean(returns,10),30))
+    )
+))
+```
+- **settings**
+```json
+{
+  "instrumentType": "EQUITY",
+  "region": "USA",
+  "universe": "TOP3000",
+  "delay": 1,
+  "decay": 8,
+  "neutralization": "INDUSTRY",
+  "truncation": 0.05,
+  "pasteurization": "ON",
+  "unitHandling": "VERIFY",
+  "nanHandling": "ON",
+  "language": "FASTEXPR"
+}
+```
+- **ç¹è¯**ï¼å¦æå¹³å°å¯¹æ®éåºæ¬é¢å­æ®µæå£å¾åªé³ï¼è¿ç§ `fnd6_newa*` çæ¬ææ¶æ´ç¨³å®ï¼éååâç¬¬ 7 è½®âè¿ç§çªç ´å°è¯ã
+
+**ä¼åæµé¡ºåº**
+- è· `æ¹æ¡ 2`ã`æ¹æ¡ 5`ã`æ¹æ¡ 4`
+- åè· `æ¹æ¡ 1`ã`æ¹æ¡ 6`ã`æ¹æ¡ 3`
+
+**åå **
+- `æ¹æ¡ 2/5` æ´å¯è½æå Sharpe ç¨³å®æ§
+- `æ¹æ¡ 4` éè¿åå° `TOP1000 + MARKET`ï¼ææºä¼çªç ´å½å setting ç¶é¢
+- `æ¹æ¡ 6` ææéä½ä¸ç°ææä¼å¼ç self-correlation
+
+å¦æä½ æ¿æï¼æä¸ä¸æ­¥å¯ä»¥ç»§ç»­å¸®ä½ åä¸çï¼
+- âæ´åå² Sharpe ç 6 ä¸ªçæ¬âï¼æ
+- âæ´åè¿å¹³å° checks ç 6 ä¸ªçæ¬ï¼ä¸é¨å weight / self-correlation / sub-universeï¼âã

@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "add(multiply(0.62,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),ts_zscore(divide(ebit,assets),252))),multiply(0.38,ts_zscore(divide(subtract(ts_mean(close,6),close),close),24)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_profitability_meanrev",
+    "expr": "add(multiply(0.58,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(bookvalue_ps,close),252)),ts_zscore(divide(sales,assets),252))),multiply(0.42,add(ts_zscore(divide(subtract(ts_mean(close,8),close),close),28),multiply(-1,ts_zscore(beta_last_30_days_spy,252)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_estimate_quality_reversal",
+    "expr": "add(multiply(0.57,add(add(ts_zscore(divide(est_cashflow_op,assets),252),ts_zscore(divide(est_ebitda,assets),252)),ts_zscore(earnings_certainty_rank_derivative,252))),multiply(0.43,add(ts_zscore(divide(subtract(ts_mean(close,10),close),close),30),ts_zscore(divide(bookvalue_ps,close),252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_cash_gross_reversal",
+    "expr": "add(multiply(0.6,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),ts_zscore(divide(cash,assets),252))),multiply(0.4,add(ts_zscore(divide(subtract(ts_mean(close,12),close),close),36),multiply(-1,ts_zscore(correlation_last_30_days_spy,252)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_analyst_quality_revert",
+    "expr": "add(multiply(0.55,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),ts_zscore(analyst_revision_rank_derivative,252))),multiply(0.45,add(ts_zscore(divide(subtract(ts_mean(close,7),close),close),21),ts_zscore(divide(bookvalue_ps,close),252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 1,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_fundamental_contrarian",
+    "expr": "add(multiply(0.64,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(ebitda,assets),252)),ts_zscore(divide(bookvalue_ps,close),252))),multiply(0.36,add(ts_zscore(divide(subtract(ts_mean(close,5),close),close),20),multiply(-1,ts_zscore(beta_last_60_days_spy,252)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

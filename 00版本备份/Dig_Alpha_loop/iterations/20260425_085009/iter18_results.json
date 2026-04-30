@@ -1,0 +1,762 @@
+[
+  {
+    "alpha_id": "9qAOjJq9",
+    "expr": "add(add(multiply(0.42, rank(reverse(ts_mean(returns, 7)))), multiply(0.22, rank(reverse(ts_mean(volume, 18))))), add(multiply(0.22, rank(reverse(ts_std_dev(returns, 22)))), multiply(0.14, rank(ts_mean(volume, 5)))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.5,
+    "fitness": 0.28,
+    "turnover": 0.1943,
+    "returns": 0.0602,
+    "drawdown": 0.3198,
+    "margin": 0.00062,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.5,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.28,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1943,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1943,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.22,
+        "limit": 0.22,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.22,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1803_oversold_uncrowded_defensive_v2",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe = 0.5**  \n  偏低，风险调整后收益不足，说明信号有效性较弱，稳定性不够。\n\n- **Turnover = 0.1943**  \n  换手中等偏低，这点尚可，交易成本压力不算太大。\n\n- **Drawdown = 0.3198**  \n  回撤较高，在当前收益水平下显得不划算，策略抗风险能力偏弱。\n\n- **Fitness = 0.28**  \n  明显偏低，通常说明综合表现不达标，alpha 质量较差。\n\n**结论：FAIL**  \n该 alpha **不值得提交**。主要问题是 **Sharpe 低、Fitness 低、回撤偏大**，虽然换手尚可，但不足以弥补整体表现弱的问题，而且 `checks_pass = false` 也进一步说明当前版本未通过质量门槛。\n\n**改进建议**\n\n1. **增强核心信号强度**  \n   当前主要是短期反转 + 缩量/低波动逻辑，可能过于常见且拥挤度高。建议加入更有区分度的基本面或中期行为特征。\n\n2. **降低回撤**  \n   可考虑加入风险控制项，例如波动率惩罚、行业/风格中性化，避免信号集中暴露在高风险股票上。\n\n3. **优化权重结构**  \n   现在 0.42 权重过度集中在 7 日收益反转上，建议降低单一短期反转因子权重，提升多信号均衡性。\n\n4. **延长或错开时间窗口**  \n   7/18/22/5 这些窗口较密集，信息可能重复。可尝试更分散的窗口组合，如 5、20、60，提升信号独立性。\n\n5. **加入过滤条件**  \n   比如只在低波动、低 beta、非极端流动性股票中使用，减少噪声和尾部风险。\n\n如果你愿意，我还可以直接基于这个表达式帮你改写出 **2~3 个更可能通过的 BRAIN alpha 版本**。"
+    }
+  },
+  {
+    "alpha_id": "E5rPpw6J",
+    "expr": "add(add(multiply(0.36, rank(reverse(ts_mean(returns, 5)))), multiply(0.24, rank(reverse(ts_mean(returns, 13))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 20)))), multiply(0.16, rank(ts_mean(volume, 25)))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.85,
+    "fitness": 0.59,
+    "turnover": 0.1648,
+    "returns": 0.0802,
+    "drawdown": 0.1644,
+    "margin": 0.000973,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.85,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.59,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1648,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1648,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.48,
+        "limit": 0.37,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.48,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1802_dual_reversal_stability_liq",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "FAIL",
+      "comment": "简评如下：\n\n- **Sharpe: 0.85**  \n  偏弱。通常可提交的 alpha 至少需要更有说服力的风险调整收益，0.85 说明信号有效性有限，稳定性不够强。\n\n- **Turnover: 0.1648**  \n  较合理。换手不算高，交易成本压力相对可控，这一点是该 alpha 少数的优点之一。\n\n- **Drawdown: 0.1644**  \n  偏高。结合 Sharpe 看，说明策略在承担不小回撤的情况下并没有换来足够强的收益质量，风险收益比不佳。\n\n- **Fitness: 0.59**  \n  明显不足。Fitness 通常反映综合可用性，这个数值说明整体结构、稳定性或泛化能力都不够理想。\n\n### 结论\n**FAIL，不值得直接提交。**\n\n### 主要原因\n- Sharpe 不达标，alpha 强度偏弱  \n- Fitness 偏低，综合质量不足  \n- Drawdown 相对较高，风险控制一般  \n- 虽然 Turnover 尚可，但不足以弥补收益质量问题\n\n### 改进建议\n1. **增强信号区分度**  \n   当前主要是短中期反转 + 波动率反转 + 成交量，结构较常见，可能拥挤且边际效应弱。可以尝试加入：\n   - 基本面变化类因子\n   - 质量/盈利能力类因子\n   - 中期趋势或残差动量，降低纯反转的单一暴露\n\n2. **优化权重结构**  \n   目前 5d/13d 反转权重较高，可能导致信号重复。可考虑：\n   - 降低短期反转权重\n   - 提高更稳健窗口的占比\n   - 对各子因子做单独 IC / Sharpe 检验后再配权\n\n3. **控制回撤**  \n   可加入风险约束或过滤：\n   - 对高波动股票降权\n   - 对极端成交量或极端收益样本做截尾/winsorize\n   - 增加行业/市值中性化，减少非预期风险暴露\n\n4. **提升稳定性**  \n   建议检查不同市场阶段、不同年份的表现，确认是否仅在局部样本有效。必要时：\n   - 延长观察窗口\n   - 减少噪声型短周期算子\n   - 对 signal 做平滑处理\n\n如果你愿意，我还可以基于这条表达式，直接给你改写出 **2-3 个更可能通过检查的 BRAIN alpha 版本**。"
+    }
+  },
+  {
+    "alpha_id": "akW9bd7O",
+    "expr": "add(add(multiply(0.38, rank(reverse(ts_av_diff(returns, 4)))), multiply(0.32, rank(reverse(ts_mean(returns, 9))))), add(multiply(0.18, rank(reverse(ts_std_dev(returns, 24)))), multiply(0.12, rank(ts_mean(volume, 35)))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.03,
+    "fitness": 0.62,
+    "turnover": 0.2703,
+    "returns": 0.0972,
+    "drawdown": 0.134,
+    "margin": 0.000719,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 1.03,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.62,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.2703,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.2703,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.67,
+        "limit": 0.45,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.67,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1801_reversal_accel_lowvol_refined",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简要评价**\n\n- **Sharpe: 1.03**  \n  偏低，只能说明有一定信号，但风险调整后收益不够强，通常不算有竞争力。\n\n- **Turnover: 0.2703**  \n  换手中等偏低，这点还可以，说明信号不算特别嘈杂，交易成本压力相对可控。\n\n- **Drawdown: 0.134**  \n  回撤 13.4%，不算特别夸张，但结合 Sharpe 来看，承受这类回撤换来的收益不够吸引人。\n\n- **Fitness: 0.62**  \n  明显偏弱，说明综合质量一般，稳定性和可部署性不足。\n\n**结论：FAIL**\n\n原因：\n1. **Sharpe 和 Fitness 都偏低**，是最核心的问题。  \n2. **grade = INFERIOR**，且 **checks_pass = false**，这通常已经说明不适合直接提交。  \n3. 虽然 **Turnover 尚可**，但不足以弥补整体质量不达标。\n\n**改进建议**\n\n1. **增强核心预测逻辑**  \n   当前表达式本质上是“短期反转 + 低波动 + 量”的线性组合，结构比较常规，容易缺乏独特性。可以考虑：\n   - 将反转信号按不同市场状态分层；\n   - 引入行业/子行业中性后的相对反转；\n   - 加入质量或流动性过滤，减少噪声。\n\n2. **优化反转窗口**  \n   现在用了 4、9、24 天，可能存在一定冗余。建议重新测试：\n   - 更短周期反转（2~5 天）；\n   - 中短结合但降低共线性；\n   - 尝试非线性组合，而不只是简单加权。\n\n3. **弱化或重构 volume 因子**  \n   `rank(ts_mean(volume, 35))` 更像流动性暴露，不一定直接提升 alpha，反而可能引入风格偏置。可以改为：\n   - 成交量异常度；\n   - 量价配合；\n   - 相对成交量而非绝对均量。\n\n4. **控制风险暴露**  \n   由于回撤和 Fitness 不理想，建议检查是否有：\n   - 市值暴露；\n   - 波动率暴露；\n   - 行业集中度；\n   - 极端股票驱动。  \n   可尝试做 group neutralization 或 winsorize / decay 处理。\n\n5. **提升稳健性**  \n   既然 checks 没过，需要重点排查：\n   - 是否过于依赖少数时期；\n   - 是否子区间表现不稳定；\n   - 是否存在明显风格挤压。  \n   建议做分市场状态、分年份、分行业的稳定性分析。\n\n如果你愿意，我可以进一步**直接基于这条表达式帮你改写出 3 个更可能通过的 BRAIN alpha 版本**。"
+    }
+  },
+  {
+    "alpha_id": "QP5pbYzX",
+    "expr": "add(add(multiply(0.30, rank(reverse(ts_av_diff(returns, 6)))), multiply(0.30, rank(reverse(ts_mean(returns, 10))))), add(multiply(0.22, rank(reverse(ts_std_dev(returns, 18)))), multiply(0.18, rank(reverse(ts_std_dev(returns, 35))))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.47,
+    "fitness": 0.31,
+    "turnover": 0.1494,
+    "returns": 0.0631,
+    "drawdown": 0.405,
+    "margin": 0.000845,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.47,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.31,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1494,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1494,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.25,
+        "limit": 0.2,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.25,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1804_reversal_convexity_lowrisk",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简要评价**\n\n- **Sharpe: 0.47**  \n  偏低，说明风险调整后收益不够好，信号有效性较弱，稳定性不足。\n\n- **Turnover: 0.1494**  \n  换手不高，交易成本压力相对可控，这一项算是中性偏好。\n\n- **Drawdown: 0.405**  \n  回撤较大，约 40.5%，和当前收益水平不匹配，风险暴露偏高。\n\n- **Fitness: 0.31**  \n  明显偏弱，通常说明综合表现不足，alpha 质量不够支持提交。\n\n**结论：FAIL**  \n该 alpha **不值得提交**。虽然换手较友好，但 **Sharpe 低、Fitness 弱、Drawdown 高**，且结果已经显示 **grade = INFERIOR、checks_pass = false**，整体不具备提交价值。\n\n**改进建议**\n\n1. **降低单纯短期反转暴露**  \n   当前主要由 `reverse(...)` 驱动，容易变成拥挤的短期反转信号，建议加入更稳健的中期信息或基本面/质量类因子。\n\n2. **控制波动项权重**  \n   `ts_std_dev(returns, 18/35)` 的反向排序可能引入脆弱的低波偏好，建议重新检验其边际贡献，必要时降低权重或替换为更稳定的风险调整指标。\n\n3. **做正交化/去共线**  \n   `ts_av_diff(returns, 6)` 与 `ts_mean(returns, 10)` 都属于短期价格行为，信息可能重复。建议减少相似子项，提升因子独立性。\n\n4. **加入行业/市值中性化**  \n   若未做中性化，可能存在风格暴露导致回撤偏大。建议检查行业、Size、Beta 等风险因子暴露。\n\n5. **提高稳健性筛选**  \n   可叠加成交量、流动性、极端波动过滤，避免信号集中在噪声较大的股票上。\n\n6. **优化参数而非堆叠权重**  \n   可以尝试拉开窗口长度（如 5/20/60）并做简单结构化组合，避免多个近似周期造成过拟合。"
+    }
+  },
+  {
+    "alpha_id": "KPwMNm2p",
+    "expr": "add(add(multiply(0.40, rank(reverse(ts_mean(returns, 4)))), multiply(0.20, rank(reverse(ts_av_diff(volume, 6))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 20)))), multiply(0.16, rank(reverse(ts_mean(volume, 12))))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.53,
+    "fitness": 0.28,
+    "turnover": 0.2253,
+    "returns": 0.0631,
+    "drawdown": 0.3329,
+    "margin": 0.00056,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.53,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.28,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.2253,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.2253,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.25,
+        "limit": 0.23,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.25,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1805_liquidity_shock_rebound_filtered",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简评**\n\n- **Sharpe: 0.53**  \n  偏低，说明风险调整后收益不强，alpha 稳定性不足，信号质量较弱。\n\n- **Turnover: 0.2253**  \n  换手率中等，不算过高，交易可实施性尚可，这一项不是主要问题。\n\n- **Drawdown: 0.3329**  \n  回撤偏大，接近 33%，说明策略在不利阶段抗风险能力较差，收益曲线不够稳。\n\n- **Fitness: 0.28**  \n  明显偏低，通常表示综合表现不足，因子有效性和可持续性都比较弱。\n\n**结论：FAIL**\n\n该 alpha **不值得提交**。  \n主要原因是：**Sharpe 低 + Fitness 低 + Drawdown 高**，虽然 Turnover 尚可，但不足以弥补核心绩效指标的明显不足，而且当前结果已标注 **INFERIOR** 且 **checks_pass = false**。\n\n**改进建议**\n\n1. **降低噪声，增强信号稳健性**  \n   当前主要使用短周期 returns 和 volume 反转特征，容易受短期噪声影响。可尝试拉长部分窗口，如 `returns` 从 4 天扩展到 6~10 天，减少偶然性。\n\n2. **加入风险过滤**  \n   增加波动率、beta、行业中性化或市场状态过滤，避免在高风险环境下过度暴露，争取压低回撤。\n\n3. **优化权重结构**  \n   现在权重较集中在短期反转项（0.40、0.24），可适当降低短期价格反转权重，提升成交量/流动性确认项比重，减少“抄底抄在半山腰”的问题。\n\n4. **加入条件触发机制**  \n   例如仅在“放量下跌后企稳”或“短期超跌但中期波动未继续放大”时启用信号，而不是全市场全时段生效。\n\n5. **检查失败原因**  \n   `checks_pass = false` 说明可能存在平台规则、稳健性或子区间表现问题。建议重点查看：\n   - 子区间是否显著失效\n   - 是否过度依赖少数时段\n   - 是否存在风格暴露过强的问题\n\n如果你愿意，我也可以**直接基于这个表达式帮你改写出 3 个更容易过检的 BRAIN alpha 版本**。"
+    }
+  },
+  {
+    "alpha_id": "j2dKAa1Z",
+    "expr": "add(add(multiply(0.28, rank(reverse(ts_std_dev(returns, 30)))), multiply(0.24, rank(reverse(ts_std_dev(returns, 10))))), add(multiply(0.30, rank(reverse(ts_mean(returns, 6)))), multiply(0.18, rank(ts_mean(volume, 40)))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.39,
+    "fitness": 0.25,
+    "turnover": 0.1089,
+    "returns": 0.052,
+    "drawdown": 0.4068,
+    "margin": 0.000955,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.39,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.25,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1089,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1089,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "FAIL",
+        "value": 0.08,
+        "limit": 0.17,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.08,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1806_quality_proxy_stable_reversal",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.03,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe: 0.39**  \n  偏低，风险调整后收益较弱，说明信号质量不够稳定，实盘吸引力有限。\n\n- **Turnover: 0.1089**  \n  换手不高，这一点是优点，交易成本压力相对较小，也说明信号较平稳。\n\n- **Drawdown: 0.4068**  \n  回撤偏大，结合较低 Sharpe 来看，收益/风险比不理想，策略承受较大波动。\n\n- **Fitness: 0.25**  \n  明显偏弱，通常意味着综合表现不足，预测力和可用性都不够强。\n\n**结论：FAIL**  \n该 alpha **不值得直接提交**。虽然换手控制尚可，但 Sharpe 和 Fitness 太低，同时 Drawdown 偏高，而且 `checks_pass = false`，整体质量未达到可提交水平。\n\n**改进建议**\n\n1. **减少纯短期反转暴露**  \n   当前核心依赖 `reverse(ts_std_dev(returns, 30/10))` 和 `reverse(ts_mean(returns, 6))`，短期噪声较重，容易造成不稳定表现。可适当拉长窗口，或加入中期确认信号。\n\n2. **增强正交性**  \n   现在信号主要是“低波动 + 短期反转 + 成交量”组合，风格集中。建议加入基本面质量、盈利能力、成长、估值或行业中性化处理，提高 alpha 多样性。\n\n3. **控制回撤**  \n   可对极端波动股票做惩罚，例如叠加波动率过滤、流动性约束，或降低高风险股票权重。\n\n4. **优化成交量因子**  \n   `rank(ts_mean(volume, 40))` 比较粗糙，容易带来规模/流动性暴露。可以改成相对成交量、成交量变化率，或与价格行为联动。\n\n5. **做中性化与去共线**  \n   检查是否存在市场、行业、beta、size 暴露；必要时做行业中性化/市值中性化，避免收益其实来自公共风险因子。\n\n6. **重新调权**  \n   目前权重较平均，但低波动和反转成分可能重复。建议做分组测试，验证每个子因子的独立贡献，再重新分配权重。  \n\n如果你愿意，我可以进一步**按 BRAIN 风格直接帮你改写出几个更可能通过检查的新 alpha 表达式**。"
+    }
+  },
+  {
+    "alpha_id": "WjW2b0no",
+    "expr": "add(add(multiply(0.38, rank(reverse(ts_mean(returns, 6)))), multiply(0.18, rank(reverse(ts_mean(returns, 16))))), add(multiply(0.20, rank(reverse(ts_mean(volume, 30)))), add(multiply(0.14, rank(reverse(ts_std_dev(returns, 16)))), multiply(0.10, rank(ts_mean(volume, 8))))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.55,
+    "fitness": 0.33,
+    "turnover": 0.1717,
+    "returns": 0.0613,
+    "drawdown": 0.2242,
+    "margin": 0.000714,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.55,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.33,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1717,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1717,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.36,
+        "limit": 0.24,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.36,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1808_lowcrowding_reversal_barbell",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简要评价**\n\n- **Sharpe: 0.55**  \n  偏低，说明单位风险收益不够好，alpha 稳定性和有效性都比较弱。\n\n- **Turnover: 0.1717**  \n  换手中等偏低，不算问题，交易成本压力相对可控，这一项还可以。\n\n- **Drawdown: 0.2242**  \n  回撤偏大，在 Sharpe 不高的情况下，这样的回撤显得不划算，风险收益比不理想。\n\n- **Fitness: 0.33**  \n  明显偏低，通常代表综合表现不足，信号质量不强，鲁棒性也可能较差。\n\n**是否值得提交：FAIL**\n\n原因很直接：  \n- `grade = INFERIOR`\n- `checks_pass = false`\n- Sharpe 和 Fitness 都偏弱，同时 Drawdown 不够优秀，整体没有达到可提交的标准。\n\n**改进建议**\n\n1. **增强核心信号强度**  \n   当前主体是短中期反转 + 成交量项的拼接，但反转信号可能过于拥挤或噪声较大。建议重新检验：\n   - 6/16 日反转窗口是否过近\n   - 是否应加入更长周期反转或更明确的短期过度反应过滤\n\n2. **降低噪声因子权重**  \n   `rank(ts_mean(volume, 8))` 和 `reverse(ts_mean(volume, 30))` 这类量价项可能提供了风格暴露，但未必带来稳定 alpha。建议单独做子因子检验，剔除边际贡献低的部分。\n\n3. **加入风险过滤 / 波动调整**  \n   可以考虑：\n   - 对高波动股票降权\n   - 用 `returns / ts_std_dev(returns, n)` 这类波动标准化方式提升稳定性\n   - 加入行业/市值中性约束，减少非预期暴露\n\n4. **改善回撤控制**  \n   当前回撤较高，建议加入：\n   - 波动率惩罚项\n   - 极端成交量或极端收益截面过滤\n   - 对反转信号叠加“不过度拥挤”筛选\n\n5. **减少简单线性拼接，提升结构区分度**  \n   现在表达式更像多个相似方向信号的加权平均，容易导致信息冗余。可尝试：\n   - 将价格反转与成交量状态做条件交互\n   - 做“低拥挤 + 超跌反转”的条件型结构，而不是纯加法\n\n**结论**  \n这个 alpha **不建议提交（FAIL）**。建议先围绕**提高 Sharpe / Fitness、降低回撤**做重构，再看是否能把整体质量提升到可提交水平。"
+    }
+  },
+  {
+    "alpha_id": "N15la258",
+    "expr": "add(add(multiply(0.34, rank(reverse(ts_mean(returns, 8)))), multiply(0.26, rank(reverse(ts_av_diff(returns, 3))))), add(multiply(0.20, rank(reverse(ts_mean(volume, 20)))), multiply(0.20, rank(reverse(ts_std_dev(returns, 28))))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.46,
+    "fitness": 0.25,
+    "turnover": 0.2128,
+    "returns": 0.0621,
+    "drawdown": 0.3187,
+    "margin": 0.000583,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.46,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.25,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.2128,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.2128,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.34,
+        "limit": 0.2,
+        "message": null
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.34,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_1807_residual_style_reversal_sector",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SECTOR",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe：0.46**  \n  偏低，说明单位风险收益较弱，alpha 稳定性不足，信号质量不够好。\n\n- **Turnover：0.2128**  \n  换手率中等偏低，不算激进，交易可实施性尚可，这一项本身不是主要问题。\n\n- **Drawdown：0.3187**  \n  回撤较高，风险控制较差，策略在不利阶段承受损失较明显。\n\n- **Fitness：0.25**  \n  明显偏低，综合表现较弱，通常说明收益、稳定性和可实施性之间没有形成较好的平衡。\n\n**结论：FAIL**\n\n该 alpha **不值得直接提交**。主要原因是 **Sharpe 和 Fitness 偏低，同时 Drawdown 偏高**，整体表现与 `INFERIOR` 评级一致，且 `checks_pass = false`，说明不仅绩效弱，还可能存在平台检查层面的问题。\n\n**改进建议**\n\n1. **降低纯短期反转暴露**  \n   当前表达式主要依赖短期 returns reversal，容易受到噪声和市场状态切换影响。可适当加入中期确认信号，减弱过度短线化。\n\n2. **增强去极值/稳健处理**  \n   对 returns、volume 类输入做 winsorize、zscore 或 decay 处理，降低极端值对排序的干扰。\n\n3. **加入风险中性化**  \n   可考虑做 **sector / industry / beta / size** 中性化，避免 alpha 实际上只是风格或行业暴露。\n\n4. **优化波动率项的使用方式**  \n   目前 `reverse(ts_std_dev(returns, 28))` 可能只是简单押注低波反转，可尝试与收益信号交互，而不是线性堆叠。\n\n5. **重新调整权重**  \n   0.34/0.26 的收益反转项占比偏高，建议降低相关性较强的 returns 子项权重，增加更独立的辅助因子，提高 Fitness。\n\n6. **检查失败原因**  \n   既然 `checks_pass=false`，应优先排查是否存在：\n   - 子宇宙/年份不稳定\n   - 与已有因子过高相关\n   - 某些阶段收益集中\n   - 极端值或流动性问题\n\n如果你愿意，我可以进一步 **基于这个表达式直接帮你改写出 3 个更可能通过的 BRAIN alpha 版本**。"
+    }
+  }
+]

@@ -1,0 +1,142 @@
+本轮继续围绕“EPS 稳定性 + 短期反转 + ROE 质量”这个已验证有效的核心结构，只做小步微调。重点尝试 3 个方向：替换一个时序算子、轻微调整权重/窗口、以及根据因子频率特征分别微调 setting，以争取把 Fitness 推过 1.0 并改善 checks。
+
+```json
+[
+  {
+    "name": "alpha_181_eps_vol_rebound_roe_industry",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_182_eps_vol_rebound_roe_subind_slow",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 5), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_183_eps_meanrev_rebound_roe_subind",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_184_eps_vol_rebound_roe_fastquality",
+    "expr": "rank(add(add(multiply(0.25, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.25, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_185_eps_vol_rebound_roe_longquality",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 252), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_186_eps_vol_shortrebound_roe_subind",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 10))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_187_eps_vol_rebound_roe_sector",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 126), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP1000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SECTOR",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_188_eps_vol_rebound_roe_balanced",
+    "expr": "rank(add(add(multiply(0.35, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.45, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

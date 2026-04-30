@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_qrev_cfostab",
+    "expr": "add(group_rank(rank(subtract(ts_zscore(divide(cashflow_op, assets), 252), ts_zscore(ts_std_dev(divide(cashflow_op, assets), 126), 252))), subindustry), group_rank(rank(ts_decay_linear(subtract(ts_mean(close, 10), close), 5)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_qrev_ebitcf",
+    "expr": "add(group_rank(rank(add(ts_zscore(divide(cashflow_op, assets), 252), ts_zscore(divide(ebit, assets), 252))), subindustry), group_rank(rank(ts_decay_linear(subtract(ts_mean(close, 7), close), 3)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_qrev_fcfyield",
+    "expr": "add(group_rank(rank(add(ts_zscore(divide(cashflow_op, enterprise_value), 252), ts_zscore(divide(ebitda, enterprise_value), 252))), subindustry), group_rank(rank(subtract(ts_mean(close, 7), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_qrev_debtlight",
+    "expr": "add(group_rank(rank(subtract(add(ts_zscore(divide(cashflow_op, assets), 252), ts_zscore(divide(ebit, assets), 252)), ts_zscore(divide(debt, assets), 252))), subindustry), group_rank(rank(subtract(ts_mean(close, 8), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_qrev_epscf",
+    "expr": "add(group_rank(rank(add(ts_zscore(divide(cashflow_op, assets), 252), ts_zscore(divide(eps, close), 252))), subindustry), group_rank(rank(ts_decay_linear(subtract(ts_mean(close, 10), close), 7)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_qrev_cfoev_stable",
+    "expr": "add(group_rank(rank(subtract(ts_zscore(divide(cashflow_op, enterprise_value), 252), ts_zscore(ts_std_dev(divide(cashflow_op, enterprise_value), 126), 252))), subindustry), group_rank(rank(subtract(ts_mean(close, 10), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

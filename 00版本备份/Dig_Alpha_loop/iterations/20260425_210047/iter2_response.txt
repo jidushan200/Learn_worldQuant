@@ -1,0 +1,142 @@
+延续“质量/盈利能力 + 温和时序调整”的思路，我给出 8 个只做 1–2 处微调的变体，尽量用更平滑的窗口与更稳健的组合方式来提升 Fitness 和跨年稳定性。由于上一轮记录里没有可继承的有效表达式，这一轮从相近风格的基础结构出发，优先选择常见且经济逻辑明确的质量类字段与简单时序算子。
+
+```json
+[
+  {
+    "name": "alpha_001_quality_reversal_base",
+    "expr": "rank(ts_zscore(return_equity, 252)) - rank(ts_zscore(close / ts_mean(close, 20) - 1, 20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_quality_reversal_smoother",
+    "expr": "rank(ts_zscore(return_equity, 252)) - rank(ts_zscore(close / ts_mean(close, 30) - 1, 30))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_quality_reversal_longquality",
+    "expr": "rank(ts_zscore(return_equity, 504)) - rank(ts_zscore(close / ts_mean(close, 20) - 1, 20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_profitmargin_reversal_base",
+    "expr": "rank(ts_zscore(net_margin, 252)) - rank(ts_zscore(close / ts_mean(close, 20) - 1, 20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_gpoa_reversal_base",
+    "expr": "rank(ts_zscore(gross_profit_assets, 252)) - rank(ts_zscore(close / ts_mean(close, 20) - 1, 20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_fcfasset_reversal_base",
+    "expr": "rank(ts_zscore(fcf_assets, 252)) - rank(ts_zscore(close / ts_mean(close, 20) - 1, 20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_dual_quality_reversal",
+    "expr": "rank(ts_zscore(return_equity, 252) + ts_zscore(net_margin, 252)) - rank(ts_zscore(close / ts_mean(close, 20) - 1, 20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_quality_reversal_weakerleg",
+    "expr": "rank(ts_zscore(return_equity, 252)) - rank(close / ts_mean(close, 20) - 1)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

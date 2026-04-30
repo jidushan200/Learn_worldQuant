@@ -1,0 +1,138 @@
+[
+  {
+    "name": "alpha_3201_conditional_tripod_rankblend_v2",
+    "expr": "trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.56, add(rank(add(add(multiply(0.42, reverse(ts_mean(returns, 5))), multiply(0.32, reverse(ts_mean(returns, 13)))), multiply(0.26, reverse(ts_av_diff(returns, 5))))), rank(add(multiply(0.60, reverse(ts_std_dev(returns, 16))), multiply(0.40, ts_mean(volume, 34))))), -1)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3202_subind_two_stage_asymmetry",
+    "expr": "add(multiply(0.48, rank(add(add(multiply(0.52, reverse(ts_mean(returns, 4))), multiply(0.30, reverse(ts_mean(returns, 11)))), multiply(0.18, reverse(ts_av_diff(returns, 7)))))), multiply(0.52, rank(add(add(multiply(0.40, reverse(ts_std_dev(returns, 18))), multiply(0.36, reverse(ts_std_dev(returns, 30)))), multiply(0.24, ts_mean(volume, 38))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3203_three_horizon_calm_liq_rankmix",
+    "expr": "add(rank(add(add(multiply(0.40, reverse(ts_mean(returns, 3))), multiply(0.34, reverse(ts_mean(returns, 9)))), multiply(0.26, reverse(ts_mean(returns, 18))))), rank(add(multiply(0.58, reverse(ts_std_dev(returns, 22))), multiply(0.42, ts_mean(volume, 30)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3204_nonlinear_calm_tripod_gate",
+    "expr": "trade_when(rank(reverse(ts_std_dev(returns, 27))) > 0.46, multiply(add(multiply(0.50, rank(reverse(ts_mean(returns, 4)))), add(multiply(0.30, rank(reverse(ts_mean(returns, 12)))), multiply(0.20, rank(reverse(ts_av_diff(returns, 6)))))), add(multiply(0.62, rank(reverse(ts_std_dev(returns, 21)))), multiply(0.38, rank(ts_mean(volume, 44))))), -1)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3205_defensive_barbell_volume_pref",
+    "expr": "add(add(multiply(0.31, rank(reverse(ts_mean(returns, 5)))), multiply(0.27, rank(reverse(ts_mean(returns, 16))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 18)))), add(multiply(0.10, rank(ts_mean(volume, 48))), multiply(0.08, rank(reverse(ts_mean(volume, 11)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 14,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3206_dual_gate_reversal_stability",
+    "expr": "trade_when(rank(ts_mean(volume, 36)) > 0.34, trade_when(rank(reverse(ts_std_dev(returns, 24))) > 0.50, add(add(multiply(0.38, rank(reverse(ts_mean(returns, 4)))), multiply(0.24, rank(reverse(ts_mean(returns, 14))))), add(multiply(0.22, rank(reverse(ts_av_diff(returns, 5)))), multiply(0.16, rank(reverse(ts_std_dev(returns, 16)))))), -1), -1)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3207_rankblend_dualvol_termstructure",
+    "expr": "add(multiply(0.54, rank(add(multiply(0.58, reverse(ts_mean(returns, 6))), multiply(0.42, reverse(ts_mean(returns, 15)))))), multiply(0.46, rank(add(add(multiply(0.44, reverse(ts_std_dev(returns, 17))), multiply(0.32, reverse(ts_std_dev(returns, 33)))), multiply(0.24, ts_mean(volume, 26))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_3208_shortslow_reversal_liqshield_market",
+    "expr": "add(add(multiply(0.36, rank(reverse(ts_mean(returns, 4)))), multiply(0.20, rank(reverse(ts_mean(returns, 17))))), add(multiply(0.26, rank(reverse(ts_std_dev(returns, 24)))), add(multiply(0.10, rank(ts_mean(volume, 52))), multiply(0.08, rank(reverse(ts_av_diff(returns, 4)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "MARKET",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]

@@ -1,0 +1,138 @@
+[
+  {
+    "name": "alpha_2101_reversal_barbell_lowvol_liq",
+    "expr": "add(add(multiply(0.33, rank(reverse(ts_mean(returns, 4)))), multiply(0.27, rank(reverse(ts_mean(returns, 13))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 22)))), multiply(0.16, rank(ts_mean(volume, 30)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2102_fastslow_reversal_dualvol",
+    "expr": "add(add(multiply(0.31, rank(reverse(ts_av_diff(returns, 5)))), multiply(0.29, rank(reverse(ts_mean(returns, 9))))), add(multiply(0.22, rank(reverse(ts_std_dev(returns, 18)))), multiply(0.18, rank(reverse(ts_std_dev(returns, 34))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2103_oversold_calm_highliq",
+    "expr": "add(add(multiply(0.36, rank(reverse(ts_mean(returns, 6)))), multiply(0.26, rank(reverse(ts_std_dev(returns, 24))))), add(multiply(0.22, rank(ts_mean(volume, 40))), multiply(0.16, rank(reverse(ts_mean(volume, 10))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2104_reversal_convexity_liqterm",
+    "expr": "add(add(multiply(0.29, rank(reverse(ts_av_diff(returns, 3)))), multiply(0.27, rank(reverse(ts_mean(returns, 11))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 20)))), add(multiply(0.12, rank(ts_mean(volume, 35))), multiply(0.08, rank(ts_mean(volume, 5))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2105_quality_proxy_stable_rebound",
+    "expr": "add(add(multiply(0.30, rank(reverse(ts_std_dev(returns, 12)))), multiply(0.26, rank(reverse(ts_std_dev(returns, 30))))), add(multiply(0.26, rank(reverse(ts_mean(returns, 7)))), multiply(0.18, rank(ts_mean(volume, 45)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2106_liquidity_shock_reversal_defensive",
+    "expr": "add(add(multiply(0.34, rank(reverse(ts_mean(returns, 5)))), multiply(0.22, rank(reverse(ts_av_diff(volume, 4))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 21)))), multiply(0.20, rank(reverse(ts_mean(volume, 16))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2107_shortterm_reversal_stability_tilt",
+    "expr": "add(add(multiply(0.35, rank(reverse(ts_mean(returns, 8)))), multiply(0.21, rank(reverse(ts_mean(returns, 16))))), add(multiply(0.26, rank(reverse(ts_std_dev(returns, 14)))), multiply(0.18, rank(reverse(ts_std_dev(returns, 28))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 14,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2108_newidea_residual_calm_liquid",
+    "expr": "add(add(multiply(0.32, rank(reverse(ts_av_diff(returns, 6)))), multiply(0.24, rank(reverse(ts_mean(returns, 12))))), add(multiply(0.26, rank(reverse(ts_std_dev(returns, 32)))), multiply(0.18, rank(ts_mean(volume, 50)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SECTOR",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]

@@ -1,0 +1,266 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_222_quality_rebound_altcore_assetturnover",
+    "expr": "rank(add(multiply(0.55, ts_zscore(subtract(ts_mean(close, 5), close), 22)), multiply(0.45, add(ts_zscore(ts_backfill(return_equity, 126), 252), ts_zscore(ts_backfill(asset_turnover, 126), 252)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_220_eps_smooth_rebound_roa_subindustry",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 4), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_on_assets, 126), 252))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_223_optimal_plus_margin_signal",
+    "expr": "rank(add(add(add(multiply(0.25, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.4, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))), multiply(0.15, ts_zscore(ts_backfill(gross_margin, 126), 252))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_221_eps_smooth_rebound_gpoa_industry",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.45, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.25, ts_zscore(ts_backfill(gross_profit_over_assets, 126), 252))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_226_quality_rebound_roe_roa_blend",
+    "expr": "rank(add(multiply(0.5, ts_zscore(subtract(ts_mean(close, 4), close), 20)), multiply(0.5, add(ts_zscore(ts_backfill(return_equity, 126), 252), ts_zscore(ts_backfill(return_on_assets, 126), 252)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_227_eps_smooth_rebound_assetturnover_subindustry",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.45, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.25, ts_zscore(ts_backfill(asset_turnover, 126), 252))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": "YPW30Lel",
+    "expr": "rank(add(add(multiply(0.35, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.4, ts_zscore(subtract(ts_mean(close, 3), close), 18))), multiply(0.25, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.04,
+    "fitness": 0.62,
+    "turnover": 0.2745,
+    "returns": 0.0962,
+    "drawdown": 0.0936,
+    "margin": 0.000701,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 1.04,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.62,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.2745,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.2745,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.98,
+        "limit": 0.55,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.98,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_225_eps_smooth_rebound_roe_market_defensive",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP1000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "MARKET",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe = 1.04**  \n  偏低，只能说明有一定预测能力，但不够稳定，通常难以作为高质量 alpha 提交。\n\n- **Turnover = 0.2745**  \n  适中，不算太高，交易频率相对可控，这一项没有明显问题。\n\n- **Drawdown = 0.0936**  \n  回撤中等偏高，结合 Sharpe 不强来看，风险调整后表现不够理想。\n\n- **Fitness = 0.62**  \n  明显偏弱，说明综合质量不足，通常不足以支持提交。\n\n---\n\n**是否值得提交：FAIL**\n\n理由：  \n虽然 **turnover 尚可**，但 **Sharpe 和 Fitness 都偏低**，且结果显示 **grade = INFERIOR、checks_pass = false**，因此当前版本不建议提交。\n\n---\n\n**改进建议**\n\n1. **增强信号一致性**  \n   当前表达式混合了 EPS 波动反转、短期价格反弹、ROE 质量三个部分，但可能相关性不足，建议检查各子信号单独表现，剔除拖累项。\n\n2. **降低噪声**  \n   `ts_mean(close, 3) - close` 属于很短周期的反弹信号，容易引入噪声。可尝试拉长窗口，如 5~10 天，或叠加 `decay` 平滑。\n\n3. **优化基本面因子处理**  \n   `actual_eps_value_quarterly` 和 `return_equity` 的 backfill 窗口较长，可能导致信号陈旧。建议缩短 backfill，或改为使用变化率、surprise、同比增速等更有信息量的形式。\n\n4. **控制风险暴露**  \n   目前回撤不低，建议加入行业中性、市值中性或波动率惩罚，减少非预期风险暴露。\n\n5. **重新分配权重**  \n   当前权重为 `0.35 / 0.4 / 0.25`，可做网格搜索或逐项 ablation test，寻找更优组合，避免某个弱因子拉低整体质量。\n\n6. **检查失败原因**  \n   `checks_pass = false` 很关键，需要优先确认是哪些平台检查未通过，比如子区间稳定性、相关性、极端值、集中度等，再针对性修正。  \n\n如果你愿意，我可以进一步帮你把这个 alpha **拆解做逐项诊断**，并给出一个更可能通过的改写版本。"
+    }
+  },
+  {
+    "alpha_id": "RRkx8Lrn",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 5), close), 25))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.28,
+    "fitness": 0.74,
+    "turnover": 0.2357,
+    "returns": 0.0786,
+    "drawdown": 0.0743,
+    "margin": 0.000667,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "value": 1.28,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.74,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.2357,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.2357,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.74,
+        "limit": 0.55,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.74,
+    "self_corr": null,
+    "error": null,
+    "field_id": "alpha_224_eps_smooth_rebound_roe_industry_longer",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简短评价**\n\n- **Sharpe = 1.28**  \n  偏弱。虽然有一定预测能力，但通常还不够稳健，离“可提交”的优秀水平有差距。\n\n- **Turnover = 0.2357**  \n  较合理，不算高，交易频率温和，说明信号稳定性还可以，这一点是加分项。\n\n- **Drawdown = 0.0743**  \n  回撤中等偏高。结合 Sharpe 不强来看，风险收益比不够突出。\n\n- **Fitness = 0.74**  \n  偏低，说明综合表现一般，alpha 质量不足，通常难以作为优质提交候选。\n\n**结论：FAIL**\n\n原因很直接：  \n虽然 **Turnover 尚可**，但 **Sharpe 和 Fitness 都偏弱**，且结果里已经明确显示 **grade = INFERIOR**、**checks_pass = false**，因此**不建议提交**。\n\n**改进建议**\n\n1. **增强主信号强度**  \n   当前信号由 EPS 平滑反转、短期价格反弹、ROE 三部分组成，但组合后的区分度不够。建议重新检验三部分的单独表现，剔除弱因子。\n\n2. **优化权重**  \n   目前权重为 `0.3 / 0.5 / 0.2`，价格反转项占比最高，可能导致 alpha 更像短期反转信号而非基本面增强信号。可尝试降低价格项权重，提升基本面项权重。\n\n3. **调整时间窗口**  \n   - `ts_mean(close, 5)` 与 `ts_zscore(..., 25)` 偏短，容易带来噪声；  \n   - EPS 和 ROE 的 backfill/window 较长，可能过于滞后。  \n   建议测试更协调的窗口组合，如 10/30、20/60，或缩短基本面滞后处理长度。\n\n4. **加强中性化处理**  \n   如果还没做更充分的行业/市值中性化，建议补充，以减少信号被风格暴露驱动的可能。\n\n5. **加入质量过滤或波动过滤**  \n   可叠加盈利稳定性、低波动、流动性过滤，减少噪声股票对回测的拖累。\n\n6. **检查失败原因**  \n   `checks_pass = false` 很关键。应优先确认是哪些平台检查未通过，例如子周期表现、集中度、相关性或稳健性问题，再针对性修正。\n\n如果你愿意，我可以进一步帮你把这条 alpha **拆解成各子因子逻辑**，并给出一版更可能通过检查的改写表达式。"
+    }
+  }
+]

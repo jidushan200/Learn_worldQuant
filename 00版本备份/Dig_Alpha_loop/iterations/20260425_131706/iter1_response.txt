@@ -1,0 +1,147 @@
+下面给你 8 个围绕“基本面质量 + 短期反转”的多样化 alpha。设计上我尽量用“低频质量骨架 + 高频反转触发”来降低自相关和换手失控风险，同时通过 rank / zscore / hump / decay / 行业中性化来兼顾 checks。  
+但要先说明：你给的参考资料里**明确列出的基本面字段非常有限**，且没有直接出现 `ROE / ROA / GPOA / FCF/Assets / gross_margin / asset_turnover` 这些标准字段名；因此以下方案严格只使用资料中**确实出现过**、且可被合理视作质量代理或财务能力相关的字段（如 `operating_cashflow_reported_value`、`net_income_adjusted`、`actual_sales_value_annual`、`anl4_totassets_value`、`anl4_rd_exp_mean`、`anl4_totgw_mean` 等），再叠加短期价格反转。若你后续能补充 USA fundamentals 字段全集，我可以把这 8 个版本升级成更纯正的 ROE/ROA/GPOA 版本。
+
+```json
+[
+  {
+    "name": "alpha_001_ocf_rev_revert",
+    "expr": "rank(hump(add(multiply(0.65, ts_zscore(divide(ts_backfill(operating_cashflow_reported_value, 252), add(abs(ts_backfill(actual_sales_value_annual, 252)), 1)), 252)), multiply(0.35, rank(reverse(ts_mean(ts_delta(close, 1), 5))))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_income_asset_revert",
+    "expr": "rank(hump(add(multiply(0.6, ts_zscore(divide(ts_backfill(net_income_adjusted, 252), add(abs(ts_backfill(anl4_totassets_value, 252)), 1)), 252)), multiply(0.4, ts_zscore(reverse(ts_mean(ts_delta(close, 1), 10)), 63))), 0.008))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_cashflow_asset_fastrev",
+    "expr": "rank(add(multiply(0.7, ts_zscore(divide(ts_backfill(operating_cashflow_reported_value, 252), add(abs(ts_backfill(anl4_totassets_value, 252)), 1)), 252)), multiply(0.3, rank(ts_mean(reverse(ts_delta(close, 3)), 5)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_margin_quality_pullback",
+    "expr": "rank(hump(add(multiply(0.55, ts_zscore(divide(ts_backfill(net_income_adjusted, 252), add(abs(ts_backfill(actual_sales_value_annual, 252)), 1)), 252)), multiply(0.45, rank(subtract(ts_mean(close, 20), close)))), 0.012))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_rd_light_reversal",
+    "expr": "rank(add(multiply(0.5, ts_zscore(divide(ts_backfill(anl4_rd_exp_mean, 252), add(abs(ts_backfill(anl4_totassets_mean, 252)), 1)), 252)), multiply(0.5, ts_zscore(reverse(ts_mean(ts_delta(close, 1), 7)), 126))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SECTOR",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_low_goodwill_quality",
+    "expr": "rank(hump(add(multiply(0.6, ts_zscore(reverse(divide(ts_backfill(anl4_totgw_mean, 252), add(abs(ts_backfill(anl4_totassets_mean, 252)), 1))), 252)), multiply(0.4, rank(reverse(ts_mean(ts_delta(close, 1), 15))))), 0.009))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_forecast_eps_pullback",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 126)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_sales_turnover_revert",
+    "expr": "rank(hump(add(multiply(0.62, ts_zscore(divide(ts_backfill(actual_sales_value_annual, 252), add(abs(ts_backfill(anl4_totassets_value, 252)), 1)), 252)), multiply(0.38, ts_zscore(reverse(ts_mean(ts_delta(close, 1), 20)), 126))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+如果你愿意，我下一步可以继续做两件事之一：  
+1. 把这 8 个里我认为**最可能过 checks 的前 3 个**挑出来，并说明为什么；  
+2. 在你补充可用的 USA fundamental 原始字段后，直接重写成更标准的 **ROE/ROA/GPOA/FCF-Assets + short-term reversal** 版本。

@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_revision_reversal",
+    "expr": "add(multiply(0.5,group_rank(add(ts_zscore(analyst_revision_rank_derivative,126),ts_zscore(earnings_certainty_rank_derivative,126)),subindustry)),multiply(0.3,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.2,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,3),close),12),7),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_surprise_quality_reversal",
+    "expr": "add(multiply(0.45,group_rank(add(ts_zscore(subtract(earnings_per_share_reported_value,earnings_per_share_estimate_count),63),ts_zscore(subtract(actual_sales_value_quarterly,ts_delay(actual_sales_value_quarterly,252)),126)),subindustry)),multiply(0.35,group_rank(subtract(rank(divide(ebitda,assets)),rank(divide(capex,assets))),subindustry)),multiply(0.2,group_rank(ts_decay_exp_window(ts_rank(subtract(ts_mean(close,5),close),15),8),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_balance_sheet_reversal",
+    "expr": "add(multiply(0.45,group_rank(add(rank(current_ratio),rank(divide(cash,assets))),subindustry)),multiply(0.35,group_rank(subtract(rank(divide(bookvalue_ps,close)),rank(beta_last_90_days_spy)),subindustry)),multiply(0.2,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),18),9),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_profitability_stability_reversal",
+    "expr": "add(multiply(0.4,group_rank(add(rank(divide(cashflow_op,assets)),rank(divide(ebit,assets))),subindustry)),multiply(0.35,group_rank(subtract(ts_zscore(est_eps,126),ts_std_dev(est_eps,126)),subindustry)),multiply(0.25,group_rank(ts_decay_exp_window(ts_rank(subtract(ts_mean(close,6),close),20),10),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_fcf_sentiment_reversal",
+    "expr": "add(multiply(0.45,group_rank(add(rank(divide(est_fcf,enterprise_value)),rank(anl4_total_rec)),subindustry)),multiply(0.3,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt_lt,assets))),subindustry)),multiply(0.25,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,5),close),14),6),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_guidance_drift_reversal",
+    "expr": "add(multiply(0.5,group_rank(add(ts_zscore(subtract(earnings_per_share_guidance_value,eps_previous_estimate_value),126),ts_zscore(subtract(dividend_estimate_value,dividend_previous_estimate_value),126)),subindustry)),multiply(0.25,group_rank(subtract(rank(divide(cashflow_op,assets)),rank(divide(debt,assets))),subindustry)),multiply(0.25,group_rank(ts_decay_exp_window(ts_rank(subtract(ts_mean(close,3),close),10),6),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

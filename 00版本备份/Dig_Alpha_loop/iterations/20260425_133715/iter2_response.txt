@@ -1,0 +1,142 @@
+延续“EPS 稳定性 + 短期价格反弹”这个已验证核心，我只做小步微调：主要围绕波动窗口、反转信号标准化窗口、权重轻微偏移，以及中性化/衰减参数做匹配。目标是降低噪声和自相关问题，同时提升 Fitness 与 checks 通过率。
+
+```json
+[
+  {
+    "name": "alpha_011_eps_stable_rebound_w84",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 84))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_012_eps_stable_rebound_w168",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_013_eps_stable_rebound_rev5",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 5), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_014_eps_stable_rebound_z30",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 30))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_015_eps_stable_rebound_55_45",
+    "expr": "rank(add(multiply(0.55, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.45, ts_zscore(subtract(ts_mean(close, 3), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP1000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_016_eps_stable_rebound_45_55",
+    "expr": "rank(add(multiply(0.45, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.55, ts_zscore(subtract(ts_mean(close, 3), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_017_eps_stable_rebound_mean4",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 4), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP500",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SECTOR",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_018_eps_stable_rebound_indsoft",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 15))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.03,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

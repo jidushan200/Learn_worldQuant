@@ -1,0 +1,112 @@
+这些 alpha 采用同一组偏稳健的设置：USA TOP3000、delay=1、较高 decay 与 INDUSTRY 中性化，目的是让“低频基本面质量 + 高频短反转”组合在换手、自相关和子股票池 Sharpe 之间取得平衡。表达式上我只使用了你给出的资料中明确出现过的真实字段，尽量选择覆盖率更高、语义接近“质量/盈利能力”的字段与短期价格均值回归信号做组合。
+
+```json
+[
+  {
+    "name": "alpha_001_eps_revret",
+    "expr": "rank(add(multiply(0.6, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.4, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 5), 60)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_sales_cf_rev",
+    "expr": "rank(add(multiply(0.35, ts_zscore(ts_backfill(actual_sales_value_quarterly, 252), 126)), multiply(0.35, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)), multiply(0.3, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 10), 80)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_eps_stable_rebound",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 15), 90)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_sales_accel_rev",
+    "expr": "rank(add(multiply(0.55, ts_zscore(ts_delta(ts_backfill(actual_sales_value_quarterly, 252), 63), 126)), multiply(0.45, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 7), 60)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_cf_quality_pullback",
+    "expr": "rank(add(multiply(0.4, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)), multiply(0.25, reverse(ts_std_dev(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126))), multiply(0.35, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 12), 80)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_eps_sales_combo",
+    "expr": "rank(add(multiply(0.3, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.3, ts_zscore(ts_backfill(actual_sales_value_annual, 252), 126)), multiply(0.15, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.25, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 20), 100)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+如果你愿意，我下一步可以继续做两件事之一：
+1. 把这 6 个按“更偏质量 / 更偏反转 / 更偏稳健覆盖”分组点评；  
+2. 在**同一 setting 不变**的前提下，再给你 6 个更激进、差异更大的二轮备选。

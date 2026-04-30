@@ -1,0 +1,163 @@
+{
+  "alpha_id": "E5rj1ebG",
+  "expr": "rank(add(multiply(0.6, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.4, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 5), 60)))))",
+  "grade": "INFERIOR",
+  "stage": "IS",
+  "status": "UNSUBMITTED",
+  "sharpe": 0.91,
+  "fitness": 0.52,
+  "turnover": 0.1009,
+  "returns": 0.041,
+  "drawdown": 0.0952,
+  "margin": 0.000813,
+  "checks_pass": false,
+  "checks_detail": [
+    {
+      "name": "LOW_SHARPE",
+      "result": "FAIL",
+      "value": 0.91,
+      "limit": 1.25,
+      "message": null
+    },
+    {
+      "name": "LOW_FITNESS",
+      "result": "FAIL",
+      "value": 0.52,
+      "limit": 1.0,
+      "message": null
+    },
+    {
+      "name": "LOW_TURNOVER",
+      "result": "PASS",
+      "value": 0.1009,
+      "limit": 0.01,
+      "message": null
+    },
+    {
+      "name": "HIGH_TURNOVER",
+      "result": "PASS",
+      "value": 0.1009,
+      "limit": 0.7,
+      "message": null
+    },
+    {
+      "name": "CONCENTRATED_WEIGHT",
+      "result": "PASS",
+      "value": null,
+      "limit": null,
+      "message": null
+    },
+    {
+      "name": "LOW_SUB_UNIVERSE_SHARPE",
+      "result": "PASS",
+      "value": 0.64,
+      "limit": 0.39,
+      "message": null
+    },
+    {
+      "name": "SELF_CORRELATION",
+      "result": "PENDING",
+      "value": null,
+      "limit": null,
+      "message": null
+    },
+    {
+      "name": "MATCHES_COMPETITION",
+      "result": "PASS",
+      "value": null,
+      "limit": null,
+      "message": null
+    }
+  ],
+  "weight_max": null,
+  "sub_univ_sharpe": 0.64,
+  "self_corr": null,
+  "yearly_stats": [
+    {
+      "year": "2019",
+      "pnl": 209616.0,
+      "bookSize": 20000000,
+      "longCount": 1503,
+      "shortCount": 1479,
+      "turnover": 0.1031,
+      "sharpe": 0.74,
+      "returns": 0.0208,
+      "drawdown": 0.0252,
+      "margin": 0.000403,
+      "fitness": 0.3,
+      "stage": "IS"
+    },
+    {
+      "year": "2020",
+      "pnl": 8259.0,
+      "bookSize": 20000000,
+      "longCount": 1463,
+      "shortCount": 1478,
+      "turnover": 0.1017,
+      "sharpe": 0.01,
+      "returns": 0.0009,
+      "drawdown": 0.081,
+      "margin": 1.8e-05,
+      "fitness": 0.0,
+      "stage": "IS"
+    },
+    {
+      "year": "2021",
+      "pnl": 1100437.0,
+      "bookSize": 20000000,
+      "longCount": 1503,
+      "shortCount": 1429,
+      "turnover": 0.108,
+      "sharpe": 2.31,
+      "returns": 0.1092,
+      "drawdown": 0.0385,
+      "margin": 0.002021,
+      "fitness": 2.16,
+      "stage": "IS"
+    },
+    {
+      "year": "2022",
+      "pnl": 658273.0,
+      "bookSize": 20000000,
+      "longCount": 1519,
+      "shortCount": 1493,
+      "turnover": 0.0933,
+      "sharpe": 1.57,
+      "returns": 0.0656,
+      "drawdown": 0.0243,
+      "margin": 0.001406,
+      "fitness": 1.14,
+      "stage": "IS"
+    },
+    {
+      "year": "2023",
+      "pnl": 65072.0,
+      "bookSize": 20000000,
+      "longCount": 1523,
+      "shortCount": 1507,
+      "turnover": 0.0983,
+      "sharpe": 0.18,
+      "returns": 0.0065,
+      "drawdown": 0.0355,
+      "margin": 0.000132,
+      "fitness": 0.04,
+      "stage": "IS"
+    }
+  ],
+  "error": null,
+  "field_id": "alpha_001_eps_revret",
+  "settings_used": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 8,
+    "neutralization": "INDUSTRY",
+    "truncation": 0.06,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "ON",
+    "language": "FASTEXPR",
+    "visualization": false
+  }
+}

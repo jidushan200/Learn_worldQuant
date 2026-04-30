@@ -1,0 +1,104 @@
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "rank(group_neutralize(add(multiply(0.6, average(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_seq + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_at + 0.001), 252), 252))), multiply(0.4, reverse(average(ts_zscore(ts_sum(returns, 5), 252), ts_zscore(ts_sum(returns, 10), 252), ts_zscore(ts_sum(returns, 20), 252))))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_margin_turn_rev",
+    "expr": "rank(group_neutralize(add(multiply(0.55, average(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_revt + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252))), multiply(0.45, reverse(ts_zscore(ts_mean(returns, 7), 252)))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_fcf_asset_bounce",
+    "expr": "rank(group_neutralize(add(multiply(0.65, average(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_oancf, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(subtract(fnd6_newa1v1300_oancf, fnd6_newa1v1300_ivncf), fnd6_newa1v1300_at + 0.001), 252), 252))), multiply(0.35, reverse(average(ts_zscore(ts_sum(returns, 5), 126), ts_zscore(ts_sum(returns, 15), 126))))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_quality_stable_rev",
+    "expr": "rank(group_neutralize(add(multiply(0.5, average(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ebit, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_xsga, fnd6_newa1v1300_revt + 0.001), 252), 252)))), multiply(0.5, reverse(average(ts_zscore(ts_mean(returns, 6), 252), ts_zscore(ts_mean(returns, 12), 252))))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_profit_cash_combo",
+    "expr": "rank(group_neutralize(add(multiply(0.6, average(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_ceq + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_oancf, fnd6_newa1v1300_lt + fnd6_newa1v1300_seq + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_revt + 0.001), 252), 252))), multiply(0.4, reverse(average(ts_zscore(ts_sum(returns, 8), 252), ts_zscore(ts_sum(returns, 16), 252))))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_asset_eff_reversal",
+    "expr": "rank(group_neutralize(add(multiply(0.55, average(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(add(fnd6_newa1v1300_rect, fnd6_newa1v1300_invt), fnd6_newa1v1300_at + 0.001), 252), 252)))), multiply(0.45, reverse(average(ts_zscore(ts_sum(returns, 5), 252), ts_zscore(ts_mean(returns, 10), 252))))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]

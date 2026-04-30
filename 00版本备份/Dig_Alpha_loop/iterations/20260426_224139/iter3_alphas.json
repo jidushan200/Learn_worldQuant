@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "add(add(rank(subtract(divide(est_cashflow_op, assets), divide(debt_st, assets))), rank(subtract(est_sales, sales))), add(rank(subtract(divide(cash, assets), divide(capex, assets))), multiply(-1, rank(ts_delta(close, 5)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_profitability_reversal",
+    "expr": "add(add(rank(subtract(divide(cashflow_op, assets), divide(debt_st, assets))), rank(subtract(est_eps, eps))), add(rank(divide(bookvalue_ps, close)), multiply(-1, rank(ts_mean(ts_delta(close, 1), 7)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_margin_revision_rev",
+    "expr": "add(add(rank(subtract(divide(ebit, assets), divide(debt, assets))), rank(subtract(est_sales, sales))), add(rank(subtract(divide(cashflow_op, assets), divide(capex, assets))), multiply(-1, rank(ts_decay_linear(ts_delta(close, 1), 6)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_defensive_quality",
+    "expr": "add(add(rank(subtract(divide(est_cashflow_op, assets), divide(debt_st, assets))), rank(subtract(divide(cash, assets), divide(debt, assets)))), add(rank(subtract(est_fcf, capex)), multiply(-1, rank(ts_rank(close, 8)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_analyst_quality_rev",
+    "expr": "add(add(rank(subtract(earnings_certainty_rank_derivative, beta_last_60_days_spy)), rank(subtract(analyst_revision_rank_derivative, correlation_last_60_days_spy))), add(rank(subtract(divide(cashflow_op, assets), divide(debt_st, assets))), multiply(-1, rank(ts_mean(ts_delta(close, 1), 10)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_stable_quality_rev",
+    "expr": "add(add(rank(subtract(divide(ebitda, assets), divide(capex, assets))), rank(subtract(est_cashflow_op, cashflow_op))), add(rank(subtract(divide(cash, assets), divide(debt_st, assets))), multiply(-1, rank(ts_decay_exp_window(ts_delta(close, 1), 8)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

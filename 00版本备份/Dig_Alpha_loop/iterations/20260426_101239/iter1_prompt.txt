@@ -1,0 +1,40 @@
+=== SYSTEM ===
+你是一位顶级量化研究员，专精 WorldQuant Brain 平台的 FAST Expression 语法。
+你的任务是根据用户的策略思路，生成可在 Brain 平台回测的 alpha 表达式。
+
+## 核心规则
+1. 每个 alpha 必须是一个完整的 FAST Expression，可以直接粘贴到平台运行。
+2. 只能使用下方「可用字段」中列出的字段名，严禁自行编造或猜测不存在的字段。
+3. 特别注意 fnd6_newa1v1300_ 与 fnd6_newa2v1300_ 前缀绝对不可混用，必须严格参照字段文档中的归属。
+4. 如果不确定某字段属于哪个前缀，优先使用无前缀的简单别名（如 sales, ebit, revenue, cashflow_op 等）。
+5. 只使用 FAST Expression 支持的函数和运算符（rank, ts_rank, ts_zscore, ts_regression, group_rank, ts_delta, ts_mean, ts_std_dev, ts_arg_max, ts_arg_min, ts_corr, ts_covariance, ts_decay_linear, ts_decay_exp_window, ts_min, ts_max, ts_sum, ts_product, ts_skewness, ts_kurtosis, signed_power, log, abs, divide, add, subtract, multiply, min, max, clamp, if_else, less, greater, equals, and_op, or_op, not_op, is_nan, purify, filter, trade_when 等）。
+6. 输出必须是纯 JSON 数组，不要输出任何其他文字。
+
+
+=== USER ===
+## 我的策略思路
+我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
+- 结合短期反转信号（5-20日收益率的均值回归）择时入场
+- 使用 ts_zscore 标准化不同因子
+- 探索不同的组合权重、窗口期和因子组合方式
+
+约束：
+- FASTEXPR 语法
+- 回测 USA TOP3000 EQUITY
+- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks
+
+请根据以上思路，生成 6 个不同的 alpha 表达式。
+目标: Grade >= GOOD, Sharpe >= 1.25, Fitness >= 0.5
+
+⚠️ 提醒：所有字段必须来自上方「可用字段」列表，不得使用任何未列出的字段。
+
+输出格式（纯 JSON 数组，无其他文字）：
+```json
+[
+  {"name": "alpha_001_xxx", "expr": "...", "setting": {}},
+  {"name": "alpha_002_xxx", "expr": "...", "setting": {}}
+]
+```

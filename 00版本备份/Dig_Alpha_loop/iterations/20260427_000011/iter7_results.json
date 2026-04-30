@@ -1,0 +1,1074 @@
+[
+  {
+    "alpha_id": "1Yaqq95J",
+    "expr": "add(multiply(0.6,group_rank(ts_zscore(divide(ebit,assets),126),subindustry)),multiply(0.4,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),12),6),subindustry)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.59,
+    "fitness": 0.73,
+    "turnover": 0.3098,
+    "returns": 0.0653,
+    "drawdown": 0.0469,
+    "margin": 0.000422,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.59
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.73
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.3098
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.3098
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.69,
+        "value": 0.86
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.73
+      }
+    ],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -52200.0,
+        "bookSize": 20000000,
+        "longCount": 1362,
+        "shortCount": 1376,
+        "turnover": 0.3121,
+        "sharpe": -0.22,
+        "returns": -0.0052,
+        "drawdown": 0.0274,
+        "margin": -3.3e-05,
+        "fitness": -0.03,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 1285096.0,
+        "bookSize": 20000000,
+        "longCount": 1368,
+        "shortCount": 1379,
+        "turnover": 0.3124,
+        "sharpe": 3.11,
+        "returns": 0.1391,
+        "drawdown": 0.0193,
+        "margin": 0.00089,
+        "fitness": 2.08,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 419679.0,
+        "bookSize": 20000000,
+        "longCount": 1330,
+        "shortCount": 1338,
+        "turnover": 0.3114,
+        "sharpe": 0.85,
+        "returns": 0.0416,
+        "drawdown": 0.0469,
+        "margin": 0.000267,
+        "fitness": 0.31,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1096833.0,
+        "bookSize": 20000000,
+        "longCount": 1383,
+        "shortCount": 1396,
+        "turnover": 0.3055,
+        "sharpe": 2.25,
+        "returns": 0.1092,
+        "drawdown": 0.0289,
+        "margin": 0.000715,
+        "fitness": 1.35,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 475577.0,
+        "bookSize": 20000000,
+        "longCount": 1417,
+        "shortCount": 1429,
+        "turnover": 0.308,
+        "sharpe": 1.39,
+        "returns": 0.0476,
+        "drawdown": 0.0161,
+        "margin": 0.000309,
+        "fitness": 0.55,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_003_margin_rev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "QP211JLX",
+    "expr": "add(multiply(0.55,group_rank(ts_zscore(divide(cashflow_op,assets),126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,5),close),14),subindustry)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.99,
+    "fitness": 0.77,
+    "turnover": 0.5753,
+    "returns": 0.087,
+    "drawdown": 0.0405,
+    "margin": 0.000302,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.99
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.77
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.5753
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.5753
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.86,
+        "value": 1.1
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.77
+      }
+    ],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 33398.0,
+        "bookSize": 20000000,
+        "longCount": 1329,
+        "shortCount": 1328,
+        "turnover": 0.5726,
+        "sharpe": 0.13,
+        "returns": 0.0033,
+        "drawdown": 0.0249,
+        "margin": 1.2e-05,
+        "fitness": 0.01,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 1448964.0,
+        "bookSize": 20000000,
+        "longCount": 1345,
+        "shortCount": 1340,
+        "turnover": 0.5818,
+        "sharpe": 3.06,
+        "returns": 0.1568,
+        "drawdown": 0.0155,
+        "margin": 0.000539,
+        "fitness": 1.59,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 603761.0,
+        "bookSize": 20000000,
+        "longCount": 1295,
+        "shortCount": 1296,
+        "turnover": 0.5766,
+        "sharpe": 1.16,
+        "returns": 0.0599,
+        "drawdown": 0.0405,
+        "margin": 0.000208,
+        "fitness": 0.37,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1173744.0,
+        "bookSize": 20000000,
+        "longCount": 1354,
+        "shortCount": 1349,
+        "turnover": 0.5753,
+        "sharpe": 2.32,
+        "returns": 0.1169,
+        "drawdown": 0.0342,
+        "margin": 0.000406,
+        "fitness": 1.05,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 1044445.0,
+        "bookSize": 20000000,
+        "longCount": 1384,
+        "shortCount": 1388,
+        "turnover": 0.571,
+        "sharpe": 3.03,
+        "returns": 0.1044,
+        "drawdown": 0.0122,
+        "margin": 0.000366,
+        "fitness": 1.3,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_002_fcf_asset_rev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "A1gRRqvR",
+    "expr": "add(multiply(0.58,group_rank(ts_zscore(divide(cashflow_op,enterprise_value),126),subindustry)),multiply(0.42,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),12),5),subindustry)))",
+    "grade": "AVERAGE",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 2.27,
+    "fitness": 1.22,
+    "turnover": 0.4149,
+    "returns": 0.1203,
+    "drawdown": 0.0635,
+    "margin": 0.00058,
+    "checks_pass": true,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 2.27
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "PASS",
+        "limit": 1.0,
+        "value": 1.22
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.4149
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.4149
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.98,
+        "value": 1.91
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 561765.0,
+        "bookSize": 20000000,
+        "longCount": 1008,
+        "shortCount": 1001,
+        "turnover": 0.418,
+        "sharpe": 1.72,
+        "returns": 0.0557,
+        "drawdown": 0.0301,
+        "margin": 0.000267,
+        "fitness": 0.63,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 1662828.0,
+        "bookSize": 20000000,
+        "longCount": 1002,
+        "shortCount": 993,
+        "turnover": 0.4244,
+        "sharpe": 2.92,
+        "returns": 0.18,
+        "drawdown": 0.0289,
+        "margin": 0.000848,
+        "fitness": 1.9,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 837222.0,
+        "bookSize": 20000000,
+        "longCount": 1010,
+        "shortCount": 1009,
+        "turnover": 0.4118,
+        "sharpe": 1.42,
+        "returns": 0.0831,
+        "drawdown": 0.0635,
+        "margin": 0.000403,
+        "fitness": 0.64,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1613540.0,
+        "bookSize": 20000000,
+        "longCount": 1043,
+        "shortCount": 1034,
+        "turnover": 0.4162,
+        "sharpe": 2.46,
+        "returns": 0.1607,
+        "drawdown": 0.0553,
+        "margin": 0.000772,
+        "fitness": 1.53,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 1305598.0,
+        "bookSize": 20000000,
+        "longCount": 1044,
+        "shortCount": 1046,
+        "turnover": 0.4051,
+        "sharpe": 3.29,
+        "returns": 0.1306,
+        "drawdown": 0.0198,
+        "margin": 0.000645,
+        "fitness": 1.87,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_001_cf_ev_rev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "0mebbn1G",
+    "expr": "add(multiply(0.57,group_rank(ts_zscore(subtract(divide(cash,assets),divide(debt,assets)),126),subindustry)),multiply(0.43,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,3),close),10),5),subindustry)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.76,
+    "fitness": 0.84,
+    "turnover": 0.405,
+    "returns": 0.0917,
+    "drawdown": 0.0727,
+    "margin": 0.000453,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.76
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.405
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.405
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.76,
+        "value": 1.3
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      }
+    ],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -97516.0,
+        "bookSize": 20000000,
+        "longCount": 999,
+        "shortCount": 996,
+        "turnover": 0.4063,
+        "sharpe": -0.31,
+        "returns": -0.0097,
+        "drawdown": 0.0341,
+        "margin": -4.8e-05,
+        "fitness": -0.05,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 465356.0,
+        "bookSize": 20000000,
+        "longCount": 995,
+        "shortCount": 993,
+        "turnover": 0.4121,
+        "sharpe": 0.85,
+        "returns": 0.0504,
+        "drawdown": 0.0482,
+        "margin": 0.000244,
+        "fitness": 0.3,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 1035058.0,
+        "bookSize": 20000000,
+        "longCount": 993,
+        "shortCount": 991,
+        "turnover": 0.4064,
+        "sharpe": 1.93,
+        "returns": 0.1027,
+        "drawdown": 0.0416,
+        "margin": 0.000505,
+        "fitness": 0.97,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1928475.0,
+        "bookSize": 20000000,
+        "longCount": 1016,
+        "shortCount": 1011,
+        "turnover": 0.3984,
+        "sharpe": 3.03,
+        "returns": 0.1921,
+        "drawdown": 0.0357,
+        "margin": 0.000964,
+        "fitness": 2.1,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 1178425.0,
+        "bookSize": 20000000,
+        "longCount": 1017,
+        "shortCount": 1017,
+        "turnover": 0.4025,
+        "sharpe": 2.47,
+        "returns": 0.1178,
+        "drawdown": 0.0214,
+        "margin": 0.000586,
+        "fitness": 1.34,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_004_balance_rev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "6Xann3OL",
+    "expr": "add(multiply(0.56,group_rank(ts_zscore(divide(earnings_per_share_reported,close),126),subindustry)),multiply(0.44,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))",
+    "grade": "AVERAGE",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 2.4,
+    "fitness": 1.1,
+    "turnover": 0.563,
+    "returns": 0.1182,
+    "drawdown": 0.0591,
+    "margin": 0.00042,
+    "checks_pass": true,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 2.4
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "PASS",
+        "limit": 1.0,
+        "value": 1.1
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.563
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.563
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 1.04,
+        "value": 1.74
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 724786.0,
+        "bookSize": 20000000,
+        "longCount": 1443,
+        "shortCount": 1441,
+        "turnover": 0.5631,
+        "sharpe": 2.7,
+        "returns": 0.0719,
+        "drawdown": 0.0203,
+        "margin": 0.000255,
+        "fitness": 0.96,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 2043958.0,
+        "bookSize": 20000000,
+        "longCount": 1428,
+        "shortCount": 1418,
+        "turnover": 0.5795,
+        "sharpe": 4.37,
+        "returns": 0.2212,
+        "drawdown": 0.0199,
+        "margin": 0.000763,
+        "fitness": 2.7,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 653471.0,
+        "bookSize": 20000000,
+        "longCount": 1398,
+        "shortCount": 1398,
+        "turnover": 0.5515,
+        "sharpe": 1.27,
+        "returns": 0.0648,
+        "drawdown": 0.0591,
+        "margin": 0.000235,
+        "fitness": 0.44,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1248690.0,
+        "bookSize": 20000000,
+        "longCount": 1451,
+        "shortCount": 1457,
+        "turnover": 0.5671,
+        "sharpe": 1.77,
+        "returns": 0.1244,
+        "drawdown": 0.0585,
+        "margin": 0.000439,
+        "fitness": 0.83,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 1205099.0,
+        "bookSize": 20000000,
+        "longCount": 1483,
+        "shortCount": 1486,
+        "turnover": 0.5552,
+        "sharpe": 3.37,
+        "returns": 0.1205,
+        "drawdown": 0.018,
+        "margin": 0.000434,
+        "fitness": 1.57,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_005_eps_quality_rev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "mLrPPVm2",
+    "expr": "add(multiply(0.54,group_rank(ts_zscore(divide(bookvalue_ps,close),126),subindustry)),multiply(0.46,group_rank(ts_decay_linear(ts_rank(subtract(ts_mean(close,4),close),13),6),subindustry)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.63,
+    "fitness": 0.84,
+    "turnover": 0.4381,
+    "returns": 0.1161,
+    "drawdown": 0.0573,
+    "margin": 0.00053,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.63
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.4381
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.4381
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.71,
+        "value": 1.38
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      }
+    ],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 479220.0,
+        "bookSize": 20000000,
+        "longCount": 1389,
+        "shortCount": 1395,
+        "turnover": 0.4371,
+        "sharpe": 1.14,
+        "returns": 0.0475,
+        "drawdown": 0.0573,
+        "margin": 0.000218,
+        "fitness": 0.38,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 1880444.0,
+        "bookSize": 20000000,
+        "longCount": 1405,
+        "shortCount": 1395,
+        "turnover": 0.4448,
+        "sharpe": 2.61,
+        "returns": 0.2035,
+        "drawdown": 0.04,
+        "margin": 0.000915,
+        "fitness": 1.77,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 764735.0,
+        "bookSize": 20000000,
+        "longCount": 1369,
+        "shortCount": 1374,
+        "turnover": 0.4389,
+        "sharpe": 1.02,
+        "returns": 0.0759,
+        "drawdown": 0.0543,
+        "margin": 0.000346,
+        "fitness": 0.42,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1123266.0,
+        "bookSize": 20000000,
+        "longCount": 1400,
+        "shortCount": 1411,
+        "turnover": 0.4396,
+        "sharpe": 1.21,
+        "returns": 0.1119,
+        "drawdown": 0.0495,
+        "margin": 0.000509,
+        "fitness": 0.61,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 1462096.0,
+        "bookSize": 20000000,
+        "longCount": 1432,
+        "shortCount": 1435,
+        "turnover": 0.4311,
+        "sharpe": 2.49,
+        "returns": 0.1462,
+        "drawdown": 0.0282,
+        "margin": 0.000678,
+        "fitness": 1.45,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_006_value_quality_rev",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

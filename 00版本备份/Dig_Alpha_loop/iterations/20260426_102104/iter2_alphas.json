@@ -1,0 +1,32 @@
+[
+  {
+    "name": "alpha_001_quality_reversal_balanced",
+    "expr": "rank(ts_zscore((0.22*roe+0.18*roa+0.18*gpoa+0.16*fcf_assets+0.14*gross_margin+0.12*asset_turnover),252))*(1-rank(ts_zscore((returns_5d+returns_10d+returns_20d)/3,20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_002_quality_reversal_stable",
+    "expr": "rank(ts_zscore((0.24*roe+0.20*gpoa+0.18*fcf_assets+0.16*roa+0.12*gross_margin+0.10*asset_turnover),252))*rank(ts_zscore((-returns_10d-returns_20d)/2,30))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_003_margin_cashflow_reversal",
+    "expr": "rank(ts_zscore((0.28*gpoa+0.24*fcf_assets+0.18*gross_margin+0.16*roe+0.14*asset_turnover),252))*(1-rank(ts_zscore((0.6*returns_5d+0.4*returns_20d),20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_004_profitability_shortterm_meanrev",
+    "expr": "rank(ts_zscore((0.26*roe+0.20*roa+0.18*gpoa+0.16*gross_margin+0.10*fcf_assets+0.10*asset_turnover),252))*rank(ts_zscore((-(returns_5d+returns_10d)),25))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_005_quality_overlay_reversal",
+    "expr": "0.65*rank(ts_zscore((0.25*roe+0.20*roa+0.20*gpoa+0.15*fcf_assets+0.10*gross_margin+0.10*asset_turnover),252))+0.35*rank(ts_zscore((-(0.5*returns_5d+0.3*returns_10d+0.2*returns_20d)),20))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_006_defensive_quality_reversion",
+    "expr": "rank(ts_zscore((0.22*roe+0.22*gpoa+0.20*fcf_assets+0.14*roa+0.12*gross_margin+0.10*asset_turnover),252))*rank(ts_zscore((-(returns_5d+returns_10d+returns_20d)/3),40))",
+    "setting": {}
+  }
+]

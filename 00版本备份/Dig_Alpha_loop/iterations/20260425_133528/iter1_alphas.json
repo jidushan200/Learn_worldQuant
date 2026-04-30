@@ -1,0 +1,138 @@
+[
+  {
+    "name": "alpha_001_quality_revert",
+    "expr": "rank(group_neutralize(add(multiply(0.6, zscore(winsorize(ts_zscore(ts_backfill(return_equity, 252), 252), 4))), multiply(0.4, zscore(winsorize(reverse(ts_mean(ts_delta(news_eod_close, 1), 5)), 4)))), industry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_roa_pullback",
+    "expr": "rank(group_neutralize(add(multiply(0.55, zscore(winsorize(ts_zscore(ts_backfill(return_on_assets, 252), 252), 4))), multiply(0.45, zscore(winsorize(reverse(ts_mean(ts_delta(news_all_vwap, 1), 10)), 4)))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_margin_oversold",
+    "expr": "rank(group_neutralize(add(multiply(0.5, zscore(winsorize(ts_zscore(ts_backfill(gross_margin, 252), 252), 4))), multiply(0.3, zscore(winsorize(ts_zscore(ts_backfill(asset_turnover, 252), 252), 4))), multiply(0.2, zscore(winsorize(reverse(ts_zscore(ts_mean(ts_delta(news_eod_close, 1), 7), 126)), 4)))), industry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_fcf_timed",
+    "expr": "trade_when(news_curr_vol > news_vol_avg30, rank(group_neutralize(add(multiply(0.65, zscore(winsorize(ts_zscore(ts_backfill(fcf_assets, 252), 252), 4))), multiply(0.35, zscore(winsorize(reverse(ts_mean(ts_delta(news_eod_close, 1), 15)), 4)))), industry)), -1)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_gpoa_hump_revert",
+    "expr": "rank(group_neutralize(hump(add(multiply(0.6, zscore(winsorize(ts_zscore(ts_backfill(gpoa, 252), 252), 4))), multiply(0.4, zscore(winsorize(reverse(ts_mean(ts_delta(news_all_vwap, 1), 20)), 4)))), 0.01), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_quality_volfilter",
+    "expr": "rank(group_neutralize(add(multiply(0.5, zscore(winsorize(ts_zscore(ts_backfill(return_equity, 252), 252), 4))), multiply(0.25, zscore(winsorize(ts_zscore(ts_backfill(return_on_assets, 252), 252), 4))), multiply(0.25, zscore(winsorize(multiply(reverse(ts_mean(ts_delta(news_eod_close, 1), 8)), reverse(ts_zscore(news_atr14, 126))), 4)))), industry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_turnover_smooth",
+    "expr": "rank(group_neutralize(hump(add(multiply(0.4, zscore(winsorize(ts_zscore(ts_backfill(gross_margin, 252), 252), 4))), multiply(0.3, zscore(winsorize(ts_zscore(ts_backfill(asset_turnover, 252), 252), 4))), multiply(0.3, zscore(winsorize(reverse(ts_mean(ts_delta(news_eod_close, 1), 12)), 4)))), 0.015), industry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_quality_gapmean",
+    "expr": "rank(group_neutralize(add(multiply(0.55, zscore(winsorize(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_backfill(return_on_assets, 252), 252)), 4))), multiply(0.45, zscore(winsorize(reverse(subtract(news_eod_close, ts_mean(news_all_vwap, 10))), 4)))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]

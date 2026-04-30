@@ -1,0 +1,108 @@
+本组统一采用 **USA TOP3000 + delay=1 + decay=7 + SUBINDUSTRY neutralization**。原因是你的思路本质上是“低频基本面质量”叠加“短期反转”，需要用较高 decay 压低反转腿的换手和自相关风险，同时用更细的子行业中性化削弱质量因子的行业暴露，提升 sub-universe sharpe 和 checks 通过率。
+
+```json
+[
+  {
+    "name": "alpha_001_qrev_roe_roa",
+    "expr": "rank(group_neutralize(add(multiply(0.55, ts_zscore(divide(ts_backfill(income, 252), ts_backfill(equity, 252)), 252)), multiply(0.45, ts_zscore(divide(ts_backfill(income, 252), ts_backfill(assets, 252)), 252))) * rank(reverse(ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 10))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_qrev_gpoa_margin",
+    "expr": "rank(group_neutralize(add(multiply(0.6, ts_zscore(divide(ts_backfill(gross_income_total, 252), ts_backfill(assets, 252)), 252)), multiply(0.4, ts_zscore(divide(ts_backfill(gross_income_total, 252), add(ts_backfill(actual_sales_value_annual, 252), 0.001)), 252))) * rank(reverse(ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 7))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_qrev_fcfasset",
+    "expr": "rank(group_neutralize(add(multiply(0.7, ts_zscore(divide(ts_backfill(free_cash_flow_total, 252), ts_backfill(assets, 252)), 252)), multiply(0.3, ts_zscore(divide(ts_backfill(cash_flow_from_operations, 252), ts_backfill(assets, 252)), 252))) * rank(reverse(ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 15))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_qrev_turnover",
+    "expr": "rank(group_neutralize(add(multiply(0.5, ts_zscore(divide(ts_backfill(actual_sales_value_annual, 252), ts_backfill(assets, 252)), 252)), multiply(0.5, ts_zscore(ts_backfill(inventory_turnover, 252), 252))) * rank(reverse(ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 12))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_qrev_composite",
+    "expr": "rank(group_neutralize(add(add(multiply(0.25, ts_zscore(divide(ts_backfill(income, 252), ts_backfill(equity, 252)), 252)), multiply(0.25, ts_zscore(divide(ts_backfill(income, 252), ts_backfill(assets, 252)), 252))), add(multiply(0.25, ts_zscore(divide(ts_backfill(gross_income_total, 252), ts_backfill(assets, 252)), 252)), multiply(0.25, ts_zscore(divide(ts_backfill(free_cash_flow_total, 252), ts_backfill(assets, 252)), 252)))) * rank(reverse(add(multiply(0.5, ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 5)), multiply(0.5, ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 20))))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_qrev_stable_quality",
+    "expr": "rank(group_neutralize(multiply(add(multiply(0.4, ts_zscore(divide(ts_backfill(income, 252), ts_backfill(equity, 252)), 252)), add(multiply(0.3, ts_zscore(divide(ts_backfill(gross_income_total, 252), ts_backfill(assets, 252)), 252)), multiply(0.3, ts_zscore(divide(ts_backfill(actual_sales_value_annual, 252), ts_backfill(assets, 252)), 252)))), rank(reverse(ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 10))) * rank(reverse(ts_std_dev(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 20)))), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

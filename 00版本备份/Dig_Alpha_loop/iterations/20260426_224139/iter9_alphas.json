@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_intangible_cf_rev",
+    "expr": "add(rank(subtract(divide(bookvalue_ps,close),divide(debt,assets))),add(rank(subtract(divide(cashflow_op,assets),divide(capex,assets))),rank(ts_mean(ts_delta(close,1),5))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_analyst_quality_reversal",
+    "expr": "add(rank(subtract(analyst_revision_rank_derivative,earnings_certainty_rank_derivative)),add(rank(subtract(divide(cash,assets),divide(debt_st,assets))),rank(ts_mean(ts_delta(close,1),7))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_fundamental_mispricing",
+    "expr": "add(rank(subtract(divide(cashflow_op,enterprise_value),divide(capex,assets))),add(rank(subtract(est_sales,actual_sales_value_annual)),rank(ts_mean(ts_delta(close,1),6))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_qoq_ops_strength",
+    "expr": "add(rank(subtract(divide(ebitda,assets),divide(debt,assets))),add(rank(subtract(divide(cashflow_from_operations,assets),divide(cash_flow_from_investing,assets))),rank(ts_mean(ts_delta(close,1),8))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_estimate_dispersion_turn",
+    "expr": "add(rank(subtract(divide(earnings_per_share_average,close),divide(earnings_per_share_standard_deviation,close))),add(rank(subtract(divide(bookvalue_ps,close),divide(enterprise_value,assets))),rank(ts_mean(ts_delta(close,1),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_hidden_asset_reversal",
+    "expr": "add(rank(subtract(divide(est_rd_expense,assets),divide(capex,assets))),add(rank(subtract(divide(cashflow_op,assets),divide(debt_lt,assets))),rank(ts_mean(ts_delta(close,1),9))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "alpha_001_operating_cashflow_efficiency",
+    "expr": "rank(ts_zscore(divide(cashflow_op,assets),252))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_002_quality_reversal_mix",
+    "expr": "rank(add(ts_zscore(return_equity,252),reverse(ts_mean(returns,5))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_003_margin_stability_strength",
+    "expr": "rank(add(ts_zscore(gross_margin,252),reverse(ts_stddev(returns,20))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_004_value_profitability_combo",
+    "expr": "rank(add(reverse(ts_zscore(pb_ratio,252)),ts_zscore(return_assets,252)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_005_sales_growth_low_vol",
+    "expr": "rank(add(ts_zscore(revenue_growth,252),reverse(ts_stddev(returns,60))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_006_leverage_penalty_momentum",
+    "expr": "rank(add(ts_mean(returns,20),reverse(ts_zscore(debt_to_assets,252))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_007_cash_profit_accrual_filter",
+    "expr": "rank(add(ts_zscore(divide(cashflow_op,net_income),252),reverse(ts_zscore(accruals,252))))",
+    "setting": {}
+  }
+]

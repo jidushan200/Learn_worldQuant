@@ -1,0 +1,32 @@
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "0.65*ts_zscore((roe+roa+gpoa+fcf_to_assets+gross_margin+asset_turnover)/6,252)+0.35*ts_zscore(-((returns_5d+returns_10d+returns_20d)/3),60)",
+    "setting": {}
+  },
+  {
+    "name": "alpha_002_profitability_bias",
+    "expr": "0.7*ts_zscore((0.25*roe+0.2*roa+0.2*gpoa+0.15*fcf_to_assets+0.1*gross_margin+0.1*asset_turnover),252)+0.3*ts_zscore(-((returns_5d+returns_20d)/2),40)",
+    "setting": {}
+  },
+  {
+    "name": "alpha_003_balanced_mean_revert",
+    "expr": "ts_zscore((roe+gpoa+fcf_to_assets+gross_margin)/4,252)+0.5*ts_zscore(-((2*returns_5d+returns_10d+returns_20d)/4),30)",
+    "setting": {}
+  },
+  {
+    "name": "alpha_004_efficiency_reversal",
+    "expr": "0.6*ts_zscore((roa+gpoa+gross_margin+asset_turnover)/4,252)+0.4*ts_zscore(-((returns_10d+returns_20d)/2),50)",
+    "setting": {}
+  },
+  {
+    "name": "alpha_005_cashflow_quality",
+    "expr": "0.55*ts_zscore((0.3*fcf_to_assets+0.2*roe+0.2*roa+0.15*gpoa+0.1*gross_margin+0.05*asset_turnover),252)+0.45*ts_zscore(-returns_5d,20)",
+    "setting": {}
+  },
+  {
+    "name": "alpha_006_defensive_quality_revert",
+    "expr": "0.5*ts_zscore((roe+roa+fcf_to_assets+gross_margin+asset_turnover)/5,252)+0.3*ts_zscore((gpoa+gross_margin)/2,126)+0.2*ts_zscore(-((returns_5d+returns_10d)/2),25)",
+    "setting": {}
+  }
+]

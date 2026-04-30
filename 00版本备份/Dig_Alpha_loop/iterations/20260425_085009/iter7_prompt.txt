@@ -1,0 +1,214 @@
+=== SYSTEM ===
+你是 WorldQuant Brain 平台的量化 alpha 表达式专家。
+你精通 FASTEXPR 语法，熟悉平台支持的所有数据字段和函数。
+你的目标：生成能通过平台全部 checks、grade 达到 GOOD 或以上的 alpha。
+你还需要为每个 alpha 选择最合适的回测参数（setting），而不是千篇一律。
+
+重要规则：
+1. 只使用参考资料中列出的字段和函数，不要编造不存在的字段/函数
+2. 仔细参考成功范例的结构和风格
+3. 结合论文思路设计有经济学逻辑的因子
+4. 关注自相关、换手率、覆盖率等 checks 指标
+
+=== USER ===
+## 用户策略思路
+我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
+- 结合短期反转信号（5-20日收益率的均值回归）择时入场
+- 使用 ts_zscore 标准化不同因子
+- 探索不同的组合权重、窗口期和因子组合方式
+
+约束：
+- FASTEXPR 语法
+- 回测 USA TOP3000 EQUITY
+- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks
+
+（参考资料已在第1轮提供，请继续基于那些字段和函数设计）
+
+## 目标
+- **核心目标：grade 达到 EXCELLENT 或以上**
+- 参考指标：Sharpe >= 1.3，Fitness >= 1.0
+
+## 当前进度
+- 已完成 6 轮，即将开始第 7 轮
+- 历史最佳 Sharpe = 0.0000，Fitness = 0.0000，最佳 Grade = N/A
+
+## 历史回测结果
+
+### 第 1 轮
+❌ 失败：
+  alpha_001_quality_revert_core: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.6, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.4, ts_zscore(ts_backfill(gross_profit_assets, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 5)))
+  alpha_004_quality_blend_contra20: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(add(multiply(0.35, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.35, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(multiply(0.15, ts_zscore(ts_backfill(gross_profit_assets, 252), 252)), multiply(0.15, ts_zscore(ts_backfill(asset_turnover, 252), 252)))), industry)) * rank(reverse(ts_mean(returns, 20)))
+  alpha_002_roa_turnover_reversal: 完成但 alpha 为空
+    expr: hump(rank(group_neutralize(add(multiply(0.5, ts_zscore(ts_backfill(return_on_assets, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(asset_turnover, 252), 252))), subindustry)) * rank(reverse(ts_mean(returns, 10))), 0.01)
+  alpha_003_margin_cashflow_timed: 完成但 alpha 为空
+    expr: trade_when(rank(ts_std_dev(returns, 20)) > 0.25, rank(group_neutralize(add(multiply(0.5, ts_zscore(ts_backfill(gross_margin, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(fcf_assets, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 7))), -1)
+  alpha_005_quality_accel_revert: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.5, ts_av_diff(ts_backfill(return_equity, 252), 126)), multiply(0.5, ts_av_diff(ts_backfill(return_on_assets, 252), 126))), industry)) * rank(reverse(ts_mean(returns, 6)))
+  alpha_007_cash_margin_selective_rev: 完成但 alpha 为空
+    expr: trade_when(and(rank(ts_mean(volume, 20)) > 0.2, rank(ts_std_dev(returns, 20)) > 0.2), hump(rank(group_neutralize(add(multiply(0.55, ts_zscore(ts_backfill(fcf_assets, 252), 252)), multiply(0.45, ts_zscore(ts_backfill(gross_margin, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 5))), 0.015), -1)
+  alpha_008_multiquality_shortmeanrev: 完成但 alpha 为空
+    expr: scale(rank(group_neutralize(add(add(multiply(0.25, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.25, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(add(multiply(0.2, ts_zscore(ts_backfill(gross_profit_assets, 252), 252)), multiply(0.15, ts_zscore(ts_backfill(fcf_assets, 252), 252))), multiply(0.15, ts_zscore(ts_backfill(asset_turnover, 252), 252)))), subindustry)) * rank(reverse(ts_mean(returns, 9))))
+  alpha_006_profitability_stable_rebound: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.7, reverse(ts_std_dev(ts_backfill(return_equity, 126), 126))), multiply(0.3, ts_zscore(ts_backfill(gross_profit_assets, 252), 252))), subindustry)) * rank(reverse(ts_mean(returns, 8)))
+
+### 第 2 轮
+❌ 失败：
+  alpha_201_quality_rev_roe_gpa_6d: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.55, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.45, ts_zscore(ts_backfill(gross_profit_assets, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 6)))
+  alpha_202_quality_rev_roa_turnover_12d: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.6, ts_zscore(ts_backfill(return_on_assets, 252), 252)), multiply(0.4, ts_zscore(ts_backfill(asset_turnover, 252), 252))), subindustry)) * rank(reverse(ts_mean(returns, 12)))
+  alpha_203_fcf_margin_contra_8d: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.5, ts_zscore(ts_backfill(fcf_assets, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(gross_margin, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 8)))
+  alpha_204_broad_quality_reversal_10d: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(add(multiply(0.3, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.25, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(multiply(0.25, ts_zscore(ts_backfill(gross_profit_assets, 252), 252)), multiply(0.2, ts_zscore(ts_backfill(asset_turnover, 252), 252)))), subindustry)) * rank(reverse(ts_mean(returns, 10)))
+  alpha_205_quality_stability_rev: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.65, reverse(ts_std_dev(ts_backfill(return_on_assets, 126), 126))), multiply(0.35, ts_zscore(ts_backfill(gross_profit_assets, 252), 252))), industry)) * rank(reverse(ts_mean(returns, 7)))
+  alpha_206_quality_change_rebound: 完成但 alpha 为空
+    expr: rank(group_neutralize(add(multiply(0.5, ts_av_diff(ts_backfill(return_equity, 252), 126)), multiply(0.5, ts_av_diff(ts_backfill(fcf_assets, 252), 126))), industry)) * rank(reverse(ts_mean(returns, 9)))
+  alpha_207_conditional_lowvol_quality_rev: 完成但 alpha 为空
+    expr: trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.3, rank(group_neutralize(add(multiply(0.5, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(gross_margin, 252), 252))), subindustry)) * rank(reverse(ts_mean(returns, 5))), -1)
+  alpha_208_scaled_quality_shortterm_meanrev: 完成但 alpha 为空
+    expr: scale(rank(group_neutralize(add(add(multiply(0.22, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.22, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(add(multiply(0.2, ts_zscore(ts_backfill(gross_profit_assets, 252), 252)), multiply(0.18, ts_zscore(ts_backfill(fcf_assets, 252), 252))), add(multiply(0.1, ts_zscore(ts_backfill(gross_margin, 252), 252)), multiply(0.08, ts_zscore(ts_backfill(asset_turnover, 252), 252))))), subindustry)) * rank(reverse(ts_mean(returns, 14))))
+
+### 第 3 轮
+❌ 失败：
+  alpha_302_profitability_cashflow_rebound_12d: 完成但 alpha 为空
+    expr: add(multiply(0.6, rank(group_neutralize(add(add(multiply(0.35, ts_zscore(return_on_assets, 252)), multiply(0.35, ts_zscore(fcf_assets, 252))), add(multiply(0.15, ts_zscore(gross_margin, 252)), multiply(0.15, ts_zscore(asset_turnover, 252)))), subindustry))), multiply(0.4, rank(reverse(ts_mean(returns, 12)))))
+  alpha_303_quality_stability_shortrev_6d: 完成但 alpha 为空
+    expr: add(multiply(0.55, rank(group_neutralize(add(multiply(0.5, reverse(ts_std_dev(return_equity, 252))), multiply(0.5, ts_zscore(gross_profit_assets, 252))), industry))), multiply(0.45, rank(reverse(ts_mean(returns, 6)))))
+  alpha_304_quality_improvement_reversal_10d: 完成但 alpha 为空
+    expr: add(multiply(0.58, rank(group_neutralize(add(multiply(0.5, ts_av_diff(return_equity, 126)), multiply(0.5, ts_av_diff(fcf_assets, 126))), industry))), multiply(0.42, rank(reverse(ts_mean(returns, 10)))))
+  alpha_301_quality_reversal_balanced_8d: 完成但 alpha 为空
+    expr: add(multiply(0.65, rank(group_neutralize(add(add(multiply(0.3, ts_zscore(return_equity, 252)), multiply(0.25, ts_zscore(return_on_assets, 252))), add(multiply(0.25, ts_zscore(gross_profit_assets, 252)), multiply(0.2, ts_zscore(asset_turnover, 252)))), industry))), multiply(0.35, rank(reverse(ts_mean(returns, 8)))))
+  alpha_305_lowvol_quality_contra_7d: 完成但 alpha 为空
+    expr: trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.35, add(multiply(0.6, rank(group_neutralize(add(multiply(0.55, ts_zscore(return_equity, 252)), multiply(0.45, ts_zscore(gross_margin, 252))), subindustry))), multiply(0.4, rank(reverse(ts_mean(returns, 7))))), -1)
+  alpha_308_fcf_gpoa_selective_shortrev_5d: 完成但 alpha 为空
+    expr: trade_when(rank(ts_mean(volume, 20)) > 0.25, add(multiply(0.63, rank(group_neutralize(add(multiply(0.55, ts_zscore(fcf_assets, 252)), multiply(0.45, ts_zscore(gross_profit_assets, 252))), industry))), multiply(0.37, rank(reverse(ts_mean(returns, 5))))), -1)
+  alpha_306_multiquality_hump_rebound_9d: 完成但 alpha 为空
+    expr: hump(add(multiply(0.62, rank(group_neutralize(add(add(multiply(0.28, ts_zscore(return_equity, 252)), multiply(0.24, ts_zscore(return_on_assets, 252))), add(add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), multiply(0.15, ts_zscore(fcf_assets, 252))), add(multiply(0.1, ts_zscore(gross_margin, 252)), multiply(0.05, ts_zscore(asset_turnover, 252))))), subindustry))), multiply(0.38, rank(reverse(ts_mean(returns, 9))))), 0.01)
+  alpha_307_margin_turnover_reversal_15d: 完成但 alpha 为空
+    expr: add(multiply(0.57, rank(group_neutralize(add(multiply(0.5, ts_zscore(gross_margin, 252)), multiply(0.5, ts_zscore(asset_turnover, 252))), sector))), multiply(0.43, rank(reverse(ts_mean(returns, 15)))))
+
+### 第 4 轮
+❌ 失败：
+  alpha_403_quality_improvement_rebound_12d: 完成但 alpha 为空
+    expr: add(multiply(0.57, rank(group_neutralize(add(add(multiply(0.30, ts_av_diff(return_equity, 126)), multiply(0.30, ts_av_diff(fcf_assets, 126))), add(multiply(0.22, ts_zscore(gross_profit_assets, 252)), multiply(0.18, ts_zscore(asset_turnover, 252)))), industry))), multiply(0.43, rank(reverse(ts_mean(returns, 12)))))
+  alpha_401_quality_reversal_additive_6d: 完成但 alpha 为空
+    expr: add(multiply(0.68, rank(group_neutralize(add(add(multiply(0.32, ts_zscore(return_equity, 252)), multiply(0.24, ts_zscore(return_on_assets, 252))), add(multiply(0.24, ts_zscore(gross_profit_assets, 252)), multiply(0.20, ts_zscore(asset_turnover, 252)))), industry))), multiply(0.32, rank(reverse(ts_mean(returns, 6)))))
+  alpha_404_stable_profitability_shortrev_7d: 完成但 alpha 为空
+    expr: add(multiply(0.61, rank(group_neutralize(add(add(multiply(0.28, reverse(ts_std_dev(return_equity, 252))), multiply(0.24, reverse(ts_std_dev(return_on_assets, 252)))), add(multiply(0.28, ts_zscore(gross_profit_assets, 252)), multiply(0.20, ts_zscore(gross_margin, 252)))), subindustry))), multiply(0.39, rank(reverse(ts_mean(returns, 7)))))
+  alpha_406_roe_fcf_fast_reversal_5d: 完成但 alpha 为空
+    expr: add(multiply(0.66, rank(group_neutralize(add(multiply(0.54, ts_zscore(return_equity, 252)), multiply(0.46, ts_zscore(fcf_assets, 252))), industry))), multiply(0.34, rank(reverse(ts_mean(returns, 5)))))
+  alpha_405_broad_quality_reversal_15d: 完成但 alpha 为空
+    expr: add(multiply(0.64, rank(group_neutralize(add(add(add(multiply(0.20, ts_zscore(return_equity, 252)), multiply(0.18, ts_zscore(return_on_assets, 252))), add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), multiply(0.16, ts_zscore(fcf_assets, 252)))), add(multiply(0.16, ts_zscore(gross_margin, 252)), multiply(0.12, ts_zscore(asset_turnover, 252)))), sector))), multiply(0.36, rank(reverse(ts_mean(returns, 15)))))
+  alpha_407_operating_efficiency_contra_10d: 完成但 alpha 为空
+    expr: add(multiply(0.59, rank(group_neutralize(add(add(multiply(0.34, ts_zscore(asset_turnover, 252)), multiply(0.33, ts_zscore(gross_margin, 252))), add(multiply(0.18, ts_zscore(return_on_assets, 252)), multiply(0.15, ts_zscore(gross_profit_assets, 252)))), subindustry))), multiply(0.41, rank(reverse(ts_mean(returns, 10)))))
+  alpha_402_cashflow_margin_reversal_9d: 完成但 alpha 为空
+    expr: add(multiply(0.62, rank(group_neutralize(add(add(multiply(0.34, ts_zscore(fcf_assets, 252)), multiply(0.28, ts_zscore(gross_margin, 252))), add(multiply(0.22, ts_zscore(gross_profit_assets, 252)), multiply(0.16, ts_zscore(return_on_assets, 252)))), subindustry))), multiply(0.38, rank(reverse(ts_mean(returns, 9)))))
+  alpha_408_quality_composite_dual_horizon_rev: 完成但 alpha 为空
+    expr: add(multiply(0.63, rank(group_neutralize(add(add(multiply(0.26, ts_zscore(return_equity, 252)), multiply(0.22, ts_zscore(return_on_assets, 252))), add(add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), multiply(0.14, ts_zscore(fcf_assets, 252))), add(multiply(0.12, ts_zscore(gross_margin, 252)), multiply(0.08, ts_zscore(asset_turnover, 252))))), industry))), add(multiply(0.22, rank(reverse(ts_mean(returns, 5)))), multiply(0.15, rank(reverse(ts_mean(returns, 18))))))
+
+### 第 5 轮
+❌ 失败：
+  alpha_503_broad_quality_dual_reversal: 完成但 alpha 为空
+    expr: add(multiply(0.62, rank(group_neutralize(add(add(multiply(0.24, ts_zscore(return_equity, 252)), multiply(0.22, ts_zscore(return_on_assets, 252))), add(add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), multiply(0.16, ts_zscore(fcf_assets, 252))), add(multiply(0.12, ts_zscore(gross_margin, 252)), multiply(0.08, ts_zscore(asset_turnover, 252))))), industry))), add(multiply(0.23, rank(reverse(ts_mean(returns, 6)))), multiply(0.15, rank(reverse(ts_mean(returns, 18))))))
+  alpha_501_quality_reversal_add_roe_gpoa_10d: 完成但 alpha 为空
+    expr: add(multiply(0.58, rank(group_neutralize(add(multiply(0.55, ts_zscore(return_equity, 252)), multiply(0.45, ts_zscore(gross_profit_assets, 252))), industry))), multiply(0.42, rank(reverse(ts_mean(returns, 10)))))
+  alpha_502_quality_reversal_roa_fcf_12d: 完成但 alpha 为空
+    expr: add(multiply(0.60, rank(group_neutralize(add(multiply(0.52, ts_zscore(return_on_assets, 252)), multiply(0.48, ts_zscore(fcf_assets, 252))), subindustry))), multiply(0.40, rank(reverse(ts_mean(returns, 12)))))
+  alpha_506_quality_improvement_rev_14d: 完成但 alpha 为空
+    expr: add(multiply(0.61, rank(group_neutralize(add(add(multiply(0.32, ts_av_diff(return_equity, 126)), multiply(0.28, ts_av_diff(fcf_assets, 126))), add(multiply(0.22, ts_zscore(gross_profit_assets, 252)), multiply(0.18, ts_zscore(asset_turnover, 252)))), subindustry))), multiply(0.39, rank(reverse(ts_mean(returns, 14)))))
+  alpha_505_stable_quality_contra_9d: 完成但 alpha 为空
+    expr: add(multiply(0.59, rank(group_neutralize(add(add(multiply(0.28, reverse(ts_std_dev(return_equity, 252))), multiply(0.24, reverse(ts_std_dev(return_on_assets, 252)))), add(multiply(0.26, ts_zscore(gross_profit_assets, 252)), multiply(0.22, ts_zscore(gross_margin, 252)))), industry))), multiply(0.41, rank(reverse(ts_mean(returns, 9)))))
+  alpha_504_efficiency_quality_rebound_8d: 完成但 alpha 为空
+    expr: add(multiply(0.56, rank(group_neutralize(add(add(multiply(0.34, ts_zscore(asset_turnover, 252)), multiply(0.26, ts_zscore(gross_margin, 252))), add(multiply(0.22, ts_zscore(return_on_assets, 252)), multiply(0.18, ts_zscore(gross_profit_assets, 252)))), subindustry))), multiply(0.44, rank(reverse(ts_mean(returns, 8)))))
+  alpha_507_cash_margin_lowvol_reversal: 完成但 alpha 为空
+    expr: trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.35, add(multiply(0.64, rank(group_neutralize(add(add(multiply(0.36, ts_zscore(fcf_assets, 252)), multiply(0.26, ts_zscore(gross_margin, 252))), add(multiply(0.22, ts_zscore(gross_profit_assets, 252)), multiply(0.16, ts_zscore(return_on_assets, 252)))), industry))), multiply(0.36, rank(reverse(ts_mean(returns, 7))))), -1)
+  alpha_508_humped_quality_shortrev_blend: 完成但 alpha 为空
+    expr: hump(add(multiply(0.60, rank(group_neutralize(add(add(multiply(0.27, ts_zscore(return_equity, 252)), multiply(0.23, ts_zscore(return_on_assets, 252))), add(add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), multiply(0.14, ts_zscore(fcf_assets, 252))), add(multiply(0.10, ts_zscore(gross_margin, 252)), multiply(0.08, ts_zscore(asset_turnover, 252))))), subindustry))), multiply(0.40, rank(reverse(ts_mean(returns, 5))))), 0.01)
+
+### 第 6 轮
+❌ 失败：
+  alpha_603_quality_improvers_short_rebound: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.28, ts_av_diff(return_equity, 126)), multiply(0.24, ts_av_diff(fcf_assets, 126))), add(multiply(0.20, ts_zscore(gross_profit_assets, 252)), add(multiply(0.12, ts_zscore(asset_turnover, 252)), multiply(0.34, reverse(ts_mean(returns, 6)))))))
+  alpha_602_cashflow_margin_reversal_balanced: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.31, ts_zscore(fcf_assets, 252)), multiply(0.27, ts_zscore(gross_margin, 252))), add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), add(multiply(0.14, ts_zscore(return_on_assets, 252)), multiply(0.30, reverse(ts_mean(returns, 10)))))))
+  alpha_601_quality_rev_additive_robust: 完成但 alpha 为空
+    expr: rank(add(multiply(0.34, ts_zscore(return_equity, 252)), add(multiply(0.26, ts_zscore(return_on_assets, 252)), add(multiply(0.22, ts_zscore(gross_profit_assets, 252)), add(multiply(0.18, ts_zscore(asset_turnover, 252)), multiply(0.32, reverse(ts_mean(returns, 7))))))))
+  alpha_604_stable_quality_contra: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.24, reverse(ts_std_dev(return_equity, 252))), multiply(0.22, reverse(ts_std_dev(return_on_assets, 252)))), add(multiply(0.22, ts_zscore(gross_profit_assets, 252)), add(multiply(0.14, ts_zscore(gross_margin, 252)), multiply(0.32, reverse(ts_mean(returns, 9)))))))
+  alpha_605_efficiency_profitability_rebound: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.29, ts_zscore(asset_turnover, 252)), multiply(0.25, ts_zscore(gross_margin, 252))), add(multiply(0.18, ts_zscore(return_on_assets, 252)), add(multiply(0.12, ts_zscore(return_equity, 252)), multiply(0.30, reverse(ts_mean(returns, 12)))))))
+  alpha_606_dual_horizon_quality_reversal: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.26, ts_zscore(return_equity, 252)), multiply(0.20, ts_zscore(return_on_assets, 252))), add(add(multiply(0.16, ts_zscore(gross_profit_assets, 252)), multiply(0.12, ts_zscore(fcf_assets, 252))), add(multiply(0.14, reverse(ts_mean(returns, 5))), multiply(0.12, reverse(ts_mean(returns, 18)))))))
+  alpha_607_lowvol_quality_reversal_new: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.25, ts_zscore(fcf_assets, 252)), multiply(0.21, ts_zscore(gross_margin, 252))), add(multiply(0.16, reverse(ts_std_dev(returns, 20))), add(multiply(0.12, ts_zscore(gross_profit_assets, 252)), multiply(0.32, reverse(ts_mean(returns, 8)))))))
+  alpha_608_profitability_cashflow_fastmeanrev: 完成但 alpha 为空
+    expr: rank(add(add(multiply(0.30, ts_zscore(return_on_assets, 252)), multiply(0.28, ts_zscore(fcf_assets, 252))), add(multiply(0.16, ts_zscore(gross_margin, 252)), add(multiply(0.10, ts_zscore(asset_turnover, 252)), multiply(0.34, reverse(ts_mean(returns, 5)))))))
+
+## 第 7 轮任务
+请仔细分析以上所有历史结果和参考资料，然后：
+1. 总结哪些因子方向/结构有效，哪些无效或报错
+2. 重点关注 **grade** 和 **checks 通过情况**，找出制约 grade 的瓶颈
+3. 对效果好的 alpha 做深入变体（调窗口、调权重、换组合方式、加入新因子）
+4. **同时优化 setting 参数**（对比不同 decay/neutralization/universe 的效果）
+5. 引入 1-2 个全新思路（可参考论文），避免局部最优
+6. 生成 8 个 **全新的、未测试过的** alpha 表达式
+7. **只使用参考资料中列出的字段和函数**，绝不编造
+8. 绝不重复之前已测试的表达式
+
+## 回测参数说明（setting 字段）
+每个 alpha 必须包含 setting 字段，可选值如下：
+
+| 参数 | 可选值 | 说明 |
+|------|--------|------|
+| instrumentType | "EQUITY" | 固定 |
+| region | "USA", "CHN", "EUR", "ASI", "GLB" | 市场区域 |
+| universe | "TOP200", "TOP500", "TOP1000", "TOP2000", "TOP3000" | 股票池 |
+| delay | 0, 1 | 信号延迟天数 |
+| decay | 0~20 整数 | 线性衰减天数 |
+| neutralization | "NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY" | 中性化 |
+| truncation | 0.01~0.10 | 截断比例 |
+| pasteurization | "ON", "OFF" | 巴氏灭菌 |
+| unitHandling | "VERIFY", "NONE" | 单位处理 |
+| nanHandling | "ON", "OFF" | NaN处理 |
+| language | "FASTEXPR" | 固定 |
+
+选择建议：
+- 动量/反转类：decay 偏高(6-12)，neutralization 用 SUBINDUSTRY
+- 基本面质量类：decay 偏低(2-6)，neutralization 用 MARKET 或 INDUSTRY
+- 高换手因子：truncation 调低(0.05)，decay 调高
+- 低频因子：delay=1，decay 可较低
+
+## 输出格式
+先用 2-3 句话简述设计思路，然后 **严格** 输出如下 JSON 数组：
+
+```json
+[
+  {
+    "name": "alpha_001_xxx",
+    "expr": "rank(ts_zscore(return_equity, 252)) ...",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+**注意：每个 alpha 的 setting 应根据因子特性单独调参，不要所有 alpha 用同样的 setting。**
+

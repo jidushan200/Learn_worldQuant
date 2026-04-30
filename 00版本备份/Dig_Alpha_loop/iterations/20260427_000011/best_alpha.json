@@ -1,0 +1,179 @@
+{
+  "alpha_id": "LLgPjbE9",
+  "expr": "add(multiply(0.38,group_rank(ts_zscore(divide(est_netprofit,cap),252),subindustry)),multiply(0.32,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.18,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)),multiply(0.12,group_rank(ts_zscore(multiply(-1,beta_last_60_days_spy),126),subindustry)))",
+  "grade": "GOOD",
+  "stage": "IS",
+  "status": "UNSUBMITTED",
+  "sharpe": 2.62,
+  "fitness": 1.56,
+  "turnover": 0.3808,
+  "returns": 0.1343,
+  "drawdown": 0.0471,
+  "margin": 0.000706,
+  "checks_pass": false,
+  "checks": [
+    {
+      "name": "LOW_SHARPE",
+      "result": "PASS",
+      "limit": 1.25,
+      "value": 2.62
+    },
+    {
+      "name": "LOW_FITNESS",
+      "result": "PASS",
+      "limit": 1.0,
+      "value": 1.56
+    },
+    {
+      "name": "LOW_TURNOVER",
+      "result": "PASS",
+      "limit": 0.01,
+      "value": 0.3808
+    },
+    {
+      "name": "HIGH_TURNOVER",
+      "result": "PASS",
+      "limit": 0.7,
+      "value": 0.3808
+    },
+    {
+      "name": "CONCENTRATED_WEIGHT",
+      "result": "FAIL"
+    },
+    {
+      "name": "LOW_SUB_UNIVERSE_SHARPE",
+      "result": "PASS",
+      "limit": 1.13,
+      "value": 2.05
+    },
+    {
+      "name": "SELF_CORRELATION",
+      "result": "PENDING"
+    },
+    {
+      "name": "MATCHES_COMPETITION",
+      "result": "PASS",
+      "competitions": [
+        {
+          "id": "challenge",
+          "name": "Challenge"
+        },
+        {
+          "id": "IQC2026S1",
+          "name": "International Quant Championship 2026 Stage 1"
+        }
+      ]
+    }
+  ],
+  "fail_checks": [
+    {
+      "name": "CONCENTRATED_WEIGHT",
+      "result": "FAIL"
+    }
+  ],
+  "warn_checks": [],
+  "pending_checks": [
+    {
+      "name": "SELF_CORRELATION",
+      "result": "PENDING"
+    }
+  ],
+  "matched_competitions": [
+    {
+      "id": "challenge",
+      "name": "Challenge"
+    },
+    {
+      "id": "IQC2026S1",
+      "name": "International Quant Championship 2026 Stage 1"
+    }
+  ],
+  "yearly_stats": [
+    {
+      "year": "2019",
+      "pnl": 599359.0,
+      "bookSize": 20000000,
+      "longCount": 1291,
+      "shortCount": 1310,
+      "turnover": 0.3364,
+      "sharpe": 1.71,
+      "returns": 0.0595,
+      "drawdown": 0.043,
+      "margin": 0.000354,
+      "fitness": 0.72,
+      "stage": "IS"
+    },
+    {
+      "year": "2020",
+      "pnl": 2333009.0,
+      "bookSize": 20000000,
+      "longCount": 1250,
+      "shortCount": 1258,
+      "turnover": 0.424,
+      "sharpe": 4.02,
+      "returns": 0.2525,
+      "drawdown": 0.02,
+      "margin": 0.001191,
+      "fitness": 3.1,
+      "stage": "IS"
+    },
+    {
+      "year": "2021",
+      "pnl": 983923.0,
+      "bookSize": 20000000,
+      "longCount": 1225,
+      "shortCount": 1217,
+      "turnover": 0.4475,
+      "sharpe": 1.85,
+      "returns": 0.0976,
+      "drawdown": 0.0415,
+      "margin": 0.000436,
+      "fitness": 0.86,
+      "stage": "IS"
+    },
+    {
+      "year": "2022",
+      "pnl": 1947261.0,
+      "bookSize": 20000000,
+      "longCount": 1347,
+      "shortCount": 1340,
+      "turnover": 0.3826,
+      "sharpe": 2.97,
+      "returns": 0.194,
+      "drawdown": 0.0471,
+      "margin": 0.001014,
+      "fitness": 2.11,
+      "stage": "IS"
+    },
+    {
+      "year": "2023",
+      "pnl": 806359.0,
+      "bookSize": 20000000,
+      "longCount": 1325,
+      "shortCount": 1328,
+      "turnover": 0.3171,
+      "sharpe": 2.61,
+      "returns": 0.0806,
+      "drawdown": 0.0225,
+      "margin": 0.000509,
+      "fitness": 1.32,
+      "stage": "IS"
+    }
+  ],
+  "error": null,
+  "name": "alpha_005_beta_balanced_12",
+  "settings_used": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 0,
+    "neutralization": "SUBINDUSTRY",
+    "truncation": 0.08,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "OFF",
+    "language": "FASTEXPR",
+    "visualization": false
+  }
+}

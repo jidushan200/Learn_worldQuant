@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_rev_12",
+    "expr": "add(multiply(0.44,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.36,group_rank(ts_zscore(divide(earnings_per_share_reported,close),252),subindustry)),multiply(0.20,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_estprofit_rev_12",
+    "expr": "add(multiply(0.42,group_rank(ts_zscore(divide(est_netprofit,cap),252),subindustry)),multiply(0.33,group_rank(ts_zscore(divide(cashflow_op,assets),252),subindustry)),multiply(0.25,group_rank(ts_rank(subtract(ts_mean(close,7),close),20),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_analyst_quality_12",
+    "expr": "add(multiply(0.40,group_rank(ts_zscore(divide(anl4_ebit_mean,enterprise_value),252),subindustry)),multiply(0.35,group_rank(ts_zscore(divide(anl4_fcf_value,enterprise_value),252),subindustry)),multiply(0.25,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_margin_revert_12",
+    "expr": "add(multiply(0.38,group_rank(ts_zscore(divide(ebit,enterprise_value),252),subindustry)),multiply(0.32,group_rank(ts_zscore(subtract(divide(cashflow_op,assets),divide(debt,assets)),252),subindustry)),multiply(0.30,group_rank(ts_rank(subtract(ts_mean(close,8),close),22),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_beta_balanced_12",
+    "expr": "add(multiply(0.38,group_rank(ts_zscore(divide(est_netprofit,cap),252),subindustry)),multiply(0.32,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.18,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)),multiply(0.12,group_rank(ts_zscore(multiply(-1,beta_last_60_days_spy),126),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_revision_quality_12",
+    "expr": "add(multiply(0.34,group_rank(ts_zscore(divide(cashflow_op,cap),252),subindustry)),multiply(0.31,group_rank(ts_zscore(divide(est_sales,enterprise_value),252),subindustry)),multiply(0.20,group_rank(ts_zscore(analyst_revision_rank_derivative,126),subindustry)),multiply(0.15,group_rank(ts_rank(subtract(ts_mean(close,5),close),16),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

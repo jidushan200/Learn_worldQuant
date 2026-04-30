@@ -1,0 +1,32 @@
+[
+  {
+    "name": "alpha_001_profitability_to_assets",
+    "expr": "rank(ts_zscore(divide(cashflow_op,assets),252))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_002_quality_reversal_combo",
+    "expr": "rank(add(ts_zscore(return_equity,252),reverse(ts_mean(returns,5))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_003_margin_stability_signal",
+    "expr": "rank(subtract(ts_zscore(gross_margin,252),ts_stddev(returns,20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_004_sales_growth_vs_leverage",
+    "expr": "rank(subtract(ts_zscore(revenue,126),ts_zscore(liabilities,126)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_005_liquidity_adjusted_momentum",
+    "expr": "rank(add(ts_mean(returns,20),ts_zscore(turnover,60)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_006_earnings_yield_defensive",
+    "expr": "rank(subtract(ts_zscore(divide(net_income,market_cap),252),ts_stddev(returns,60)))",
+    "setting": {}
+  }
+]

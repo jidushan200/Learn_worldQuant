@@ -1,0 +1,147 @@
+下面给你 8 个围绕“基本面质量 + 短期反转”的多样化 alpha。设计上我尽量采用：基本面信号做慢变量、价格反转做快变量、再通过 `ts_zscore`/`rank`/`hump`/`ts_decay_linear` 控制分布与换手，以提升通过 weight、self-correlation、sub-universe sharpe 等 checks 的概率。  
+但要先说明一点：你给出的字段清单里并没有完整展示 ROE/ROA/GPOA/FCF-assets/毛利率/资产周转率等字段名，因此我不能凭空编造这些字段；以下方案只使用你提供材料中明确出现过、可确认存在的字段，如 `actual_eps_value_quarterly`、`actual_cashflow_per_share_value_quarterly`、`actual_sales_value_quarterly`、`actual_sales_value_annual`、`close`、`open`、`high`、`low`、`vwap`、`volume`、`adv20`、`analyst_revision_rank_derivative` 等。
+
+```json
+[
+  {
+    "name": "alpha_001_epscf_rev5",
+    "expr": "rank(add(multiply(0.65, ts_zscore(divide(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), add(abs(ts_backfill(actual_eps_value_quarterly, 252)), 0.01)), 252)), multiply(0.35, ts_zscore(reverse(divide(subtract(close, ts_delay(close, 5)), ts_delay(close, 5))), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_sales_eps_rev10",
+    "expr": "rank(add(multiply(0.55, ts_zscore(divide(ts_backfill(actual_sales_value_quarterly, 252), add(abs(ts_backfill(actual_eps_value_quarterly, 252)), 0.01)), 252)), multiply(0.45, ts_zscore(reverse(divide(subtract(close, ts_delay(close, 10)), ts_delay(close, 10))), 30))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_cf_sales_liqrev",
+    "expr": "rank(add(multiply(0.6, ts_zscore(divide(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), add(abs(ts_backfill(actual_sales_value_quarterly, 252)), 0.01)), 252)), multiply(0.4, ts_zscore(multiply(reverse(divide(subtract(close, ts_delay(close, 7)), ts_delay(close, 7))), divide(volume, add(adv20, 1))), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_eps_stable_rebound",
+    "expr": "rank(add(multiply(0.5, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_analyst_quality_reversal",
+    "expr": "rank(add(multiply(0.55, ts_zscore(ts_backfill(analyst_revision_rank_derivative, 63), 63)), multiply(0.45, ts_zscore(reverse(ts_mean(divide(subtract(close, ts_delay(close, 1)), ts_delay(close, 1)), 5)), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_cashflow_gap_entry",
+    "expr": "rank(hump(add(multiply(0.6, ts_zscore(subtract(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), ts_backfill(actual_eps_value_quarterly, 252)), 252)), multiply(0.4, ts_zscore(reverse(divide(subtract(open, ts_delay(close, 1)), ts_delay(close, 1))), 15))), 0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SECTOR",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_annualsales_shortrev",
+    "expr": "rank(add(multiply(0.7, ts_zscore(ts_backfill(actual_sales_value_annual, 504), 252)), multiply(0.3, ts_zscore(reverse(divide(subtract(close, ts_mean(vwap, 5)), ts_mean(vwap, 5))), 20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP1000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_quality_conditional_rev",
+    "expr": "trade_when(rank(ts_zscore(divide(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), add(abs(ts_backfill(actual_eps_value_quarterly, 252)), 0.01)), 252)) > 0.5, rank(add(multiply(0.65, ts_zscore(divide(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), add(abs(ts_backfill(actual_eps_value_quarterly, 252)), 0.01)), 252)), multiply(0.35, ts_zscore(reverse(divide(subtract(close, ts_delay(close, 15)), ts_delay(close, 15))), 30)))), abs(ts_zscore(divide(subtract(close, ts_delay(close, 15)), ts_delay(close, 15)), 30)) > 2)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+如果你愿意，我下一步可以继续帮你做两件更实用的事之一：  
+1. 把这 8 个里我认为**最可能过检**的 3 个挑出来并说明优先回测顺序；  
+2. 如果你补充**确切可用的质量字段名**（如真实 ROE/ROA/GPOA 等），我可以立刻重写成更强的“纯质量 + 反转”版本。

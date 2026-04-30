@@ -1,0 +1,88 @@
+ä¸é¢ç»ä½  6 ä¸ªå¨âå½åæä¼ alphaâåºç¡ä¸åçå®åæ¹è¿æ¹æ¡ï¼å°½éä¿æâè´¨é + ç­åè½¬âä¸»çº¿ï¼ä½éå¯¹ä½ ç°å¨çå¼±ç¹åå¢å¼ºï¼æåè´¨éç»´åº¦å®æ´æ§ãç»åè½¬éåªãæ§å¶è¡ä¸æ´é²ï¼å¹¶å°½éåä½ å¤±è´¥æ ·æ¬è¿äºç¸ä¼¼ã
+
+**æ¹æ¡ 1ï¼è¡¥è¶³è´¨éç»´åº¦ï¼ä¿çç­åè½¬æ ¸å¿**
+- è¡¨è¾¾å¼  
+`rank(add(add(ts_zscore(divide(cashflow_op,equity),252),ts_zscore(return_equity,252)),add(ts_zscore(divide(subtract(sales,cogs),assets),252),ts_zscore(reverse(ts_mean(returns,10)),20))))`
+- Settings  
+`instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1, decay=7, neutralization="INDUSTRY", truncation=0.05, pasteurization="ON", unitHandling="VERIFY", nanHandling="ON", language="FASTEXPR"`
+- é»è¾
+  - å¨åå§ `CFO/Equity + ROE + ç­åè½¬` ä¸ï¼å äº `GPOA = (sales-cogs)/assets`
+  - ç¨ `reverse(ts_mean(returns,10))` æ¿ä»£åæ¥è¾ç»ç `reverse(ts_mean(ts_delta(close,2),10))`
+  - `delay=1` å¾å¾æ¯ `delay=0` æ´ç¨³ï¼è½åä¸ç¹åªå£°åèªé£é©
+- é¢æ
+  - æ¯å½åå¼å­æ´åâè´¨éæ ¸å¿ + ç®æ´åè½¬âï¼éå¸¸æ´å©äº Sharpe ç¨³å®
+
+**æ¹æ¡ 2ï¼æ ROE æ¢ææ´ç¨³ç ROA/ç»è¥ç°éæµç»å**
+- è¡¨è¾¾å¼  
+`rank(add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(return_assets,252)),add(ts_zscore(divide(subtract(cashflow_op,capex),assets),252),ts_zscore(reverse(ts_mean(returns,15)),20))))`
+- Settings  
+`instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1, decay=8, neutralization="INDUSTRY", truncation=0.05, pasteurization="ON", unitHandling="VERIFY", nanHandling="ON", language="FASTEXPR"`
+- é»è¾
+  - è´¨éç«¯æ¹æ `CFO/Assets + ROA + (CFO-Capex)/Assets`
+  -  `(cashflow_op-capex)/assets` æ¯ä½ å¯ç¨å­æ®µä¸ææ¥è¿ FCF/Assets çæ¿ä»£
+  - åè½¬çªå£æé¿å° 15 å¤©ï¼æ¹å 2019/2023 è¿ç±»ç­æåªå£°å¹´
+- é¢æ
+  - ç¸å¯¹åå¼æ´åâèµäº§æç + ç°éè´¨éâï¼ä¸è¬æ¯åçº¯ ROE æ´ç¨³
+
+**æ¹æ¡ 3ï¼âèµäº§å¨è½¬âä»£çï¼åæ´å®æ´çè´¨éå å­**
+- è¡¨è¾¾å¼  
+`rank(add(add(ts_zscore(divide(cashflow_op,equity),252),ts_zscore(divide(sales,assets),252)),add(ts_zscore(divide(subtract(sales,cogs),assets),252),ts_zscore(reverse(ts_mean(returns,10)),15))))`
+- Settings  
+`instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1, decay=6, neutralization="SUBINDUSTRY", truncation=0.05, pasteurization="ON", unitHandling="VERIFY", nanHandling="ON", language="FASTEXPR"`
+- é»è¾
+  - `sales/assets` æ¯å¯å®ç°çèµäº§å¨è½¬çä»£ç
+  - ä¸ `GPOA` æ­åï¼è´¨éç«¯ä»âçå©è½åâæ©å±å°âçå©è½å + ç»è¥æçâ
+  - ä¸­æ§åæåå° `SUBINDUSTRY`ï¼æ´å©äºè¿ weight / sub-universe sharpe æ£æ¥
+- é¢æ
+  - è¿ä¸ªçæ¬æ´éåä½ âè´¨éå å­ç»åâçåè¡·ï¼ä¹æ´å®¹æåå°è¡ä¸ç»ææ§åç½®
+
+**æ¹æ¡ 4ï¼ç»åè½¬å é£é©è¿æ»¤ï¼æ¹åå·®å¹´ä»½**
+- è¡¨è¾¾å¼  
+`rank(add(add(ts_zscore(divide(cashflow_op,equity),252),ts_zscore(return_equity,252)),add(ts_zscore(divide(subtract(sales,cogs),assets),252),subtract(ts_zscore(reverse(ts_mean(returns,10)),20),ts_zscore(historical_volatility_20,20)))))`
+- Settings  
+`instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1, decay=9, neutralization="SUBINDUSTRY", truncation=0.04, pasteurization="ON", unitHandling="VERIFY", nanHandling="ON", language="FASTEXPR"`
+- é»è¾
+  - ä¿çä½ çåæ ¸å¿ï¼ä½æåè½¬æ¹ä¸ºâç­åè½¬ - ç­æ³¢å¨â
+  - å³æ´åå¥½âè·è¿ä½æ²¡é£ä¹èºâçè¡ç¥¨ï¼æ¥é£å
+  - å¯¹ 2019ã2023 è¿ç§åè½¬å¤±çµå¹´ä»½éå¸¸æ´åå¥½
+- é¢æ
+  - å¾å¾è½æ¹å Sharpe å drawdownï¼ä½æ¶çå¼¹æ§å¯è½ç¥é
+
+**æ¹æ¡ 5ï¼é¢æç»´åº¦ï¼å¢å¼ºè´¨éç¡®è®¤**
+- è¡¨è¾¾å¼  
+`rank(add(add(ts_zscore(divide(cashflow_op,equity),252),ts_zscore(return_equity,252)),add(ts_zscore(divide(est_ebitda,enterprise_value),252),ts_zscore(reverse(ts_mean(returns,10)),20))))`
+- Settings  
+`instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1, decay=7, neutralization="INDUSTRY", truncation=0.05, pasteurization="ON", unitHandling="VERIFY", nanHandling="ON", language="FASTEXPR"`
+- é»è¾
+  - å¨è´¨éæ¡æ¶ä¸­ä¸ä¸ªâé¢ææ¯æâçä¼°å¼/åºæ¬é¢é¡¹ï¼`est_ebitda / enterprise_value`
+  - è¿ä¸æ¯çº¯ä»·å¼ï¼èæ¯å¸¦æ forward ä¿¡æ¯çè´¨éç¡®è®¤
+  - æ¯ç´æ¥ä¸ `sales_growth` æ´ä¸å®¹æèµ°å°ä½ åé¢å¤±è´¥æ¹æ¡çè·¯å­
+- é¢æ
+  - å¦æå¹³å°å¯¹é¢æç±»å­æ®µè¦çè¾å¥½ï¼è¿ä¸ªçæ¬ææºä¼ææ¾æé« Fitness
+
+**æ¹æ¡ 6ï¼æ´ä¿å®çâè´¨éä¸»å¯¼ + å¼±åè½¬âçæ¬**
+- è¡¨è¾¾å¼  
+`rank(add(add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(return_assets,252)),ts_zscore(divide(subtract(sales,cogs),assets),252)),ts_zscore(reverse(ts_mean(returns,20)),30)))`
+- Settings  
+`instrumentType="EQUITY", region="USA", universe="TOP3000", delay=1, decay=10, neutralization="INDUSTRY", truncation=0.05, pasteurization="ON", unitHandling="VERIFY", nanHandling="ON", language="FASTEXPR"`
+- é»è¾
+  - è´¨éé¨åå ä¸»å¯¼ï¼`CFO/Assets + ROA + GPOA`
+  - åè½¬ä¿¡å·å¼±åå¹¶æé¿ï¼`reverse(ts_mean(returns,20))` åæ´é« decay
+  - ç®æ ä¸æ¯è¿½æ±æå¼ºæ¶çå¼¹æ§ï¼èæ¯æé«å¹´ç¨³å®æ§
+- é¢æ
+  - æ´æå¸æä¿®å¤ 2019/2020 çå¼±è¡¨ç°ï¼ä»£ä»·å¯è½æ¯ 2021 è¿ç±»å¼ºå¹´æ¶çç¥é
+
+**ä¼åæµé¡ºåº**
+- é¦æ¨ï¼æ¹æ¡ 4ãæ¹æ¡ 3ãæ¹æ¡ 2
+- ï¼æ¹æ¡ 1ãæ¹æ¡ 6
+- æ¡ä»¶å°è¯ï¼æ¹æ¡ 5
+
+**æå¯¹ç»æçå¤æ­**
+- è¥ä½ å½åä¸»è¦é®é¢æ¯åå¹´ä»½æç´¯ï¼æµæ¹æ¡ 4/6
+- è¥ä½ å½åä¸»è¦é®é¢æ¯ Sharpe ä¸å¤ãä½ä¸»é»è¾ææï¼æµæ¹æ¡ 3/2
+- è¥å¹³å°å¾çé sub-universe sharpe / weight checksï¼ä¼ `neutralization="SUBINDUSTRY"` çæ¹æ¡ 3/4
+
+å¦æä½ æ¿æï¼æä¸ä¸æ­¥å¯ä»¥ç»§ç»­ç»ä½ ï¼
+- è¿ 6 ä¸ªæ¹æ¡çâå»éçâåéæ± æåº
+- åçæ 6 ä¸ªæ´æ¿è¿çæ¬
+- æç´æ¥å¸®ä½ ç­åºâæå¯è½è¿ GOODâçå 3 ä¸ªè¡¨è¾¾å¼ã

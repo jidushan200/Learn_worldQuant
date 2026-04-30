@@ -1,0 +1,1146 @@
+[
+  {
+    "alpha_id": "58qPbLN5",
+    "expr": "add(multiply(0.6,add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252))),multiply(0.4,ts_zscore(divide(subtract(ts_mean(close,10),close),close),40)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.35,
+    "fitness": 0.84,
+    "turnover": 0.1345,
+    "returns": 0.0525,
+    "drawdown": 0.0403,
+    "margin": 0.00078,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.35
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.1345
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.1345
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.58,
+        "value": 0.69
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      }
+    ],
+    "warn_checks": [
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      }
+    ],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 49023.0,
+        "bookSize": 20000000,
+        "longCount": 1361,
+        "shortCount": 1336,
+        "turnover": 0.137,
+        "sharpe": 0.2,
+        "returns": 0.0049,
+        "drawdown": 0.0277,
+        "margin": 7.1e-05,
+        "fitness": 0.04,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 168019.0,
+        "bookSize": 20000000,
+        "longCount": 1332,
+        "shortCount": 1353,
+        "turnover": 0.1303,
+        "sharpe": 0.38,
+        "returns": 0.0182,
+        "drawdown": 0.0403,
+        "margin": 0.000279,
+        "fitness": 0.14,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 1303429.0,
+        "bookSize": 20000000,
+        "longCount": 1300,
+        "shortCount": 1286,
+        "turnover": 0.1433,
+        "sharpe": 2.95,
+        "returns": 0.1293,
+        "drawdown": 0.0229,
+        "margin": 0.001804,
+        "fitness": 2.8,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 692645.0,
+        "bookSize": 20000000,
+        "longCount": 1379,
+        "shortCount": 1350,
+        "turnover": 0.1284,
+        "sharpe": 1.73,
+        "returns": 0.069,
+        "drawdown": 0.0235,
+        "margin": 0.001074,
+        "fitness": 1.27,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 406467.0,
+        "bookSize": 20000000,
+        "longCount": 1407,
+        "shortCount": 1410,
+        "turnover": 0.1333,
+        "sharpe": 1.18,
+        "returns": 0.0406,
+        "drawdown": 0.0264,
+        "margin": 0.00061,
+        "fitness": 0.65,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_002_qrev_12",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "3qn8bE3O",
+    "expr": "add(multiply(0.5,add(add(ts_zscore(divide(ebitda,assets),252),ts_zscore(divide(cashflow_op,assets),252)),ts_zscore(divide(bookvalue_ps,close),252))),multiply(0.5,ts_zscore(divide(subtract(ts_mean(close,6),close),close),25)))",
+    "grade": "AVERAGE",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.71,
+    "fitness": 1.09,
+    "turnover": 0.2168,
+    "returns": 0.088,
+    "drawdown": 0.0401,
+    "margin": 0.000812,
+    "checks_pass": true,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.71
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "PASS",
+        "limit": 1.0,
+        "value": 1.09
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.2168
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.2168
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.74,
+        "value": 1.09
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [],
+    "warn_checks": [
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      }
+    ],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 435321.0,
+        "bookSize": 20000000,
+        "longCount": 1247,
+        "shortCount": 1257,
+        "turnover": 0.2229,
+        "sharpe": 1.32,
+        "returns": 0.0432,
+        "drawdown": 0.0328,
+        "margin": 0.000387,
+        "fitness": 0.58,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 1155525.0,
+        "bookSize": 20000000,
+        "longCount": 1249,
+        "shortCount": 1285,
+        "turnover": 0.2086,
+        "sharpe": 2.4,
+        "returns": 0.1251,
+        "drawdown": 0.0309,
+        "margin": 0.001199,
+        "fitness": 1.86,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 456545.0,
+        "bookSize": 20000000,
+        "longCount": 1198,
+        "shortCount": 1241,
+        "turnover": 0.2223,
+        "sharpe": 0.78,
+        "returns": 0.0453,
+        "drawdown": 0.0401,
+        "margin": 0.000408,
+        "fitness": 0.35,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 971904.0,
+        "bookSize": 20000000,
+        "longCount": 1280,
+        "shortCount": 1262,
+        "turnover": 0.2085,
+        "sharpe": 1.5,
+        "returns": 0.0968,
+        "drawdown": 0.0347,
+        "margin": 0.000928,
+        "fitness": 1.02,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 1296198.0,
+        "bookSize": 20000000,
+        "longCount": 1305,
+        "shortCount": 1324,
+        "turnover": 0.2211,
+        "sharpe": 2.98,
+        "returns": 0.1296,
+        "drawdown": 0.0179,
+        "margin": 0.001172,
+        "fitness": 2.28,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_003_qrev_13",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": null,
+    "name": "alpha_005_qrev_15",
+    "expr": "add(multiply(0.55,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(ebitda,assets),252)),ts_zscore(divide(sales,assets),252))),multiply(0.3,ts_zscore(divide(subtract(ts_mean(close,12),close),close),35))),subtract(0,multiply(0.15,ts_zscore(beta_last_60_days_spy,60))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": "1Ynr9J36",
+    "expr": "add(multiply(0.55,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(ebit,assets),252)),ts_zscore(divide(sales,assets),252))),multiply(0.45,ts_zscore(divide(subtract(ts_mean(close,7),close),close),30)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.4,
+    "fitness": 0.82,
+    "turnover": 0.1616,
+    "returns": 0.0557,
+    "drawdown": 0.0357,
+    "margin": 0.000689,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.4
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.82
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.1616
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.1616
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.61,
+        "value": 0.69
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.82
+      }
+    ],
+    "warn_checks": [
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      }
+    ],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 210129.0,
+        "bookSize": 20000000,
+        "longCount": 1357,
+        "shortCount": 1340,
+        "turnover": 0.1613,
+        "sharpe": 0.98,
+        "returns": 0.0208,
+        "drawdown": 0.0249,
+        "margin": 0.000258,
+        "fitness": 0.35,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 438541.0,
+        "bookSize": 20000000,
+        "longCount": 1340,
+        "shortCount": 1345,
+        "turnover": 0.1532,
+        "sharpe": 1.12,
+        "returns": 0.0475,
+        "drawdown": 0.0256,
+        "margin": 0.00062,
+        "fitness": 0.62,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 973960.0,
+        "bookSize": 20000000,
+        "longCount": 1278,
+        "shortCount": 1305,
+        "turnover": 0.1739,
+        "sharpe": 2.22,
+        "returns": 0.0966,
+        "drawdown": 0.0285,
+        "margin": 0.001111,
+        "fitness": 1.65,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 797750.0,
+        "bookSize": 20000000,
+        "longCount": 1374,
+        "shortCount": 1345,
+        "turnover": 0.1558,
+        "sharpe": 1.6,
+        "returns": 0.0795,
+        "drawdown": 0.0326,
+        "margin": 0.00102,
+        "fitness": 1.14,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 355651.0,
+        "bookSize": 20000000,
+        "longCount": 1405,
+        "shortCount": 1402,
+        "turnover": 0.1631,
+        "sharpe": 0.98,
+        "returns": 0.0356,
+        "drawdown": 0.0284,
+        "margin": 0.000436,
+        "fitness": 0.46,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_001_qrev_11",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "3qn8bJGz",
+    "expr": "add(multiply(0.58,add(ts_zscore(divide(cashflow_op,assets),252),add(ts_zscore(divide(subtract(sales,cogs),assets),252),ts_zscore(divide(ebitda,assets),252)))),multiply(0.42,ts_zscore(divide(subtract(ts_mean(close,5),close),close),20)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 1.42,
+    "fitness": 0.84,
+    "turnover": 0.1645,
+    "returns": 0.0577,
+    "drawdown": 0.0452,
+    "margin": 0.000701,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "PASS",
+        "limit": 1.25,
+        "value": 1.42
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.1645
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.1645
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.61,
+        "value": 0.71
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.84
+      }
+    ],
+    "warn_checks": [
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"subtract\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      }
+    ],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -16374.0,
+        "bookSize": 20000000,
+        "longCount": 1274,
+        "shortCount": 1260,
+        "turnover": 0.1675,
+        "sharpe": -0.07,
+        "returns": -0.0016,
+        "drawdown": 0.0259,
+        "margin": -1.9e-05,
+        "fitness": -0.01,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 460500.0,
+        "bookSize": 20000000,
+        "longCount": 1266,
+        "shortCount": 1267,
+        "turnover": 0.1582,
+        "sharpe": 1.18,
+        "returns": 0.0498,
+        "drawdown": 0.0217,
+        "margin": 0.00063,
+        "fitness": 0.66,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 1099473.0,
+        "bookSize": 20000000,
+        "longCount": 1220,
+        "shortCount": 1223,
+        "turnover": 0.1741,
+        "sharpe": 2.62,
+        "returns": 0.1091,
+        "drawdown": 0.0223,
+        "margin": 0.001253,
+        "fitness": 2.07,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 913729.0,
+        "bookSize": 20000000,
+        "longCount": 1301,
+        "shortCount": 1273,
+        "turnover": 0.1574,
+        "sharpe": 1.73,
+        "returns": 0.091,
+        "drawdown": 0.039,
+        "margin": 0.001156,
+        "fitness": 1.32,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 419425.0,
+        "bookSize": 20000000,
+        "longCount": 1332,
+        "shortCount": 1333,
+        "turnover": 0.165,
+        "sharpe": 1.08,
+        "returns": 0.0419,
+        "drawdown": 0.0318,
+        "margin": 0.000509,
+        "fitness": 0.54,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_006_qrev_16",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 2,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "d5lNVkmJ",
+    "expr": "add(multiply(0.6,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(ebit,assets),252)),subtract(0,ts_zscore(divide(debt,assets),252)))),multiply(0.4,ts_zscore(divide(subtract(ts_mean(close,8),close),close),30)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.84,
+    "fitness": 0.49,
+    "turnover": 0.124,
+    "returns": 0.0431,
+    "drawdown": 0.0643,
+    "margin": 0.000694,
+    "checks_pass": false,
+    "checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "limit": 1.25,
+        "value": 0.84
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.49
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "limit": 0.01,
+        "value": 0.124
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "limit": 0.7,
+        "value": 0.124
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS"
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "limit": 0.36,
+        "value": 0.42
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "competitions": [
+          {
+            "id": "challenge",
+            "name": "Challenge"
+          },
+          {
+            "id": "IQC2026S1",
+            "name": "International Quant Championship 2026 Stage 1"
+          }
+        ]
+      }
+    ],
+    "fail_checks": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "limit": 1.25,
+        "value": 0.84
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "limit": 1.0,
+        "value": 0.49
+      }
+    ],
+    "warn_checks": [],
+    "pending_checks": [
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING"
+      }
+    ],
+    "matched_competitions": [
+      {
+        "id": "challenge",
+        "name": "Challenge"
+      },
+      {
+        "id": "IQC2026S1",
+        "name": "International Quant Championship 2026 Stage 1"
+      }
+    ],
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 21897.0,
+        "bookSize": 20000000,
+        "longCount": 1158,
+        "shortCount": 1151,
+        "turnover": 0.1321,
+        "sharpe": 0.08,
+        "returns": 0.0022,
+        "drawdown": 0.0271,
+        "margin": 3.3e-05,
+        "fitness": 0.01,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": -179086.0,
+        "bookSize": 20000000,
+        "longCount": 1171,
+        "shortCount": 1175,
+        "turnover": 0.117,
+        "sharpe": -0.44,
+        "returns": -0.0194,
+        "drawdown": 0.0387,
+        "margin": -0.000331,
+        "fitness": -0.17,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 653115.0,
+        "bookSize": 20000000,
+        "longCount": 1136,
+        "shortCount": 1132,
+        "turnover": 0.1309,
+        "sharpe": 1.52,
+        "returns": 0.0648,
+        "drawdown": 0.0424,
+        "margin": 0.00099,
+        "fitness": 1.07,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1279193.0,
+        "bookSize": 20000000,
+        "longCount": 1213,
+        "shortCount": 1182,
+        "turnover": 0.1189,
+        "sharpe": 1.68,
+        "returns": 0.1274,
+        "drawdown": 0.063,
+        "margin": 0.002142,
+        "fitness": 1.7,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 349746.0,
+        "bookSize": 20000000,
+        "longCount": 1249,
+        "shortCount": 1245,
+        "turnover": 0.1207,
+        "sharpe": 0.66,
+        "returns": 0.035,
+        "drawdown": 0.0451,
+        "margin": 0.00058,
+        "fitness": 0.35,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "name": "alpha_004_qrev_14",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 3,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

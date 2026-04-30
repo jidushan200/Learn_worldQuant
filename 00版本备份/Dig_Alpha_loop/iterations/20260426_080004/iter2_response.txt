@@ -1,0 +1,66 @@
+ä¸é¢ç»ä½  6 ä¸ªåºäºâå½åæä¼ alphaâåçç¬¬ 2 è½®æ¹è¿æ¹æ¡ï¼å°½éä¿çâè´¨é + ç­æåè½¬âä¸»é»è¾ï¼ä½é¿å¼ä½ ä¸è½®å·²ç»è¯è¿çè¿ä¼¼ç»æã
+
+**æ¹æ¡ 1ï¼è´¨éä¸å å­ + æ´ç­åè½¬ + å­è¡ä¸ä¸­æ§å**
+- éåæè·¯ï¼å¢å¼ºåè½¬æ©æ¶ï¼åå°è¡ä¸æ¼ç§»
+- è¡¨è¾¾å¼ï¼
+`rank(add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(revenue,cogs),assets),252)),add(ts_zscore(divide(revenue,assets),252),reverse(ts_zscore(ts_mean(returns,5),15)))))`
+- Settingsï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":8,"neutralization":"SUBINDUSTRY","truncation":0.05,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- è¯´æï¼æ `cashflow_op/equity + ROE` æ¹æ `CFO/Assets + GPOA + Revenue/Assets`ï¼è´¨éæ´ç¨³ï¼åè½¬ç¨ `returns` ç´æ¥å 5/15ï¼éå¸¸æ¯ `close-close_lag` æ´å¹²åã
+
+**æ¹æ¡ 2ï¼è´¨éåè¡¡å + æ³¢å¨æ©ç½**
+- éåæè·¯ï¼è§£å³ 2019/2020/2023 å¤±æï¼åä½é«æ³¢å¨åªå£°
+- è¡¨è¾¾å¼ï¼
+`rank(subtract(add(ts_zscore(return_equity,252),add(ts_zscore(divide(cashflow_op,assets),252),reverse(ts_zscore(ts_mean(returns,10),20)))),ts_zscore(historical_volatility_20,60)))`
+- Settingsï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":7,"neutralization":"INDUSTRY","truncation":0.04,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- è¯´æï¼ä¿çä½ å½åæææç `ROE + åè½¬` æ ¸å¿ï¼ä½æ `cashflow_op/equity` æ¢ææ´ç¨³ç `cashflow_op/assets`ï¼ååå»ç­ææ³¢å¨ç zscoreï¼å¸¸ç¨äºæå Sharpe å checks ç¨³å®æ§ã
+
+**æ¹æ¡ 3ï¼çå©è´¨é + è´¹ç¨çº¦æ + åè½¬**
+- éåæè·¯ï¼æé«åºæ¬é¢âçè´¨éâï¼çº¯çå©è¡¨è±¡
+- è¡¨è¾¾å¼ï¼
+`rank(add(add(ts_zscore(divide(ebit,assets),252),ts_zscore(divide(cashflow_op,assets),252)),add(reverse(ts_zscore(ts_mean(returns,7),21)),reverse(ts_zscore(divide(sga_expense,sales),252)))))`
+- Settingsï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":6,"neutralization":"INDUSTRY","truncation":0.05,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- è¯´æï¼ `EBIT/Assets` ä¸ `SG&A/Sales`ï¼åååä»£è¡¨è´¹ç¨æçæ´é«ï¼è¿æ¯åçº¯å å  ROE/ROA æ´å®¹æååè½¬å½¢æäºè¡¥ã
+
+**æ¹æ¡ 4ï¼é«è´¨éé¨æ§ä¸çåè½¬æ¾å¤§**
+- éåæè·¯ï¼åå°åè½¬å¨å·®ä¸çè¯¯è§¦å
+- è¡¨è¾¾å¼ï¼
+`rank(if_else(greater(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(revenue,cogs),assets),252)),0),add(reverse(ts_zscore(ts_mean(returns,5),20)),ts_zscore(return_equity,252)),ts_zscore(return_equity,252)))`
+- Settingsï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":9,"neutralization":"SUBINDUSTRY","truncation":0.05,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- è¯´æï¼è¿æ¯å¯¹ä½ ä¹å `if_else` å¤±è´¥çæ¬çå®åæ¹é ï¼ä¸ç¨ `ROA + CFO/Assets` ç´æ¥åæ¢å°åä¸è´¨éï¼èæ¯ç¨ `CFO/Assets + GPOA` åâè´¨éé¨æ§âï¼åªæè´¨éè¿æ¶æå å åè½¬ï¼é»è¾æ´èªç¶ã
+
+**æ¹æ¡ 5ï¼èªç±ç°éæµä»£ç + å¨è½¬æç + ä¸­éåè½¬**
+- éåæè·¯ï¼å¼ºåç°éåé è½åï¼éä½åä¸ä¼è®¡å£å¾é£é©
+- è¡¨è¾¾å¼ï¼
+`rank(add(add(ts_zscore(divide(subtract(cashflow_op,capex),assets),252),ts_zscore(divide(revenue,assets),252)),add(ts_zscore(divide(subtract(revenue,cogs),revenue),252),reverse(ts_zscore(ts_mean(returns,10),30)))))`
+- Settingsï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":10,"neutralization":"INDUSTRY","truncation":0.05,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- è¯´æï¼è½ç¶ä½ ä¹å `FCF/Assets + Sales/Assets + 20/10åè½¬` è¡¨ç°å·®ï¼ä½è¿çäº `æ¯å©çä»£ç = (revenue-cogs)/revenue`ï¼å¹¶æåè½¬æé¿å° `10/30`ï¼æ´åæ¸©ååå¼åå¤ã
+
+**æ¹æ¡ 6ï¼åºæ¬é¢è´¨é Ã ä½é£é©ä¿®æ­£ + åè½¬**
+- éåæè·¯ï¼æé« fitnessï¼äºåæ´å¹³æ»çå¹´åº¦è¡¨ç°
+- è¡¨è¾¾å¼ï¼
+`rank(add(add(ts_zscore(divide(cashflow_op,equity),252),ts_zscore(divide(subtract(revenue,cogs),assets),252)),add(reverse(ts_zscore(ts_mean(returns,6),18)),reverse(ts_zscore(beta_last_60_days_spy,60)))))`
+- Settingsï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":8,"neutralization":"INDUSTRY","truncation":0.04,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- è¯´æï¼ä¿çä½ å½åæä¼éææç `cashflow_op/equity`ï¼ä½ç¨ `GPOA` æ¿ä»£ `ROE` çä¸é¨åè§£éåï¼åå å ä½ beta åå¥½ï¼éå¸¸å¯¹åæ¤å self-correlation æ´åå¥½ã
+
+**ä¼çº§å»ºè®®**
+- ç¬¬ä¸æ¢¯éæµï¼`æ¹æ¡ 1`ã`æ¹æ¡ 2`ã`æ¹æ¡ 4`
+- å¦ææ³å²æ´é« Sharpeï¼ç `æ¹æ¡ 1` å `æ¹æ¡ 4`
+- å¦ææ³ä¼è¿ checksãæ¹åç¨³å®æ§ï¼ç `æ¹æ¡ 2` å `æ¹æ¡ 6`
+
+**æå¯¹å½åå¤±æç¹çå¤æ­**
+- ä½ ç°å¨çå¼å­é®é¢ä¸å¨âè´¨é + åè½¬âæ¹åéäºï¼èå¨äºï¼
+- `ROE + CFO/Equity` æ§åé«ï¼è´¨éä¸å¤åæ£
+- åè½¬åªé åä¸ `close` æé ï¼å®¹æåç­æåªå£°å½±å
+- `INDUSTRY` ä¸­æ§åå¯¹ç­æåè½¬å¯è½è¿ä¸å¤ç»ï¼`SUBINDUSTRY` å¼å¾éç¹è¯
+- éè¦å¼è½»åº¦é£é©æ©ç½ï¼å¸®å©ä¿®å¤è´ Sharpe å¹´ä»½
+
+å¦æä½ æ¿æï¼æä¸ä¸è½®å¯ä»¥ç»§ç»­ç»ä½ ï¼
+- è¿ 6 ä¸ªæ¹æ¡çâé¢æå¼ºå¼±æåºâ
+- ååç¼©æâæå¼å¾åæµç 3 ä¸ªâ
+- æç´æ¥çæä¸çæ´æ¿è¿ç `GOOD` å²åºåéç»åã

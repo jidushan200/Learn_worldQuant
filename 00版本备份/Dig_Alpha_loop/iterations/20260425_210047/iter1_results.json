@@ -1,0 +1,82 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_001_quality_reversal",
+    "expr": "rank(add(multiply(0.6,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.4,winsorize(ts_zscore(reverse(ts_mean(returns,5)),20),4))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_003_gpoa_shortrev",
+    "expr": "rank(add(multiply(0.55,winsorize(ts_zscore(ts_backfill(gross_profit_over_assets,252),252),4)),multiply(0.25,winsorize(ts_zscore(ts_backfill(asset_turnover,252),252),4)),multiply(0.2,winsorize(ts_zscore(reverse(ts_mean(returns,15)),60),4))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_002_profit_margin_revert",
+    "expr": "rank(add(multiply(0.5,winsorize(ts_zscore(ts_backfill(gross_profit_margin,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(return_on_assets,252),252),4)),multiply(0.3,winsorize(ts_zscore(reverse(ts_mean(returns,10)),40),4))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_004_fcfasset_timed",
+    "expr": "rank(multiply(add(multiply(0.5,winsorize(ts_zscore(ts_backfill(free_cash_flow_to_assets,252),252),4)),multiply(0.3,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(gross_profit_margin,252),252),4))),add(0.5,rank(winsorize(ts_zscore(reverse(ts_mean(returns,7)),30),4)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_006_smooth_quality_reversal",
+    "expr": "rank(hump(add(multiply(0.65,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.35,winsorize(ts_zscore(reverse(ts_mean(returns,12)),40),4))),0.01))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_007_quality_gate_reversal",
+    "expr": "rank(multiply(add(multiply(0.4,winsorize(ts_zscore(ts_backfill(return_on_assets,252),252),4)),multiply(0.3,winsorize(ts_zscore(ts_backfill(gross_profit_margin,252),252),4)),multiply(0.3,winsorize(ts_zscore(ts_backfill(asset_turnover,252),252),4))),rank(winsorize(ts_zscore(reverse(ts_mean(returns,20)),80),4))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_005_balanced_quality_rev",
+    "expr": "rank(add(multiply(0.25,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(return_on_assets,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(gross_profit_over_assets,252),252),4)),multiply(0.15,winsorize(ts_zscore(ts_backfill(asset_turnover,252),252),4)),multiply(0.2,winsorize(ts_zscore(reverse(add(ts_mean(returns,5),ts_mean(returns,20))),60),4))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_008_dualhorizon_quality",
+    "expr": "rank(add(multiply(0.5,winsorize(ts_zscore(ts_backfill(free_cash_flow_to_assets,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(gross_profit_over_assets,252),252),4)),multiply(0.15,winsorize(ts_zscore(reverse(ts_mean(returns,5)),20),4)),multiply(0.15,winsorize(ts_zscore(reverse(ts_mean(returns,15)),60),4))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  }
+]

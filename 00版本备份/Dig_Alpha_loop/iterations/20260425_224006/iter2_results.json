@@ -1,0 +1,38 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_001_quality_grossrev_reversal",
+    "expr": "rank(hump(group_neutralize(add(multiply(0.65, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252)), 4)), multiply(0.35, winsorize(reverse(add(ts_mean(returns, 5), ts_mean(returns, 15))), 4))), industry), 0.01))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_004_efficiency_workingcap_rev",
+    "expr": "rank(hump(group_neutralize(add(multiply(0.65, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(add(fnd6_newa1v1300_rect, fnd6_newa1v1300_invt), fnd6_newa1v1300_at + 0.001), 252), 252))), 4)), multiply(0.35, winsorize(reverse(add(ts_mean(returns, 5), ts_mean(returns, 10))), 4))), industry), 0.01))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_003_cashflow_quality_reversal",
+    "expr": "rank(hump(group_neutralize(add(multiply(0.6, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_oancf, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(subtract(fnd6_newa1v1300_oancf, fnd6_newa1v1300_ivncf), fnd6_newa1v1300_at + 0.001), 252), 252)), 4)), multiply(0.4, winsorize(reverse(add(ts_mean(returns, 6), ts_mean(returns, 12))), 4))), industry), 0.01))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_006_analyst_quality_reversal",
+    "expr": "rank(hump(group_neutralize(add(multiply(0.55, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(anl4_ady_pu - anl4_ady_down, anl4_ady_numest + 1), 252), 252)), 4)), multiply(0.45, winsorize(reverse(add(ts_mean(returns, 5), ts_mean(returns, 18))), 4))), industry), 0.01))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_005_ebit_sga_rev",
+    "expr": "rank(hump(group_neutralize(add(multiply(0.6, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ebit, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_xsga, fnd6_newa1v1300_revt + 0.001), 252), 252))), 4)), multiply(0.4, winsorize(reverse(add(ts_mean(returns, 8), ts_mean(returns, 16))), 4))), industry), 0.01))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_002_profit_margin_turnover_rev",
+    "expr": "rank(hump(group_neutralize(add(multiply(0.6, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_seq + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_revt + 0.001), 252), 252)), 4)), multiply(0.4, winsorize(reverse(add(ts_mean(returns, 7), ts_mean(returns, 20))), 4))), industry), 0.01))",
+    "error": "完成但 alpha 为空"
+  }
+]

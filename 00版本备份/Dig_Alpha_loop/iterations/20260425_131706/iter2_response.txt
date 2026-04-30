@@ -1,0 +1,142 @@
+延续“分析师EPS预期强弱 + 短期价格回撤”的核心结构，这一轮只做小幅微调：主要围绕预测分母稳定化、时间窗微调、价格腿平滑方式和中性化/股票池设置做局部优化。目标是减少 checks 风险、提升稳定性与 Fitness，同时保留上一轮已验证有效的经济逻辑。
+
+```json
+[
+  {
+    "name": "alpha_201_forecast_eps_pullback_w84",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 84)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_202_forecast_eps_pullback_w168",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 168)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_203_forecast_eps_pullback_price8",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 126)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 8))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_204_forecast_eps_pullback_price20",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 126)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 20))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SECTOR",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_205_forecast_eps_pullback_weight62",
+    "expr": "rank(add(multiply(0.62, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 126)), multiply(0.38, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP1000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_206_forecast_eps_pullback_weight50",
+    "expr": "rank(add(multiply(0.50, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 126)), 1)), 126)), multiply(0.50, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_207_forecast_eps_pullback_backfill252",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 252), add(abs(ts_backfill(anl4_qfd1_azeps, 252)), 1)), 126)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "MARKET",
+      "truncation": 0.09,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_208_forecast_eps_pullback_den63",
+    "expr": "rank(add(multiply(0.58, ts_zscore(divide(ts_backfill(anl4_qf_az_eps_mean, 126), add(abs(ts_backfill(anl4_qfd1_azeps, 63)), 1)), 126)), multiply(0.42, rank(reverse(ts_mean(ts_delta(close, 1), 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

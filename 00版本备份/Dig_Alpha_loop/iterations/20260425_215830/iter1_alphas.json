@@ -1,0 +1,138 @@
+[
+  {
+    "name": "alpha_001_qual_rev_core",
+    "expr": "rank(ts_zscore(return_equity,252)+ts_zscore(return_assets,252)+ts_zscore(gross_profit_assets,252)+ts_zscore(fcf_assets,252)) + rank(-(ts_zscore(returns,5)+ts_zscore(returns,10)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_margin_turn_revert",
+    "expr": "rank(ts_zscore(gross_margin,252)+ts_zscore(asset_turnover,252)+ts_zscore(gross_profit_assets,252)) + rank(-(ts_zscore(returns,7)+ts_zscore(returns,15)+ts_zscore(returns,20)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_fcf_roe_shortrev",
+    "expr": "rank(ts_zscore(fcf_assets,252)+ts_zscore(return_equity,252)) + rank(-ts_zscore(returns,5)) + 0.5*rank(-ts_zscore(returns,12))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_balanced_quality_rev",
+    "expr": "rank(ts_zscore(return_assets,252)+ts_zscore(gross_margin,252)+ts_zscore(asset_turnover,252)+ts_zscore(fcf_assets,252)) + 0.7*rank(-(ts_zscore(returns,10)+ts_zscore(returns,20)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_gpoa_fcf_reversal",
+    "expr": "rank(ts_zscore(gross_profit_assets,252)+ts_zscore(fcf_assets,252)+0.5*ts_zscore(return_assets,252)) + rank(-(ts_zscore(returns,6)+ts_zscore(returns,18)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_quality_heavy_meanrev",
+    "expr": "rank(1.2*ts_zscore(return_equity,252)+ts_zscore(return_assets,252)+ts_zscore(gross_margin,252)+ts_zscore(asset_turnover,252)) + 0.5*rank(-(ts_zscore(returns,5)+ts_zscore(returns,10)+ts_zscore(returns,15)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_turnover_roe_rev",
+    "expr": "rank(ts_zscore(asset_turnover,252)+ts_zscore(return_equity,252)+ts_zscore(gross_profit_assets,252)) + rank(-ts_zscore(returns,8)) + rank(-ts_zscore(returns,20))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_quality_composite_rev",
+    "expr": "rank(ts_zscore(return_equity,252)+ts_zscore(gross_margin,252)+ts_zscore(fcf_assets,252)+ts_zscore(asset_turnover,252)+ts_zscore(return_assets,252)) + 0.6*rank(-(ts_zscore(returns,5)+ts_zscore(returns,20)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]

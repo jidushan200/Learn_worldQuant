@@ -1,0 +1,113 @@
+è¿ç»è®¾ç½®æä¼éç¨`USA TOP3000 + delay=1 + decay=6 + neutralization=INDUSTRY + truncation=0.06`ï¼éåâä½é¢åºæ¬é¢è´¨é + ä¸­ç­æåè½¬âçæ··åæ¡æ¶ï¼è½åä½è¡ä¸æ´é²ãéä½èªï¼å¹¶ç¨éä¸­çè¡°åæ§å¶æ¢æãè¡¨è¾¾å¼ä¸æå°½éç¨é«è¦ççç®ååºæ¬é¢å­æ®µï¼å¹¶æè´¨éä¸åè½¬åä¸åå½¢å¼ççº¿æ§/é¨æ§/ä¹æ³ç»åï¼ä¿æå½¼æ­¤å·®å¼ã
+
+```json
+[
+  {
+    "name": "alpha_001_qrev_mix",
+    "expr": "rank(add(ts_zscore(return_equity,252),add(ts_zscore(return_assets,252),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,10)),5),20)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_gpoa_revert",
+    "expr": "rank(add(ts_zscore(divide(subtract(revenue,cogs),assets),252),add(ts_zscore(divide(cashflow_op,assets),252),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,5)),5),15)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_fcf_turn",
+    "expr": "rank(add(ts_zscore(divide(subtract(cashflow_op,capex),assets),252),add(ts_zscore(divide(sales,assets),252),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,20)),10),30)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_margin_gate",
+    "expr": "rank(multiply(add(ts_zscore(divide(subtract(revenue,cogs),revenue),252),ts_zscore(divide(sales,assets),252)),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,15)),5),20))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_cash_roe",
+    "expr": "rank(add(ts_zscore(divide(cashflow_op,equity),252),add(ts_zscore(return_equity,252),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,7)),7),21)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_quality_filter",
+    "expr": "rank(if_else(greater(add(ts_zscore(return_assets,252),ts_zscore(divide(cashflow_op,assets),252)),0),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,12)),6),24)),ts_zscore(return_equity,252)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+å¦æä½ æ¿æï¼æä¸ä¸æ­¥å¯ä»¥ç»§ç»­ç»ä½ ï¼
+- è¿ 6 ä¸ªéææçå¥½ç`Top 3`ä¼åæµé¡ºåº
+- æ¯ä¸ª alpha çâå¯è½ä¸è¿ checks çé£é©ç¹â
+- ååºäºè¿ç» setting ç»§ç»­æ©å± 6 ä¸ªæ´åâä½/ä½èªâçåä½

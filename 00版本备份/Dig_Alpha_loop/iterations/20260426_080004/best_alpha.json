@@ -1,0 +1,184 @@
+{
+  "alpha_id": "1YnM9KnW",
+  "expr": "rank(add(ts_zscore(divide(cashflow_op,equity),252),add(ts_zscore(return_equity,252),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,7)),7),21)))))",
+  "grade": "INFERIOR",
+  "stage": "IS",
+  "status": "UNSUBMITTED",
+  "sharpe": 0.82,
+  "fitness": 0.43,
+  "turnover": 0.1184,
+  "returns": 0.0348,
+  "drawdown": 0.0451,
+  "margin": 0.000587,
+  "checks_pass": false,
+  "checks_detail": [
+    {
+      "name": "LOW_SHARPE",
+      "result": "FAIL",
+      "value": 0.82,
+      "limit": 1.25,
+      "message": null
+    },
+    {
+      "name": "LOW_FITNESS",
+      "result": "FAIL",
+      "value": 0.43,
+      "limit": 1.0,
+      "message": null
+    },
+    {
+      "name": "LOW_TURNOVER",
+      "result": "PASS",
+      "value": 0.1184,
+      "limit": 0.01,
+      "message": null
+    },
+    {
+      "name": "HIGH_TURNOVER",
+      "result": "PASS",
+      "value": 0.1184,
+      "limit": 0.7,
+      "message": null
+    },
+    {
+      "name": "CONCENTRATED_WEIGHT",
+      "result": "PASS",
+      "value": null,
+      "limit": null,
+      "message": null
+    },
+    {
+      "name": "LOW_SUB_UNIVERSE_SHARPE",
+      "result": "PASS",
+      "value": 0.51,
+      "limit": 0.36,
+      "message": null
+    },
+    {
+      "name": "UNITS",
+      "result": "WARNING",
+      "value": null,
+      "limit": null,
+      "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+    },
+    {
+      "name": "UNITS",
+      "result": "WARNING",
+      "value": null,
+      "limit": null,
+      "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+    },
+    {
+      "name": "UNITS",
+      "result": "WARNING",
+      "value": null,
+      "limit": null,
+      "message": "Incompatible unit for input of \"ts_zscore\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+    },
+    {
+      "name": "SELF_CORRELATION",
+      "result": "PENDING",
+      "value": null,
+      "limit": null,
+      "message": null
+    },
+    {
+      "name": "MATCHES_COMPETITION",
+      "result": "PASS",
+      "value": null,
+      "limit": null,
+      "message": null
+    }
+  ],
+  "weight_max": null,
+  "sub_univ_sharpe": 0.51,
+  "self_corr": null,
+  "yearly_stats": [
+    {
+      "year": "2019",
+      "pnl": -80867.0,
+      "bookSize": 20000000,
+      "longCount": 1415,
+      "shortCount": 1410,
+      "turnover": 0.1219,
+      "sharpe": -0.3,
+      "returns": -0.008,
+      "drawdown": 0.0338,
+      "margin": -0.000132,
+      "fitness": -0.08,
+      "stage": "IS"
+    },
+    {
+      "year": "2020",
+      "pnl": -91741.0,
+      "bookSize": 20000000,
+      "longCount": 1412,
+      "shortCount": 1417,
+      "turnover": 0.118,
+      "sharpe": -0.24,
+      "returns": -0.0099,
+      "drawdown": 0.0299,
+      "margin": -0.000168,
+      "fitness": -0.07,
+      "stage": "IS"
+    },
+    {
+      "year": "2021",
+      "pnl": 1144012.0,
+      "bookSize": 20000000,
+      "longCount": 1372,
+      "shortCount": 1378,
+      "turnover": 0.1243,
+      "sharpe": 2.38,
+      "returns": 0.1135,
+      "drawdown": 0.0333,
+      "margin": 0.001826,
+      "fitness": 2.27,
+      "stage": "IS"
+    },
+    {
+      "year": "2022",
+      "pnl": 769492.0,
+      "bookSize": 20000000,
+      "longCount": 1435,
+      "shortCount": 1436,
+      "turnover": 0.1086,
+      "sharpe": 1.46,
+      "returns": 0.0766,
+      "drawdown": 0.0391,
+      "margin": 0.001411,
+      "fitness": 1.14,
+      "stage": "IS"
+    },
+    {
+      "year": "2023",
+      "pnl": -30323.0,
+      "bookSize": 20000000,
+      "longCount": 1478,
+      "shortCount": 1480,
+      "turnover": 0.1189,
+      "sharpe": -0.08,
+      "returns": -0.003,
+      "drawdown": 0.0334,
+      "margin": -5.1e-05,
+      "fitness": -0.01,
+      "stage": "IS"
+    }
+  ],
+  "error": null,
+  "field_id": "alpha_005_cash_roe",
+  "settings_used": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 6,
+    "neutralization": "INDUSTRY",
+    "truncation": 0.06,
+    "pasteurization": "ON",
+    "unitHandling": "VERIFY",
+    "nanHandling": "OFF",
+    "language": "FASTEXPR",
+    "visualization": false
+  }
+}

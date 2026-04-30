@@ -1,0 +1,82 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_302_profitability_cashflow_rebound_12d",
+    "expr": "add(multiply(0.6, rank(group_neutralize(add(add(multiply(0.35, ts_zscore(return_on_assets, 252)), multiply(0.35, ts_zscore(fcf_assets, 252))), add(multiply(0.15, ts_zscore(gross_margin, 252)), multiply(0.15, ts_zscore(asset_turnover, 252)))), subindustry))), multiply(0.4, rank(reverse(ts_mean(returns, 12)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_303_quality_stability_shortrev_6d",
+    "expr": "add(multiply(0.55, rank(group_neutralize(add(multiply(0.5, reverse(ts_std_dev(return_equity, 252))), multiply(0.5, ts_zscore(gross_profit_assets, 252))), industry))), multiply(0.45, rank(reverse(ts_mean(returns, 6)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_304_quality_improvement_reversal_10d",
+    "expr": "add(multiply(0.58, rank(group_neutralize(add(multiply(0.5, ts_av_diff(return_equity, 126)), multiply(0.5, ts_av_diff(fcf_assets, 126))), industry))), multiply(0.42, rank(reverse(ts_mean(returns, 10)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_301_quality_reversal_balanced_8d",
+    "expr": "add(multiply(0.65, rank(group_neutralize(add(add(multiply(0.3, ts_zscore(return_equity, 252)), multiply(0.25, ts_zscore(return_on_assets, 252))), add(multiply(0.25, ts_zscore(gross_profit_assets, 252)), multiply(0.2, ts_zscore(asset_turnover, 252)))), industry))), multiply(0.35, rank(reverse(ts_mean(returns, 8)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_305_lowvol_quality_contra_7d",
+    "expr": "trade_when(rank(reverse(ts_std_dev(returns, 20))) > 0.35, add(multiply(0.6, rank(group_neutralize(add(multiply(0.55, ts_zscore(return_equity, 252)), multiply(0.45, ts_zscore(gross_margin, 252))), subindustry))), multiply(0.4, rank(reverse(ts_mean(returns, 7))))), -1)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_308_fcf_gpoa_selective_shortrev_5d",
+    "expr": "trade_when(rank(ts_mean(volume, 20)) > 0.25, add(multiply(0.63, rank(group_neutralize(add(multiply(0.55, ts_zscore(fcf_assets, 252)), multiply(0.45, ts_zscore(gross_profit_assets, 252))), industry))), multiply(0.37, rank(reverse(ts_mean(returns, 5))))), -1)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_306_multiquality_hump_rebound_9d",
+    "expr": "hump(add(multiply(0.62, rank(group_neutralize(add(add(multiply(0.28, ts_zscore(return_equity, 252)), multiply(0.24, ts_zscore(return_on_assets, 252))), add(add(multiply(0.18, ts_zscore(gross_profit_assets, 252)), multiply(0.15, ts_zscore(fcf_assets, 252))), add(multiply(0.1, ts_zscore(gross_margin, 252)), multiply(0.05, ts_zscore(asset_turnover, 252))))), subindustry))), multiply(0.38, rank(reverse(ts_mean(returns, 9))))), 0.01)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_307_margin_turnover_reversal_15d",
+    "expr": "add(multiply(0.57, rank(group_neutralize(add(multiply(0.5, ts_zscore(gross_margin, 252)), multiply(0.5, ts_zscore(asset_turnover, 252))), sector))), multiply(0.43, rank(reverse(ts_mean(returns, 15)))))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  }
+]

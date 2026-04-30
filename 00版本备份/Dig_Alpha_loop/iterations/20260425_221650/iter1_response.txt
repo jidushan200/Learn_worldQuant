@@ -1,0 +1,108 @@
+思路上我采用“慢变量基本面质量 + 快变量短期反转”的统一框架：先用财务质量指标的中长期时序标准化刻画公司质量，再叠加 5–20 日价格均值回归信号作为入场时点。为兼顾 checks，我统一选择 TOP3000 提升覆盖率，delay=1 避免前视，decay=6 降低反转腿的换手与自相关风险，并用 INDUSTRY 中性化控制质量因子的行业暴露。
+
+```json
+[
+  {
+    "name": "alpha_001_roe_reversal",
+    "expr": "rank(add(multiply(0.65, ts_zscore(ts_backfill(roe, 252), 252)), multiply(0.35, reverse(ts_zscore(ts_mean(returns, 5), 20)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_roa_gpm_rev",
+    "expr": "rank(add(multiply(0.4, ts_zscore(ts_backfill(roa, 252), 252)), multiply(0.3, ts_zscore(ts_backfill(gross_margin, 252), 252)), multiply(0.3, reverse(ts_zscore(ts_mean(returns, 10), 40)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_gpoa_turn_rev",
+    "expr": "rank(add(multiply(0.35, ts_zscore(ts_backfill(gpoa, 252), 252)), multiply(0.35, ts_zscore(ts_backfill(asset_turnover, 252), 252)), multiply(0.3, reverse(ts_zscore(ts_mean(returns, 15), 60)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_fcfasset_rev",
+    "expr": "rank(add(multiply(0.7, ts_zscore(ts_backfill(fcf_assets, 252), 252)), multiply(0.3, reverse(ts_zscore(ts_mean(returns, 7), 30)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_quality_blend_rev",
+    "expr": "rank(add(multiply(0.2, ts_zscore(ts_backfill(roe, 252), 252)), multiply(0.2, ts_zscore(ts_backfill(roa, 252), 252)), multiply(0.2, ts_zscore(ts_backfill(gpoa, 252), 252)), multiply(0.2, ts_zscore(ts_backfill(gross_margin, 252), 252)), multiply(0.2, reverse(ts_zscore(ts_mean(returns, 20), 80)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_stable_quality_rev",
+    "expr": "rank(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(roe, 252), 126))), multiply(0.3, reverse(ts_std_dev(ts_backfill(roa, 252), 126))), multiply(0.2, ts_zscore(ts_backfill(asset_turnover, 252), 252)), multiply(0.2, reverse(ts_zscore(ts_mean(returns, 12), 50)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

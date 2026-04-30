@@ -18,6 +18,7 @@ from setting import (
     ALPHAS_FILE,
     MAX_WAIT_SEC, SESSION_REFRESH_INTERVAL, MAX_CONCURRENT,
     MAX_ITERATIONS, TARGET_SHARPE, TARGET_FITNESS, TARGET_GRADE,
+    BATCH_SIZE
 )
 
 _thread_local = threading.local()
@@ -416,7 +417,7 @@ def _run_auto():
                 '    "setting": {}\n'
                 '  }\n'
                 ']\n\n'
-                "请生成 5~8 个不同的 alpha 表达式。每个 expr 必须是完整的、可执行的表达式。"
+                f"请生成 {BATCH_SIZE} 个不同的 alpha 表达式。每个 expr 必须是完整的、可执行的表达式。"
             )
             try:
                 response2 = chat(sys_p, retry_msg)

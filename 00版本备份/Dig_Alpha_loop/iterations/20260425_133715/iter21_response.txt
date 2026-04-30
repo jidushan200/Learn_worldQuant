@@ -1,0 +1,142 @@
+下面 8 个变体都围绕“质量 + 短期反转”主线展开，重点做了小步迭代：一部分保留你当前最优结构，仅调整窗口、权重和质量字段；另一部分引入更稳健的质量替代项或用乘法门控增强“高质量下的反转”逻辑，以争取改善 fitness、checks 和 grade。设置上按因子频率分别调了 decay、neutralization 和 universe，尽量避免千篇一律。
+
+```json
+[
+  {
+    "name": "alpha_206_eps_smooth_rebound_roe_tight20",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 5), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_207_eps_rebound_gpoa_core",
+    "expr": "rank(add(add(multiply(0.35, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.4, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.25, ts_zscore(ts_backfill(gross_profit_over_assets, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_208_eps_rebound_roe_fcfassets_blend",
+    "expr": "rank(add(add(add(multiply(0.25, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.4, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))), multiply(0.15, ts_zscore(ts_backfill(fcf_over_assets, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_209_quality_gated_rebound_roe",
+    "expr": "rank(multiply(ts_zscore(subtract(ts_mean(close, 5), close), 20), add(multiply(0.55, ts_zscore(ts_backfill(return_equity, 126), 252)), multiply(0.45, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_210_roe_roa_rebound_defensive",
+    "expr": "rank(add(add(multiply(0.45, ts_zscore(subtract(ts_mean(close, 5), close), 15)), multiply(0.3, ts_zscore(ts_backfill(return_equity, 126), 252))), multiply(0.25, ts_zscore(ts_backfill(return_on_assets, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_211_eps_rebound_assetturnover_quality",
+    "expr": "rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.45, ts_zscore(subtract(ts_mean(close, 4), close), 20))), multiply(0.25, ts_zscore(ts_backfill(asset_turnover, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_212_margin_rebound_quality_mix",
+    "expr": "rank(add(add(multiply(0.4, ts_zscore(subtract(ts_mean(close, 3), close), 20)), multiply(0.35, ts_zscore(ts_backfill(gross_margin, 126), 252))), multiply(0.25, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP1000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "SECTOR",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_213_fcf_gpoa_rebound_stable",
+    "expr": "rank(add(add(multiply(0.4, ts_zscore(subtract(ts_mean(close, 5), close), 20)), multiply(0.3, ts_zscore(ts_backfill(fcf_over_assets, 126), 252))), multiply(0.3, ts_zscore(ts_backfill(gross_profit_over_assets, 126), 252))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP2000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

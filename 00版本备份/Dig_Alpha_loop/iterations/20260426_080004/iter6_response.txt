@@ -1,0 +1,56 @@
+ä¸é¢ç»ä½  6 ä¸ªæ´âæ¢è°åâçæ¹æ¡ï¼å°½éé¿å¼ä½ å½åæä¼å¼å­çè¿é»ï¼åæ¶ä»ä¿çâè´¨é + ç­åè½¬âçä¸»çº¿ãææå­æ®µ/å½æ°é½åªç¨äºä½ ç»çåå¯æé é¡¹ã
+
+**æ¹æ¡ 1**
+- **é»è¾**ï¼è´¨éä¸å å­ï¼`cashflow_op/assets`ã`income/equity`ã`(sales-cogs)/assets`ï¼+ 10æ¥åè½¬ï¼æååºæ¬é¢å¹¿åº¦
+- **è¡¨è¾¾å¼**ï¼
+`rank(add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(income,equity),252)),add(ts_zscore(divide(subtract(sales,cogs),assets),252),reverse(ts_zscore(ts_mean(returns,10),30)))))`
+- **Settings**ï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP1000","delay":1,"decay":4,"neutralization":"MARKET","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- **çç±**ï¼æåæ¥åçªç `cashflow_op/equity + ROE` æ©æâç°éæµ/çå©/æ¯å©æçâä¸æ¯æ±ï¼å¹¶åå° `TOP1000 + MARKET`ï¼éå¸¸æ´å©äºè´¨éå å­ç¨³å®æ§ã
+
+**æ¹æ¡ 2**
+- **é»è¾**ï¼é«æ¯å©+ä½è´¹ç¨+ä½èµæ¬å¼æ¯ååï¼å å  5 æ¥å¼ºåè½¬ï¼æ´åâä¼è´¨è½»èµäº§âé£æ ¼
+- **è¡¨è¾¾å¼**ï¼
+`rank(add(add(ts_zscore(divide(subtract(sales,cogs),sales),252),reverse(ts_zscore(divide(add(sga_expense,capex),sales),252))),reverse(ts_zscore(ts_mean(returns,5),20))))`
+- **Settings**ï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":8,"neutralization":"SUBINDUSTRY","truncation":0.06,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- **çç±**ï¼ä½ ä¹åå¨ `INDUSTRY` ä¸å¯è½å·²ç»ç¶é¢ï¼è¿éç´æ¥å `SUBINDUSTRY`ï¼è®©ç­æåè½¬æ´å¹²åï¼åæ¶ç¨è´¹ç¨çæ¿ä»£åçº¯ ROEï¼åå°è´¢å¡ç»æåªé³ã
+
+**æ¹æ¡ 3**
+- **é»è¾**ï¼è¿è¥è´¨éï¼`operating_income/revenue`ï¼+ è¥è¿èµæ¬æçï¼`working_capital/sales` ååï¼+ 7æ¥åè½¬
+- **è¡¨è¾¾å¼**ï¼
+`rank(add(add(ts_zscore(divide(operating_income,revenue),252),reverse(ts_zscore(divide(working_capital,sales),252))),reverse(ts_zscore(ts_mean(subtract(close,ts_delay(close,7)),7),21))))`
+- **Settings**ï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP2000","delay":1,"decay":6,"neutralization":"SECTOR","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- **çç±**ï¼è¿æ¯âè´¨éâå®ä¹çææ¾æ¢è½¨ï¼ä¸åä¾èµ `return_equity`ï¼`working_capital/sales` ååå¸¸è½æå°å¨è½¬æ´ä¼çã
+
+**æ¹æ¡ 4**
+- **é»è¾**ï¼ç¨å¸¦åç¼è´¢æ¥å­æ®µæé æ´åå§çè´¨éå å­ï¼éä½ä¸å¸¸è§æ¨¡æ¿éåï¼å å  15 æ¥åè½¬
+- **è¡¨è¾¾å¼**ï¼
+`rank(add(add(ts_zscore(divide(fnd6_newa2v1300_oancf,fnd6_newa1v1300_at),252),ts_zscore(divide(fnd6_newa2v1300_ni,fnd6_newa2v1300_seq),252)),add(ts_zscore(divide(fnd6_newa1v1300_gp,fnd6_newa1v1300_at),252),reverse(ts_zscore(ts_mean(returns,15),30)))))`
+- **Settings**ï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP1000","delay":1,"decay":5,"neutralization":"INDUSTRY","truncation":0.07,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- **çç±**ï¼å¦æå¹³å°ä¸å¸¸è§å­æ®µçæ¬æ¥æ¤ï¼æ¹ç¨ `newa1/newa2` å£å¾ææ¶è½æ¹å self-correlation åæ¥æ¤åº¦ã
+
+**æ¹æ¡ 5**
+- **é»è¾**ï¼è´¨é + ä½é£é© + ç­åè½¬ï¼ä¸é¨éå¯¹ 2019/2020/2023 è¿ç±»åæ¤å¹´ä»½åç¨³å¥å
+- **è¡¨è¾¾å¼**ï¼
+`rank(add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),add(reverse(ts_zscore(historical_volatility_20,60)),reverse(ts_zscore(ts_mean(returns,10),25)))))`
+- **Settings**ï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":7,"neutralization":"SUBINDUSTRY","truncation":0.05,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- **çç±**ï¼ `historical_volatility_20` çä½æ³¢è¿æ»¤ï¼å¾å¾è½æ¾èæ¹å fitness ååå¹´ä»½è¡¨ç°ï¼æ¯ç»§ç»­å è´¨éå å­æ´ææºä¼ç ´å±ã
+
+**æ¹æ¡ 6**
+- **é»è¾**ï¼æ¢ä¸æ¡æ¯çº¿ï¼åæå¸é¢æåºæ¬é¢ +ç»ªéåª + åè½¬ï¼æµè¯æ¯å¦å½åè´¨éæ¡æ¶å·²å¤±æ
+- **è¡¨è¾¾å¼**ï¼
+`rank(add(add(ts_zscore(divide(est_ebitda,enterprise_value),252),ts_zscore(divide(est_sales,sales),252)),add(reverse(ts_zscore(scl12_buzz,60)),reverse(ts_zscore(ts_mean(returns,7),21)))))`
+- **Settings**ï¼
+`{"instrumentType":"EQUITY","region":"USA","universe":"TOP2000","delay":1,"decay":6,"neutralization":"MARKET","truncation":0.06,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"ON","language":"FASTEXPR"}`
+- **çç±**ï¼è¿æ¯âä¸åé»è¾æ¹åâçå¤éï¼è¥è´¨éå å­è¿å è½®æç»­å¡ä½ï¼å¯ç¨é¢æ/ç»ª/åè½¬çå¼±ç»åå²å»æ´é« Sharpeã
+
+**ä¼åæµé¡ºåº**
+- è· `æ¹æ¡ 1`ã`æ¹æ¡ 5`ï¼æè´´è¿ä½ åå§æ¡æ¶ï¼ä½æ´æå¸æè¡¥é½åå¹´ä»½ã
+- åè· `æ¹æ¡ 4`ï¼ææºä¼æ¹åæ¥æ¤å self-correlationã
+- å¦æè¿ä¸è¡ï¼ç´æ¥è¯ `æ¹æ¡ 6`ï¼ä½ä¸ºé£æ ¼åæ¢çç ´å±é¡¹ã
+
+å¦æä½ æ¿æï¼æä¸ä¸æ¡å¯ä»¥ç»§ç»­å¸®ä½ åä¸çâæ´æ¿è¿âç 6 ä¸ªæ¹æ¡ï¼ä¸é¨å² `TOP1000 + SUBINDUSTRY + decay 8~10`ã

@@ -1,0 +1,129 @@
+=== SYSTEM ===
+你是 WorldQuant Brain 平台的量化 alpha 表达式专家。
+你精通 FASTEXPR 语法，熟悉平台支持的所有数据字段和函数。
+你的目标：生成能通过平台全部 checks、grade 达到 GOOD 或以上的 alpha。
+你还需要为每个 alpha 选择最合适的回测参数（setting），而不是千篇一律。
+
+重要规则：
+1. 只使用参考资料中列出的字段和函数，不要编造不存在的字段/函数
+2. 仔细参考成功范例的结构和风格
+3. 结合论文思路设计有经济学逻辑的因子
+4. 关注自相关、换手率、覆盖率等 checks 指标
+5. region 必须固定为 "USA"，不要使用其他区域（其他区域暂未开放）
+
+【迭代优化原则】
+- 在最优表达式基础上做小幅修改，不要完全重写
+- 每个变体只改 1-2 个地方（换算子/调窗口/加中性化/换数据字段/调setting）
+- 保留已被验证有效的核心结构
+- 同时微调 setting 参数，不同变体可以试不同 setting
+- region 必须固定为 "USA"
+
+
+=== USER ===
+## 第 18 轮优化
+
+（参考资料已在第1轮提供，请继续基于那些字段和函数设计）
+
+## 当前最优 Alpha
+```
+rank(add(add(multiply(0.3, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 168))), multiply(0.5, ts_zscore(subtract(ts_mean(close, 3), close), 20))), multiply(0.2, ts_zscore(ts_backfill(return_equity, 126), 252))))
+```
+- 名称: alpha_154_eps_smooth_rebound_roe_subindustry
+- Sharpe   = 1.8400  (目标 >= 1.3)
+- Fitness  = 0.9900  (目标 >= 1.0)
+- Turnover = 0.3126
+- Grade    = INFERIOR  (目标 >= EXCELLENT)
+- Returns  = 0.089700
+- Drawdown = 0.0479
+- Checks   = False
+- Setting: decay=6, neut=SUBINDUSTRY, univ=TOP3000
+
+## 历史记录（每轮最佳）
+  轮1: Sharpe=1.3300, Fitness=0.6600, Turnover=0.4250, Grade=INFERIOR 
+  轮2: Sharpe=1.4000, Fitness=0.7000, Turnover=0.4447, Grade=INFERIOR 
+  轮3: Sharpe=1.4700, Fitness=0.7300, Turnover=0.4802, Grade=INFERIOR 
+  轮4: Sharpe=1.5500, Fitness=0.7700, Turnover=0.4083, Grade=INFERIOR 
+  轮5: Sharpe=1.5900, Fitness=0.7700, Turnover=0.4462, Grade=INFERIOR 
+  轮6: Sharpe=1.5900, Fitness=0.8100, Turnover=0.4725, Grade=INFERIOR 
+  轮7: Sharpe=1.6500, Fitness=0.8200, Turnover=0.5095, Grade=INFERIOR 
+  轮8: Sharpe=1.6900, Fitness=0.8100, Turnover=0.5721, Grade=INFERIOR 
+  轮9: Sharpe=1.6700, Fitness=0.8400, Turnover=0.5199, Grade=INFERIOR 
+  轮10: Sharpe=1.6600, Fitness=0.8300, Turnover=0.5098, Grade=INFERIOR 
+  轮11: Sharpe=1.4100, Fitness=0.7300, Turnover=0.3284, Grade=INFERIOR 
+  轮12: Sharpe=1.6400, Fitness=0.9100, Turnover=0.3167, Grade=INFERIOR 
+  轮13: Sharpe=1.6200, Fitness=0.9100, Turnover=0.2482, Grade=INFERIOR 
+  轮14: Sharpe=1.7900, Fitness=0.9300, Turnover=0.4131, Grade=INFERIOR 🏆最优
+  轮15: Sharpe=1.8400, Fitness=0.9900, Turnover=0.3126, Grade=INFERIOR 🏆最优
+  轮16: Sharpe=1.8400, Fitness=0.9900, Turnover=0.3128, Grade=INFERIOR 
+  轮17: Sharpe=1.8400, Fitness=0.9900, Turnover=0.3165, Grade=INFERIOR 
+
+## 差距分析
+- Grade 当前 INFERIOR，目标 EXCELLENT，需整体提升因子质量
+- Fitness 0.9900 → 目标 1.0，差 0.0100，提高跨时间段稳定性
+
+
+上轮未超越最优，请尝试不同的微调方向：
+- 如果之前改了窗口，这次试换算子
+- 如果之前换了算子，这次试换数据字段或调 setting
+- 生成 8 个不同方向的微调变体
+- 每个变体只改 1-2 处，方便对比
+
+## 要求
+1. **只使用参考资料中列出的字段和函数**
+2. 每个 alpha 包含独立的 setting，根据因子特性单独调参
+3. 不要重复已测试的表达式
+4. **region 必须为 "USA"**
+
+## 回测参数说明（setting 字段）
+每个 alpha 必须包含 setting 字段，可选值如下：
+
+| 参数 | 可选值 | 说明 |
+|------|--------|------|
+| instrumentType | "EQUITY" | 固定 |
+| region | "USA" | 固定为USA（其他区域暂不可用） |
+| universe | "TOP200", "TOP500", "TOP1000", "TOP2000", "TOP3000" | 股票池 |
+| delay | 0, 1 | 信号延迟天数 |
+| decay | 0~20 整数 | 线性衰减天数 |
+| neutralization | "NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY" | 中性化 |
+| truncation | 0.01~0.10 | 截断比例 |
+| pasteurization | "ON", "OFF" | 巴氏灭菌 |
+| unitHandling | "VERIFY", "NONE" | 单位处理 |
+| nanHandling | "ON", "OFF" | NaN处理 |
+| language | "FASTEXPR" | 固定 |
+
+⚠️ **region 必须为 "USA"，当前不支持 CHN/EUR/ASI/GLB 等其他区域。**
+
+选择建议：
+- 动量/反转类：decay 偏高(6-12)，neutralization 用 SUBINDUSTRY
+- 基本面质量类：decay 偏低(2-6)，neutralization 用 MARKET 或 INDUSTRY
+- 高换手因子：truncation 调低(0.05)，decay 调高
+- 低频因子：delay=1，decay 可较低
+
+## 输出格式
+先用 2-3 句话简述设计思路，然后 **严格** 输出如下 JSON 数组：
+
+```json
+[
+  {
+    "name": "alpha_001_xxx",
+    "expr": "rank(ts_zscore(return_equity, 252)) ...",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+**注意：每个 alpha 的 setting 应根据因子特性单独调参，不要所有 alpha 用同样的 setting。**
+**注意：region 必须固定为 "USA"。**
+

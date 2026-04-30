@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_quality_rev_combo",
+    "expr": "add(group_rank(rank(add(add(ts_zscore(divide(cashflow_op, enterprise_value), 252), ts_zscore(divide(est_netprofit, enterprise_value), 252)), add(ts_zscore(analyst_revision_rank_derivative, 252), ts_zscore(divide(eps, close), 252)))), subindustry), group_rank(rank(subtract(ts_mean(close, 5), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_cashflow_stability_rev",
+    "expr": "add(group_rank(rank(add(subtract(ts_zscore(divide(cashflow_op, enterprise_value), 252), ts_zscore(ts_std_dev(divide(cashflow_op, enterprise_value), 126), 252)), add(ts_zscore(cashflow_efficiency_rank_derivative, 252), ts_zscore(divide(est_netprofit, enterprise_value), 252)))), subindustry), group_rank(rank(subtract(ts_mean(close, 7), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_balance_sheet_reversal",
+    "expr": "add(group_rank(rank(add(add(ts_zscore(divide(subtract(cash, debt), enterprise_value), 252), ts_zscore(divide(cashflow_op, enterprise_value), 252)), add(ts_zscore(divide(est_cashflow_op, enterprise_value), 252), ts_zscore(earnings_certainty_rank_derivative, 252)))), subindustry), group_rank(rank(subtract(ts_mean(close, 6), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_value_quality_revision",
+    "expr": "add(group_rank(rank(add(add(ts_zscore(divide(bookvalue_ps, close), 252), ts_zscore(divide(cashflow_op, assets), 252)), add(ts_zscore(divide(est_netprofit, enterprise_value), 252), ts_zscore(analyst_revision_rank_derivative, 252)))), subindustry), group_rank(rank(subtract(ts_mean(close, 7), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_profitability_sentiment_rev",
+    "expr": "add(group_rank(rank(add(add(ts_zscore(divide(ebitda, enterprise_value), 252), ts_zscore(divide(cashflow_op, enterprise_value), 252)), add(ts_zscore(composite_factor_score_derivative, 252), ts_zscore(divide(eps, close), 252)))), subindustry), group_rank(rank(subtract(ts_mean(close, 5), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_estimate_quality_rev",
+    "expr": "add(group_rank(rank(add(add(ts_zscore(divide(est_sales, enterprise_value), 252), ts_zscore(divide(est_cashflow_op, enterprise_value), 252)), add(ts_zscore(earnings_certainty_rank_derivative, 252), ts_zscore(divide(cash, assets), 252)))), subindustry), group_rank(rank(subtract(ts_mean(close, 6), close)), subindustry))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

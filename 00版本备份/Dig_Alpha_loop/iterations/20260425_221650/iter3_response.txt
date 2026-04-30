@@ -1,0 +1,108 @@
+本轮重点不再沿用“单一 EPS 水平 + 简单短反转”的弱结构，而是改成“质量复合 + 反转 + 稳定性/效率”的组合，尽量提升 2020/2023 这类环境下的稳健性。同时在 settings 上按因子频率做区分：含更多价格反转成分的方案提高 decay 并用更细的行业中性，偏基本面的方案用较低 decay 与 INDUSTRY/MARKET 中性化来压低噪声。
+
+```json
+[
+  {
+    "name": "alpha_001_quality_eps_cf_rev",
+    "expr": "rank(add(add(multiply(0.35, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.25, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126))), add(multiply(0.15, ts_zscore(ts_delta(ts_backfill(actual_eps_value_quarterly, 252), 63), 126)), multiply(0.25, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 10), 80))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_quality_sales_eps_stable_rev",
+    "expr": "rank(add(add(multiply(0.28, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.22, ts_zscore(ts_backfill(actual_sales_value_quarterly, 252), 126))), add(multiply(0.20, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.30, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 7), 70))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 8,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_eps_sales_accel_rev",
+    "expr": "rank(add(add(multiply(0.30, ts_zscore(ts_delta(ts_backfill(actual_eps_value_quarterly, 252), 63), 126)), multiply(0.25, ts_zscore(ts_delta(ts_backfill(actual_sales_value_quarterly, 252), 63), 126))), add(multiply(0.20, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)), multiply(0.25, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 12), 90))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_cf_quality_dual_reversal",
+    "expr": "rank(add(add(multiply(0.32, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)), multiply(0.18, reverse(ts_std_dev(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)))), add(multiply(0.20, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), add(multiply(0.15, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 5), 60))), multiply(0.15, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 15), 100)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_balanced_quality_market_neutral",
+    "expr": "rank(add(add(multiply(0.25, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.25, ts_zscore(ts_backfill(actual_sales_value_annual, 252), 126))), add(multiply(0.20, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)), add(multiply(0.10, reverse(ts_std_dev(ts_backfill(actual_eps_value_quarterly, 252), 126))), multiply(0.20, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 10), 80)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 5,
+      "neutralization": "MARKET",
+      "truncation": 0.07,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_eps_level_change_with_slow_reversal",
+    "expr": "rank(add(add(multiply(0.30, ts_zscore(ts_backfill(actual_eps_value_quarterly, 252), 126)), multiply(0.20, ts_zscore(ts_delta(ts_backfill(actual_eps_value_quarterly, 252), 126), 126))), add(multiply(0.20, ts_zscore(ts_backfill(actual_cashflow_per_share_value_quarterly, 252), 126)), add(multiply(0.10, reverse(ts_std_dev(ts_backfill(actual_sales_value_quarterly, 252), 126))), multiply(0.20, reverse(ts_zscore(ts_mean(close / ts_delay(close, 1) - 1, 20), 120)))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

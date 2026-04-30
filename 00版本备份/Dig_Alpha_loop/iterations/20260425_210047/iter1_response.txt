@@ -1,0 +1,146 @@
+下面这组统一采用 **USA TOP3000 + delay=1 + 中等 decay + INDUSTRY 中性化**：因为你的核心是“低频基本面质量 + 高频短期反转”的混合，若 decay 太低会让反转腿过于躁动、self-correlation 和 turnover 不稳；若用 SUBINDUSTRY 中性化则基本面覆盖和稳定性有时会被削弱。表达式上我尽量用 **ts_zscore + rank + winsorize + backfill/hump** 组合，优先兼顾覆盖率、换手与 checks 通过率。  
+
+```json
+[
+  {
+    "name": "alpha_001_quality_reversal",
+    "expr": "rank(add(multiply(0.6,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.4,winsorize(ts_zscore(reverse(ts_mean(returns,5)),20),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_002_profit_margin_revert",
+    "expr": "rank(add(multiply(0.5,winsorize(ts_zscore(ts_backfill(gross_profit_margin,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(return_on_assets,252),252),4)),multiply(0.3,winsorize(ts_zscore(reverse(ts_mean(returns,10)),40),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_003_gpoa_shortrev",
+    "expr": "rank(add(multiply(0.55,winsorize(ts_zscore(ts_backfill(gross_profit_over_assets,252),252),4)),multiply(0.25,winsorize(ts_zscore(ts_backfill(asset_turnover,252),252),4)),multiply(0.2,winsorize(ts_zscore(reverse(ts_mean(returns,15)),60),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_004_fcfasset_timed",
+    "expr": "rank(multiply(add(multiply(0.5,winsorize(ts_zscore(ts_backfill(free_cash_flow_to_assets,252),252),4)),multiply(0.3,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(gross_profit_margin,252),252),4))),add(0.5,rank(winsorize(ts_zscore(reverse(ts_mean(returns,7)),30),4)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_005_balanced_quality_rev",
+    "expr": "rank(add(multiply(0.25,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(return_on_assets,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(gross_profit_over_assets,252),252),4)),multiply(0.15,winsorize(ts_zscore(ts_backfill(asset_turnover,252),252),4)),multiply(0.2,winsorize(ts_zscore(reverse(add(ts_mean(returns,5),ts_mean(returns,20))),60),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_006_smooth_quality_reversal",
+    "expr": "rank(hump(add(multiply(0.65,winsorize(ts_zscore(ts_backfill(return_equity,252),252),4)),multiply(0.35,winsorize(ts_zscore(reverse(ts_mean(returns,12)),40),4))),0.01))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_007_quality_gate_reversal",
+    "expr": "rank(multiply(add(multiply(0.4,winsorize(ts_zscore(ts_backfill(return_on_assets,252),252),4)),multiply(0.3,winsorize(ts_zscore(ts_backfill(gross_profit_margin,252),252),4)),multiply(0.3,winsorize(ts_zscore(ts_backfill(asset_turnover,252),252),4))),rank(winsorize(ts_zscore(reverse(ts_mean(returns,20)),80),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_008_dualhorizon_quality",
+    "expr": "rank(add(multiply(0.5,winsorize(ts_zscore(ts_backfill(free_cash_flow_to_assets,252),252),4)),multiply(0.2,winsorize(ts_zscore(ts_backfill(gross_profit_over_assets,252),252),4)),multiply(0.15,winsorize(ts_zscore(reverse(ts_mean(returns,5)),20),4)),multiply(0.15,winsorize(ts_zscore(reverse(ts_mean(returns,15)),60),4))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 6,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+如果你愿意，我下一步可以继续做两件事之一：  
+1. 把这 8 个里我认为 **最可能过 GOOD** 的 3 个挑出来并说明优先回测顺序；  
+2. 基于你平台里**确切可用的质量字段名**，把这些表达式再改成“100%字段名对齐版”。

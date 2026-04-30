@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_025_quality_reversal_01",
+    "expr": "add(multiply(0.62,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),add(ts_zscore(divide(ebit,assets),252),ts_zscore(earnings_certainty_rank_derivative,252)))),multiply(0.38,add(ts_zscore(divide(subtract(ts_mean(close,5),close),close),20),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,15)),ts_mean(close,15)),60)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_025_quality_reversal_02",
+    "expr": "add(multiply(0.58,add(add(ts_zscore(divide(est_netprofit,assets),252),ts_zscore(divide(est_sales,assets),252)),add(ts_zscore(analyst_revision_rank_derivative,252),ts_zscore(cashflow_efficiency_rank_derivative,252)))),multiply(0.42,add(ts_zscore(divide(subtract(ts_mean(close,7),close),close),21),ts_zscore(divide(subtract(ts_mean(close,14),close),close),42))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_025_quality_reversal_03",
+    "expr": "add(multiply(0.64,add(add(ts_zscore(divide(cash,assets),252),multiply(-1,ts_zscore(divide(debt,assets),252))),add(ts_zscore(divide(bookvalue_ps,close),252),ts_zscore(divide(cashflow_op,assets),252)))),multiply(0.36,add(ts_zscore(divide(subtract(ts_mean(close,4),close),close),16),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,12)),ts_mean(close,12)),48)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_025_quality_reversal_04",
+    "expr": "add(multiply(0.6,add(add(ts_zscore(divide(ebitda,assets),252),ts_zscore(divide(sales,assets),252)),add(ts_zscore(composite_factor_score_derivative,252),ts_zscore(analyst_revision_rank_derivative,252)))),multiply(0.4,add(ts_zscore(divide(subtract(ts_mean(close,6),close),close),18),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,18)),ts_mean(close,18)),72)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_025_quality_reversal_05",
+    "expr": "add(multiply(0.57,add(add(ts_zscore(divide(est_cashflow_op,assets),252),ts_zscore(divide(est_ebitda,assets),252)),add(ts_zscore(analyst_revision_rank_derivative,252),ts_zscore(earnings_certainty_rank_derivative,252)))),multiply(0.43,add(ts_zscore(divide(subtract(ts_mean(close,3),close),close),12),ts_zscore(divide(subtract(ts_mean(close,10),close),close),30))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_025_quality_reversal_06",
+    "expr": "add(multiply(0.61,add(add(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)),add(ts_zscore(divide(bookvalue_ps,close),252),multiply(-1,ts_zscore(divide(debt_lt,assets),252))))),multiply(0.39,add(ts_zscore(divide(subtract(ts_mean(close,8),close),close),24),multiply(-1,ts_zscore(divide(subtract(close,ts_mean(close,20)),ts_mean(close,20)),80)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "alpha_001_cashflow_to_assets_quality",
+    "expr": "rank(ts_zscore(divide(cashflow_op,assets),252))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_002_roe_short_term_reversal",
+    "expr": "rank(add(ts_zscore(return_equity,252),reverse(ts_mean(returns,5))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_003_margin_and_momentum_mix",
+    "expr": "rank(add(ts_zscore(gross_margin,252),ts_mean(returns,20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_004_leverage_adjusted_profitability",
+    "expr": "rank(subtract(ts_zscore(return_assets,252),ts_zscore(debt_to_assets,252)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_005_sales_growth_over_valuation",
+    "expr": "rank(ts_zscore(divide(revenue_growth,price_to_book),252))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_006_volatility_filtered_momentum",
+    "expr": "rank(subtract(ts_mean(returns,20),ts_stddev(returns,20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_007_earnings_yield_with_reversal",
+    "expr": "rank(add(ts_zscore(earnings_yield,252),reverse(ts_mean(returns,10))))",
+    "setting": {}
+  }
+]

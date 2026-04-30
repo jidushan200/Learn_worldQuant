@@ -1,0 +1,110 @@
+[
+  {
+    "name": "alpha_001_revision_reversal",
+    "expr": "add(multiply(0.52,group_rank(ts_zscore(analyst_revision_rank_derivative,126),subindustry)),multiply(0.48,group_rank(ts_rank(subtract(ts_mean(close,5),close),20),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_certainty_reversal",
+    "expr": "add(multiply(0.5,group_rank(ts_zscore(earnings_certainty_rank_derivative,126),subindustry)),multiply(0.5,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_composite_reversal",
+    "expr": "add(multiply(0.54,group_rank(ts_zscore(composite_factor_score_derivative,126),subindustry)),multiply(0.46,group_rank(ts_rank(subtract(ts_mean(close,7),close),16),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_cashflow_eff_reversal",
+    "expr": "add(multiply(0.55,group_rank(ts_zscore(cashflow_efficiency_rank_derivative,126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,6),close),20),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_estimate_dispersion_rev",
+    "expr": "add(multiply(0.51,group_rank(ts_zscore(divide(subtract(earnings_per_share_maximum,earnings_per_share_minimum),add(abs(earnings_per_share_median_value),0.01)),126),subindustry)),multiply(-0.49,group_rank(ts_rank(subtract(ts_mean(close,5),close),18),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_dividend_stability_rev",
+    "expr": "add(multiply(0.53,group_rank(ts_zscore(divide(dividend_estimate_value,add(dividend_estimate_standard_deviation,0.01)),126),subindustry)),multiply(0.47,group_rank(ts_rank(subtract(ts_mean(close,8),close),22),subindustry)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

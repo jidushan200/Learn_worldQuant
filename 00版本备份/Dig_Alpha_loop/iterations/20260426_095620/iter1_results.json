@@ -1,0 +1,38 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_002_fcf_margin_short_revert",
+    "expr": "add(multiply(0.6,rank(add(ts_zscore(divide(subtract(cashflow_op,capex),assets),252),ts_zscore(divide(subtract(sales,cogs),sales),252)))),multiply(0.4,rank(negate(ts_zscore(ts_mean(returns,5),15)))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_001_quality_reversal_roa_gpoa",
+    "expr": "add(multiply(0.55,rank(add(ts_zscore(divide(income,assets),252),ts_zscore(divide(subtract(sales,cogs),assets),252)))),multiply(0.45,rank(negate(ts_zscore(ts_mean(returns,10),20)))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_004_newa_quality_inventory_revert",
+    "expr": "add(multiply(0.58,rank(add(subtract(ts_zscore(divide(fnd6_newa2v1300_ni,fnd6_newa1v1300_at),252),ts_zscore(divide(fnd6_newa1v1300_dltt,fnd6_newa1v1300_at),252)),subtract(ts_zscore(divide(fnd6_newa2v1300_sale,fnd6_newa1v1300_at),252),ts_zscore(divide(fnd6_newa1v1300_invt,fnd6_newa2v1300_sale),252))))),multiply(0.42,rank(negate(ts_zscore(ts_mean(returns,7),21)))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_005_estimate_quality_with_20d_reversal",
+    "expr": "add(multiply(0.52,rank(add(subtract(ts_zscore(divide(est_ebitda,enterprise_value),252),ts_zscore(divide(debt,assets),252)),ts_zscore(divide(est_sales,sales),252)))),multiply(0.48,rank(negate(ts_zscore(ts_mean(returns,15),30)))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_003_turnover_leverage_reversal",
+    "expr": "add(multiply(0.5,rank(subtract(ts_zscore(divide(sales,assets),252),ts_zscore(divide(debt,assets),252)))),multiply(0.5,rank(negate(ts_zscore(ts_mean(returns,20),40)))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_006_cashflow_efficiency_lowvol_revert",
+    "expr": "add(multiply(0.57,rank(add(subtract(ts_zscore(divide(cashflow_op,assets),252),ts_zscore(divide(operating_expense,sales),252)),subtract(ts_zscore(divide(sales,working_capital),252),ts_zscore(historical_volatility_20,126))))),multiply(0.43,rank(negate(ts_zscore(ts_mean(returns,6),18)))))",
+    "error": "完成但 alpha 为空"
+  }
+]

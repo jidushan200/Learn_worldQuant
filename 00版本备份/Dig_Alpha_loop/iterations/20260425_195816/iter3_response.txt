@@ -1,0 +1,150 @@
+本轮继续保留“质量水平 + 质量改善 + 短期反转”这条主线，只做小幅微调来提升稳定性与 checks 通过率。重点尝试三类改动：微调 ROE 变化窗口、把加法改成更稳健的乘法/二次排序结构、以及轻微调整短期反转窗口以降低某些年份失效风险。
+
+```json
+[
+  {
+    "name": "alpha_001_quality_accel_reversal_4d",
+    "expr": "rank(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252))) * rank(reverse(ts_mean(returns, 4)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_002_quality_accel_reversal_6d",
+    "expr": "rank(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252))) * rank(reverse(ts_mean(returns, 6)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_003_quality_accel_42_reversal_5d",
+    "expr": "rank(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_delta(ts_backfill(return_equity, 252), 42), 252))) * rank(reverse(ts_mean(returns, 5)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_004_quality_accel_84_reversal_5d",
+    "expr": "rank(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_delta(ts_backfill(return_equity, 252), 84), 252))) * rank(reverse(ts_mean(returns, 5)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_005_quality_mult_accel_reversal_5d",
+    "expr": "rank(mul(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252))) * rank(reverse(ts_mean(returns, 5)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_006_ranked_quality_accel_reversal_5d",
+    "expr": "rank(add(rank(ts_zscore(ts_backfill(return_equity, 252), 252)), rank(ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252)))) * rank(reverse(ts_mean(returns, 5)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_007_quality_accel_smooth_reversal_5d",
+    "expr": "rank(add(ts_mean(ts_zscore(ts_backfill(return_equity, 252), 252), 5), ts_mean(ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252), 5))) * rank(reverse(ts_mean(returns, 5)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "name": "alpha_008_quality_accel_rankcombo_reversal_5d",
+    "expr": "rank(mul(rank(ts_zscore(ts_backfill(return_equity, 252), 252)), rank(ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252)))) * rank(reverse(ts_mean(returns, 5)))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]
+```

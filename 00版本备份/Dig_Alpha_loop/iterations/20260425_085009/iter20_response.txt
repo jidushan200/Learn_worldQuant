@@ -1,0 +1,143 @@
+本轮重点不再盲目堆基本面字段，因为历史结果显示你当前环境下多数“质量字段直接入式”会触发空值/覆盖问题；相反，价格反转+波动/流动性辅助是已验证有效方向。因此我采用“两条线”并行：一条继续深挖已有效的短期反转结构以冲 Sharpe/checks，另一条尝试更稳健地把质量思路转成“变化/稳定性代理”与价格信号结合，尽量降低空值和自相关风险。  
+同时在 setting 上做差异化：高换手短反转用更高 decay、更严 truncation、SUBINDUSTRY 中性；偏稳健/低频结构用更低 decay 或 INDUSTRY/SECTOR 中性，争取提升 sub-universe sharpe 与 weight checks。
+
+```json
+[
+  {
+    "name": "alpha_2001_tripod_reversal_stableliq",
+    "expr": "add(add(multiply(0.36, rank(reverse(ts_av_diff(returns, 4)))), multiply(0.30, rank(reverse(ts_mean(returns, 10))))), add(multiply(0.22, rank(reverse(ts_std_dev(returns, 20)))), multiply(0.12, rank(ts_mean(volume, 40)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2002_dualshock_reversal_defensive",
+    "expr": "add(add(multiply(0.34, rank(reverse(ts_mean(returns, 4)))), multiply(0.26, rank(reverse(ts_av_diff(returns, 6))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 16)))), multiply(0.16, rank(reverse(ts_std_dev(returns, 32))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2003_liquidity_conditioned_meanrevert",
+    "expr": "add(add(multiply(0.40, rank(reverse(ts_mean(returns, 6)))), multiply(0.22, rank(reverse(ts_std_dev(returns, 21))))), add(multiply(0.20, rank(ts_mean(volume, 45))), multiply(0.18, rank(reverse(ts_mean(volume, 12))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2004_barbell_reversal_termstructure",
+    "expr": "add(add(multiply(0.30, rank(reverse(ts_mean(returns, 3)))), multiply(0.28, rank(reverse(ts_mean(returns, 12))))), add(multiply(0.24, rank(reverse(ts_std_dev(returns, 18)))), multiply(0.18, rank(ts_mean(volume, 28)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 9,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2005_lowrisk_oversold_rebound",
+    "expr": "add(add(multiply(0.38, rank(reverse(ts_mean(returns, 8)))), multiply(0.24, rank(reverse(ts_av_diff(returns, 5))))), add(multiply(0.26, rank(reverse(ts_std_dev(returns, 26)))), multiply(0.12, rank(ts_mean(volume, 32)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 13,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.04,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2006_quality_proxy_via_stability_reversal",
+    "expr": "add(add(multiply(0.28, rank(reverse(ts_std_dev(returns, 12)))), multiply(0.24, rank(reverse(ts_std_dev(returns, 36))))), add(multiply(0.30, rank(reverse(ts_mean(returns, 7)))), multiply(0.18, rank(ts_mean(volume, 50)))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 12,
+      "neutralization": "SECTOR",
+      "truncation": 0.06,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2007_conservative_reversal_liquidityshock",
+    "expr": "add(add(multiply(0.32, rank(reverse(ts_mean(returns, 5)))), multiply(0.24, rank(reverse(ts_mean(returns, 15))))), add(multiply(0.24, rank(reverse(ts_av_diff(volume, 4)))), multiply(0.20, rank(reverse(ts_std_dev(returns, 20))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 11,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  },
+  {
+    "name": "alpha_2008_new_idea_residual_calm_rebound",
+    "expr": "add(add(multiply(0.35, rank(reverse(ts_av_diff(returns, 7)))), multiply(0.27, rank(reverse(ts_mean(returns, 11))))), add(multiply(0.23, rank(reverse(ts_std_dev(returns, 30)))), multiply(0.15, rank(reverse(ts_mean(volume, 18))))))",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 10,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```

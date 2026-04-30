@@ -1,0 +1,182 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_003_efficiency_meanrev",
+    "expr": "rank(add(multiply(0.5, ts_zscore(ts_backfill(asset_turnover, 252), 252)), multiply(0.5, ts_zscore(ts_backfill(gross_profit_over_assets, 252), 252)))) + rank(ts_zscore(reverse(ts_sum(returns, 15)), 60))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_001_quality_reversal",
+    "expr": "rank(add(multiply(0.6, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.4, ts_zscore(ts_backfill(gross_profit_over_assets, 252), 252)))) * rank(ts_zscore(reverse(ts_mean(returns, 5)), 20))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_002_profitability_pullback",
+    "expr": "rank(add(ts_zscore(ts_backfill(return_on_assets, 252), 252), ts_zscore(ts_backfill(gross_margin, 252), 252))) * rank(reverse(ts_mean(returns, 10)))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_006_margin_stability_rebound",
+    "expr": "rank(subtract(ts_zscore(ts_backfill(gross_margin, 252), 252), ts_zscore(ts_std_dev(ts_backfill(gross_margin, 252), 126), 252))) * rank(ts_zscore(reverse(ts_mean(returns, 12)), 40))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_007_quality_gate_reversal",
+    "expr": "trade_when(rank(add(ts_zscore(ts_backfill(return_on_assets, 252), 252), ts_zscore(ts_backfill(gross_profit_over_assets, 252), 252))) > 0.5, rank(reverse(ts_mean(returns, 8))), -1)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_008_composite_quality_revert",
+    "expr": "hump(rank(add(add(multiply(0.35, ts_zscore(ts_backfill(return_equity, 252), 252)), multiply(0.25, ts_zscore(ts_backfill(return_on_assets, 252), 252))), add(multiply(0.2, ts_zscore(ts_backfill(gross_profit_over_assets, 252), 252)), add(multiply(0.1, ts_zscore(ts_backfill(gross_margin, 252), 252)), multiply(0.1, ts_zscore(ts_backfill(asset_turnover, 252), 252)))))) * rank(reverse(ts_mean(returns, 6))), 0.01)",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_004_robust_quality_entry",
+    "expr": "rank(add(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_backfill(return_on_assets, 252), 252)), add(ts_zscore(ts_backfill(gross_margin, 252), 252), ts_zscore(ts_backfill(asset_turnover, 252), 252)))) * rank(ts_zscore(reverse(ts_mean(returns, 20)), 60))",
+    "error": "完成但 alpha 为空",
+    "judge": {
+      "verdict": "SKIP",
+      "comment": "回测失败，跳过研判"
+    }
+  },
+  {
+    "alpha_id": "zqJ7GGeR",
+    "expr": "rank(add(ts_zscore(ts_backfill(return_equity, 252), 252), ts_zscore(ts_delta(ts_backfill(return_equity, 252), 63), 252))) * rank(reverse(ts_mean(returns, 7)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.83,
+    "fitness": 0.48,
+    "turnover": 0.1771,
+    "returns": 0.0594,
+    "drawdown": 0.0874,
+    "margin": 0.000671,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.83,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.48,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.1771,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.1771,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.57,
+        "limit": 0.36,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_backfill\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.57,
+    "self_corr": null,
+    "yearly_stats": null,
+    "error": null,
+    "field_id": "alpha_005_quality_accel_reversal",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 7,
+      "neutralization": "INDUSTRY",
+      "truncation": 0.05,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "ON",
+      "language": "FASTEXPR",
+      "visualization": false
+    },
+    "judge": {
+      "verdict": "PASS",
+      "comment": "**简评**\n\n- **Sharpe: 0.83**  \n  偏低，说明风险调整后收益不够强，信号稳定性一般，离可提交的优质 alpha 还有明显差距。\n\n- **Turnover: 0.1771**  \n  换手率适中，不算激进，这一点尚可，说明交易频率和持仓稳定性还在合理范围内。\n\n- **Drawdown: 0.0874**  \n  回撤不算特别大，但结合较低 Sharpe 来看，说明承担的风险并没有换来足够好的收益，性价比一般。\n\n- **Fitness: 0.48**  \n  明显偏弱，通常这意味着综合表现不足，alpha 的有效性和可用性都不理想。\n\n**结论：FAIL**\n\n该 alpha **不值得直接提交**。  \n原因很明确：**grade = INFERIOR、checks_pass = false**，且 **Sharpe 和 Fitness 都偏低**，说明无论从平台检查还是从实盘可用性角度，都不具备提交价值。\n\n**改进建议**\n\n1. **降低 reversal 成分的噪声**  \n   当前用了 `rank(reverse(ts_mean(returns, 7)))`，7日短期反转容易噪声较大，可尝试：\n   - 拉长窗口，如 10/15/20 天；\n   - 改成 `ts_zscore` 或 `decay` 处理，降低短期跳动影响。\n\n2. **优化质量因子构造**  \n   `return_equity` 的 level + 63日变化同时使用，可能存在信息重叠。可尝试：\n   - 分开测试 level 和 accel 哪个贡献更大；\n   - 替换为其他质量指标组合，如 `gross_margin`、`asset_turnover`、`operating_profit_margin` 等。\n\n3. **增强时序稳定性**  \n   对基本面信号可加入更长周期平滑，如：\n   - `ts_mean(...)`\n   - `ts_rank(...)`\n   - `decay_linear(...)`\n   以减少季度更新带来的跳变。\n\n4. **控制风格暴露**  \n   该表达式可能混入较强的中短期反转暴露，建议检查是否对：\n   - size\n   - beta\n   - industry\n   - momentum  \n   存在无意暴露，并考虑做中性化处理。\n\n5. **尝试乘法改为加权加和**  \n   两个 rank 直接相乘有时会放大极端值、降低稳定性。可以尝试：\n   - `0.6 * quality + 0.4 * reversal`\n   - 或者先对各部分标准化后再组合。\n\n如果你愿意，我可以进一步**直接给你改写出 3 个更可能通过检查的 BRAIN alpha 版本**。"
+    }
+  }
+]

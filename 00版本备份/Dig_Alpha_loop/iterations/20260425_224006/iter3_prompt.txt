@@ -1,0 +1,1074 @@
+=== SYSTEM ===
+你是 WorldQuant Brain 平台的量化 alpha 表达式专家。
+你精通 FASTEXPR 语法，熟悉平台支持的所有数据字段和函数。
+你的目标：生成能通过平台全部 checks、grade 达到 GOOD 或以上的 alpha。
+你还需要为每个 alpha 选择最合适的回测参数（setting），而不是千篇一律。
+
+重要规则：
+1. 只使用参考资料中列出的字段和函数，不要编造不存在的字段/函数
+2. 仔细参考成功范例的结构和风格
+3. 结合论文思路设计有经济学逻辑的因子
+4. 关注自相关、换手率、覆盖率等 checks 指标
+5. region 必须固定为 "USA"，不要使用其他区域（其他区域暂未开放）
+
+=== USER ===
+## 用户策略思路
+我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
+- 结合短期反转信号（5-20日收益率的均值回归）择时入场
+- 使用 ts_zscore 标准化不同因子
+- 探索不同的组合权重、窗口期和因子组合方式
+
+约束：
+- FASTEXPR 语法
+- 回测 USA TOP3000 EQUITY
+- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks
+
+
+
+---
+# 📚 参考知识库（请充分利用以下信息来设计 alpha）
+
+## 平台数据字段参考
+# WorldQuant BRAIN 核心字段参考（USA TOP3000）
+
+## 一、量价基础（内置字段，无需前缀，coverage=100%）
+- open：开盘价
+- close：收盘价
+- high：最高价
+- low：最低价
+- volume：成交量
+- vwap：成交量加权均价
+- returns：日收益率 (close/prev_close - 1)
+- cap：市值
+- sharesout：流通股本
+- adv20：20日平均成交额
+- adv60：60日平均成交额
+- adv120：120日平均成交额
+- adv180：180日平均成交额
+- split：拆股因子
+
+## 二、分析师预期&业绩实际值（analyst4，MATRIX，coverage高）
+### 业绩实际值
+- actual_eps_value_quarterly：季度实际EPS（coverage=100%，最常用）
+- actual_sales_value_quarterly：季度实际营收（coverage=100%）
+- actual_sales_value_annual：年度实际营收（coverage=99%）
+- actual_cashflow_per_share_value_quarterly：季度实际每股现金流（coverage=47%）
+- actual_dividend_value_quarterly：季度实际股息（coverage=61%）
+
+### EPS一致预期（年度）
+- anl4_afv4_eps_mean：EPS预测均值（coverage=100%）
+- anl4_afv4_median_eps：EPS预测中位数（coverage=100%）
+- anl4_afv4_eps_high：EPS预测最高值（coverage=100%）
+- anl4_afv4_eps_low：EPS预测最低值（coverage=100%）
+- anl4_afv4_eps_number：EPS预测分析师数量（coverage=100%）
+- anl4_afv4_dts_spe：EPS预测标准差（coverage=69%）
+
+### 每股现金流预期（年度）
+- anl4_afv4_cfps_mean：每股现金流预测均值（coverage=68%）
+- anl4_afv4_cfps_median：每股现金流预测中位数（coverage=68%）
+- anl4_afv4_cfps_number：预测分析师数量（coverage=68%）
+
+### 股息预期（年度）
+- anl4_afv4_div_mean：股息预测均值（coverage=82%）
+- anl4_afv4_div_median：股息预测中位数（coverage=82%）
+
+### 分析师修正信号（VECTOR，核心Alpha来源）
+- anl4_adxqfv110_pu：季度EPS上调分析师数（coverage=70%）
+- anl4_adxqfv110_down：季度EPS下调分析师数（coverage=70%）
+- anl4_adxqfv110_numest：季度EPS预测分析师总数（coverage=70%）
+- anl4_adxqfv110_mean：季度EPS预测均值（coverage=70%）
+- anl4_adxqfv110_high：季度EPS预测最高值（coverage=70%）
+- anl4_adxqfv110_low：季度EPS预测最低值（coverage=70%）
+- anl4_ady_pu：年度上调分析师数（coverage=72%）
+- anl4_ady_down：年度下调分析师数（coverage=72%）
+- anl4_ady_numest：年度预测分析师总数（coverage=72%）
+
+### 业绩指引
+- anl4_afv4_maxguidance：管理层指引上限（coverage=70%）
+- anl4_afv4_minguidance：管理层指引下限（coverage=70%）
+
+## 三、核心基本面（fnd6_newa1v1300_ 前缀，年报口径，MATRIX）
+注意：使用时需加前缀，如 fnd6_newa1v1300_at
+
+### 资产类
+- at：总资产
+- che：现金及等价物
+- invt：存货
+- rect：应收账款
+- ppent：固定资产净值
+
+### 负债类
+- lct：流动负债
+- lt：总负债
+- dltt：长期债务
+- dlc：短期有息负债
+
+### 权益类
+- seq：股东权益合计
+- ceq：普通股权益
+- re：留存收益
+- tstk：库存股
+
+### 盈利类
+- revt：营业收入
+- cogs：营业成本
+- gp：毛利润
+- ebit：息税前利润
+- ni：净利润
+
+### 费用类
+- xsga：销售管理费用
+- xrd：研发费用
+- xint：利息费用
+- stkco：股权激励费用
+
+### 现金流
+- oancf：经营活动现金流
+- ivncf：投资活动现金流
+- fincf：筹资活动现金流
+
+### 每股指标
+- epspx：基本每股收益
+- epsfx：稀释每股收益
+- bkvlps：每股净资产
+
+## 四、基本面衍生字段（fundamental6，无前缀）
+- sales：营业收入
+- sales_growth：营收增长率
+- sales_ps：每股营收
+- sga_expense：销管费用
+- working_capital：营运资本
+
+## 五、财报附注精选（fn_ 前缀，MATRIX）
+### 盈利&税务
+- fn_profit_loss_a/q：合并净利润（含少数股东）
+- fn_income_tax_expense_a/q：所得税费用
+
+### 无形资产&商誉
+- fn_goodwill_acquired_during_period_a/q：当期新增商誉
+- fn_finite_lived_intangible_assets_net_a/q：无形资产净值
+- fn_intangible_assets_accum_amort_a/q：无形资产累计摊销
+
+### 股本变动
+- fn_payments_for_repurchase_of_common_stock_a/q：股票回购支出
+- fn_proceeds_from_issuance_of_common_stock_a/q：增发融资流入
+- fn_repurchased_shares_a/q：回购股份数量
+
+### 债务
+- fn_interest_paid_net_a/q：利息净支出
+- fn_repayments_of_lt_debt_a/q：长期债务偿还
+- fn_proceeds_from_issuance_of_debt_a/q：债务融资流入
+
+## 六、模型评分（model16，MATRIX，coverage=100%）
+- analyst_revision_rank_derivative：分析师修正+动量复合评分
+- multi_factor_acceleration_score_derivative：多因子加速度得分
+- multi_factor_static_score_derivative：多因子静态得分
+- growth_valuation_model_score：增长估值模型得分
+- growth_valuation_actual：实际增长估值
+- growth_valuation_predicted：预测增长估值
+- intrinsic_value：内在价值估计
+
+## 七、情绪&舆情
+### 社交媒体情绪（socialmedia8/12）
+- snt_social_value：社交媒体情绪值
+- snt_buzz：舆情热度
+- snt_bearish：看空情绪强度
+- snt_bullish：看多情绪强度
+
+### 新闻事件（news12）
+- news_pe_ratio：新闻关联市盈率
+- news_dividend_yield：新闻关联股息率
+- news_short_interest：做空兴趣
+- news_atr14：14日ATR波动率
+
+### Ravenpack情绪（news18）
+- rp_ess_earnings：盈利事件情绪分
+- rp_ess_revenues：营收事件情绪分
+- rp_ess_products_services：产品服务事件情绪分
+- rp_ess_credit：信用事件情绪分
+
+### 券商研报（sentiment1）
+- buy_pct：买入评级占比
+- sell_pct：卖出评级占比
+- target_price：目标价
+
+## 八、风险因子（model51，MATRIX）
+- systematic_risk_30d/60d/90d/360d：系统性风险（多周期）
+- unsystematic_risk_30d/60d/90d/360d：非系统性风险（多周期）
+
+## 九、分类维度（用于 group_neutralize 等）
+- sector：GICS板块
+- industry：GICS行业
+- subindustry：GICS子行业
+- exchange：交易所
+
+## 十、使用注意
+1. MATRIX 字段可直接用于时间序列函数（ts_mean, ts_zscore 等）
+2. VECTOR 字段只有截面值，需用 vec_avg/vec_sum 转换或直接截面运算
+3. 基本面字段更新频率低（季报/年报），必须用 ts_backfill 填充缺失值
+4. 量价字段每日更新，无需 backfill
+5. fnd6 字段使用时必须加完整前缀：fnd6_newa1v1300_字段名
+6. fn_ 字段后缀 _a 为年报、_q 为季报
+
+## 平台函数参考
+我已为你**分类整理、格式优化**所有操作符，清晰呈现**操作符、类别、描述、参数/备注**，便于直接查阅、复制使用：
+
+# 操作符完整整理表
+## 一、算术操作符 (Arithmetic)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| abs(x) | Arithmetic | 返回数字的绝对值，去除负号 | - |
+| add(x, y, filter=false), x + y | Arithmetic | 将两个或多个输入逐元素相加 | filter=true：求和前将 NaN 视为 0 |
+| densify(x) | Arithmetic | 将包含许多分桶的分组字段转换为仅包含现有分桶的较少数量，提升计算效率 | - |
+| divide(x, y), x / y | Arithmetic | 执行除法运算：x 除以 y | - |
+| inverse(x) | Arithmetic | 返回输入的倒数：1 / x | - |
+| log(x) | Arithmetic | 计算输入值的自然对数 | 常用于对正值数据进行变换 |
+| max(x, y, ...) | Arithmetic | 返回所有输入中的最大值 | 至少需要两个输入 |
+| min(x, y, ...) | Arithmetic | 返回所有输入中的最小值 | 至少需要两个输入 |
+| multiply(x, y, ..., filter=false), x * y | Arithmetic | 将两个或多个输入逐元素相乘 | filter=true：乘法前将 NaN 视为 0 |
+| power(x, y) | Arithmetic | 计算 x 的 y 次幂 | - |
+| reverse(x) | Arithmetic | 返回输入的相反数：-x | - |
+| sign(x) | Arithmetic | 返回数字的符号 | 正数+1，负数-1，零0；NaN 返回 NaN |
+| signed_power(x, y) | Arithmetic | 计算 x 的 y 次幂，同时保留 x 的符号 | - |
+| sqrt(x) | Arithmetic | 返回 x 的非负平方根 | 等同于 power(x, 0.5)；保留符号用 signed_power(x, 0.5) |
+| subtract(x, y, filter=false), x - y | Arithmetic | 从左到右执行减法：x - y - … | 支持两个及以上输入；filter=true：减法前将 NaN 视为 0 |
+
+---
+
+## 二、逻辑操作符 (Logical)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| and(input1, input2) | Logical | 两个输入均为1（真）返回1，否则返回0（假） | - |
+| if_else(input1, input2, input3) | Logical | 条件判断：条件为真返回input2，为假返回input3 | - |
+| input1 < input2 | Logical | input1 小于 input2 返回1，否则返回0 | - |
+| input1 <= input2 | Logical | input1 小于等于 input2 返回1，否则返回0 | - |
+| input1 == input2 | Logical | input1 与 input2 相等返回1，否则返回0 | - |
+| input1 > input2 | Logical | input1 大于 input2 返回1，否则返回0 | - |
+| input1 >= input2 | Logical | input1 大于等于 input2 返回1，否则返回0 | - |
+| input1 != input2 | Logical | input1 与 input2 不相等返回1，否则返回0 | - |
+| is_nan(input) | Logical | 输入为 NaN 返回1，否则返回0 | - |
+| not(x) | Logical | 逻辑否定：x=1返回0，x=0返回1 | - |
+| or(input1, input2) | Logical | 任一输入为1（真）返回1，否则返回0 | - |
+
+---
+
+## 三、时间序列操作符 (Time Series)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| days_from_last_change(x) | Time Series | 计算变量最近一次数值变化以来的天数 | - |
+| hump(x, hump=0.01) | Time Series | 限制输入变化幅度，降低换手率 | - |
+| kth_element(x, d, k, ignore="NaN") | Time Series | 过去d天时间序列返回第K个值 | 可忽略指定值，常用于回填缺失数据 |
+| last_diff_value(x, d) | Time Series | 返回过去d天内与当前值不同的最近有效值 | - |
+| ts_arg_max(x, d) | Time Series | 过去d天最大值出现至今的天数 | 今日最大值=0，昨日=1，依此类推 |
+| ts_arg_min(x, d) | Time Series | 过去d天最小值出现至今的天数 | 今日最小值=0，昨日=1，依此类推 |
+| ts_av_diff(x, d) | Time Series | 当前值 - 过去d天均值 | 计算均值时忽略 NaN |
+| ts_backfill(x, lookback=d, k=1) | Time Series | 用指定回溯窗口内最近有效值替换缺失值 | 改善数据覆盖，降低缺失值风险 |
+| ts_corr(x, y, d) | Time Series | 计算过去d天x、y的皮尔逊相关系数 | 衡量变量联动程度 |
+| ts_count_nans(x, d) | Time Series | 统计过去d天内缺失值（NaN）数量 | - |
+| ts_covariance(y, x, d) | Time Series | 计算过去d天两个变量的协方差 | - |
+| ts_decay_linear(x, d, dense=false) | Time Series | 对时间序列应用线性衰减，平滑数据 | 降低旧数据/缺失值影响 |
+| ts_delay(x, d) | Time Series | 返回变量x在d天前的值 | 访问历史数据 |
+| ts_delta(x, d) | Time Series | 当前值 - d天前值 | 衡量数据变化/动量 |
+| ts_mean(x, d) | Time Series | 计算x过去d天的简单平均值 | - |
+| ts_product(x, d) | Time Series | 过去d天x值的乘积 | 用于几何平均、复利计算 |
+| ts_quantile(x, d, driver="gaussian") | Time Series | 滚动排名+逆累积分布函数转换 | 归一化/重塑数据分布 |
+| ts_rank(x, d, constant=0) | Time Series | 过去d天内变量值排名，返回当前排名 | 可加常数，用于归一化 |
+| ts_regression(y, x, d, lag=0, rettype=0) | Time Series | 返回回归函数相关参数 | - |
+| ts_scale(x, d, constant=0) | Time Series | 将时间序列缩放到0-1范围 | 可添加常数偏移 |
+| ts_std_dev(x, d) | Time Series | 计算x过去d天的标准差 | 衡量数据偏离均值程度 |
+| ts_step(1) | Time Series | 返回按日递增的计数器 | - |
+| ts_sum(x, d) | Time Series | 对过去d天x的值求和 | - |
+| ts_zscore(x, d) | Time Series | 计算时间序列Z分数 | 标准化、比较时序值 |
+
+---
+
+## 四、截面操作符 (Cross Sectional)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| normalize(x, useStd=false, limit=0.0) | Cross Sectional | 截面数据去均值，可选除以标准差并限制范围 | 计算时忽略 NaN |
+| quantile(x, driver=gaussian, sigma=1.0) | Cross Sectional | 排序位移+统计分布转换，减少异常值 | 支持高斯/柯西/均匀分布 |
+| rank(x, rate=2) | Cross Sectional | 全工具值排名，返回0.0-1.0均匀分布值 | 归一化数据，降低异常值影响 |
+| scale(x, scale=1, longscale=1, shortscale=1) | Cross Sectional | 缩放输入，使绝对值总和等于指定账面规模 | 可分别设置多空头缩放比例 |
+| winsorize(x, std=4) | Cross Sectional | 限制数据在指定标准差范围内 | 减少极端异常值影响 |
+| zscore(x) | Cross Sectional | 计算截面Z分数 | 衡量值与组均值的偏离程度 |
+
+---
+
+## 五、向量操作符 (Vector)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| vec_avg(x) | Vector | 向量字段所有元素计算均值 | 将向量数据转为单个矩阵值 |
+| vec_sum(x) | Vector | 计算向量字段所有值的总和 | - |
+
+---
+
+## 六、转换操作符 (Transformational)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| bucket(...) | Transformational | 根据数据字段排名创建自定义分桶 | 可配合分组运算符使用 |
+| trade_when(x, y, z) | Transformational | 满足条件时更改Alpha值，否则保持原值 | 退出条件可赋值NaN平仓 |
+
+---
+
+## 七、分组操作符 (Group)
+| 操作符 | 类别 | 描述 | 参数/备注 |
+|--------|------|------|-----------|
+| group_backfill(x, group, d, std=4.0) | Group | 组内用缩尾均值填充缺失值 | 默认标准差4.0 |
+| group_mean(x, weight, group) | Group | 计算指定组内数据的调和平均值 | - |
+| group_neutralize(x, group) | Group | 组内Alpha值中性化（减去组均值） | 支持行业/板块/国家等分组 |
+| group_rank(x, group) | Group | 组内元素排名，赋值0.0-1.0 | 同组内数据对比 |
+| group_scale(x, group) | Group | 组内值归一化到0-1范围 | 跨组数据可比 |
+| group_zscore(x, group) | Group | 计算组内Z分数 | 组内相对值对比 |
+
+### 总结
+1. 按**7大类别**完整归类所有操作符，结构清晰无遗漏
+2. 保留原始**描述、参数、备注**，格式统一易读
+3. 可直接用于文档、查询、代码注释等场景
+
+## 成功 Alpha 表达式范例
+已全部删除所有「范例+数字」编号，格式纯净可直接后续追加内容，完整文本如下：
+
+# 成功 Alpha 表达式范例
+以下 alpha 曾在平台获得 GOOD 或以上 grade，供参考结构和风格。
+
+##
+name: network_dependence
+expr: rank(-ts_mean(pv13_ustomergraphrank_hub_rank, 504))
+说明: 长期低Hub Score代表客户合作伙伴集中度高、公司被替换风险低，为股票正向因子
+setting: delay=1, decay=5, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: social_sentiment_volatility
+expr: rank(-ts_std_dev(ts_backfill(snt_social_value, 60), 60))
+说明: 情绪长期无波动预示未来表现弱势，取负向排名构建空头倾向因子
+setting: delay=1, decay=4, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: growth_valuation_rank
+expr: rank(ts_zscore(growth_valuation_model_score, 126))
+说明: 增长估值模型得分的中期Z-score排名，做多排名提升的股票
+setting: delay=1, decay=4, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: valuation_estimate_diff
+expr: rank(growth_valuation_actual - growth_valuation_predicted)
+说明: 实际估值超预期为正向信号，做多超预期、做空不及预期股票
+setting: delay=1, decay=5, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: intrinsic_value_undervalued
+expr: rank(-ts_corr(intrinsic_value, market_value, 252))
+说明: 内在价值与市场价值相关性越低，股票低估可能性越高，为正向信号
+setting: delay=1, decay=6, neutralization=INDUSTRY, universe=TOP3000
+
+# 成功 Alpha 表达式范例
+以下全部 1–101 号公式化 Alpha 源自《101 Formulaic Alphas》，完全对齐 WorldQuant BRAIN 语法、统一命名/表达式/说明/配置，可直接复制使用。
+统一全局配置：delay=1，decay=3，neutralization=INDUSTRY，universe=TOP3000
+
+##
+name: alpha_01
+expr: rank(ts_argmax(signedpower(cond(returns < 0, stddev(returns, 20), close), 2), 5)) - 0.5)
+说明: 涨跌分段取值+幂次变换，取5日极值时序排名，短期反转信号
+
+##
+name: alpha_02
+expr: -1 * correlation(rank(delta(log(volume), 2)), rank((close - open) / open), 6)
+说明: 成交量二阶差分、日内涨跌幅秩相关，负向构建量价背离因子
+
+##
+name: alpha_03
+expr: -1 * correlation(rank(open), rank(volume), 10)
+说明: 开盘价与成交量10日秩相关反向打分，捕捉筹码分歧
+
+##
+name: alpha_04
+expr: -1 * ts_rank(rank(low), 9)
+说明: 9日时序排名低价序列，纯价格维度短期均值回归
+
+##
+name: alpha_05
+expr: rank(open - ts_mean(vwap, 10)) * (-1 * abs(rank(close - vwap)))
+说明: 开盘相对10日均价偏离，叠加收盘价相对VWAP偏离约束
+
+##
+name: alpha_06
+expr: -1 * correlation(open, volume, 10)
+说明: 开盘价与成交量10日时序相关，反向做空高相关标的
+
+##
+name: alpha_07
+expr: cond(adv20 < volume, -1 * ts_rank(abs(delta(close, 7)), 60) * sign(delta(close, 7)), -1)
+说明: 放量场景下用7日价格波动与涨跌符号构建强弱信号
+
+##
+name: alpha_08
+expr: -1 * rank(ts_mean(open, 5) * ts_mean(returns, 5) - delay(ts_mean(open, 5) * ts_mean(returns, 5), 10))
+说明: 5日开盘与收益乘积，10日滞后差分，捕捉趋势衰减
+
+##
+name: alpha_09
+expr: cond(ts_min(delta(close, 1), 5) > 0, delta(close, 1), cond(ts_max(delta(close, 1), 5) < 0, delta(close, 1), -1 * delta(close, 1)))
+说明: 5日价格涨跌区间判断，极端行情顺势，震荡反向
+
+##
+name: alpha_10
+expr: rank(cond(ts_min(delta(close, 1), 4) > 0, delta(close, 1), cond(ts_max(delta(close, 1), 4) < 0, delta(close, 1), -1 * delta(close, 1))))
+说明: 4日短期价格区间过滤，横截面排名标准化
+
+##
+name: alpha_11
+expr: (rank(ts_max(vwap - close, 3)) + rank(ts_min(vwap - close, 3))) * rank(delta(volume, 3))
+说明: 3日VWAP价差极值+成交量变化，日内资金行为捕捉
+
+##
+name: alpha_12
+expr: sign(delta(volume, 1)) * (-1 * delta(close, 1))
+说明: 单日量能方向反向匹配价格涨跌，量价反转
+
+##
+name: alpha_13
+expr: -1 * rank(covariance(rank(close), rank(volume), 5))
+说明: 5日价量秩协方差反向排名，压制同步波动标的
+
+##
+name: alpha_14
+expr: -1 * rank(delta(returns, 3)) * correlation(open, volume, 10)
+说明: 3日收益差分结合开盘量相关，复合趋势因子
+
+##
+name: alpha_15
+expr: -1 * ts_sum(rank(correlation(rank(high), rank(volume), 3)), 3)
+说明: 3日高价与量秩相关滚动求和，短期资金情绪
+
+##
+name: alpha_16
+expr: -1 * rank(covariance(rank(high), rank(volume), 5))
+说明: 高价与成交量秩协方差反向打分，博弈情绪因子
+
+##
+name: alpha_17
+expr: (-1 * rank(ts_rank(close, 10))) * rank(delta(delta(close, 1), 1)) * rank(ts_rank(volume / adv20, 5))
+说明: 价格时序排名、二阶价格差分、相对放量三维复合
+
+##
+name: alpha_18
+expr: -1 * rank(stddev(abs(close - open), 5) + (close - open) + correlation(close, open, 10))
+说明: 日内振幅波动+价差+开合相关性，综合反转
+
+##
+name: alpha_19
+expr: -1 * sign((close - delay(close, 7)) + delta(close, 7)) * (1 + rank(ts_sum(returns, 250)))
+说明: 7日价格偏离符号+长期收益排名，强弱趋势结合
+
+##
+name: alpha_20
+expr: (-1 * rank(open - delay(high, 1))) * rank(open - delay(close, 1)) * rank(open - delay(low, 1))
+说明: 开盘相对昨日高低收三维偏离，超短期情绪信号
+
+##
+name: alpha_21
+expr: cond(ts_mean(close, 8) + stddev(close, 8) < ts_mean(close, 2), -1, cond(ts_mean(close, 2) < ts_mean(close, 8) - stddev(close, 8), 1, cond(volume / adv20 >= 1, 1, -1)))
+说明: 长短周期价格均值波动对比，叠加相对放量过滤
+
+##
+name: alpha_22
+expr: -1 * delta(correlation(high, volume, 5), 5) * rank(stddev(close, 20))
+说明: 量价相关度变化+长期价格波动，波动率择时
+
+##
+name: alpha_23
+expr: cond(ts_mean(high, 20) < high, -1 * delta(high, 2), 0)
+说明: 价格突破20日高位时，做高价位回落反转
+
+##
+name: alpha_24
+expr: cond(delta(ts_mean(close, 100), 100) / delay(close, 100) <= 0.05, -1 * (close - ts_min(close, 100)), -1 * delta(close, 3))
+说明: 百年价格均值平稳区间用区间偏离，否则短期价格差分
+
+##
+name: alpha_25
+expr: rank(-1 * returns * adv20 * vwap * (high - close))
+说明: 收益、日均成交、均价、日内回落幅度多因子相乘
+
+##
+name: alpha_26
+expr: -1 * ts_max(correlation(ts_rank(volume, 5), ts_rank(high, 5), 5), 3)
+说明: 量价时序秩相关3日极值，压制高位同步标的
+
+##
+name: alpha_27
+expr: cond(rank(ts_mean(correlation(rank(volume), rank(vwap), 6), 2)) > 0.5, -1, 1)
+说明: 量价相关度横截面分位数二分，高低分化打分
+
+##
+name: alpha_28
+expr: scale(correlation(adv20, low, 5) + (high + low) / 2 - close)
+说明: 低价与流动性相关+中枢价格偏离，标准化缩放
+
+##
+name: alpha_29
+expr: min(product(rank(rank(scale(log(ts_min(rank(rank(-1 * rank(delta(close, 5)))), 2))))), 1) + ts_rank(delay(-1 * returns, 6), 5)
+说明: 多层嵌套秩变换+对数平滑+滞后收益时序排名
+
+##
+name: alpha_30
+expr: (1 - rank(sign(close-delay(close,1)) + sign(delay(close,1)-delay(close,2)) + sign(delay(close,2)-delay(close,3)))) * ts_sum(volume,5) / ts_sum(volume,20)
+说明: 三日价格趋势符号叠加，相对成交量加权
+
+##
+name: alpha_31
+expr: rank(rank(rank(decay_linear(-1 * rank(rank(delta(close, 10))), 10)))) + rank(-1 * delta(close, 3)) + sign(scale(correlation(adv20, low, 12)))
+说明: 线性衰减+多层秩+流动性相关符号，多周期融合
+
+##
+name: alpha_32
+expr: scale(ts_mean(close,7) - close) + 20 * scale(correlation(vwap, delay(close,5), 230))
+说明: 短期价格均值偏离+长周期量价滞后相关
+
+##
+name: alpha_33
+expr: rank(-1 * (1 - open / close))
+说明: 开合价格比值反向排名，日内折价溢价因子
+
+##
+name: alpha_34
+expr: rank(1 - rank(stddev(returns,2)/stddev(returns,5))) + (1 - rank(delta(close,1)))
+说明: 短期波动率比值+一阶价格差分，波动结构反转
+
+##
+name: alpha_35
+expr: ts_rank(volume,32) * (1 - ts_rank(close+high-low,16)) * (1 - ts_rank(returns,32))
+说明: 长周期量、价格形态、收益三维时序排名共振
+
+##
+name: alpha_36
+expr: 2.21*rank(correlation(close-open,delay(volume,1),15)) + 0.7*rank(open-close) + 0.73*rank(ts_rank(delay(-1*returns,6),5)) + rank(abs(correlation(vwap,adv20,6))) + 0.6*rank((ts_mean(close,200)-open)*(close-open))
+说明: 多组量价相关与价格偏离加权线性复合
+
+##
+name: alpha_37
+expr: rank(correlation(delay(open-close,1), close, 200)) + rank(open-close)
+说明: 长周期价差相关+即时开合价差，长短结合
+
+##
+name: alpha_38
+expr: -1 * rank(ts_rank(close,10)) * rank(close/open)
+说明: 价格时序排名+开合比值，趋势与溢价结合反转
+
+##
+name: alpha_39
+expr: -1 * rank(delta(close,7) * (1 - rank(decay_linear(volume/adv20,9)))) * (1 + rank(ts_sum(returns,250)))
+说明: 7日价格变化、放量衰减、长期收益排名三重约束
+
+##
+name: alpha_40
+expr: -1 * rank(stddev(high,10)) * correlation(high,volume,10)
+说明: 高价波动与量相关，高波动同步放量反向压制
+
+##
+name: alpha_41
+expr: sqrt(high * low) - vwap
+说明: 高低价几何均值相对均价偏离，价格中枢偏离
+
+##
+name: alpha_42
+expr: rank(vwap - close) / rank(vwap + close)
+说明: 日内收盘价相对均价偏离，delay0 日内反转
+
+##
+name: alpha_43
+expr: ts_rank(volume/adv20,20) * ts_rank(-1*delta(close,7),8)
+说明: 相对放量时序排名+中期价格反向趋势
+
+##
+name: alpha_44
+expr: -1 * correlation(high, rank(volume), 5)
+说明: 高价与成交量秩相关反向，博弈资金行为
+
+##
+name: alpha_45
+expr: -1 * (rank(ts_mean(delay(close,5),20)) * correlation(close,volume,2) * rank(correlation(ts_mean(close,5),ts_mean(close,20),2)))
+说明: 多重短周期价量相关嵌套复合
+
+##
+name: alpha_46
+expr: cond((ts_mean(delay(close,20),10)-ts_mean(delay(close,10),10)) < -0.1, 1, -1*(close-delay(close,1)))
+说明: 长期价格斜率对比，趋势破位反向
+
+##
+name: alpha_47
+expr: rank(1/close)*volume/adv20 * (high*rank(high-close)/(ts_mean(high,5)/5)) - rank(vwap-delay(vwap,5))
+说明: 估值倒数、流动性、日内强弱、均价滞后偏离多因子
+
+##
+name: alpha_48
+expr: indneutralize(correlation(delta(close,1),delta(delay(close,1),1),250)*delta(close,1)/close,subindustry) / ts_sum(delta(close,1)/delay(close,1)^2,250)
+说明: 子行业中性化，长周期价格波动相关性，delay0 因子
+
+##
+name: alpha_49
+expr: cond((ts_mean(delay(close,20),10)-ts_mean(delay(close,10),10)) < -0.1, 1, -1*(close-delay(close,1)))
+说明: 均线斜率拐点判断，超跌反转
+
+##
+name: alpha_50
+expr: -1 * ts_max(rank(correlation(rank(volume), rank(vwap),5)),5)
+说明: 量价均价秩相关5日极值，反向排名
+
+##
+name: alpha_51
+expr: cond((ts_mean(delay(close,20),10)-ts_mean(delay(close,10),10)) < -0.05, 1, -1*(close-delay(close,1)))
+说明: 放宽斜率阈值，适配弱震荡行情反转
+
+##
+name: alpha_52
+expr: (-1*ts_min(low,5)+delay(ts_min(low,5),5)) * rank((ts_sum(returns,240)-ts_sum(returns,20))/220) * ts_rank(volume,5)
+说明: 低价周期差值、长短收益差、短期量排名共振
+
+##
+name: alpha_53
+expr: -1 * delta(((close-low)-(high-close))/(close-low),9)
+说明: 日内多空力量比值9日差分，情绪边际变化
+
+##
+name: alpha_54
+expr: -1 * ((low-close)*open^5) / ((low-high)*close^5)
+说明: 高低价差与价格幂次结构，日内强弱极致分化
+
+##
+name: alpha_55
+expr: -1 * correlation(rank((close-ts_min(low,12))/(ts_max(high,12)-ts_min(low,12))), rank(volume),6)
+说明: 12日价格区间位置与成交量秩相关反向
+
+##
+name: alpha_56
+expr: -1 * (rank(ts_sum(returns,10)/ts_sum(ts_sum(returns,2),3)) * rank(returns * cap))
+说明: 收益结构比值+市值加权收益，大小盘分化因子
+
+##
+name: alpha_57
+expr: -1 * (close-vwap) / decay_linear(rank(ts_argmax(close,30)),2)
+说明: 价格均价偏离，叠加30日价格高点线性衰减
+
+##
+name: alpha_58
+expr: -1 * ts_rank(decay_linear(correlation(indneutralize(vwap,sector),volume,3.92795),7.89291),5.50322)
+说明: 行业中性化VWAP量相关，线性衰减+时序排名
+
+##
+name: alpha_59
+expr: -1 * ts_rank(decay_linear(correlation(indneutralize(0.728317*vwap+0.271683*vwap,industry),volume,4.25197),16.2289),8.19648)
+说明: 行业中性化加权均价，长周期衰减量价相关
+
+##
+name: alpha_60
+expr: -1 * (2 * scale(rank(((close-low)-(high-close))/(high-low)*volume)) - scale(rank(ts_argmax(close,10))))
+说明: 日内多空占比加权量能，结合短期价格高点
+
+##
+name: alpha_61
+expr: cond(rank(vwap-ts_min(vwap,16.1219)) < rank(correlation(vwap,adv180,17.9282)), -1, 1)
+说明: 长期均价低位偏离与流动性相关度二分打分
+
+##
+name: alpha_62
+expr: cond(rank(correlation(vwap,ts_sum(adv20,22.4101),9.91009)) < rank(rank(open)+rank(open) < rank((high+low)/2)+rank(high)), -1, 1)
+说明: 均价流动性相关与价格秩结构对比打分
+
+##
+name: alpha_63
+expr: (rank(decay_linear(delta(indneutralize(close,industry),2.25164),8.22237)) - rank(decay_linear(correlation(0.318108*vwap+0.681892*open,ts_sum(adv180,37.2467),13.557),12.2883))) * -1
+说明: 行业中性价格差分衰减，混合价量相关衰减差值
+
+##
+name: alpha_64
+expr: cond(rank(correlation(0.178404*open+0.821596*low,ts_sum(adv120,12.7054),16.6208)) < rank(delta(0.178404*(high+low)/2+0.821596*vwap,3.69741)), -1, 1)
+说明: 高低开盘混合价格，长期流动性相关对比短期价格变化
+
+##
+name: alpha_65
+expr: cond(rank(correlation(0.00817205*open+0.99182795*vwap,ts_sum(adv60,8.6911),6.40374)) < rank(open-ts_min(open,13.635)), -1, 1)
+说明: 微权重开盘混合均价，相对开盘低位偏离对比
+
+##
+name: alpha_66
+expr: (rank(decay_linear(delta(vwap,3.51013),7.23052)) + ts_rank(decay_linear((0.96633*low+0.03367*low-vwap)/(open-(high+low)/2),11.4157),6.72611)) * -1
+说明: 均价差分衰减+日内价格结构比值衰减复合
+
+##
+name: alpha_67
+expr: (rank(high-ts_min(high,2.14593))^rank(correlation(indneutralize(vwap,sector),indneutralize(adv20,subindustry),6.02936))) * -1
+说明: 板块中性量价相关，叠加高价低位偏离幂次
+
+##
+name: alpha_68
+expr: cond(ts_rank(correlation(rank(high),rank(adv15),8.91644),13.9333) < rank(delta(0.518371*close+0.481629*low,1.06157)), -1, 1)
+说明: 短期流动性与高价秩相关，对比混合低价变化
+
+##
+name: alpha_69
+expr: (rank(ts_max(delta(indneutralize(vwap,industry),2.72412),4.79344))^ts_rank(correlation(0.490655*close+0.509345*vwap,adv20,4.92416),9.0615)) * -1
+说明: 行业中性均价波动极值，结合混合价量相关
+
+##
+name: alpha_70
+expr: (rank(delta(vwap,1.29456))^ts_rank(correlation(indneutralize(close,industry),adv50,17.8256),17.9171)) * -1
+说明: 均价短期变化与长期行业中性量相关幂次复合
+
+##
+name: alpha_71
+expr: max(ts_rank(decay_linear(correlation(ts_rank(close,3.43976),ts_rank(adv180,12.0647),18.0175),4.20501),15.6948), ts_rank(decay_linear(rank((low+open-vwap-vwap)^2),16.4662),4.4388))
+说明: 双路径衰减时序排名，取最大值合成信号
+
+##
+name: alpha_72
+expr: rank(decay_linear(correlation((high+low)/2,adv40,8.93345),10.1519)) / rank(decay_linear(correlation(ts_rank(vwap,3.72469),ts_rank(volume,18.5188),6.86671),2.95011))
+说明: 价格中枢流动性相关 / 均价成交量时序相关比值
+
+##
+name: alpha_73
+expr: max(rank(decay_linear(delta(vwap,4.72775),2.91864)), ts_rank(decay_linear(delta(0.147155*open+0.852845*low,2.03608)/ (0.147155*open+0.852845*low)*-1,3.33829),16.7411)) * -1
+说明: 均价波动与混合低价趋势反向，双因子取最大
+
+##
+name: alpha_74
+expr: cond(rank(correlation(close,ts_sum(adv30,37.4843),15.1365)) < rank(correlation(rank(0.0261661*high+0.9738339*vwap),rank(volume),11.4791)), -1, 1)
+说明: 长期流动相关性对比高价均价混合秩相关
+
+##
+name: alpha_75
+expr: cond(rank(correlation(vwap,volume,4.24304)) < rank(correlation(rank(low),rank(adv50),12.4413)), -1, 1)
+说明: 短周期量价相关 vs 长期低价流动性秩相关
+
+##
+name: alpha_76
+expr: max(rank(decay_linear(delta(vwap,1.24383),11.8259)), ts_rank(decay_linear(ts_rank(correlation(indneutralize(low,sector),adv81,8.14941),19.569),17.1543),19.383)) * -1
+说明: 慢速衰减均价变化+板块中性低价流动相关
+
+##
+name: alpha_77
+expr: min(rank(decay_linear(((high+low)/2+high)-(vwap+high),20.0451)), rank(decay_linear(correlation((high+low)/2,adv40,3.1614),5.64125)))
+说明: 价格结构偏离与量相关衰减，取最小值保守信号
+
+##
+name: alpha_78
+expr: rank(correlation(0.352233*low+0.647767*vwap,ts_sum(adv40,19.7428),6.83313))^rank(correlation(rank(vwap),rank(volume),5.77492))
+说明: 低价均价混合流动相关，叠加量价秩相关幂次
+
+##
+name: alpha_79
+expr: cond(rank(delta(indneutralize(0.60733*close+0.39267*open,sector),1.23438)) < rank(correlation(ts_rank(vwap,3.60973),ts_rank(adv150,9.18637),14.6644)), -1, 1)
+说明: 板块中性开合混合价格变化，对比长期流动时序相关
+
+##
+name: alpha_80
+expr: (rank(sign(delta(indneutralize(0.868128*open+0.131872*high,industry),4.04545)))^ts_rank(correlation(high,adv10,5.11456),5.53756)) * -1
+说明: 行业中性价格变化符号，结合短期高价流动性相关
+
+##
+name: alpha_81
+expr: cond(rank(log(product(rank(rank(correlation(vwap,ts_sum(adv10,49.6054),8.47743))^4),14.9655))) < rank(correlation(rank(vwap),rank(volume),5.07914)), -1, 1)
+说明: 多阶秩相关乘积对数平滑，量价秩相关对比
+
+##
+name: alpha_82
+expr: max(rank(decay_linear(delta(open,1.46063),14.8717)), ts_rank(decay_linear(correlation(indneutralize(volume,sector),0.634196*open+0.365804*open,17.4842),6.92131),13.4283)) * -1
+说明: 开盘慢速波动+板块中性量相关衰减复合
+
+##
+name: alpha_83
+expr: (rank(delay(((high-low)/(ts_mean(close,5)/5)),2)) * rank(rank(volume))) / (((high-low)/(ts_mean(close,5)/5))/(vwap-close))
+说明: 日内波动比值滞后，量能排名与价格偏离比值
+
+##
+name: alpha_84
+expr: signedpower(ts_rank(vwap-ts_max(vwap,15.3217),20.7127),delta(close,4.96796))
+说明: 均价相对高位偏离时序排名，以中期价格变化为幂次
+
+##
+name: alpha_85
+expr: rank(correlation(0.876703*high+0.123297*close,adv30,9.61331))^rank(correlation(ts_rank((high+low)/2,3.70596),ts_rank(volume,10.1595),7.11408))
+说明: 高价收盘混合流动相关，价格中枢量时序相关幂次
+
+##
+name: alpha_86
+expr: cond(ts_rank(correlation(close,ts_sum(adv20,14.7444),6.00049),20.4195) < rank(open+close-vwap-open), -1, 1)
+说明: 短期流动相关时序排名，对比开盘收盘均价结构
+
+##
+name: alpha_87
+expr: max(rank(decay_linear(delta(0.369701*close+0.630299*vwap,1.91233),2.65461)), ts_rank(decay_linear(abs(correlation(indneutralize(adv81,industry),close,13.4132)),4.89768),14.4535)) * -1
+说明: 混合价波动衰减+行业中性流动相关绝对值衰减
+
+##
+name: alpha_88
+expr: min(rank(decay_linear(rank(open)+rank(low)-rank(high)-rank(close),8.06882)), ts_rank(decay_linear(correlation(ts_rank(close,8.44728),ts_rank(adv60,20.6966),8.01266),6.65053),2.61957))
+说明: 多空秩差值衰减+长期价流相关时序排名
+
+##
+name: alpha_89
+expr: ts_rank(decay_linear(correlation(0.967285*low+0.032715*low,adv10,6.94279),5.51607),3.79744) - ts_rank(decay_linear(delta(indneutralize(vwap,industry),3.48158),10.1466),15.3012)
+说明: 低价流动相关衰减 减 行业中性均价波动衰减
+
+##
+name: alpha_90
+expr: (rank(close-ts_max(close,4.66719))^ts_rank(correlation(indneutralize(adv40,subindustry),low,5.38375),3.21856)) * -1
+说明: 价格相对高点偏离，子行业中性流动低价相关幂次
+
+##
+name: alpha_91
+expr: (ts_rank(decay_linear(decay_linear(correlation(indneutralize(close,industry),volume,9.74928),16.398),3.83219),4.8667) - rank(decay_linear(correlation(vwap,adv30,4.01303),2.6809))) * -1
+说明: 双层线性衰减行业中性量相关，减去均价流动相关
+
+##
+name: alpha_92
+expr: min(ts_rank(decay_linear(cond((high+low)/2+close < low+open,1,0),14.7221),18.8683), ts_rank(decay_linear(correlation(rank(low),rank(adv30),7.58555),6.94024),6.80584))
+说明: 日内结构条件衰减+低价流动秩相关衰减，取最小
+
+##
+name: alpha_93
+expr: ts_rank(decay_linear(correlation(indneutralize(vwap,industry),adv81,17.4193),19.848),7.54455) / rank(decay_linear(delta(0.524434*close+0.475566*vwap,2.77377),16.2664))
+说明: 行业中性均价流动相关 / 混合价波动衰减排名
+
+##
+name: alpha_94
+expr: (rank(vwap-ts_min(vwap,11.5783))^ts_rank(correlation(ts_rank(vwap,19.6462),ts_rank(adv60,4.02992),18.0926),2.70756)) * -1
+说明: 均价相对低位偏离，叠加长周期均价流动时序相关
+
+##
+name: alpha_95
+expr: cond(rank(open-ts_min(open,12.4105)) < ts_rank(correlation((high+low)/2,ts_sum(adv40,19.1351),12.8742)^5,11.7584), -1, 1)
+说明: 开盘低位偏离对比价格中枢流动相关高次幂
+
+##
+name: alpha_96
+expr: max(ts_rank(decay_linear(correlation(rank(vwap),rank(volume),3.83878),4.16783),8.38151), ts_rank(decay_linear(ts_argmax(correlation(ts_rank(close,7.45404),ts_rank(adv60,4.13242),3.65459),12.6556),14.0365),13.4143)) * -1
+说明: 量价秩相关衰减+价流相关极值时序排名复合
+
+##
+name: alpha_97
+expr: (rank(decay_linear(delta(indneutralize(0.721001*low+0.278999*vwap,industry),3.3705),20.4523)) - ts_rank(decay_linear(ts_rank(correlation(ts_rank(low,7.87871),ts_rank(adv60,17.255),4.97547),18.5925),15.7152),6.71659)) * -1
+说明: 行业中性混合低价波动衰减 减 低价流动相关时序衰减
+
+##
+name: alpha_98
+expr: rank(decay_linear(correlation(vwap,ts_sum(adv5,26.4719),4.58418),7.18088)) - rank(decay_linear(ts_rank(ts_argmin(correlation(rank(open),rank(adv15),20.8187),8.62571),6.95668),8.07206))
+说明: 短周期均价流动相关衰减 减 开盘流动相关极小值时序
+
+##
+name: alpha_99
+expr: cond(rank(correlation((high+low)/2,ts_sum(adv60,19.8975),8.8136)) < rank(correlation(low,volume,6.28259)), -1, 1)
+说明: 长期价格中枢流动相关 vs 短期低价量相关
+
+##
+name: alpha_100
+expr: -1 * (1.5 * scale(indneutralize(indneutralize(rank(cond(((close-low)-(high-close))/(high-low)*volume)),subindustry),subindustry)) - scale(indneutralize(correlation(close,rank(adv20),5)-rank(ts_argmin(close,30)),subindustry))) * (volume/adv20)
+说明: 双重子行业中性化，日内强弱+流动性+价格极值复合
+
+##
+name: alpha_101
+expr: (close - open) / ((high - low) + 0.001)
+说明: 日内开合价差/全日波动幅度，经典日内趋势原始因子
+
+后续你直接在文末追加新 `##` 区块即可，格式完全统一。
+
+## 论文 / 因子研究参考
+# WorldQuant BRAIN 量化论文合集 关键信息梳理
+## 一、核心引言
+1. 无形资产已成为知识经济时代企业价值与长期增长的核心驱动；
+2. 传统资产定价模型、估值体系严重忽视表外自创无形资产，存在系统性缺陷；
+3. 本文聚焦无形资产溢价成因辨析，区分**风险补偿**与**错误定价**两大核心逻辑，为基本面量化因子挖掘、旧模型迭代提供前沿思路。
+
+## 二、论文分类清单（核心研究方向）
+1. **Fundamental 基本面**：无形资产溢价、组织资本、研发资本化、盈利质量、估值偏差、q因子、资产定价模型优化
+2. **Asset Pricing 资产定价**：多因子拓展、因子冗余检验、特质收益解释、横截面收益异象
+3. **Accounting 会计计量**：研发&费用化失真、表外资产遗漏、会计准则偏差、账面价值修正
+4. **Factor 因子研究**：风格因子构建、多空因子收益、夏普比率对比、因子相关性对冲
+5. **Mispricing 错误定价**：投资者反应不足、信息复杂度、分析师预测偏差、长期估值修正
+6. **Risk 风险研究**：特质风险辨析、尾部波动、资本属性差异、人力资本风险溢价
+7. **Portfolio 组合配置**：多因子组合增强、风格对冲、回撤控制、价值/质量策略改良
+8. **Firm Characteristic 企业特征**：无形资产密集度、轻资产企业定价、成长盈利预测
+9. **Model 量化模型**：FF三/五因子改进、GRS检验、Fama-MacBeth回归、特征vs贝塔检验
+10. **Investment 投资实务**：价值因子失效解释、成长策略重构、长期配置逻辑迭代
+
+## 三、关键阅读方法论（重点备注）
+1. **高效阅读逻辑**
+定向抓取量化落地核心模块：
+- 摘要+结论：无形资产溢价显著性、最终定性（错误定价）、模型改进结论
+- 机制章节：会计失真原理、投资者行为偏差、无形资产价值传导逻辑
+- 变量构建：知识资本/组织资本测算、无形资产密集度公式、因子分组方式
+- 实证结果：因子收益、夏普比率、因子相关性、Alpha、冗余性检验数据
+2. **量化研究认知纠正**
+- 无形资产不是单一行业特质，是全市场横截面有效异象，可通用化建模；
+- 传统CMA投资因子、HML价值因子失效，核心源于无形资产计量偏差，具备极强改造价值；
+- 该论文核心价值：提供**全新基本面Alpha因子**+传统因子改良方案，可直接用于BRAIN迭代。
+
+## 四、核心总结
+1. 高无形资产密集度具备稳定正向溢价，解释力碾压规模、价值、盈利、投资等经典因子，是优质基本面增量因子；
+2. 无形资产溢价本质为**会计失真引发的错误定价**，而非风险补偿，逻辑稳定、适合中长期量化选股；
+3. 新增无形资产因子可替代投资因子，优化FF五因子模型，同时天然对冲价值、质量因子，大幅提升组合夏普比率；
+4. 适配WorldQuant研究场景，可落地：指标重构、因子分组、中性化处理、多因子组合对冲，具备极高复用价值。
+
+# WorldQuant BRAIN 量化论文合集 关键信息梳理
+## 一、核心引言
+1. 量化研究中论文阅读为核心环节，尤其适配入门阶段；
+2. 核心价值：学习知识、获取因子灵感、接轨前沿研究、搭建行业交流体系；
+3. 平台价值：BRAIN 框架+海量数据集，可快速复现论文思路，并完成迭代优化，落地量化策略。
+
+## 二、论文分类清单（核心研究方向）
+1. **News 新闻舆情**：跨公司信息传导、新闻滞后反应、并购公告收益预测、日内新闻交易、行业关联信息溢出
+2. **Fundamental 基本面**：现金流/盈利有效性、无形资产溢价、估值模型、规模效应、研发投入、q因子模型、抗危机策略
+3. **PV 量价波动**：量价失衡、波动率拆分、流动性风险、尾部偏度、隔夜收益反转、换手率周期、短期动量、A股异象研究
+4. **Sentiment 情绪**：文本情绪、社交媒体舆情、用户评论、网络信息扩散
+5. **Option 期权**：期权市场分歧、隐含波动率、异常期权交易、方差风险溢价、衍生品信息传导
+6. **Analyst 分析师**：供应链分析师覆盖、研报价值、一致预期、分析师行为偏差
+7. **Earnings 财报盈余**：盈利质量、盈余惊喜、业绩会后行情、非GAAP指标、财报波动
+8. **Institutions 机构**：机构交易优势、信息泄露、散户行为追踪、资金持仓特征
+9. **Insider 内幕交易**：高管交易信号、信息不对称、财报窗口期交易规律
+10. **Macro 宏观**：宏观事件冲击、下行风险贝塔、不确定性溢价、宏观因子分散
+11. **Model 量化模型**：机器学习选股、因子动量、财务打分模型、时间序列预测、资产定价实证
+12. **Risk 风险**：下行风险、流动性溢价、崩盘风险、极端尾部风险
+13. **其他细分**：供应链动量、企业生命周期、ESG、人力资产、季节性收益、学术研究对市场的反向影响
+
+## 三、关键阅读方法论（重点备注）
+1. **高效阅读逻辑**
+无需逐字通读，定向抓取核心模块：
+- 摘要+结论：核心观点、收益表现、研究结论
+- 解释章节：底层逻辑与经济学原理
+- 模型/方法/数据：可落地的实现方案、变量定义、样本区间
+- 文献综述等次要内容按需选读
+2. **量化研究认知纠正**
+- 单篇论文≠可直接提交的有效Alpha，仅提供研究思路与逻辑；
+- 需整合多论文思路，结合平台工具迭代打磨，才能达标；
+- 论文阅读的长期价值：积累研究体系、优化存量策略、形成自主因子灵感。
+
+## 四、核心总结
+1. 该合集覆盖**量价、基本面、舆情、衍生品、宏观、行为金融**全量化赛道，适配WorldQuant因子研究场景；
+2. 量化是经验密集型领域，依托论文积累思路+平台落地验证，是新手进阶核心路径；
+3. 弱化“单篇变现”思维，以体系化积累为核心，长期输出高质量因子。
+
+## 调参技巧与经验
+# 调参经验与踩坑记录
+
+## 常见报错
+- "field not found": 字段名拼写错误或该 region 不支持
+- "operator not found": 函数名错误，检查 functions.md
+- "division by zero": 加 epsilon，如 (x + 0.001)
+- "NaN too many": 数据覆盖率不够，换更大的 universe 或更短的窗口
+## 优质止损核心要点
+- 分散风控核心: 构建与现有因子低相关性的优质Alpha，利用二者盈亏互补，实现长期稳定收益。
+- 前置风险思考: 设计因子前先预判亏损风险，验证因子成立的底层假设、适配的市场环境与周期条件。
+- 优化参数设计: 避免固定参数，采用区间动态调整或多周期参数平均的方式，适配实盘环境变化。
+- 拒绝通用止损: 统一的止损规则会造成策略依赖、限制策略多样性，需结合因子本身的设计逻辑定制优化方案。
+## IQC 关键技巧
+- 像投资组合经理一样思考：关注Alpha组合，而非单个Alpha，需考量Alpha是否适配现有组合、带来的具体变化及底层金融逻辑，组合协同性是核心竞争力。
+- 避免过拟合：高IS分数易实现，但难转化为高OS分数，应聚焦分散化和金融有效性，确保Alpha基于合理经济逻辑，而非单纯拟合数据。
+- 策略性使用LLM：LLM生成的Alpha多缺乏实际效用，需结合工程能力和领域经验，将其作为研究辅助工具，用于寻找信号证据、解读Alpha经济意义，而非替代人工创作。
+## 新季度CAP & CPPP 实用技巧
+- 扩大区域覆盖：CAP/CSAP/CPPP策略需广泛曝光，通过在多个区域提交常规或主题动力池Alpha，可将弱势（负）表现转化为更强信号。
+- 聚焦质量标准：目标需达到Sharpe>2.5、Fitness>1.8、Turnover<25、收益>回撤、Margin>5。
+- 避免单一中性化：如在GLB Alpha中，除“统计型”中性化外，可使用快速因子、Ram等其他中性化方式。
+- 多样化方法：避免重复使用相同数据字段和数据集，尝试不同运算符，不依赖单一框架，利用API和LLM获取独特Alpha。
+- 增加合理提交：每日在不同区域提交至少2-3个Alpha，提升策略稳健性和分散性。
+- 瞄准优质“超级Alpha”：尤其在GLB/EUR/印度等区域，目标需达到Sharpe>4、Fitness>3、Turnover<25、收益>回撤、Margin>7。
+- 保持每日纪律：每日提交中至少包含一个高表现区域（GLB/IND/EUR D0）。
+
+---
+
+## 当前默认回测设置（AI 输出的 setting 会覆盖这些默认值）
+- region: USA
+- universe: TOP3000
+- delay: 1
+- decay: 4
+- neutralization: MARKET
+- truncation: 0.08
+- pasteurization: ON
+- nanHandling: OFF
+
+## 任务
+请根据以上思路和参考资料，生成 6 个多样化的 alpha 表达式。
+
+## 要求
+1. 使用 FASTEXPR 语法，**只使用参考资料中列出的字段和函数**
+2. 每个 alpha 之间应有显著差异（不同因子、不同窗口期、不同组合方式）
+3. **核心目标：grade 达到 GOOD 或以上**
+   （参考指标：Sharpe >= 1.5，Fitness >= 1.0）
+4. name 字段用简短英文标识因子含义
+5. 考虑因子的经济学逻辑和衰减特性
+6. **请先根据策略特性选定一组最合适的 setting（universe / delay / decay / neutralization 等），所有 alpha 使用相同的 setting**
+   （后续迭代会锁定该 setting 专注优化表达式，只有长期无提升时才调参）
+7. 重视通过平台全部 checks（低自相关、足够覆盖率、合理换手等）
+8. 参考成功范例的结构，但不要照抄
+9. **region 必须为 "USA"，不要使用其他区域**
+
+## 回测参数说明（setting 字段）
+每个 alpha 必须包含 setting 字段，可选值如下：
+
+| 参数 | 可选值 | 说明 |
+|------|--------|------|
+| instrumentType | "EQUITY" | 固定 |
+| region | "USA" | 固定为USA（其他区域暂不可用） |
+| universe | "TOP200", "TOP500", "TOP1000", "TOP2000", "TOP3000" | 股票池 |
+| delay | 0, 1 | 信号延迟天数 |
+| decay | 0~20 整数 | 线性衰减天数 |
+| neutralization | "NONE", "MARKET", "SECTOR", "INDUSTRY", "SUBINDUSTRY" | 中性化 |
+| truncation | 0.01~0.10 | 截断比例 |
+| pasteurization | "ON", "OFF" | 巴氏灭菌 |
+| unitHandling | "VERIFY", "NONE" | 单位处理 |
+| nanHandling | "ON", "OFF" | NaN处理 |
+| language | "FASTEXPR" | 固定 |
+
+⚠️ **region 必须为 "USA"，当前不支持 CHN/EUR/ASI/GLB 等其他区域。**
+
+选择建议：
+- 动量/反转类：decay 偏高(6-12)，neutralization 用 SUBINDUSTRY
+- 基本面质量类：decay 偏低(2-6)，neutralization 用 MARKET 或 INDUSTRY
+- 高换手因子：truncation 调低(0.05)，decay 调高
+- 低频因子：delay=1，decay 可较低
+
+
+## 输出格式
+先用 2-3 句话简述设计思路，然后 **严格** 输出如下 JSON 数组：
+
+```json
+[
+  {
+    "name": "alpha_001_xxx",
+    "expr": "rank(ts_zscore(return_equity, 252)) ...",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR"
+    }
+  }
+]
+```
+
+**注意：region 必须固定为 "USA"。**
+
+
+**注意：所有 alpha 请使用同一组 setting，只在表达式上做差异化。**
+
+## ⚠️ 重要提示：上轮所有 alpha 全部失败！
+最常见原因是**使用了平台不存在的字段名**。
+请 **严格只使用** 参考资料「Fields」中列出的字段 id，不要编造字段。
+例如：`return_equity` 是真实字段，但 `roe`、`roa`、`gpoa`、`fcf_to_assets` 不是。
+
+## 上轮未达标的表达式（请避免相似方向）
+  ❌ `rank(hump(group_neutralize(add(multiply(0.65, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252)), 4)), multiply(0.35, winsorize(reverse(add(ts_mean(returns, 5), ts_mean(returns, 15))), 4))), industry), 0.01))` → 错误: 完成但 alpha 为空
+  ❌ `rank(hump(group_neutralize(add(multiply(0.65, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_revt, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(add(fnd6_newa1v1300_rect, fnd6_newa1v1300_invt), fnd6_newa1v1300_at + 0.001), 252), 252))), 4)), multiply(0.35, winsorize(reverse(add(ts_mean(returns, 5), ts_mean(returns, 10))), 4))), industry), 0.01))` → 错误: 完成但 alpha 为空
+  ❌ `rank(hump(group_neutralize(add(multiply(0.6, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_oancf, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(subtract(fnd6_newa1v1300_oancf, fnd6_newa1v1300_ivncf), fnd6_newa1v1300_at + 0.001), 252), 252)), 4)), multiply(0.4, winsorize(reverse(add(ts_mean(returns, 6), ts_mean(returns, 12))), 4))), industry), 0.01))` → 错误: 完成但 alpha 为空
+  ❌ `rank(hump(group_neutralize(add(multiply(0.55, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_at + 0.001), 252), 252), ts_zscore(ts_backfill(divide(anl4_ady_pu - anl4_ady_down, anl4_ady_numest + 1), 252), 252)), 4)), multiply(0.45, winsorize(reverse(add(ts_mean(returns, 5), ts_mean(returns, 18))), 4))), industry), 0.01))` → 错误: 完成但 alpha 为空
+  ❌ `rank(hump(group_neutralize(add(multiply(0.6, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ebit, fnd6_newa1v1300_at + 0.001), 252), 252), reverse(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_xsga, fnd6_newa1v1300_revt + 0.001), 252), 252))), 4)), multiply(0.4, winsorize(reverse(add(ts_mean(returns, 8), ts_mean(returns, 16))), 4))), industry), 0.01))` → 错误: 完成但 alpha 为空
+  ❌ `rank(hump(group_neutralize(add(multiply(0.6, winsorize(add(ts_zscore(ts_backfill(divide(fnd6_newa1v1300_ni, fnd6_newa1v1300_seq + 0.001), 252), 252), ts_zscore(ts_backfill(divide(fnd6_newa1v1300_gp, fnd6_newa1v1300_revt + 0.001), 252), 252)), 4)), multiply(0.4, winsorize(reverse(add(ts_mean(returns, 7), ts_mean(returns, 20))), 4))), industry), 0.01))` → 错误: 完成但 alpha 为空

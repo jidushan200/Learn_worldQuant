@@ -1,0 +1,3247 @@
+=== SYSTEM ===
+你是一位顶级量化研究员，专精 WorldQuant Brain 平台的 FAST Expression 语法。
+你的任务是根据用户的策略思路，生成可在 Brain 平台回测的 alpha 表达式。
+
+## 核心规则
+1. 每个 alpha 必须是一个完整的 FAST Expression，可以直接粘贴到平台运行。如果一个Alpha质量不好，不要钻牛角尖，及时变通，改变策略
+2. 只能使用下方「可用字段」中列出的字段名，严禁自行编造或猜测不存在的字段。
+3. 特别注意 必须严格参照字段文档中的归属。而且在制作Alpha时尽量先保证setting的固定，在固定setting的基础上变化Alpha
+4. 如果不确定某字段属于哪个前缀，优先使用无前缀的简单别名（如 sales, ebit, revenue, cashflow_op 等）。
+5. 只使用 FAST Expression 支持的函数和运算符（rank, ts_rank, ts_zscore, ts_regression, group_rank, ts_delta, ts_mean, ts_std_dev, ts_arg_max, ts_arg_min, ts_corr, ts_covariance, ts_decay_linear, ts_decay_exp_window, ts_min, ts_max, ts_sum, ts_product, ts_skewness, ts_kurtosis, signed_power, log, abs, divide, add, subtract, multiply, min, max, clamp, if_else, less, greater, equals, and_op, or_op, not_op, is_nan, purify, filter, trade_when 等）。
+
+## Checks 评估说明
+平台会对每个 alpha 执行一系列 checks，每项结果为 PASS / FAIL / WARNING / PENDING：
+- LOW_SHARPE: Sharpe 不得低于 limit（通常 1.25）
+- LOW_FITNESS: Fitness 不得低于 limit（通常 1.0）
+- LOW_TURNOVER / HIGH_TURNOVER: 换手率需在合理范围内
+- CONCENTRATED_WEIGHT: 持仓权重不能过于集中
+- LOW_SUB_UNIVERSE_SHARPE: 子宇宙 Sharpe 不得低于 limit
+- UNITS: 表达式中存在单位维度不兼容（通常是 group 操作后直接做除法导致）
+- SELF_CORRELATION: 与已提交 alpha 的相关性检测
+- MATCHES_COMPETITION: 是否符合比赛要求
+所有 checks 必须无 FAIL 才能提交。请根据 FAIL 项的 value 和 limit 差距针对性优化。
+
+## Yearly Performance 说明
+回测会返回每年的详细数据，包括 Sharpe、Turnover、Fitness、Returns、Drawdown、
+Margin、Long Count、Short Count。请特别关注表现差的年份（如 Sharpe 为负），
+思考因子在哪类市场环境中失效，并针对性改进。
+
+## 输出格式（严格遵守）
+输出必须是纯 JSON 数组，不要输出任何其他文字。
+每个元素包含三个字段：
+  - "name"：简短唯一的因子命名（英文+下划线+数字）
+  - "expr"：完整的 FAST Expression 字符串
+  - "setting"：回测参数对象，包含以下字段：
+      instrumentType, region, universe, delay, decay,
+      neutralization, truncation, pasteurization,
+      unitHandling, nanHandling, language, visualization
+示例：
+[{"name":"demo_alpha","expr":"rank(close)","setting":{"instrumentType":"EQUITY","region":"USA","universe":"TOP3000","delay":1,"decay":0,"neutralization":"SUBINDUSTRY","truncation":0.08,"pasteurization":"ON","unitHandling":"VERIFY","nanHandling":"OFF","language":"FASTEXPR","visualization":false}}]
+
+## 可用字段（严格限制）
+以下是你唯一允许使用的数据字段。
+使用不存在的字段会导致回测直接报错，请务必逐字核对字段名。
+
+actual_cashflow_per_share_value_quarterly
+actual_dividend_value_quarterly
+actual_eps_value_quarterly
+actual_sales_value_annual
+actual_sales_value_quarterly
+actuals_reporting_currency
+actuals_value_currency_code
+adjfactor
+adv20
+analyst_revision_rank_derivative
+anl4_adjusted_netincome_ft
+anl4_ads1detailafv110_bk
+anl4_ads1detailafv110_estvalue
+anl4_ads1detailafv110_person
+anl4_ads1detailafv110_prevval
+anl4_ads1detailqfv110_bk
+anl4_ads1detailqfv110_estvalue
+anl4_ads1detailqfv110_person
+anl4_ads1detailqfv110_prevval
+anl4_adxqfv110_down
+anl4_adxqfv110_high
+anl4_adxqfv110_low
+anl4_adxqfv110_mean
+anl4_adxqfv110_median
+anl4_adxqfv110_numest
+anl4_adxqfv110_pu
+anl4_ady_down
+anl4_ady_high
+anl4_ady_low
+anl4_ady_mean
+anl4_ady_median
+anl4_ady_numest
+anl4_ady_pu
+anl4_af_cfps_value
+anl4_af_div_value
+anl4_af_eps_value
+anl4_afv4_actual
+anl4_afv4_cfps_high
+anl4_afv4_cfps_low
+anl4_afv4_cfps_mean
+anl4_afv4_cfps_median
+anl4_afv4_cfps_number
+anl4_afv4_div_high
+anl4_afv4_div_low
+anl4_afv4_div_mean
+anl4_afv4_div_median
+anl4_afv4_div_number
+anl4_afv4_div_std
+anl4_afv4_dts_spe
+anl4_afv4_eps_high
+anl4_afv4_eps_low
+anl4_afv4_eps_mean
+anl4_afv4_eps_number
+anl4_afv4_maxguidance
+anl4_afv4_median_eps
+anl4_afv4_minguidance
+anl4_bac1actualqfv110_actual
+anl4_bac1actualqfv110_item
+anl4_bac1conafv110_item
+anl4_bac1conltv110_item
+anl4_bac1conqfv110_item
+anl4_bac1conrecv110_item
+anl4_bac1detailafv110_item
+anl4_bac1detaillt_item
+anl4_bac1detailqfv110_item
+anl4_bac1detailrec_item
+anl4_basicafv4_actual
+anl4_basicconafv110_down
+anl4_basicconafv110_high
+anl4_basicconafv110_low
+anl4_basicconafv110_mean
+anl4_basicconafv110_median
+anl4_basicconafv110_numest
+anl4_basicconafv110_pu
+anl4_basicconltv110_down
+anl4_basicconltv110_high
+anl4_basicconltv110_low
+anl4_basicconltv110_mean
+anl4_basicconltv110_median
+anl4_basicconltv110_numest
+anl4_basicconltv110_pu
+anl4_basicconqfv110_down
+anl4_basicconqfv110_high
+anl4_basicconqfv110_low
+anl4_basicconqfv110_mean
+anl4_basicconqfv110_median
+anl4_basicconqfv110_numest
+anl4_basicconqfv110_pu
+anl4_basicdetaillt_bk
+anl4_basicdetaillt_estvalue
+anl4_basicdetaillt_person
+anl4_basicdetaillt_prevval
+anl4_basicdetailqfv110_bk
+anl4_basicdetailqfv110_estvalue
+anl4_basicdetailqfv110_person
+anl4_basicdetailqfv110_prevval
+anl4_basicdetailrec_bk
+anl4_basicdetailrec_person
+anl4_basicdetailrec_ratingvalue
+anl4_basicqfv4_actual
+anl4_basicqfv4_maxguidance
+anl4_basicqfv4_minguidance
+anl4_baz1v110_bk
+anl4_baz1v110_estvalue
+anl4_baz1v110_person
+anl4_baz1v110_prevval
+anl4_buy
+anl4_bvps_flag
+anl4_bvps_high
+anl4_bvps_low
+anl4_bvps_mean
+anl4_bvps_median
+anl4_bvps_number
+anl4_bvps_value
+anl4_capex_flag
+anl4_capex_high
+anl4_capex_low
+anl4_capex_mean
+anl4_capex_number
+anl4_capex_std
+anl4_capex_value
+anl4_cff_flag
+anl4_cff_high
+anl4_cff_low
+anl4_cff_mean
+anl4_cff_median
+anl4_cff_number
+anl4_cff_value
+anl4_cfi_flag
+anl4_cfi_high
+anl4_cfi_low
+anl4_cfi_mean
+anl4_cfi_median
+anl4_cfi_number
+anl4_cfi_value
+anl4_cfo_flag
+anl4_cfo_high
+anl4_cfo_low
+anl4_cfo_mean
+anl4_cfo_median
+anl4_cfo_number
+anl4_cfo_value
+anl4_cuo1actualqfv110_actual
+anl4_cuo1actualqfv110_item
+anl4_cuo1conafv110_item
+anl4_cuo1conqfv110_item
+anl4_cuo1detailafv110_item
+anl4_cuo1detailqfv110_item
+anl4_cuo1guidaf_item
+anl4_cuo1guidaf_maxguidance
+anl4_cuo1guidaf_minguidance
+anl4_dei2laf_item
+anl4_dei2lqfv110_item
+anl4_dei3lafv110_item
+anl4_dei3lltv110_item
+anl4_dei3lqfv110_item
+anl4_dei3lrec_item
+anl4_detailltv4_est
+anl4_detailltv4_preest
+anl4_detailltv4v104_est
+anl4_detailltv4v104_preest
+anl4_detailrecv4_est
+anl4_detailrecv4v104_est
+anl4_dez1afv4_est
+anl4_dez1afv4_preest
+anl4_dez1basicafv4_est
+anl4_dez1basicafv4_preest
+anl4_dez1basicafv4v104_est
+anl4_dez1basicafv4v104_preest
+anl4_dez1basicqfv4_est
+anl4_dez1basicqfv4_preest
+anl4_dez1basicqfv4v104_est
+anl4_dez1basicqfv4v104_preest
+anl4_dez1qfv4_est
+anl4_dez1qfv4_preest
+anl4_dez1safv4_est
+anl4_dez1safv4_preest
+anl4_dts_ptp
+anl4_dts_rspe
+anl4_eaz1laf_bk
+anl4_eaz1laf_estvalue
+anl4_eaz1laf_person
+anl4_eaz1laf_prevval
+anl4_eaz1lqfv110_bk
+anl4_eaz1lqfv110_estvalue
+anl4_eaz1lqfv110_person
+anl4_eaz1lqfv110_prevval
+anl4_eaz2lafv110_bk
+anl4_eaz2lafv110_estvalue
+anl4_eaz2lafv110_person
+anl4_eaz2lafv110_prevval
+anl4_eaz2lltv110_bk
+anl4_eaz2lltv110_estvalue
+anl4_eaz2lltv110_person
+anl4_eaz2lltv110_prevval
+anl4_eaz2lqfv110_bk
+anl4_eaz2lqfv110_estvalue
+anl4_eaz2lqfv110_person
+anl4_eaz2lqfv110_prevval
+anl4_eaz2lrec_bk
+anl4_eaz2lrec_person
+anl4_eaz2lrec_ratingvalue
+anl4_ebit_high
+anl4_ebit_low
+anl4_ebit_mean
+anl4_ebit_median
+anl4_ebit_number
+anl4_ebit_std
+anl4_ebit_value
+anl4_ebitda_flag
+anl4_ebitda_high
+anl4_ebitda_low
+anl4_ebitda_mean
+anl4_ebitda_number
+anl4_ebitda_std
+anl4_ebitda_value
+anl4_epsa_flag
+anl4_epsr_flag
+anl4_epsr_high
+anl4_epsr_low
+anl4_epsr_mean
+anl4_epsr_number
+anl4_epsr_value
+anl4_fcf_flag
+anl4_fcf_high
+anl4_fcf_low
+anl4_fcf_mean
+anl4_fcf_median
+anl4_fcf_number
+anl4_fcf_value
+anl4_fcfps_flag
+anl4_fcfps_high
+anl4_fcfps_low
+anl4_fcfps_mean
+anl4_fcfps_median
+anl4_fcfps_number
+anl4_ffo_flag
+anl4_flag_erbfintax
+anl4_fsactualafv4_actual
+anl4_fsactualafv4_item
+anl4_fsactualqfv4_actual
+anl4_fsactualqfv4_item
+anl4_fsdetailltv4v104_item
+anl4_fsdetailrecv4v104_item
+anl4_fsdtlestmtafv4_item
+anl4_fsdtlestmtbscqv104_item
+anl4_fsdtlestmtbscv104_item
+anl4_fsdtlestmtqfv4_item
+anl4_fsdtlestmtsafv4_item
+anl4_fsgdncbscv4_maxguidance
+anl4_fsgdncbscv4_minguidance
+anl4_fsguidanceafv4_item
+anl4_fsguidanceafv4_maxguidance
+anl4_fsguidanceafv4_minguidance
+anl4_fsguidancebasicqfv4_item
+anl4_fsguidanceqfv4_item
+anl4_fsguidanceqfv4_maxguidance
+anl4_fsguidanceqfv4_minguidance
+anl4_gric_flag
+anl4_gric_high
+anl4_gric_low
+anl4_gric_mean
+anl4_gric_median
+anl4_gric_number
+anl4_gric_std
+anl4_gric_value
+anl4_guiafv4_est
+anl4_guibasicqfv4_est
+anl4_guiqfv4_est
+anl4_hold
+anl4_mark
+anl4_median_capexp
+anl4_median_epsreported
+anl4_medianepsbfam
+anl4_netdebt_flag
+anl4_netdebt_high
+anl4_netdebt_low
+anl4_netdebt_mean
+anl4_netdebt_median
+anl4_netdebt_number
+anl4_netprofit_flag
+anl4_netprofit_high
+anl4_netprofit_low
+anl4_netprofit_mean
+anl4_netprofit_median
+anl4_netprofit_number
+anl4_netprofit_std
+anl4_netprofit_value
+anl4_netprofita_high
+anl4_netprofita_low
+anl4_netprofita_mean
+anl4_netprofita_median
+anl4_netprofita_number
+anl4_netprofita_std
+anl4_netprofita_value
+anl4_norec
+anl4_ptp_flag
+anl4_ptp_high
+anl4_ptp_low
+anl4_ptp_mean
+anl4_ptp_median
+anl4_ptp_number
+anl4_ptp_value
+anl4_ptpr_flag
+anl4_ptpr_high
+anl4_ptpr_low
+anl4_ptpr_mean
+anl4_ptpr_median
+anl4_ptpr_number
+anl4_qf_az_cfps_mean
+anl4_qf_az_cfps_median
+anl4_qf_az_cfps_number
+anl4_qf_az_div_mean
+anl4_qf_az_div_median
+anl4_qf_az_div_number
+anl4_qf_az_dts_spe
+anl4_qf_az_eps
+anl4_qf_az_eps_mean
+anl4_qf_az_eps_number
+anl4_qf_az_hgih_spe
+anl4_qf_az_hgih_spfc
+anl4_qf_az_hgih_vid
+anl4_qf_az_wol_spe
+anl4_qf_az_wol_spfc
+anl4_qf_az_wol_vid
+anl4_qfd1_az_cfps_median
+anl4_qfd1_az_cfps_number
+anl4_qfd1_az_div_median
+anl4_qfd1_az_div_number
+anl4_qfd1_az_dts_spe
+anl4_qfd1_az_eps_number
+anl4_qfd1_az_hgih_spe
+anl4_qfd1_az_hgih_spfc
+anl4_qfd1_az_hgih_vid
+anl4_qfd1_az_wol_spe
+anl4_qfd1_az_wol_spfc
+anl4_qfd1_az_wol_vid
+anl4_qfd1_azeps
+anl4_qfv4_actual
+anl4_qfv4_cfps_high
+anl4_qfv4_cfps_low
+anl4_qfv4_cfps_mean
+anl4_qfv4_cfps_median
+anl4_qfv4_cfps_number
+anl4_qfv4_div_high
+anl4_qfv4_div_low
+anl4_qfv4_div_mean
+anl4_qfv4_div_median
+anl4_qfv4_div_number
+anl4_qfv4_dts_spe
+anl4_qfv4_eps_high
+anl4_qfv4_eps_low
+anl4_qfv4_eps_mean
+anl4_qfv4_eps_number
+anl4_qfv4_maxguidance
+anl4_qfv4_median_eps
+anl4_qfv4_minguidance
+anl4_rd_exp_flag
+anl4_rd_exp_high
+anl4_rd_exp_low
+anl4_rd_exp_mean
+anl4_rd_exp_median
+anl4_rd_exp_number
+anl4_tbve_ft
+anl4_tbvps_high
+anl4_tbvps_low
+anl4_tbvps_mean
+anl4_tbvps_median
+anl4_tbvps_number
+anl4_tot_gw_ft
+anl4_total_rec
+anl4_totassets_flag
+anl4_totassets_high
+anl4_totassets_low
+anl4_totassets_mean
+anl4_totassets_median
+anl4_totassets_number
+anl4_totassets_std
+anl4_totassets_value
+anl4_totgw_high
+anl4_totgw_low
+anl4_totgw_mean
+anl4_totgw_median
+anl4_totgw_number
+anl4_under
+assets
+assets_curr
+basic_shares_max_guidance_qtr
+beta_last_30_days_spy
+beta_last_360_days_spy
+beta_last_60_days_spy
+beta_last_90_days_spy
+book_value_per_share_2
+book_value_per_share_min_guidance_qtr
+book_value_per_share_reported_value
+bookvalue_ps
+call_breakeven_10
+call_breakeven_1080
+call_breakeven_120
+call_breakeven_150
+call_breakeven_180
+call_breakeven_20
+call_breakeven_270
+call_breakeven_30
+call_breakeven_360
+call_breakeven_60
+call_breakeven_720
+call_breakeven_90
+cap
+capex
+capital_expenditure_amount
+capital_expenditure_guidance_value
+capital_expenditure_max_guidance_qtr
+capital_expenditure_reported_value
+cash
+cash_flow_financing_max_guidance
+cash_flow_from_financing
+cash_flow_from_investing
+cash_flow_from_operations
+cash_flow_operations_min_guidance
+cash_st
+cashflow
+cashflow_dividends
+cashflow_efficiency_rank_derivative
+cashflow_fin
+cashflow_invst
+cashflow_op
+cashflow_per_share_average
+cashflow_per_share_estimate_count
+cashflow_per_share_max_guidance
+cashflow_per_share_max_guidance_quarterly
+cashflow_per_share_maximum
+cashflow_per_share_median_value
+cashflow_per_share_min_guidance
+cashflow_per_share_min_guidance_quarterly
+cashflow_per_share_minimum
+close
+cogs
+composite_factor_score_derivative
+correlation_last_30_days_spy
+correlation_last_360_days_spy
+correlation_last_60_days_spy
+correlation_last_90_days_spy
+country
+currency
+current_ratio
+cusip
+debt
+debt_lt
+debt_st
+depre_amort
+dividend
+dividend_estimate_average
+dividend_estimate_count
+dividend_estimate_maximum
+dividend_estimate_median_value
+dividend_estimate_minimum
+dividend_estimate_standard_deviation
+dividend_estimate_stddev_quarterly
+dividend_estimate_value
+dividend_max_guidance_quarterly
+dividend_max_guidance_value
+dividend_min_guidance_quarterly
+dividend_min_guidance_value
+dividend_previous_estimate_value
+earnings_certainty_rank_derivative
+earnings_per_share_average
+earnings_per_share_estimate_count
+earnings_per_share_guidance_value
+earnings_per_share_max_guidance
+earnings_per_share_maximum
+earnings_per_share_median_value
+earnings_per_share_min_guidance
+earnings_per_share_minimum
+earnings_per_share_nongaap_value
+earnings_per_share_reported
+earnings_per_share_reported_value
+earnings_per_share_standard_deviation
+ebit
+ebit_reported_value
+ebitda
+ebitda_reported_value
+employee
+enterprise_value
+eps
+eps_adjusted_min_guidance_qtr
+eps_adjusted_min_guidance_value
+eps_estimate_value
+eps_guidance_value_quarterly
+eps_max_guidance_quarterly
+eps_min_guidance_quarterly
+eps_previous_estimate_value
+eps_reported_min_guidance_qtr
+equity
+est_bookvalue_ps
+est_capex
+est_cashflow_fin
+est_cashflow_invst
+est_cashflow_op
+est_cashflow_ps
+est_dividend_ps
+est_ebit
+est_ebitda
+est_eps
+est_epsa
+est_epsr
+est_fcf
+est_fcf_ps
+est_ffo
+est_grossincome
+est_netdebt
+est_netprofit
+est_netprofit_adj
+est_ptp
+est_ptpr
+est_rd_expense
+est_sales
+est_sga
+est_shequity
+est_tbv_ps
+est_tot_assets
+est_tot_goodwill
+estimate_value_currency_code
+estimate_value_currency_code_detail_qtr
+estimate_value_currency_code_qtr
+exchange
+financing_cashflow_reported_value
+fn_accrued_liab_a
+fn_accrued_liab_curr_a
+fn_accrued_liab_curr_q
+fn_accrued_liab_q
+fn_accum_depr_depletion_and_amortization_ppne_a
+fn_accum_depr_depletion_and_amortization_ppne_q
+fn_accum_oth_income_loss_fx_adj_net_of_tax_a
+fn_accum_oth_income_loss_fx_adj_net_of_tax_q
+fn_accum_oth_income_loss_net_of_tax_a
+fn_accum_oth_income_loss_net_of_tax_q
+fn_allocated_share_based_compensation_expense_a
+fn_allocated_share_based_compensation_expense_q
+fn_allowance_for_doubtful_accounts_receivable_a
+fn_allowance_for_doubtful_accounts_receivable_q
+fn_amortization_of_intangible_assets_a
+fn_amortization_of_intangible_assets_q
+fn_antidilutive_securities_excl_from_eps_a
+fn_antidilutive_securities_excl_from_eps_q
+fn_assets_fair_val_a
+fn_assets_fair_val_l1_a
+fn_assets_fair_val_l1_q
+fn_assets_fair_val_l2_a
+fn_assets_fair_val_l2_q
+fn_assets_fair_val_l3_a
+fn_assets_fair_val_l3_q
+fn_assets_fair_val_q
+fn_avg_diluted_sharesout_adj_a
+fn_avg_diluted_sharesout_adj_q
+fn_business_acq_ppne_a
+fn_business_acq_ppne_q
+fn_business_combination_assets_aquired_goodwill_a
+fn_business_combination_assets_aquired_goodwill_q
+fn_business_combination_purchase_price_a
+fn_business_combination_purchase_price_q
+fn_comp_fair_value_assumptions_weighted_avg_vol_rate_a
+fn_comp_fair_value_assumptions_weighted_avg_vol_rate_q
+fn_comp_non_opt_forfeited_a
+fn_comp_non_opt_forfeited_q
+fn_comp_non_opt_grants_a
+fn_comp_non_opt_grants_q
+fn_comp_non_opt_nonvested_number_a
+fn_comp_non_opt_nonvested_number_q
+fn_comp_non_opt_vested_a
+fn_comp_non_opt_vested_q
+fn_comp_not_rec_a
+fn_comp_not_rec_q
+fn_comp_not_rec_stock_options_a
+fn_comp_not_rec_stock_options_q
+fn_comp_number_of_shares_authorized_a
+fn_comp_number_of_shares_authorized_q
+fn_comp_options_exercisable_number_a
+fn_comp_options_exercisable_number_q
+fn_comp_options_exercisable_weighted_avg_a
+fn_comp_options_exercisable_weighted_avg_q
+fn_comp_options_exercises_weighted_avg_a
+fn_comp_options_exercises_weighted_avg_q
+fn_comp_options_forfeitures_and_expirations_a
+fn_comp_options_forfeitures_and_expirations_q
+fn_comp_options_grants_a
+fn_comp_options_grants_fair_value_a
+fn_comp_options_grants_fair_value_q
+fn_comp_options_grants_q
+fn_comp_options_grants_weighted_avg_a
+fn_comp_options_grants_weighted_avg_q
+fn_comp_options_out_intrinsic_value_a
+fn_comp_options_out_intrinsic_value_q
+fn_comp_options_out_number_a
+fn_comp_options_out_number_q
+fn_comp_options_out_weighted_avg_a
+fn_comp_options_out_weighted_avg_q
+fn_comprehensive_income_net_of_tax_a
+fn_comprehensive_income_net_of_tax_q
+fn_debt_instrument_carrying_amount_a
+fn_debt_instrument_carrying_amount_q
+fn_debt_instrument_face_amount_a
+fn_debt_instrument_face_amount_q
+fn_debt_instrument_interest_rate_stated_percentage_a
+fn_debt_instrument_interest_rate_stated_percentage_q
+fn_debt_issuance_costs_a
+fn_debt_issuance_costs_q
+fn_def_income_tax_expense_a
+fn_def_income_tax_expense_q
+fn_def_tax_assets_liab_net_a
+fn_def_tax_assets_liab_net_q
+fn_def_tax_assets_net_a
+fn_def_tax_assets_net_q
+fn_def_tax_liab_a
+fn_def_tax_liab_q
+fn_derivative_fair_value_of_derivative_asset_a
+fn_derivative_fair_value_of_derivative_asset_q
+fn_derivative_fair_value_of_derivative_liability_a
+fn_derivative_fair_value_of_derivative_liability_q
+fn_derivative_notional_amount_a
+fn_derivative_notional_amount_q
+fn_eff_income_tax_rate_continuing_operations_a
+fn_eff_income_tax_rate_continuing_operations_q
+fn_effect_of_exchange_rate_on_cash_and_equiv_a
+fn_effect_of_exchange_rate_on_cash_and_equiv_q
+fn_employee_related_liab_a
+fn_employee_related_liab_q
+fn_entity_common_stock_shares_out_a
+fn_entity_common_stock_shares_out_q
+fn_excess_tax_benefit_from_share_based_comp_fin_activities_a
+fn_excess_tax_benefit_from_share_based_comp_fin_activities_q
+fn_finite_lived_intangible_assets_acq_a
+fn_finite_lived_intangible_assets_acq_q
+fn_finite_lived_intangible_assets_gross_a
+fn_finite_lived_intangible_assets_gross_q
+fn_finite_lived_intangible_assets_net_a
+fn_finite_lived_intangible_assets_net_q
+fn_goodwill_acquired_during_period_a
+fn_goodwill_acquired_during_period_q
+fn_income_from_equity_investments_a
+fn_income_from_equity_investments_q
+fn_income_tax_expense_a
+fn_income_tax_expense_q
+fn_income_taxes_paid_a
+fn_income_taxes_paid_q
+fn_incremental_shares_attributable_to_share_based_payment_a
+fn_incremental_shares_attributable_to_share_based_payment_q
+fn_intangible_assets_accum_amort_a
+fn_intangible_assets_accum_amort_q
+fn_interest_paid_net_a
+fn_interest_paid_net_q
+fn_interest_payable_a
+fn_interest_payable_q
+fn_liab_fair_val_a
+fn_liab_fair_val_l1_a
+fn_liab_fair_val_l1_q
+fn_liab_fair_val_l2_a
+fn_liab_fair_val_l2_q
+fn_liab_fair_val_l3_a
+fn_liab_fair_val_l3_q
+fn_liab_fair_val_q
+fn_line_of_credit_facility_amount_out_a
+fn_line_of_credit_facility_amount_out_q
+fn_line_of_credit_facility_max_borrowing_capacity_a
+fn_line_of_credit_facility_max_borrowing_capacity_q
+fn_mne_a
+fn_new_shares_issued_a
+fn_new_shares_options_a
+fn_new_shares_options_q
+fn_op_lease_min_pay_due_a
+fn_op_lease_min_pay_due_after_5y_a
+fn_op_lease_min_pay_due_in_2y_a
+fn_op_lease_min_pay_due_in_3y_a
+fn_op_lease_min_pay_due_in_4y_a
+fn_op_lease_min_pay_due_in_5y_a
+fn_op_lease_rent_exp_a
+fn_oth_comp_fair_value_a
+fn_oth_comp_forfeitures_fair_value_a
+fn_oth_comp_grants_weighted_avg_grant_date_fair_value_a
+fn_oth_comp_grants_weighted_avg_grant_date_fair_value_q
+fn_oth_income_loss_available_for_sale_securities_adj_of_tax_a
+fn_oth_income_loss_available_for_sale_securities_adj_of_tax_q
+fn_oth_income_loss_derivatives_qualifying_as_hedges_of_tax_a
+fn_oth_income_loss_derivatives_qualifying_as_hedges_of_tax_q
+fn_oth_income_loss_fx_transaction_and_tax_translation_adj_a
+fn_oth_income_loss_fx_transaction_and_tax_translation_adj_q
+fn_oth_income_loss_net_of_tax_a
+fn_oth_income_loss_net_of_tax_q
+fn_payments_for_repurchase_of_common_stock_a
+fn_payments_for_repurchase_of_common_stock_q
+fn_payments_to_acquire_businesses_net_of_cash_acquired_a
+fn_payments_to_acquire_businesses_net_of_cash_acquired_q
+fn_ppne_gross_a
+fn_ppne_gross_q
+fn_prepaid_expense_a
+fn_prepaid_expense_q
+fn_proceeds_from_issuance_of_common_stock_a
+fn_proceeds_from_issuance_of_common_stock_q
+fn_proceeds_from_issuance_of_debt_a
+fn_proceeds_from_issuance_of_debt_q
+fn_proceeds_from_lt_debt_a
+fn_proceeds_from_lt_debt_q
+fn_proceeds_from_stock_options_exercised_a
+fn_proceeds_from_stock_options_exercised_q
+fn_profit_loss_a
+fn_profit_loss_q
+fn_repayments_of_debt_a
+fn_repayments_of_debt_q
+fn_repayments_of_lines_of_credit_a
+fn_repayments_of_lines_of_credit_q
+fn_repayments_of_lt_debt_a
+fn_repayments_of_lt_debt_q
+fn_repurchased_shares_a
+fn_repurchased_shares_q
+fn_repurchased_shares_value_a
+fn_repurchased_shares_value_q
+fn_taxes_payable_a
+fn_taxes_payable_q
+fn_treasury_stock_shares_a
+fn_treasury_stock_shares_q
+fn_unrecognized_tax_benefits_a
+fnd2_a_acmopclcchngcfectnt
+fnd2_a_acmopcldbpoprpnt
+fnd2_a_allfdbflaccrwriteoffs
+fnd2_a_alsbcmpexrsus
+fnd2_a_atdlsecexfcepsastkos
+fnd2_a_blgandiprtsg
+fnd2_a_bnsacqproformarvn
+fnd2_a_bnscbmacqrcsts
+fnd2_a_consinprogressg
+fnd2_a_curritxexp
+fnd2_a_dbplanepdrtnplas
+fnd2_a_dbplanintcst
+fnd2_a_dbplannpicbnfcst
+fnd2_a_dbplanservicecst
+fnd2_a_dbplctrbyemp
+fnd2_a_dfdtxava
+fnd2_a_eplsbvdcpcstnrgprg
+fnd2_a_eplsbvdcpcstnrgsbaoo
+fnd2_a_eplsrbcpntxbnffcmpex
+fnd2_a_excesstxbnffsbcpnoprat
+fnd2_a_fedstyitxrt
+fnd2_a_flintasacmamtzcsrld
+fnd2_a_flintasamt1expay5
+fnd2_a_flintasamt1expnext12m
+fnd2_a_flintasamt1expy5
+fnd2_a_flintasamt1expyfour
+fnd2_a_flintasamt1expythree
+fnd2_a_flintasamt1expytwo
+fnd2_a_flintasgcsrld
+fnd2_a_frtandfixturesg
+fnd2_a_gsles1xtinguishmentofd
+fnd2_a_gwllimrml
+fnd2_a_inventoryfinishedgoods
+fnd2_a_inventoryrawmaterials
+fnd2_a_landlandiprts
+fnd2_a_lhdiprtsg
+fnd2_a_lineofcrfcyrmbrgcap
+fnd2_a_ltrmdmrepoplay5
+fnd2_a_ltrmdmrepoplinnext12m
+fnd2_a_ltrmdmrepopliny5
+fnd2_a_ltrmdmrepoplinyfour
+fnd2_a_ltrmdmrepoplinythree
+fnd2_a_ltrmdmrepoplinytwo
+fnd2_a_opclpsnprtmbnfplansajnt
+fnd2_a_provisionfordbflact
+fnd2_a_ptoacqbnsesg
+fnd2_a_restructuringcharges
+fnd2_a_rvndm
+fnd2_a_sbcpnargmpmtwgtm
+fnd2_a_sbcpnargmpmtwopsffesip
+fnd2_a_sbcpnargmpmtwstgm
+fnd2_a_sbcpnargmpmtwvadpgwepr
+fnd2_a_sbcpnargmpmwggil
+fnd2_a_sbcpnargmsawpfipwerpr
+fnd2_a_sbcpnargmsptawervl
+fnd2_a_sbcpnargmtwfsptepddvdrt
+fnd2_a_sbcpnargtbysbpmtwpwrr
+fnd2_a_sbcpnatqsttotnsvdptfv
+fnd2_a_sbcpnshardustoprgps
+fnd2_a_seniornotes
+fnd2_a_stkdrgprdvalnewissues
+fnd2_a_stkrpeprogramardamt
+fnd2_a_unrgtxbnfitxpenlintacd
+fnd2_a_unrgtxbnfthatwdiptetxr
+fnd2_asdm
+fnd2_currfedtxexp
+fnd2_currfrtxexp
+fnd2_currstatelocaltxexp
+fnd2_dbplanactuarialgl
+fnd2_dbplanamtsrginblsh
+fnd2_dbplanartonplas
+fnd2_dbplanbnfol
+fnd2_dbplanbnfpaid
+fnd2_dbplanbnfpaid_ast
+fnd2_dbplanchgbnfolintcst
+fnd2_dbplanepdfbnfp5ytherea
+fnd2_dbplanepdfbnfpnext12m
+fnd2_dbplanepdfbnfpy5
+fnd2_dbplanepdfbnfpyfour
+fnd2_dbplanepdfbnfpythree
+fnd2_dbplanepdfbnfpytwo
+fnd2_dbplanfvalpnas
+fnd2_dfctrbplancstrg
+fnd2_dfdfeditxexp
+fnd2_dfdfritxexp
+fnd2_dfdlocalitxexp
+fnd2_dfdtxasoprlcarryfwd
+fnd2_dfdtxastxcrcarryfwd
+fnd2_dfdtxastxdfdexpcompbnf
+fnd2_dfdtxastxdfdexprssaccrs
+fnd2_dfdtxlbsgwllandintas
+fnd2_dfdtxlbspropplteqm
+fnd2_ebitdm
+fnd2_ebitfr
+fnd2_eixrtreclstatelocalitxes
+fnd2_itxreclchgdfdtxava
+fnd2_itxreclnondeductibleexp
+fnd2_itxreclstatelocalitxes
+fnd2_itxreexftfedstyitxrt
+fnd2_oprlsfmpdcurr
+fnd2_propplteqflublgland
+fnd2_propplteqmuflmameqmt
+fnd2_propplteqmuflmamfrt
+fnd2_propplteqmuflmblgland
+fnd2_propplteqmuflmeqmt
+fnd2_propplteqmuflmfrt
+fnd2_q_atdlsecexfcepsastkos
+fnd2_q_bnsacqproformarvn
+fnd2_q_flintasamt1expy5
+fnd2_q_flintasamt1expyfour
+fnd2_q_flintasamt1expythree
+fnd2_q_flintasamt1expytwo
+fnd2_q_inventoryfinishedgoods
+fnd2_q_inventoryrawmaterials
+fnd2_q_lineofcrfcyrmbrgcap
+fnd2_q_ptoacqbnsesg
+fnd2_q_seniornotes
+fnd2_sbcpnshardpreops
+fnd2_unremittedfrer
+fnd2_unrgtxbnfdcfpprdtxpss
+fnd2_unrgtxbnfdecresfsttwtxauth
+fnd2_unrgtxbnfinregfcrps
+fnd2_unrgtxbnfinregfprtxps
+fnd2_unrgtxbnfrdsrefpstf
+fnd6_acdo
+fnd6_acodo
+fnd6_acox
+fnd6_acqgdwl
+fnd6_acqintan
+fnd6_adesinda_curcd
+fnd6_aldo
+fnd6_am
+fnd6_aodo
+fnd6_aox
+fnd6_aqc
+fnd6_aqi
+fnd6_aqs
+fnd6_beta
+fnd6_capxs
+fnd6_capxv
+fnd6_caxts
+fnd6_ceql
+fnd6_ch
+fnd6_ci
+fnd6_cibegni
+fnd6_cicurr
+fnd6_cidergl
+fnd6_cik
+fnd6_cimii
+fnd6_ciother
+fnd6_cipen
+fnd6_cisecgl
+fnd6_citotal
+fnd6_city
+fnd6_cld2
+fnd6_cld3
+fnd6_cld4
+fnd6_cld5
+fnd6_cogss
+fnd6_cptmfmq_actq
+fnd6_cptmfmq_atq
+fnd6_cptmfmq_ceqq
+fnd6_cptmfmq_dlttq
+fnd6_cptmfmq_dpq
+fnd6_cptmfmq_lctq
+fnd6_cptmfmq_oibdpq
+fnd6_cptmfmq_opepsq
+fnd6_cptmfmq_saleq
+fnd6_cptnewqeventv110_actq
+fnd6_cptnewqeventv110_apq
+fnd6_cptnewqeventv110_atq
+fnd6_cptnewqeventv110_ceqq
+fnd6_cptnewqeventv110_dlttq
+fnd6_cptnewqeventv110_dpq
+fnd6_cptnewqeventv110_epsf12
+fnd6_cptnewqeventv110_epsfxq
+fnd6_cptnewqeventv110_epsx12
+fnd6_cptnewqeventv110_lctq
+fnd6_cptnewqeventv110_ltq
+fnd6_cptnewqeventv110_nopiq
+fnd6_cptnewqeventv110_oeps12
+fnd6_cptnewqeventv110_oiadpq
+fnd6_cptnewqeventv110_oibdpq
+fnd6_cptnewqeventv110_opepsq
+fnd6_cptnewqeventv110_rectq
+fnd6_cptnewqeventv110_req
+fnd6_cptnewqeventv110_saleq
+fnd6_cptnewqv1300_actq
+fnd6_cptnewqv1300_apq
+fnd6_cptnewqv1300_atq
+fnd6_cptnewqv1300_ceqq
+fnd6_cptnewqv1300_dlttq
+fnd6_cptnewqv1300_dpq
+fnd6_cptnewqv1300_epsf12
+fnd6_cptnewqv1300_epsfxq
+fnd6_cptnewqv1300_epsx12
+fnd6_cptnewqv1300_lctq
+fnd6_cptnewqv1300_ltq
+fnd6_cptnewqv1300_nopiq
+fnd6_cptnewqv1300_oeps12
+fnd6_cptnewqv1300_oiadpq
+fnd6_cptnewqv1300_oibdpq
+fnd6_cptnewqv1300_opepsq
+fnd6_cptnewqv1300_rectq
+fnd6_cptnewqv1300_req
+fnd6_cptnewqv1300_saleq
+fnd6_cptrank_gvkeymap
+fnd6_cshpri
+fnd6_cshr
+fnd6_cshtr
+fnd6_cshtrq
+fnd6_cstkcv
+fnd6_cstkcvq
+fnd6_curcddv
+fnd6_currencya_curcd
+fnd6_currencyqv1300_curcd
+fnd6_dc
+fnd6_dclo
+fnd6_dcpstk
+fnd6_dcvsr
+fnd6_dcvsub
+fnd6_dcvt
+fnd6_dd
+fnd6_dd1
+fnd6_dd1q
+fnd6_dd2
+fnd6_dd3
+fnd6_dd4
+fnd6_dd5
+fnd6_dilavx
+fnd6_divd
+fnd6_dlcch
+fnd6_dltis
+fnd6_dlto
+fnd6_dltp
+fnd6_dltr
+fnd6_dm
+fnd6_dn
+fnd6_donr
+fnd6_dps
+fnd6_dpvieb
+fnd6_drc
+fnd6_drlt
+fnd6_ds
+fnd6_dudd
+fnd6_dvpa
+fnd6_dvrated
+fnd6_dxd2
+fnd6_dxd3
+fnd6_dxd4
+fnd6_dxd5
+fnd6_ein
+fnd6_emps
+fnd6_esopct
+fnd6_esopnr
+fnd6_esopr
+fnd6_esubc
+fnd6_esubs
+fnd6_eventv110_aqdq
+fnd6_eventv110_aqepsq
+fnd6_eventv110_cstkcvq
+fnd6_eventv110_dd1q
+fnd6_eventv110_dtedq
+fnd6_eventv110_dteepsq
+fnd6_eventv110_gdwlid12
+fnd6_eventv110_gdwlidq
+fnd6_eventv110_gdwlieps12
+fnd6_eventv110_gdwliepsq
+fnd6_eventv110_gldq
+fnd6_eventv110_glepsq
+fnd6_eventv110_npq
+fnd6_eventv110_nrtxtdq
+fnd6_eventv110_nrtxtepsq
+fnd6_eventv110_optdrq
+fnd6_eventv110_optlifeq
+fnd6_eventv110_optvolq
+fnd6_eventv110_pncd12
+fnd6_eventv110_pncdq
+fnd6_eventv110_pnceps12
+fnd6_eventv110_pncepsq
+fnd6_eventv110_pncidq
+fnd6_eventv110_pncwidq
+fnd6_eventv110_pncwiepsq
+fnd6_eventv110_setdq
+fnd6_eventv110_setepsq
+fnd6_eventv110_spced12
+fnd6_eventv110_spidq
+fnd6_eventv110_spiepsq
+fnd6_eventv110_txdbcaq
+fnd6_eventv110_txdbclq
+fnd6_eventv110_wddq
+fnd6_eventv110_wdepsq
+fnd6_eventv110_xaccq
+fnd6_exre
+fnd6_fatb
+fnd6_fatc
+fnd6_fate
+fnd6_fatl
+fnd6_fatn
+fnd6_fato
+fnd6_fatp
+fnd6_fiao
+fnd6_fic
+fnd6_fopo
+fnd6_fopox
+fnd6_fyrc
+fnd6_gdwls
+fnd6_ias
+fnd6_ibmii
+fnd6_ibs
+fnd6_idesindq_curcd
+fnd6_idit
+fnd6_iints
+fnd6_incorp
+fnd6_intan
+fnd6_intc
+fnd6_intpn
+fnd6_intseg
+fnd6_invfg
+fnd6_invo
+fnd6_invrm
+fnd6_invwip
+fnd6_itcb
+fnd6_itci
+fnd6_ivaco
+fnd6_ivaeq
+fnd6_ivaeqs
+fnd6_ivao
+fnd6_ivch
+fnd6_ivst
+fnd6_ivstch
+fnd6_lcox
+fnd6_lcoxdr
+fnd6_lifr
+fnd6_lno
+fnd6_loc
+fnd6_lol2
+fnd6_loxdr
+fnd6_lqpl1
+fnd6_lul3
+fnd6_mfma1_aoloch
+fnd6_mfma1_apalch
+fnd6_mfma1_at
+fnd6_mfma1_capx
+fnd6_mfma1_csho
+fnd6_mfma1_dp
+fnd6_mfma1_dpc
+fnd6_mfma1_invch
+fnd6_mfma2_oancf
+fnd6_mfma2_opeps
+fnd6_mfma2_recch
+fnd6_mfma2_revt
+fnd6_mfma2_txach
+fnd6_mfmq_cheq
+fnd6_mfmq_cogsq
+fnd6_mfmq_cshprq
+fnd6_mfmq_dlcq
+fnd6_mfmq_ibcomq
+fnd6_mfmq_mibtq
+fnd6_mfmq_piq
+fnd6_mibn
+fnd6_mibt
+fnd6_mkvalt
+fnd6_mkvaltq
+fnd6_mrc1
+fnd6_mrc2
+fnd6_mrc3
+fnd6_mrc4
+fnd6_mrc5
+fnd6_mrct
+fnd6_mrcta
+fnd6_msa
+fnd6_naicss
+fnd6_newa1v1300_aco
+fnd6_newa1v1300_acominc
+fnd6_newa1v1300_act
+fnd6_newa1v1300_ano
+fnd6_newa1v1300_ao
+fnd6_newa1v1300_aocidergl
+fnd6_newa1v1300_aociother
+fnd6_newa1v1300_aocipen
+fnd6_newa1v1300_aol2
+fnd6_newa1v1300_aoloch
+fnd6_newa1v1300_ap
+fnd6_newa1v1300_apalch
+fnd6_newa1v1300_aqpl1
+fnd6_newa1v1300_at
+fnd6_newa1v1300_aul3
+fnd6_newa1v1300_bkvlps
+fnd6_newa1v1300_caps
+fnd6_newa1v1300_capx
+fnd6_newa1v1300_ceq
+fnd6_newa1v1300_ceqt
+fnd6_newa1v1300_che
+fnd6_newa1v1300_chech
+fnd6_newa1v1300_cogs
+fnd6_newa1v1300_cshfd
+fnd6_newa1v1300_cshi
+fnd6_newa1v1300_csho
+fnd6_newa1v1300_cstk
+fnd6_newa1v1300_dcom
+fnd6_newa1v1300_dlc
+fnd6_newa1v1300_dltt
+fnd6_newa1v1300_dp
+fnd6_newa1v1300_dpact
+fnd6_newa1v1300_dpc
+fnd6_newa1v1300_dv
+fnd6_newa1v1300_dvc
+fnd6_newa1v1300_dvt
+fnd6_newa1v1300_ebit
+fnd6_newa1v1300_ebitda
+fnd6_newa1v1300_emp
+fnd6_newa1v1300_epsfi
+fnd6_newa1v1300_epsfx
+fnd6_newa1v1300_epspi
+fnd6_newa1v1300_epspx
+fnd6_newa1v1300_fca
+fnd6_newa1v1300_fincf
+fnd6_newa1v1300_gdwl
+fnd6_newa1v1300_gp
+fnd6_newa1v1300_ib
+fnd6_newa1v1300_ibadj
+fnd6_newa1v1300_ibc
+fnd6_newa1v1300_ibcom
+fnd6_newa1v1300_icapt
+fnd6_newa1v1300_intano
+fnd6_newa1v1300_invch
+fnd6_newa1v1300_invt
+fnd6_newa1v1300_ivncf
+fnd6_newa1v1300_lco
+fnd6_newa1v1300_lct
+fnd6_newa1v1300_lo
+fnd6_newa1v1300_lse
+fnd6_newa1v1300_lt
+fnd6_newa2v1300_mib
+fnd6_newa2v1300_mii
+fnd6_newa2v1300_ni
+fnd6_newa2v1300_nopi
+fnd6_newa2v1300_oancf
+fnd6_newa2v1300_oiadp
+fnd6_newa2v1300_oibdp
+fnd6_newa2v1300_opeps
+fnd6_newa2v1300_optexd
+fnd6_newa2v1300_pi
+fnd6_newa2v1300_ppegt
+fnd6_newa2v1300_ppent
+fnd6_newa2v1300_prsho
+fnd6_newa2v1300_rdip
+fnd6_newa2v1300_rdipa
+fnd6_newa2v1300_rd
+
+## 参考知识库（请从中寻找新灵感）
+### Examples
+# 成功 Alpha 表达式范例
+以下 alpha 曾在平台获得 GOOD 或以上 grade，供参考结构和风格。
+
+##
+name: network_dependence
+expr: rank(-ts_mean(pv13_ustomergraphrank_hub_rank, 504))
+说明: 长期低Hub Score代表客户合作伙伴集中度高、公司被替换风险低，为股票正向因子
+setting: delay=1, decay=5, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: social_sentiment_volatility
+expr: rank(-ts_std_dev(ts_backfill(snt_social_value, 60), 60))
+说明: 情绪长期无波动预示未来表现弱势，取负向排名构建空头倾向因子
+setting: delay=1, decay=4, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: growth_valuation_rank
+expr: rank(ts_zscore(growth_valuation_model_score, 126))
+说明: 增长估值模型得分的中期Z-score排名，做多排名提升的股票
+setting: delay=1, decay=4, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: valuation_estimate_diff
+expr: rank(growth_valuation_actual - growth_valuation_predicted)
+说明: 实际估值超预期为正向信号，做多超预期、做空不及预期股票
+setting: delay=1, decay=5, neutralization=INDUSTRY, universe=TOP3000
+
+##
+name: intrinsic_value_undervalued
+expr: rank(-ts_corr(intrinsic_value, market_value, 252))
+说明: 内在价值与市场价值相关性越低，股票低估可能性越高，为正向信号
+setting: delay=1, decay=6, neutralization=INDUSTRY, universe=TOP3000
+
+# 成功 Alpha 表达式范例
+以下全部 1–101 号公式化 Alpha 源自《101 Formulaic Alphas》，完全对齐 WorldQuant BRAIN 语法、统一命名/表达式/说明/配置，可直接复制使用。
+统一全局配置：delay=1，decay=3，neutralization=INDUSTRY，universe=TOP3000
+
+##
+name: alpha_01
+expr: rank(ts_argmax(signedpower(cond(returns < 0, stddev(returns, 20), close), 2), 5)) - 0.5)
+说明: 涨跌分段取值+幂次变换，取5日极值时序排名，短期反转信号
+
+##
+name: alpha_02
+expr: -1 * correlation(rank(delta(log(volume), 2)), rank((close - open) / open), 6)
+说明: 成交量二阶差分、日内涨跌幅秩相关，负向构建量价背离因子
+
+##
+name: alpha_03
+expr: -1 * correlation(rank(open), rank(volume), 10)
+说明: 开盘价与成交量10日秩相关反向打分，捕捉筹码分歧
+
+##
+name: alpha_04
+expr: -1 * ts_rank(rank(low), 9)
+说明: 9日时序排名低价序列，纯价格维度短期均值回归
+
+##
+name: alpha_05
+expr: rank(open - ts_mean(vwap, 10)) * (-1 * abs(rank(close - vwap)))
+说明: 开盘相对10日均价偏离，叠加收盘价相对VWAP偏离约束
+
+##
+name: alpha_06
+expr: -1 * correlation(open, volume, 10)
+说明: 开盘价与成交量10日时序相关，反向做空高相关标的
+
+##
+name: alpha_07
+expr: cond(adv20 < volume, -1 * ts_rank(abs(delta(close, 7)), 60) * sign(delta(close, 7)), -1)
+说明: 放量场景下用7日价格波动与涨跌符号构建强弱信号
+
+##
+name: alpha_08
+expr: -1 * rank(ts_mean(open, 5) * ts_mean(returns, 5) - delay(ts_mean(open, 5) * ts_mean(returns, 5), 10))
+说明: 5日开盘与收益乘积，10日滞后差分，捕捉趋势衰减
+
+##
+name: alpha_09
+expr: cond(ts_min(delta(close, 1), 5) > 0, delta(close, 1), cond(ts_max(delta(close, 1), 5) < 0, delta(close, 1), -1 * delta(close, 1)))
+说明: 5日价格涨跌区间判断，极端行情顺势，震荡反向
+
+##
+name: alpha_10
+expr: rank(cond(ts_min(delta(close, 1), 4) > 0, delta(close, 1), cond(ts_max(delta(close, 1), 4) < 0, delta(close, 1), -1 * delta(close, 1))))
+说明: 4日短期价格区间过滤，横截面排名标准化
+
+##
+name: alpha_11
+expr: (rank(ts_max(vwap - close, 3)) + rank(ts_min(vwap - close, 3))) * rank(delta(volume, 3))
+说明: 3日VWAP价差极值+成交量变化，日内资金行为捕捉
+
+##
+name: alpha_12
+expr: sign(delta(volume, 1)) * (-1 * delta(close, 1))
+说明: 单日量能方向反向匹配价格涨跌，量价反转
+
+##
+name: alpha_13
+expr: -1 * rank(covariance(rank(close), rank(volume), 5))
+说明: 5日价量秩协方差反向排名，压制同步波动标的
+
+##
+name: alpha_14
+expr: -1 * rank(delta(returns, 3)) * correlation(open, volume, 10)
+说明: 3日收益差分结合开盘量相关，复合趋势因子
+
+##
+name: alpha_15
+expr: -1 * ts_sum(rank(correlation(rank(high), rank(volume), 3)), 3)
+说明: 3日高价与量秩相关滚动求和，短期资金情绪
+
+##
+name: alpha_16
+expr: -1 * rank(covariance(rank(high), rank(volume), 5))
+说明: 高价与成交量秩协方差反向打分，博弈情绪因子
+
+##
+name: alpha_17
+expr: (-1 * rank(ts_rank(close, 10))) * rank(delta(delta(close, 1), 1)) * rank(ts_rank(volume / adv20, 5))
+说明: 价格时序排名、二阶价格差分、相对放量三维复合
+
+##
+name: alpha_18
+expr: -1 * rank(stddev(abs(close - open), 5) + (close - open) + correlation(close, open, 10))
+说明: 日内振幅波动+价差+开合相关性，综合反转
+
+##
+name: alpha_19
+expr: -1 * sign((close - delay(close, 7)) + delta(close, 7)) * (1 + rank(ts_sum(returns, 250)))
+说明: 7日价格偏离符号+长期收益排名，强弱趋势结合
+
+##
+name: alpha_20
+expr: (-1 * rank(open - delay(high, 1))) * rank(open - delay(close, 1)) * rank(open - delay(low, 1))
+说明: 开盘相对昨日高低收三维偏离，超短期情绪信号
+
+##
+name: alpha_21
+expr: cond(ts_mean(close, 8) + stddev(close, 8) < ts_mean(close, 2), -1, cond(ts_mean(close, 2) < ts_mean(close, 8) - stddev(close, 8), 1, cond(volume / adv20 >= 1, 1, -1)))
+说明: 长短周期价格均值波动对比，叠加相对放量过滤
+
+##
+name: alpha_22
+expr: -1 * delta(correlation(high, volume, 5), 5) * rank(stddev(close, 20))
+说明: 量价相关度变化+长期价格波动，波动率择时
+
+##
+name: alpha_23
+expr: cond(ts_mean(high, 20) < high, -1 * delta(high, 2), 0)
+说明: 价格突破20日高位时，做高价位回落反转
+
+##
+name: alpha_24
+expr: cond(delta(ts_mean(close, 100), 100) / delay(close, 100) <= 0.05, -1 * (close - ts_min(close, 100)), -1 * delta(close, 3))
+说明: 百年价格均值平稳区间用区间偏离，否则短期价格差分
+
+##
+name: alpha_25
+expr: rank(-1 * returns * adv20 * vwap * (high - close))
+说明: 收益、日均成交、均价、日内回落幅度多因子相乘
+
+##
+name: alpha_26
+expr: -1 * ts_max(correlation(ts_rank(volume, 5), ts_rank(high, 5), 5), 3)
+说明: 量价时序秩相关3日极值，压制高位同步标的
+
+##
+name: alpha_27
+expr: cond(rank(ts_mean(correlation(rank(volume), rank(vwap), 6), 2)) > 0.5, -1, 1)
+说明: 量价相关度横截面分位数二分，高低分化打分
+
+##
+name: alpha_28
+expr: scale(correlation(adv20, low, 5) + (high + low) / 2 - close)
+说明: 低价与流动性相关+中枢价格偏离，标准化缩放
+
+##
+name: alpha_29
+expr: min(product(rank(rank(scale(log(ts_min(rank(rank(-1 * rank(delta(close, 5)))), 2))))), 1) + ts_rank(delay(-1 * returns, 6), 5)
+说明: 多层嵌套秩变换+对数平滑+滞后收益时序排名
+
+##
+name: alpha_30
+expr: (1 - rank(sign(close-delay(close,1)) + sign(delay(close,1)-delay(close,2)) + sign(delay(close,2)-delay(close,3)))) * ts_sum(volume,5) / ts_sum(volume,20)
+说明: 三日价格趋势符号叠加，相对成交量加权
+
+##
+name: alpha_31
+expr: rank(rank(rank(decay_linear(-1 * rank(rank(delta(close, 10))), 10)))) + rank(-1 * delta(close, 3)) + sign(scale(correlation(adv20, low, 12)))
+说明: 线性衰减+多层秩+流动性相关符号，多周期融合
+
+##
+name: alpha_32
+expr: scale(ts_mean(close,7) - close) + 20 * scale(correlation(vwap, delay(close,5), 230))
+说明: 短期价格均值偏离+长周期量价滞后相关
+
+##
+name: alpha_33
+expr: rank(-1 * (1 - open / close))
+说明: 开合价格比值反向排名，日内折价溢价因子
+
+##
+name: alpha_34
+expr: rank(1 - rank(stddev(returns,2)/stddev(returns,5))) + (1 - rank(delta(close,1)))
+说明: 短期波动率比值+一阶价格差分，波动结构反转
+
+##
+name: alpha_35
+expr: ts_rank(volume,32) * (1 - ts_rank(close+high-low,16)) * (1 - ts_rank(returns,32))
+说明: 长周期量、价格形态、收益三维时序排名共振
+
+##
+name: alpha_36
+expr: 2.21*rank(correlation(close-open,delay(volume,1),15)) + 0.7*rank(open-close) + 0.73*rank(ts_rank(delay(-1*returns,6),5)) + rank(abs(correlation(vwap,adv20,6))) + 0.6*rank((ts_mean(close,200)-open)*(close-open))
+说明: 多组量价相关与价格偏离加权线性复合
+
+##
+name: alpha_37
+expr: rank(correlation(delay(open-close,1), close, 200)) + rank(open-close)
+说明: 长周期价差相关+即时开合价差，长短结合
+
+##
+name: alpha_38
+expr: -1 * rank(ts_rank(close,10)) * rank(close/open)
+说明: 价格时序排名+开合比值，趋势与溢价结合反转
+
+##
+name: alpha_39
+expr: -1 * rank(delta(close,7) * (1 - rank(decay_linear(volume/adv20,9)))) * (1 + rank(ts_sum(returns,250)))
+说明: 7日价格变化、放量衰减、长期收益排名三重约束
+
+##
+name: alpha_40
+expr: -1 * rank(stddev(high,10)) * correlation(high,volume,10)
+说明: 高价波动与量相关，高波动同步放量反向压制
+
+##
+name: alpha_41
+expr: sqrt(high * low) - vwap
+说明: 高低价几何均值相对均价偏离，价格中枢偏离
+
+##
+name: alpha_42
+expr: rank(vwap - close) / rank(vwap + close)
+说明: 日内收盘价相对均价偏离，delay0 日内反转
+
+##
+name: alpha_43
+expr: ts_rank(volume/adv20,20) * ts_rank(-1*delta(close,7),8)
+说明: 相对放量时序排名+中期价格反向趋势
+
+##
+name: alpha_44
+expr: -1 * correlation(high, rank(volume), 5)
+说明: 高价与成交量秩相关反向，博弈资金行为
+
+##
+name: alpha_45
+expr: -1 * (rank(ts_mean(delay(close,5),20)) * correlation(close,volume,2) * rank(correlation(ts_mean(close,5),ts_mean(close,20),2)))
+说明: 多重短周期价量相关嵌套复合
+
+##
+name: alpha_46
+expr: cond((ts_mean(delay(close,20),10)-ts_mean(delay(close,10),10)) < -0.1, 1, -1*(close-delay(close,1)))
+说明: 长期价格斜率对比，趋势破位反向
+
+##
+name: alpha_47
+expr: rank(1/close)*volume/adv20 * (high*rank(high-close)/(ts_mean(high,5)/5)) - rank(vwap-delay(vwap,5))
+说明: 估值倒数、流动性、日内强弱、均价滞后偏离多因子
+
+##
+name: alpha_48
+expr: indneutralize(correlation(delta(close,1),delta(delay(close,1),1),250)*delta(close,1)/close,subindustry) / ts_sum(delta(close,1)/delay(close,1)^2,250)
+说明: 子行业中性化，长周期价格波动相关性，delay0 因子
+
+##
+name: alpha_49
+expr: cond((ts_mean(delay(close,20),10)-ts_mean(delay(close,10),10)) < -0.1, 1, -1*(close-delay(close,1)))
+说明: 均线斜率拐点判断，超跌反转
+
+##
+name: alpha_50
+expr: -1 * ts_max(rank(correlation(rank(volume), rank(vwap),5)),5)
+说明: 量价均价秩相关5日极值，反向排名
+
+##
+name: alpha_51
+expr: cond((ts_mean(delay(close,20),10)-ts_mean(delay(close,10),10)) < -0.05, 1, -1*(close-delay(close,1)))
+说明: 放宽斜率阈值，适配弱震荡行情反转
+
+##
+name: alpha_52
+expr: (-1*ts_min(low,5)+delay(ts_min(low,5),5)) * rank((ts_sum(returns,240)-ts_sum(returns,20))/220) * ts_rank(volume,5)
+说明: 低价周期差值、长短收益差、短期量排名共振
+
+##
+name: alpha_53
+expr: -1 * delta(((close-low)-(high-close))/(close-low),9)
+说明: 日内多空力量比值9日差分，情绪边际变化
+
+##
+name: alpha_54
+expr: -1 * ((low-close)*open^5) / ((low-high)*close^5)
+说明: 高低价差与价格幂次结构，日内强弱极致分化
+
+##
+name: alpha_55
+expr: -1 * correlation(rank((close-ts_min(low,12))/(ts_max(high,12)-ts_min(low,12))), rank(volume),6)
+说明: 12日价格区间位置与成交量秩相关反向
+
+##
+name: alpha_56
+expr: -1 * (rank(ts_sum(returns,10)/ts_sum(ts_sum(returns,2),3)) * rank(returns * cap))
+说明: 收益结构比值+市值加权收益，大小盘分化因子
+
+##
+name: alpha_57
+expr: -1 * (close-vwap) / decay_linear(rank(ts_argmax(close,30)),2)
+说明: 价格均价偏离，叠加30日价格高点线性衰减
+
+##
+name: alpha_58
+expr: -1 * ts_rank(decay_linear(correlation(indneutralize(vwap,sector),volume,3.92795),7.89291),5.50322)
+说明: 行业中性化VWAP量相关，线性衰减+时序排名
+
+##
+name: alpha_59
+expr: -1 * ts_rank(decay_linear(correlation(indneutralize(0.728317*vwap+0.271683*vwap,industry),volume,4.25197),16.2289),8.19648)
+说明: 行业中性化加权均价，长周期衰减量价相关
+
+##
+name: alpha_60
+expr: -1 * (2 * scale(rank(((close-low)-(high-close))/(high-low)*volume)) - scale(rank(ts_argmax(close,10))))
+说明: 日内多空占比加权量能，结合短期价格高点
+
+##
+name: alpha_61
+expr: cond(rank(vwap-ts_min(vwap,16.1219)) < rank(correlation(vwap,adv180,17.9282)), -1, 1)
+说明: 长期均价低位偏离与流动性相关度二分打分
+
+##
+name: alpha_62
+expr: cond(rank(correlation(vwap,ts_sum(adv20,22.4101),9.91009)) < rank(rank(open)+rank(open) < rank((high+low)/2)+rank(high)), -1, 1)
+说明: 均价流动性相关与价格秩结构对比打分
+
+##
+name: alpha_63
+expr: (rank(decay_linear(delta(indneutralize(close,industry),2.25164),8.22237)) - rank(decay_linear(correlation(0.318108*vwap+0.681892*open,ts_sum(adv180,37.2467),13.557),12.2883))) * -1
+说明: 行业中性价格差分衰减，混合价量相关衰减差值
+
+##
+name: alpha_64
+expr: cond(rank(correlation(0.178404*open+0.821596*low,ts_sum(adv120,12.7054),16.6208)) < rank(delta(0.178404*(high+low)/2+0.821596*vwap,3.69741)), -1, 1)
+说明: 高低开盘混合价格，长期流动性相关对比短期价格变化
+
+##
+name: alpha_65
+expr: cond(rank(correlation(0.00817205*open+0.99182795*vwap,ts_sum(adv60,8.6911),6.40374)) < rank(open-ts_min(open,13.635)), -1, 1)
+说明: 微权重开盘混合均价，相对开盘低位偏离对比
+
+##
+name: alpha_66
+expr: (rank(decay_linear(delta(vwap,3.51013),7.23052)) + ts_rank(decay_linear((0.96633*low+0.03367*low-vwap)/(open-(high+low)/2),11.4157),6.72611)) * -1
+说明: 均价差分衰减+日内价格结构比值衰减复合
+
+##
+name: alpha_67
+expr: (rank(high-ts_min(high,2.14593))^rank(correlation(indneutralize(vwap,sector),indneutralize(adv20,subindustry),6.02936))) * -1
+说明: 板块中性量价相关，叠加高价低位偏离幂次
+
+##
+name: alpha_68
+expr: cond(ts_rank(correlation(rank(high),rank(adv15),8.91644),13.9333) < rank(delta(0.518371*close+0.481629*low,1.06157)), -1, 1)
+说明: 短期流动性与高价秩相关，对比混合低价变化
+
+##
+name: alpha_69
+expr: (rank(ts_max(delta(indneutralize(vwap,industry),2.72412),4.79344))^ts_rank(correlation(0.490655*close+0.509345*vwap,adv20,4.92416),9.0615)) * -1
+说明: 行业中性均价波动极值，结合混合价量相关
+
+##
+name: alpha_70
+expr: (rank(delta(vwap,1.29456))^ts_rank(correlation(indneutralize(close,industry),adv50,17.8256),17.9171)) * -1
+说明: 均价短期变化与长期行业中性量相关幂次复合
+
+##
+name: alpha_71
+expr: max(ts_rank(decay_linear(correlation(ts_rank(close,3.43976),ts_rank(adv180,12.0647),18.0175),4.20501),15.6948), ts_rank(decay_linear(rank((low+open-vwap-vwap)^2),16.4662),4.4388))
+说明: 双路径衰减时序排名，取最大值合成信号
+
+##
+name: alpha_72
+expr: rank(decay_linear(correlation((high+low)/2,adv40,8.93345),10.1519)) / rank(decay_linear(correlation(ts_rank(vwap,3.72469),ts_rank(volume,18.5188),6.86671),2.95011))
+说明: 价格中枢流动性相关 / 均价成交量时序相关比值
+
+##
+name: alpha_73
+expr: max(rank(decay_linear(delta(vwap,4.72775),2.91864)), ts_rank(decay_linear(delta(0.147155*open+0.852845*low,2.03608)/ (0.147155*open+0.852845*low)*-1,3.33829),16.7411)) * -1
+说明: 均价波动与混合低价趋势反向，双因子取最大
+
+##
+name: alpha_74
+expr: cond(rank(correlation(close,ts_sum(adv30,37.4843),15.1365)) < rank(correlation(rank(0.0261661*high+0.9738339*vwap),rank(volume),11.4791)), -1, 1)
+说明: 长期流动相关性对比高价均价混合秩相关
+
+##
+name: alpha_75
+expr: cond(rank(correlation(vwap,volume,4.24304)) < rank(correlation(rank(low),rank(adv50),12.4413)), -1, 1)
+说明: 短周期量价相关 vs 长期低价流动性秩相关
+
+##
+name: alpha_76
+expr: max(rank(decay_linear(delta(vwap,1.24383),11.8259)), ts_rank(decay_linear(ts_rank(correlation(indneutralize(low,sector),adv81,8.14941),19.569),17.1543),19.383)) * -1
+说明: 慢速衰减均价变化+板块中性低价流动相关
+
+##
+name: alpha_77
+expr: min(rank(decay_linear(((high+low)/2+high)-(vwap+high),20.0451)), rank(decay_linear(correlation((high+low)/2,adv40,3.1614),5.64125)))
+说明: 价格结构偏离与量相关衰减，取最小值保守信号
+
+##
+name: alpha_78
+expr: rank(correlation(0.352233*low+0.647767*vwap,ts_sum(adv40,19.7428),6.83313))^rank(correlation(rank(vwap),rank(volume),5.77492))
+说明: 低价均价混合流动相关，叠加量价秩相关幂次
+
+##
+name: alpha_79
+expr: cond(rank(delta(indneutralize(0.60733*close+0.39267*open,sector),1.23438)) < rank(correlation(ts_rank(vwap,3.60973),ts_rank(adv150,9.18637),14.6644)), -1, 1)
+说明: 板块中性开合混合价格变化，对比长期流动时序相关
+
+##
+name: alpha_80
+expr: (rank(sign(delta(indneutralize(0.868128*open+0.131872*high,industry),4.04545)))^ts_rank(correlation(high,adv10,5.11456),5.53756)) * -1
+说明: 行业中性价格变化符号，结合短期高价流动性相关
+
+##
+name: alpha_81
+expr: cond(rank(log(product(rank(rank(correlation(vwap,ts_sum(adv10,49.6054),8.47743))^4),14.9655))) < rank(correlation(rank(vwap),rank(volume),5.07914)), -1, 1)
+说明: 多阶秩相关乘积对数平滑，量价秩相关对比
+
+##
+name: alpha_82
+expr: max(rank(decay_linear(delta(open,1.46063),14.8717)), ts_rank(decay_linear(correlation(indneutralize(volume,sector),0.634196*open+0.365804*open,17.4842),6.92131),13.4283)) * -1
+说明: 开盘慢速波动+板块中性量相关衰减复合
+
+##
+name: alpha_83
+expr: (rank(delay(((high-low)/(ts_mean(close,5)/5)),2)) * rank(rank(volume))) / (((high-low)/(ts_mean(close,5)/5))/(vwap-close))
+说明: 日内波动比值滞后，量能排名与价格偏离比值
+
+##
+name: alpha_84
+expr: signedpower(ts_rank(vwap-ts_max(vwap,15.3217),20.7127),delta(close,4.96796))
+说明: 均价相对高位偏离时序排名，以中期价格变化为幂次
+
+##
+name: alpha_85
+expr: rank(correlation(0.876703*high+0.123297*close,adv30,9.61331))^rank(correlation(ts_rank((high+low)/2,3.70596),ts_rank(volume,10.1595),7.11408))
+说明: 高价收盘混合流动相关，价格中枢量时序相关幂次
+
+##
+name: alpha_86
+expr: cond(ts_rank(correlation(close,ts_sum(adv20,14.7444),6.00049),20.4195) < rank(open+close-vwap-open), -1, 1)
+说明: 短期流动相关时序排名，对比开盘收盘均价结构
+
+##
+name: alpha_87
+expr: max(rank(decay_linear(delta(0.369701*close+0.630299*vwap,1.91233),2.65461)), ts_rank(decay_linear(abs(correlation(indneutralize(adv81,industry),close,13.4132)),4.89768),14.4535)) * -1
+说明: 混合价波动衰减+行业中性流动相关绝对值衰减
+
+##
+name: alpha_88
+expr: min(rank(decay_linear(rank(open)+rank(low)-rank(high)-rank(close),8.06882)), ts_rank(decay_linear(correlation(ts_rank(close,8.44728),ts_rank(adv60,20.6966),8.01266),6.65053),2.61957))
+说明: 多空秩差值衰减+长期价流相关时序排名
+
+##
+name: alpha_89
+expr: ts_rank(decay_linear(correlation(0.967285*low+0.032715*low,adv10,6.94279),5.51607),3.79744) - ts_rank(decay_linear(delta(indneutralize(vwap,industry),3.48158),10.1466),15.3012)
+说明: 低价流动相关衰减 减 行业中性均价波动衰减
+
+##
+name: alpha_90
+expr: (rank(close-ts_max(close,4.66719))^ts_rank(correlation(indneutralize(adv40,subindustry),low,5.38375),3.21856)) * -1
+说明: 价格相对高点偏离，子行业中性流动低价相关幂次
+
+##
+name: alpha_91
+expr: (ts_rank(decay_linear(decay_linear(correlation(indneutralize(close,industry),volume,9.74928),16.398),3.83219),4.8667) - rank(decay_linear(correlation(vwap,adv30,4.01303),2.6809))) * -1
+说明: 双层线性衰减行业中性量相关，减去均价流动相关
+
+##
+name: alpha_92
+expr: min(ts_rank(decay_linear(cond((high+low)/2+close < low+open,1,0),14.7221),18.8683), ts_rank(decay_linear(correlation(rank(low),rank(adv30),7.58555),6.94024),6.80584))
+说明: 日内结构条件衰减+低价流动秩相关衰减，取最小
+
+##
+name: alpha_93
+expr: ts_rank(decay_linear(correlation(indneutralize(vwap,industry),adv81,17.4193),19.848),7.54455) / rank(decay_linear(delta(0.524434*close+0.475566*vwap,2.77377),16.2664))
+说明: 行业中性均价流动相关 / 混合价波动衰减排名
+
+##
+name: alpha_94
+expr: (rank(vwap-ts_min(vwap,11.5783))^ts_rank(correlation(ts_rank(vwap,19.6462),ts_rank(adv60,4.02992),18.0926),2.70756)) * -1
+说明: 均价相对低位偏离，叠加长周期均价流动时序相关
+
+##
+name: alpha_95
+expr: cond(rank(open-ts_min(open,12.4105)) < ts_rank(correlation((high+low)/2,ts_sum(adv40,19.1351),12.8742)^5,11.7584), -1, 1)
+说明: 开盘低位偏离对比价格中枢流动相关高次幂
+
+##
+name: alpha_96
+expr: max(ts_rank(decay_linear(correlation(rank(vwap),rank(volume),3.83878),4.16783),8.38151), ts_rank(decay_linear(ts_argmax(correlation(ts_rank(close,7.45404),ts_rank(adv60,4.13242),3.65459),12.6556),14.0365),13.4143)) * -1
+说明: 量价秩相关衰减+价流相关极值时序排名复合
+
+##
+name: alpha_97
+expr: (rank(decay_linear(delta(indneutralize(0.721001*low+0.278999*vwap,industry),3.3705),20.4523)) - ts_rank(decay_linear(ts_rank(correlation(ts_rank(low,7.87871),ts_rank(adv60,17.255),4.97547),18.5925),15.7152),6.71659)) * -1
+说明: 行业中性混合低价波动衰减 减 低价流动相关时序衰减
+
+##
+name: alpha_98
+expr: rank(decay_linear(correlation(vwap,ts_sum(adv5,26.4719),4.58418),7.18088)) - rank(decay_linear(ts_rank(ts_argmin(correlation(rank(open),rank(adv15),20.8187),8.62571),6.95668),8.07206))
+说明: 短周期均价流动相关衰减 减 开盘流动相关极小值时序
+
+##
+name: alpha_99
+expr: cond(rank(correlation((high+low)/2,ts_sum(adv60,19.8975),8.8136)) < rank(correlation(low,volume,6.28259)), -1, 1)
+说明: 长期价格中枢流动相关 vs 短期低价量相关
+
+##
+name: alpha_100
+expr: -1 * (1.5 * scale(indneutralize(indneutralize(rank(cond(((close-low)-(high-close))/(high-low)*volume)),subindustry),subindustry)) - scale(indneutralize(correlation(close,rank(adv20),5)-rank(ts_argmin(close,30)),subindustry))) * (volume/adv20)
+说明: 双重子行业中性化，日内强弱+流动性+价格极值复合
+
+##
+name: alpha_101
+expr: (close - open) / ((high - low) + 0.001)
+说明: 日内开合价差/全日波动幅度，经典日内趋势原始因子
+
+### Fields
+actual_cashflow_per_share_value_quarterly
+actual_dividend_value_quarterly
+actual_eps_value_quarterly
+actual_sales_value_annual
+actual_sales_value_quarterly
+actuals_reporting_currency
+actuals_value_currency_code
+adjfactor
+adv20
+analyst_revision_rank_derivative
+anl4_adjusted_netincome_ft
+anl4_ads1detailafv110_bk
+anl4_ads1detailafv110_estvalue
+anl4_ads1detailafv110_person
+anl4_ads1detailafv110_prevval
+anl4_ads1detailqfv110_bk
+anl4_ads1detailqfv110_estvalue
+anl4_ads1detailqfv110_person
+anl4_ads1detailqfv110_prevval
+anl4_adxqfv110_down
+anl4_adxqfv110_high
+anl4_adxqfv110_low
+anl4_adxqfv110_mean
+anl4_adxqfv110_median
+anl4_adxqfv110_numest
+anl4_adxqfv110_pu
+anl4_ady_down
+anl4_ady_high
+anl4_ady_low
+anl4_ady_mean
+anl4_ady_median
+anl4_ady_numest
+anl4_ady_pu
+anl4_af_cfps_value
+anl4_af_div_value
+anl4_af_eps_value
+anl4_afv4_actual
+anl4_afv4_cfps_high
+anl4_afv4_cfps_low
+anl4_afv4_cfps_mean
+anl4_afv4_cfps_median
+anl4_afv4_cfps_number
+anl4_afv4_div_high
+anl4_afv4_div_low
+anl4_afv4_div_mean
+anl4_afv4_div_median
+anl4_afv4_div_number
+anl4_afv4_div_std
+anl4_afv4_dts_spe
+anl4_afv4_eps_high
+anl4_afv4_eps_low
+anl4_afv4_eps_mean
+anl4_afv4_eps_number
+anl4_afv4_maxguidance
+anl4_afv4_median_eps
+anl4_afv4_minguidance
+anl4_bac1actualqfv110_actual
+anl4_bac1actualqfv110_item
+anl4_bac1conafv110_item
+anl4_bac1conltv110_item
+anl4_bac1conqfv110_item
+anl4_bac1conrecv110_item
+anl4_bac1detailafv110_item
+anl4_bac1detaillt_item
+anl4_bac1detailqfv110_item
+anl4_bac1detailrec_item
+anl4_basicafv4_actual
+anl4_basicconafv110_down
+anl4_basicconafv110_high
+anl4_basicconafv110_low
+anl4_basicconafv110_mean
+anl4_basicconafv110_median
+anl4_basicconafv110_numest
+anl4_basicconafv110_pu
+anl4_basicconltv110_down
+anl4_basicconltv110_high
+anl4_basicconltv110_low
+anl4_basicconltv110_mean
+anl4_basicconltv110_median
+anl4_basicconltv110_numest
+anl4_basicconltv110_pu
+anl4_basicconqfv110_down
+anl4_basicconqfv110_high
+anl4_basicconqfv110_low
+anl4_basicconqfv110_mean
+anl4_basicconqfv110_median
+anl4_basicconqfv110_numest
+anl4_basicconqfv110_pu
+anl4_basicdetaillt_bk
+anl4_basicdetaillt_estvalue
+anl4_basicdetaillt_person
+anl4_basicdetaillt_prevval
+anl4_basicdetailqfv110_bk
+anl4_basicdetailqfv110_estvalue
+anl4_basicdetailqfv110_person
+anl4_basicdetailqfv110_prevval
+anl4_basicdetailrec_bk
+anl4_basicdetailrec_person
+anl4_basicdetailrec_ratingvalue
+anl4_basicqfv4_actual
+anl4_basicqfv4_maxguidance
+anl4_basicqfv4_minguidance
+anl4_baz1v110_bk
+anl4_baz1v110_estvalue
+anl4_baz1v110_person
+anl4_baz1v110_prevval
+anl4_buy
+anl4_bvps_flag
+anl4_bvps_high
+anl4_bvps_low
+anl4_bvps_mean
+anl4_bvps_median
+anl4_bvps_number
+anl4_bvps_value
+anl4_capex_flag
+anl4_capex_high
+anl4_capex_low
+anl4_capex_mean
+anl4_capex_number
+anl4_capex_std
+anl4_capex_value
+anl4_cff_flag
+anl4_cff_high
+anl4_cff_low
+anl4_cff_mean
+anl4_cff_median
+anl4_cff_number
+anl4_cff_value
+anl4_cfi_flag
+anl4_cfi_high
+anl4_cfi_low
+anl4_cfi_mean
+anl4_cfi_median
+anl4_cfi_number
+anl4_cfi_value
+anl4_cfo_flag
+anl4_cfo_high
+anl4_cfo_low
+anl4_cfo_mean
+anl4_cfo_median
+anl4_cfo_number
+anl4_cfo_value
+anl4_cuo1actualqfv110_actual
+anl4_cuo1actualqfv110_item
+anl4_cuo1conafv110_item
+anl4_cuo1conqfv110_item
+anl4_cuo1detailafv110_item
+anl4_cuo1detailqfv110_item
+anl4_cuo1guidaf_item
+anl4_cuo1guidaf_maxguidance
+anl4_cuo1guidaf_minguidance
+anl4_dei2laf_item
+anl4_dei2lqfv110_item
+anl4_dei3lafv110_item
+anl4_dei3lltv110_item
+anl4_dei3lqfv110_item
+anl4_dei3lrec_item
+anl4_detailltv4_est
+anl4_detailltv4_preest
+anl4_detailltv4v104_est
+anl4_detailltv4v104_preest
+anl4_detailrecv4_est
+anl4_detailrecv4v104_est
+anl4_dez1afv4_est
+anl4_dez1afv4_preest
+anl4_dez1basicafv4_est
+anl4_dez1basicafv4_preest
+anl4_dez1basicafv4v104_est
+anl4_dez1basicafv4v104_preest
+anl4_dez1basicqfv4_est
+anl4_dez1basicqfv4_preest
+anl4_dez1basicqfv4v104_est
+anl4_dez1basicqfv4v104_preest
+anl4_dez1qfv4_est
+anl4_dez1qfv4_preest
+anl4_dez1safv4_est
+anl4_dez1safv4_preest
+anl4_dts_ptp
+anl4_dts_rspe
+anl4_eaz1laf_bk
+anl4_eaz1laf_estvalue
+anl4_eaz1laf_person
+anl4_eaz1laf_prevval
+anl4_eaz1lqfv110_bk
+anl4_eaz1lqfv110_estvalue
+anl4_eaz1lqfv110_person
+anl4_eaz1lqfv110_prevval
+anl4_eaz2lafv110_bk
+anl4_eaz2lafv110_estvalue
+anl4_eaz2lafv110_person
+anl4_eaz2lafv110_prevval
+anl4_eaz2lltv110_bk
+anl4_eaz2lltv110_estvalue
+anl4_eaz2lltv110_person
+anl4_eaz2lltv110_prevval
+anl4_eaz2lqfv110_bk
+anl4_eaz2lqfv110_estvalue
+anl4_eaz2lqfv110_person
+anl4_eaz2lqfv110_prevval
+anl4_eaz2lrec_bk
+anl4_eaz2lrec_person
+anl4_eaz2lrec_ratingvalue
+anl4_ebit_high
+anl4_ebit_low
+anl4_ebit_mean
+anl4_ebit_median
+anl4_ebit_number
+anl4_ebit_std
+anl4_ebit_value
+anl4_ebitda_flag
+anl4_ebitda_high
+anl4_ebitda_low
+anl4_ebitda_mean
+anl4_ebitda_number
+anl4_ebitda_std
+anl4_ebitda_value
+anl4_epsa_flag
+anl4_epsr_flag
+anl4_epsr_high
+anl4_epsr_low
+anl4_epsr_mean
+anl4_epsr_number
+anl4_epsr_value
+anl4_fcf_flag
+anl4_fcf_high
+anl4_fcf_low
+anl4_fcf_mean
+anl4_fcf_median
+anl4_fcf_number
+anl4_fcf_value
+anl4_fcfps_flag
+anl4_fcfps_high
+anl4_fcfps_low
+anl4_fcfps_mean
+anl4_fcfps_median
+anl4_fcfps_number
+anl4_ffo_flag
+anl4_flag_erbfintax
+anl4_fsactualafv4_actual
+anl4_fsactualafv4_item
+anl4_fsactualqfv4_actual
+anl4_fsactualqfv4_item
+anl4_fsdetailltv4v104_item
+anl4_fsdetailrecv4v104_item
+anl4_fsdtlestmtafv4_item
+anl4_fsdtlestmtbscqv104_item
+anl4_fsdtlestmtbscv104_item
+anl4_fsdtlestmtqfv4_item
+anl4_fsdtlestmtsafv4_item
+anl4_fsgdncbscv4_maxguidance
+anl4_fsgdncbscv4_minguidance
+anl4_fsguidanceafv4_item
+anl4_fsguidanceafv4_maxguidance
+anl4_fsguidanceafv4_minguidance
+anl4_fsguidancebasicqfv4_item
+anl4_fsguidanceqfv4_item
+anl4_fsguidanceqfv4_maxguidance
+anl4_fsguidanceqfv4_minguidance
+anl4_gric_flag
+anl4_gric_high
+anl4_gric_low
+anl4_gric_mean
+anl4_gric_median
+anl4_gric_number
+anl4_gric_std
+anl4_gric_value
+anl4_guiafv4_est
+anl4_guibasicqfv4_est
+anl4_guiqfv4_est
+anl4_hold
+anl4_mark
+anl4_median_capexp
+anl4_median_epsreported
+anl4_medianepsbfam
+anl4_netdebt_flag
+anl4_netdebt_high
+anl4_netdebt_low
+anl4_netdebt_mean
+anl4_netdebt_median
+anl4_netdebt_number
+anl4_netprofit_flag
+anl4_netprofit_high
+anl4_netprofit_low
+anl4_netprofit_mean
+anl4_netprofit_median
+anl4_netprofit_number
+anl4_netprofit_std
+anl4_netprofit_value
+anl4_netprofita_high
+anl4_netprofita_low
+anl4_netprofita_mean
+anl4_netprofita_median
+anl4_netprofita_number
+anl4_netprofita_std
+anl4_netprofita_value
+anl4_norec
+anl4_ptp_flag
+anl4_ptp_high
+anl4_ptp_low
+anl4_ptp_mean
+anl4_ptp_median
+anl4_ptp_number
+anl4_ptp_value
+anl4_ptpr_flag
+anl4_ptpr_high
+anl4_ptpr_low
+anl4_ptpr_mean
+anl4_ptpr_median
+anl4_ptpr_number
+anl4_qf_az_cfps_mean
+anl4_qf_az_cfps_median
+anl4_qf_az_cfps_number
+anl4_qf_az_div_mean
+anl4_qf_az_div_median
+anl4_qf_az_div_number
+anl4_qf_az_dts_spe
+anl4_qf_az_eps
+anl4_qf_az_eps_mean
+anl4_qf_az_eps_number
+anl4_qf_az_hgih_spe
+anl4_qf_az_hgih_spfc
+anl4_qf_az_hgih_vid
+anl4_qf_az_wol_spe
+anl4_qf_az_wol_spfc
+anl4_qf_az_wol_vid
+anl4_qfd1_az_cfps_median
+anl4_qfd1_az_cfps_number
+anl4_qfd1_az_div_median
+anl4_qfd1_az_div_number
+anl4_qfd1_az_dts_spe
+anl4_qfd1_az_eps_number
+anl4_qfd1_az_hgih_spe
+anl4_qfd1_az_hgih_spfc
+anl4_qfd1_az_hgih_vid
+anl4_qfd1_az_wol_spe
+anl4_qfd1_az_wol_spfc
+anl4_qfd1_az_wol_vid
+anl4_qfd1_azeps
+anl4_qfv4_actual
+anl4_qfv4_cfps_high
+anl4_qfv4_cfps_low
+anl4_qfv4_cfps_mean
+anl4_qfv4_cfps_median
+anl4_qfv4_cfps_number
+anl4_qfv4_div_high
+anl4_qfv4_div_low
+anl4_qfv4_div_mean
+anl4_qfv4_div_median
+anl4_qfv4_div_number
+anl4_qfv4_dts_spe
+anl4_qfv4_eps_high
+anl4_qfv4_eps_low
+anl4_qfv4_eps_mean
+anl4_qfv4_eps_number
+anl4_qfv4_maxguidance
+anl4_qfv4_median_eps
+anl4_qfv4_minguidance
+anl4_rd_exp_flag
+anl4_rd_exp_high
+anl4_rd_exp_low
+anl4_rd_exp_mean
+anl4_rd_exp_median
+anl4_rd_exp_number
+anl4_tbve_ft
+anl4_tbvps_high
+anl4_tbvps_low
+anl4_tbvps_mean
+anl4_tbvps_median
+anl4_tbvps_number
+anl4_tot_gw_ft
+anl4_total_rec
+anl4_totassets_flag
+anl4_totassets_high
+anl4_totassets_low
+anl4_totassets_mean
+anl4_totassets_median
+anl4_totassets_number
+anl4_totassets_std
+anl4_totassets_value
+anl4_totgw_high
+anl4_totgw_low
+anl4_totgw_mean
+anl4_totgw_median
+anl4_totgw_number
+anl4_under
+assets
+assets_curr
+basic_shares_max_guidance_qtr
+beta_last_30_days_spy
+beta_last_360_days_spy
+beta_last_60_days_spy
+beta_last_90_days_spy
+book_value_per_share_2
+book_value_per_share_min_guidance_qtr
+book_value_per_share_reported_value
+bookvalue_ps
+call_breakeven_10
+call_breakeven_1080
+call_breakeven_120
+call_breakeven_150
+call_breakeven_180
+call_breakeven_20
+call_breakeven_270
+call_breakeven_30
+call_breakeven_360
+call_breakeven_60
+call_breakeven_720
+call_breakeven_90
+cap
+capex
+capital_expenditure_amount
+capital_expenditure_guidance_value
+capital_expenditure_max_guidance_qtr
+capital_expenditure_reported_value
+cash
+cash_flow_financing_max_guidance
+cash_flow_from_financing
+cash_flow_from_investing
+cash_flow_from_operations
+cash_flow_operations_min_guidance
+cash_st
+cashflow
+cashflow_dividends
+cashflow_efficiency_rank_derivative
+cashflow_fin
+cashflow_invst
+cashflow_op
+cashflow_per_share_average
+cashflow_per_share_estimate_count
+cashflow_per_share_max_guidance
+cashflow_per_share_max_guidance_quarterly
+cashflow_per_share_maximum
+cashflow_per_share_median_value
+cashflow_per_share_min_guidance
+cashflow_per_share_min_guidance_quarterly
+cashflow_per_share_minimum
+close
+cogs
+composite_factor_score_derivative
+correlation_last_30_days_spy
+correlation_last_360_days_spy
+correlation_last_60_days_spy
+correlation_last_90_days_spy
+country
+currency
+current_ratio
+cusip
+debt
+debt_lt
+debt_st
+depre_amort
+dividend
+dividend_estimate_average
+dividend_estimate_count
+dividend_estimate_maximum
+dividend_estimate_median_value
+dividend_estimate_minimum
+dividend_estimate_standard_deviation
+dividend_estimate_stddev_quarterly
+dividend_estimate_value
+dividend_max_guidance_quarterly
+dividend_max_guidance_value
+dividend_min_guidance_quarterly
+dividend_min_guidance_value
+dividend_previous_estimate_value
+earnings_certainty_rank_derivative
+earnings_per_share_average
+earnings_per_share_estimate_count
+earnings_per_share_guidance_value
+earnings_per_share_max_guidance
+earnings_per_share_maximum
+earnings_per_share_median_value
+earnings_per_share_min_guidance
+earnings_per_share_minimum
+earnings_per_share_nongaap_value
+earnings_per_share_reported
+earnings_per_share_reported_value
+earnings_per_share_standard_deviation
+ebit
+ebit_reported_value
+ebitda
+ebitda_reported_value
+employee
+enterprise_value
+eps
+eps_adjusted_min_guidance_qtr
+eps_adjusted_min_guidance_value
+eps_estimate_value
+eps_guidance_value_quarterly
+eps_max_guidance_quarterly
+eps_min_guidance_quarterly
+eps_previous_estimate_value
+eps_reported_min_guidance_qtr
+equity
+est_bookvalue_ps
+est_capex
+est_cashflow_fin
+est_cashflow_invst
+est_cashflow_op
+est_cashflow_ps
+est_dividend_ps
+est_ebit
+est_ebitda
+est_eps
+est_epsa
+est_epsr
+est_fcf
+est_fcf_ps
+est_ffo
+est_grossincome
+est_netdebt
+est_netprofit
+est_netprofit_adj
+est_ptp
+est_ptpr
+est_rd_expense
+est_sales
+est_sga
+est_shequity
+est_tbv_ps
+est_tot_assets
+est_tot_goodwill
+estimate_value_currency_code
+estimate_value_currency_code_detail_qtr
+estimate_value_currency_code_qtr
+exchange
+financing_cashflow_reported_value
+fn_accrued_liab_a
+fn_accrued_liab_curr_a
+fn_accrued_liab_curr_q
+fn_accrued_liab_q
+fn_accum_depr_depletion_and_amortization_ppne_a
+fn_accum_depr_depletion_and_amortization_ppne_q
+fn_accum_oth_income_loss_fx_adj_net_of_tax_a
+fn_accum_oth_income_loss_fx_adj_net_of_tax_q
+fn_accum_oth_income_loss_net_of_tax_a
+fn_accum_oth_income_loss_net_of_tax_q
+fn_allocated_share_based_compensation_expense_a
+fn_allocated_share_based_compensation_expense_q
+fn_allowance_for_doubtful_accounts_receivable_a
+fn_allowance_for_doubtful_accounts_receivable_q
+fn_amortization_of_intangible_assets_a
+fn_amortization_of_intangible_assets_q
+fn_antidilutive_securities_excl_from_eps_a
+fn_antidilutive_securities_excl_from_eps_q
+fn_assets_fair_val_a
+fn_assets_fair_val_l1_a
+fn_assets_fair_val_l1_q
+fn_assets_fair_val_l2_a
+fn_assets_fair_val_l2_q
+fn_assets_fair_val_l3_a
+fn_assets_fair_val_l3_q
+fn_assets_fair_val_q
+fn_avg_diluted_sharesout_adj_a
+fn_avg_diluted_sharesout_adj_q
+fn_business_acq_ppne_a
+fn_business_acq_ppne_q
+fn_business_combination_assets_aquired_goodwill_a
+fn_business_combination_assets_aquired_goodwill_q
+fn_business_combination_purchase_price_a
+fn_business_combination_purchase_price_q
+fn_comp_fair_value_assumptions_weighted_avg_vol_rate_a
+fn_comp_fair_value_assumptions_weighted_avg_vol_rate_q
+fn_comp_non_opt_forfeited_a
+fn_comp_non_opt_forfeited_q
+fn_comp_non_opt_grants_a
+fn_comp_non_opt_grants_q
+fn_comp_non_opt_nonvested_number_a
+fn_comp_non_opt_nonvested_number_q
+fn_comp_non_opt_vested_a
+fn_comp_non_opt_vested_q
+fn_comp_not_rec_a
+fn_comp_not_rec_q
+fn_comp_not_rec_stock_options_a
+fn_comp_not_rec_stock_options_q
+fn_comp_number_of_shares_authorized_a
+fn_comp_number_of_shares_authorized_q
+fn_comp_options_exercisable_number_a
+fn_comp_options_exercisable_number_q
+fn_comp_options_exercisable_weighted_avg_a
+fn_comp_options_exercisable_weighted_avg_q
+fn_comp_options_exercises_weighted_avg_a
+fn_comp_options_exercises_weighted_avg_q
+fn_comp_options_forfeitures_and_expirations_a
+fn_comp_options_forfeitures_and_expirations_q
+fn_comp_options_grants_a
+fn_comp_options_grants_fair_value_a
+fn_comp_options_grants_fair_value_q
+fn_comp_options_grants_q
+fn_comp_options_grants_weighted_avg_a
+fn_comp_options_grants_weighted_avg_q
+fn_comp_options_out_intrinsic_value_a
+fn_comp_options_out_intrinsic_value_q
+fn_comp_options_out_number_a
+fn_comp_options_out_number_q
+fn_comp_options_out_weighted_avg_a
+fn_comp_options_out_weighted_avg_q
+fn_comprehensive_income_net_of_tax_a
+fn_comprehensive_income_net_of_tax_q
+fn_debt_instrument_carrying_amount_a
+fn_debt_instrument_carrying_amount_q
+fn_debt_instrument_face_amount_a
+fn_debt_instrument_face_amount_q
+fn_debt_instrument_interest_rate_stated_percentage_a
+fn_debt_instrument_interest_rate_stated_percentage_q
+fn_debt_issuance_costs_a
+fn_debt_issuance_costs_q
+fn_def_income_tax_expense_a
+fn_def_income_tax_expense_q
+fn_def_tax_assets_liab_net_a
+fn_def_tax_assets_liab_net_q
+fn_def_tax_assets_net_a
+fn_def_tax_assets_net_q
+fn_def_tax_liab_a
+fn_def_tax_liab_q
+fn_derivative_fair_value_of_derivative_asset_a
+fn_derivative_fair_value_of_derivative_asset_q
+fn_derivative_fair_value_of_derivative_liability_a
+fn_derivative_fair_value_of_derivative_liability_q
+fn_derivative_notional_amount_a
+fn_derivative_notional_amount_q
+fn_eff_income_tax_rate_continuing_operations_a
+fn_eff_income_tax_rate_continuing_operations_q
+fn_effect_of_exchange_rate_on_cash_and_equiv_a
+fn_effect_of_exchange_rate_on_cash_and_equiv_q
+fn_employee_related_liab_a
+fn_employee_related_liab_q
+fn_entity_common_stock_shares_out_a
+fn_entity_common_stock_shares_out_q
+fn_excess_tax_benefit_from_share_based_comp_fin_activities_a
+fn_excess_tax_benefit_from_share_based_comp_fin_activities_q
+fn_finite_lived_intangible_assets_acq_a
+fn_finite_lived_intangible_assets_acq_q
+fn_finite_lived_intangible_assets_gross_a
+fn_finite_lived_intangible_assets_gross_q
+fn_finite_lived_intangible_assets_net_a
+fn_finite_lived_intangible_assets_net_q
+fn_goodwill_acquired_during_period_a
+fn_goodwill_acquired_during_period_q
+fn_income_from_equity_investments_a
+fn_income_from_equity_investments_q
+fn_income_tax_expense_a
+fn_income_tax_expense_q
+fn_income_taxes_paid_a
+fn_income_taxes_paid_q
+fn_incremental_shares_attributable_to_share_based_payment_a
+fn_incremental_shares_attributable_to_share_based_payment_q
+fn_intangible_assets_accum_amort_a
+fn_intangible_assets_accum_amort_q
+fn_interest_paid_net_a
+fn_interest_paid_net_q
+fn_interest_payable_a
+fn_interest_payable_q
+fn_liab_fair_val_a
+fn_liab_fair_val_l1_a
+fn_liab_fair_val_l1_q
+fn_liab_fair_val_l2_a
+fn_liab_fair_val_l2_q
+fn_liab_fair_val_l3_a
+fn_liab_fair_val_l3_q
+fn_liab_fair_val_q
+fn_line_of_credit_facility_amount_out_a
+fn_line_of_credit_facility_amount_out_q
+fn_line_of_credit_facility_max_borrowing_capacity_a
+fn_line_of_credit_facility_max_borrowing_capacity_q
+fn_mne_a
+fn_new_shares_issued_a
+fn_new_shares_options_a
+fn_new_shares_options_q
+fn_op_lease_min_pay_due_a
+fn_op_lease_min_pay_due_after_5y_a
+fn_op_lease_min_pay_due_in_2y_a
+fn_op_lease_min_pay_due_in_3y_a
+fn_op_lease_min_pay_due_in_4y_a
+fn_op_lease_min_pay_due_in_5y_a
+fn_op_lease_rent_exp_a
+fn_oth_comp_fair_value_a
+fn_oth_comp_forfeitures_fair_value_a
+fn_oth_comp_grants_weighted_avg_grant_date_fair_value_a
+fn_oth_comp_grants_weighted_avg_grant_date_fair_value_q
+fn_oth_income_loss_available_for_sale_securities_adj_of_tax_a
+fn_oth_income_loss_available_for_sale_securities_adj_of_tax_q
+fn_oth_income_loss_derivatives_qualifying_as_hedges_of_tax_a
+fn_oth_income_loss_derivatives_qualifying_as_hedges_of_tax_q
+fn_oth_income_loss_fx_transaction_and_tax_translation_adj_a
+fn_oth_income_loss_fx_transaction_and_tax_translation_adj_q
+fn_oth_income_loss_net_of_tax_a
+fn_oth_income_loss_net_of_tax_q
+fn_payments_for_repurchase_of_common_stock_a
+fn_payments_for_repurchase_of_common_stock_q
+fn_payments_to_acquire_businesses_net_of_cash_acquired_a
+fn_payments_to_acquire_businesses_net_of_cash_acquired_q
+fn_ppne_gross_a
+fn_ppne_gross_q
+fn_prepaid_expense_a
+fn_prepaid_expense_q
+fn_proceeds_from_issuance_of_common_stock_a
+fn_proceeds_from_issuance_of_common_stock_q
+fn_proceeds_from_issuance_of_debt_a
+fn_proceeds_from_issuance_of_debt_q
+fn_proceeds_from_lt_debt_a
+fn_proceeds_from_lt_debt_q
+fn_proceeds_from_stock_options_exercised_a
+fn_proceeds_from_stock_options_exercised_q
+fn_profit_loss_a
+fn_profit_loss_q
+fn_repayments_of_debt_a
+fn_repayments_of_debt_q
+fn_repayments_of_lines_of_credit_a
+fn_repayments_of_lines_of_credit_q
+fn_repayments_of_lt_debt_a
+fn_repayments_of_lt_debt_q
+fn_repurchased_shares_a
+fn_repurchased_shares_q
+fn_repurchased_shares_value_a
+fn_repurchased_shares_value_q
+fn_taxes_payable_a
+fn_taxes_payable_q
+fn_treasury_stock_shares_a
+fn_treasury_stock_shares_q
+fn_unrecognized_tax_benefits_a
+fnd2_a_acmopclcchngcfectnt
+fnd2_a_acmopcldbpoprpnt
+fnd2_a_allfdbflaccrwriteoffs
+fnd2_a_alsbcmpexrsus
+fnd2_a_atdlsecexfcepsastkos
+fnd2_a_blgandiprtsg
+fnd2_a_bnsacqproformarvn
+fnd2_a_bnscbmacqrcsts
+fnd2_a_consinprogressg
+fnd2_a_curritxexp
+fnd2_a_dbplanepdrtnplas
+fnd2_a_dbplanintcst
+fnd2_a_dbplannpicbnfcst
+fnd2_a_dbplanservicecst
+fnd2_a_dbplctrbyemp
+fnd2_a_dfdtxava
+fnd2_a_eplsbvdcpcstnrgprg
+fnd2_a_eplsbvdcpcstnrgsbaoo
+fnd2_a_eplsrbcpntxbnffcmpex
+fnd2_a_excesstxbnffsbcpnoprat
+fnd2_a_fedstyitxrt
+fnd2_a_flintasacmamtzcsrld
+fnd2_a_flintasamt1expay5
+fnd2_a_flintasamt1expnext12m
+fnd2_a_flintasamt1expy5
+fnd2_a_flintasamt1expyfour
+fnd2_a_flintasamt1expythree
+fnd2_a_flintasamt1expytwo
+fnd2_a_flintasgcsrld
+fnd2_a_frtandfixturesg
+fnd2_a_gsles1xtinguishmentofd
+fnd2_a_gwllimrml
+fnd2_a_inventoryfinishedgoods
+fnd2_a_inventoryrawmaterials
+fnd2_a_landlandiprts
+fnd2_a_lhdiprtsg
+fnd2_a_lineofcrfcyrmbrgcap
+fnd2_a_ltrmdmrepoplay5
+fnd2_a_ltrmdmrepoplinnext12m
+fnd2_a_ltrmdmrepopliny5
+fnd2_a_ltrmdmrepoplinyfour
+fnd2_a_ltrmdmrepoplinythree
+fnd2_a_ltrmdmrepoplinytwo
+fnd2_a_opclpsnprtmbnfplansajnt
+fnd2_a_provisionfordbflact
+fnd2_a_ptoacqbnsesg
+fnd2_a_restructuringcharges
+fnd2_a_rvndm
+fnd2_a_sbcpnargmpmtwgtm
+fnd2_a_sbcpnargmpmtwopsffesip
+fnd2_a_sbcpnargmpmtwstgm
+fnd2_a_sbcpnargmpmtwvadpgwepr
+fnd2_a_sbcpnargmpmwggil
+fnd2_a_sbcpnargmsawpfipwerpr
+fnd2_a_sbcpnargmsptawervl
+fnd2_a_sbcpnargmtwfsptepddvdrt
+fnd2_a_sbcpnargtbysbpmtwpwrr
+fnd2_a_sbcpnatqsttotnsvdptfv
+fnd2_a_sbcpnshardustoprgps
+fnd2_a_seniornotes
+fnd2_a_stkdrgprdvalnewissues
+fnd2_a_stkrpeprogramardamt
+fnd2_a_unrgtxbnfitxpenlintacd
+fnd2_a_unrgtxbnfthatwdiptetxr
+fnd2_asdm
+fnd2_currfedtxexp
+fnd2_currfrtxexp
+fnd2_currstatelocaltxexp
+fnd2_dbplanactuarialgl
+fnd2_dbplanamtsrginblsh
+fnd2_dbplanartonplas
+fnd2_dbplanbnfol
+fnd2_dbplanbnfpaid
+fnd2_dbplanbnfpaid_ast
+fnd2_dbplanchgbnfolintcst
+fnd2_dbplanepdfbnfp5ytherea
+fnd2_dbplanepdfbnfpnext12m
+fnd2_dbplanepdfbnfpy5
+fnd2_dbplanepdfbnfpyfour
+fnd2_dbplanepdfbnfpythree
+fnd2_dbplanepdfbnfpytwo
+fnd2_dbplanfvalpnas
+fnd2_dfctrbplancstrg
+fnd2_dfdfeditxexp
+fnd2_dfdfritxexp
+fnd2_dfdlocalitxexp
+fnd2_dfdtxasoprlcarryfwd
+fnd2_dfdtxastxcrcarryfwd
+fnd2_dfdtxastxdfdexpcompbnf
+fnd2_dfdtxastxdfdexprssaccrs
+fnd2_dfdtxlbsgwllandintas
+fnd2_dfdtxlbspropplteqm
+fnd2_ebitdm
+fnd2_ebitfr
+fnd2_eixrtreclstatelocalitxes
+fnd2_itxreclchgdfdtxava
+fnd2_itxreclnondeductibleexp
+fnd2_itxreclstatelocalitxes
+fnd2_itxreexftfedstyitxrt
+fnd2_oprlsfmpdcurr
+fnd2_propplteqflublgland
+fnd2_propplteqmuflmameqmt
+fnd2_propplteqmuflmamfrt
+fnd2_propplteqmuflmblgland
+fnd2_propplteqmuflmeqmt
+fnd2_propplteqmuflmfrt
+fnd2_q_atdlsecexfcepsastkos
+fnd2_q_bnsacqproformarvn
+fnd2_q_flintasamt1expy5
+fnd2_q_flintasamt1expyfour
+fnd2_q_flintasamt1expythree
+fnd2_q_flintasamt1expytwo
+fnd2_q_inventoryfinishedgoods
+fnd2_q_inventoryrawmaterials
+fnd2_q_lineofcrfcyrmbrgcap
+fnd2_q_ptoacqbnsesg
+fnd2_q_seniornotes
+fnd2_sbcpnshardpreops
+fnd2_unremittedfrer
+fnd2_unrgtxbnfdcfpprdtxpss
+fnd2_unrgtxbnfdecresfsttwtxauth
+fnd2_unrgtxbnfinregfcrps
+fnd2_unrgtxbnfinregfprtxps
+fnd2_unrgtxbnfrdsrefpstf
+fnd6_acdo
+fnd6_acodo
+fnd6_acox
+fnd6_acqgdwl
+fnd6_acqintan
+fnd6_adesinda_curcd
+fnd6_aldo
+fnd6_am
+fnd6_aodo
+fnd6_aox
+fnd6_aqc
+fnd6_aqi
+fnd6_aqs
+fnd6_beta
+fnd6_capxs
+fnd6_capxv
+fnd6_caxts
+fnd6_ceql
+fnd6_ch
+fnd6_ci
+fnd6_cibegni
+fnd6_cicurr
+fnd6_cidergl
+fnd6_cik
+fnd6_cimii
+fnd6_ciother
+fnd6_cipen
+fnd6_cisecgl
+fnd6_citotal
+fnd6_city
+fnd6_cld2
+fnd6_cld3
+fnd6_cld4
+fnd6_cld5
+fnd6_cogss
+fnd6_cptmfmq_actq
+fnd6_cptmfmq_atq
+fnd6_cptmfmq_ceqq
+fnd6_cptmfmq_dlttq
+fnd6_cptmfmq_dpq
+fnd6_cptmfmq_lctq
+fnd6_cptmfmq_oibdpq
+fnd6_cptmfmq_opepsq
+fnd6_cptmfmq_saleq
+fnd6_cptnewqeventv110_actq
+fnd6_cptnewqeventv110_apq
+fnd6_cptnewqeventv110_atq
+fnd6_cptnewqeventv110_ceqq
+fnd6_cptnewqeventv110_dlttq
+fnd6_cptnewqeventv110_dpq
+fnd6_cptnewqeventv110_epsf12
+fnd6_cptnewqeventv110_epsfxq
+fnd6_cptnewqeventv110_epsx12
+fnd6_cptnewqeventv110_lctq
+fnd6_cptnewqeventv110_ltq
+fnd6_cptnewqeventv110_nopiq
+fnd6_cptnewqeventv110_oeps12
+fnd6_cptnewqeventv110_oiadpq
+fnd6_cptnewqeventv110_oibdpq
+fnd6_cptnewqeventv110_opepsq
+fnd6_cptnewqeventv110_rectq
+fnd6_cptnewqeventv110_req
+fnd6_cptnewqeventv110_saleq
+fnd6_cptnewqv1300_actq
+fnd6_cptnewqv1300_apq
+fnd6_cptnewqv1300_atq
+fnd6_cptnewqv1300_ceqq
+fnd6_cptnewqv1300_dlttq
+fnd6_cptnewqv1300_dpq
+fnd6_cptnewqv1300_epsf12
+fnd6_cptnewqv1300_epsfxq
+fnd6_cptnewqv1300_epsx12
+fnd6_cptnewqv1300_lctq
+fnd6_cptnewqv1300_ltq
+fnd6_cptnewqv1300_nopiq
+fnd6_cptnewqv1300_oeps12
+fnd6_cptnewqv1300_oiadpq
+fnd6_cptnewqv1300_oibdpq
+fnd6_cptnewqv1300_opepsq
+fnd6_cptnewqv1300_rectq
+fnd6_cptnewqv1300_req
+fnd6_cptnewqv1300_saleq
+fnd6_cptrank_gvkeymap
+fnd6_cshpri
+fnd6_cshr
+fnd6_cshtr
+fnd6_cshtrq
+fnd6_cstkcv
+fnd6_cstkcvq
+fnd6_curcddv
+fnd6_currencya_curcd
+fnd6_currencyqv1300_curcd
+fnd6_dc
+fnd6_dclo
+fnd6_dcpstk
+fnd6_dcvsr
+fnd6_dcvsub
+fnd6_dcvt
+fnd6_dd
+fnd6_dd1
+fnd6_dd1q
+fnd6_dd2
+fnd6_dd3
+fnd6_dd4
+fnd6_dd5
+fnd6_dilavx
+fnd6_divd
+fnd6_dlcch
+fnd6_dltis
+fnd6_dlto
+fnd6_dltp
+fnd6_dltr
+fnd6_dm
+fnd6_dn
+fnd6_donr
+fnd6_dps
+fnd6_dpvieb
+fnd6_drc
+fnd6_drlt
+fnd6_ds
+fnd6_dudd
+fnd6_dvpa
+fnd6_dvrated
+fnd6_dxd2
+fnd6_dxd3
+fnd6_dxd4
+fnd6_dxd5
+fnd6_ein
+fnd6_emps
+fnd6_esopct
+fnd6_esopnr
+fnd6_esopr
+fnd6_esubc
+fnd6_esubs
+fnd6_eventv110_aqdq
+fnd6_eventv110_aqepsq
+fnd6_eventv110_cstkcvq
+fnd6_eventv110_dd1q
+fnd6_eventv110_dtedq
+fnd6_eventv110_dteepsq
+fnd6_eventv110_gdwlid12
+fnd6_eventv110_gdwlidq
+fnd6_eventv110_gdwlieps12
+fnd6_eventv110_gdwliepsq
+fnd6_eventv110_gldq
+fnd6_eventv110_glepsq
+fnd6_eventv110_npq
+fnd6_eventv110_nrtxtdq
+fnd6_eventv110_nrtxtepsq
+fnd6_eventv110_optdrq
+fnd6_eventv110_optlifeq
+fnd6_eventv110_optvolq
+fnd6_eventv110_pncd12
+fnd6_eventv110_pncdq
+fnd6_eventv110_pnceps12
+fnd6_eventv110_pncepsq
+fnd6_eventv110_pncidq
+fnd6_eventv110_pncwidq
+fnd6_eventv110_pncwiepsq
+fnd6_eventv110_setdq
+fnd6_eventv110_setepsq
+fnd6_eventv110_spced12
+fnd6_eventv110_spidq
+fnd6_eventv110_spiepsq
+fnd6_eventv110_txdbcaq
+fnd6_eventv110_txdbclq
+fnd6_eventv110_wddq
+fnd6_eventv110_wdepsq
+fnd6_eventv110_xaccq
+fnd6_exre
+fnd6_fatb
+fnd6_fatc
+fnd6_fate
+fnd6_fatl
+fnd6_fatn
+fnd6_fato
+fnd6_fatp
+fnd6_fiao
+fnd6_fic
+fnd6_fopo
+fnd6_fopox
+fnd6_fyrc
+fnd6_gdwls
+fnd6_ias
+fnd6_ibmii
+fnd6_ibs
+fnd6_idesindq_curcd
+fnd6_idit
+fnd6_iints
+fnd6_incorp
+fnd6_intan
+fnd6_intc
+fnd6_intpn
+fnd6_intseg
+fnd6_invfg
+fnd6_invo
+fnd6_invrm
+fnd6_invwip
+fnd6_itcb
+fnd6_itci
+fnd6_ivaco
+fnd6_ivaeq
+fnd6_ivaeqs
+fnd6_ivao
+fnd6_ivch
+fnd6_ivst
+fnd6_ivstch
+fnd6_lcox
+fnd6_lcoxdr
+fnd6_lifr
+fnd6_lno
+fnd6_loc
+fnd6_lol2
+fnd6_loxdr
+fnd6_lqpl1
+fnd6_lul3
+fnd6_mfma1_aoloch
+fnd6_mfma1_apalch
+fnd6_mfma1_at
+fnd6_mfma1_capx
+fnd6_mfma1_csho
+fnd6_mfma1_dp
+fnd6_mfma1_dpc
+fnd6_mfma1_invch
+fnd6_mfma2_oancf
+fnd6_mfma2_opeps
+fnd6_mfma2_recch
+fnd6_mfma2_revt
+fnd6_mfma2_txach
+fnd6_mfmq_cheq
+fnd6_mfmq_cogsq
+fnd6_mfmq_cshprq
+fnd6_mfmq_dlcq
+fnd6_mfmq_ibcomq
+fnd6_mfmq_mibtq
+fnd6_mfmq_piq
+fnd6_mibn
+fnd6_mibt
+fnd6_mkvalt
+fnd6_mkvaltq
+fnd6_mrc1
+fnd6_mrc2
+fnd6_mrc3
+fnd6_mrc4
+fnd6_mrc5
+fnd6_mrct
+fnd6_mrcta
+fnd6_msa
+fnd6_naicss
+fnd6_newa1v1300_aco
+fnd6_newa1v1300_acominc
+fnd6_newa1v1300_act
+fnd6_newa1v1300_ano
+fnd6_newa1v1300_ao
+fnd6_newa1v1300_aocidergl
+fnd6_newa1v1300_aociother
+fnd6_newa1v1300_aocipen
+fnd6_newa1v1300_aol2
+fnd6_newa1v1300_aoloch
+fnd6_newa1v1300_ap
+fnd6_newa1v1300_apalch
+fnd6_newa1v1300_aqpl1
+fnd6_newa1v1300_at
+fnd6_newa1v1300_aul3
+fnd6_newa1v1300_bkvlps
+fnd6_newa1v1300_caps
+fnd6_newa1v1300_capx
+fnd6_newa1v1300_ceq
+fnd6_newa1v1300_ceqt
+fnd6_newa1v1300_che
+fnd6_newa1v1300_chech
+fnd6_newa1v1300_cogs
+fnd6_newa1v1300_cshfd
+fnd6_newa1v1300_cshi
+fnd6_newa1v1300_csho
+fnd6_newa1v1300_cstk
+fnd6_newa1v1300_dcom
+fnd6_newa1v1300_dlc
+fnd6_newa1v1300_dltt
+fnd6_newa1v1300_dp
+fnd6_newa1v1300_dpact
+fnd6_newa1v1300_dpc
+fnd6_newa1v1300_dv
+fnd6_newa1v1300_dvc
+fnd6_newa1v1300_dvt
+fnd6_newa1v1300_ebit
+fnd6_newa1v1300_ebitda
+fnd6_newa1v1300_emp
+fnd6_newa1v1300_epsfi
+fnd6_newa1v1300_epsfx
+fnd6_newa1v1300_epspi
+fnd6_newa1v1300_epspx
+fnd6_newa1v1300_fca
+fnd6_newa1v1300_fincf
+fnd6_newa1v1300_gdwl
+fnd6_newa1v1300_gp
+fnd6_newa1v1300_ib
+fnd6_newa1v1300_ibadj
+fnd6_newa1v1300_ibc
+fnd6_newa1v1300_ibcom
+fnd6_newa1v1300_icapt
+fnd6_newa1v1300_intano
+fnd6_newa1v1300_invch
+fnd6_newa1v1300_invt
+fnd6_newa1v1300_ivncf
+fnd6_newa1v1300_lco
+fnd6_newa1v1300_lct
+fnd6_newa1v1300_lo
+fnd6_newa1v1300_lse
+fnd6_newa1v1300_lt
+fnd6_newa2v1300_mib
+fnd6_newa2v1300_mii
+fnd6_newa2v1300_ni
+fnd6_newa2v1300_nopi
+fnd6_newa2v1300_oancf
+fnd6_newa2v1300_oiadp
+fnd6_newa2v1300_oibdp
+fnd6_newa2v1300_opeps
+fnd6_newa2v1300_optexd
+fnd6_newa2v1300_pi
+fnd6_newa2v1300_ppegt
+fnd6_newa2v1300_ppent
+fnd6_newa2v1300_prsho
+fnd6_newa2v1300_rdip
+fnd6_newa2v1300_rdipa
+fnd6_newa2v1300_rd
+
+### Functions
+## ⚠️ 生成 Alpha 表达式的核心规则
+
+### 1. 可选参数一律不写，只用默认值
+hump(x) ✅       hump(x, 0.01) ❌
+rank(x) ✅       rank(x, 2) ❌（rate=2是默认值）
+scale(x) ✅      scale(x, 1, 1, 1) ❌
+
+### 2. 必填参数必须写满
+ts_mean(x, d) ✅    ts_mean(x) ❌
+ts_corr(x, y, d) ✅  ts_corr(x, y) ❌
+if_else(a, b, c) ✅   if_else(a, b) ❌
+
+### 3. 常用函数参数速查
+1个必填：abs, rank, reverse, log, sign, sqrt, inverse, 
+         scale, normalize, zscore, hump, is_nan, not
+2个必填：add, subtract, multiply, divide, power,
+         ts_mean, ts_sum, ts_rank, ts_std_dev, 
+         ts_zscore, ts_delay, ts_delta, ts_decay_linear,
+         ts_arg_max, ts_arg_min, ts_product,
+         group_rank, group_neutralize, group_mean,
+         and, or
+3个必填：ts_corr, ts_covariance, ts_regression, 
+         if_else, trade_when
+
+### 4. 输出格式要求
+- 表达式中不要加任何空格（防止被输入框截断）
+- 生成后必须自行验证：开括号数量 == 闭括号数量
+- 表达式总长度尽量控制在 300 字符以内
+
+## 函数参数数量速查（严格遵守，写错直接报错）
+
+### 1个参数的函数（绝对不能多传）
+rank(x)
+reverse(x)
+hump(x)
+abs(x)
+log(x)
+sign(x)
+sigmoid(x)
+scale(x)
+
+### 2个参数的函数
+add(x, y)
+subtract(x, y)
+multiply(x, y)
+divide(x, y)
+max(x, y)
+min(x, y)
+power(x, y)
+less(x, y)
+greater(x, y)
+ts_rank(x, n)
+ts_sum(x, n)
+ts_mean(x, n)
+ts_std_dev(x, n)
+ts_zscore(x, n)
+ts_min(x, n)
+ts_max(x, n)
+ts_delay(x, n)
+ts_delta(x, n)
+ts_skewness(x, n)
+ts_kurtosis(x, n)
+ts_product(x, n)
+ts_arg_max(x, n)
+ts_arg_min(x, n)
+ts_decay_linear(x, n)
+ts_decay_exp_window(x, n)
+group_rank(x, group)
+group_neutralize(x, group)
+group_mean(x, group)
+group_sum(x, group)
+
+### 3个参数的函数
+ts_regression(y, x, n)
+ts_covariance(x, y, n)
+ts_correlation(x, y, n)
+if_else(condition, true_val, false_val)  
+clamp(x, lower, upper)
+
+### ⚠️ 核心原则
+- 多传一个参数 → 直接报 Invalid number of inputs
+- 少传一个参数 → 直接报错
+- 不确定就查这张表，不要猜
+
+### Papers
+# WorldQuant BRAIN 量化论文合集 关键信息梳理
+## 一、核心引言
+1. 无形资产已成为知识经济时代企业价值与长期增长的核心驱动；
+2. 传统资产定价模型、估值体系严重忽视表外自创无形资产，存在系统性缺陷；
+3. 本文聚焦无形资产溢价成因辨析，区分**风险补偿**与**错误定价**两大核心逻辑，为基本面量化因子挖掘、旧模型迭代提供前沿思路。
+
+## 二、论文分类清单（核心研究方向）
+1. **Fundamental 基本面**：无形资产溢价、组织资本、研发资本化、盈利质量、估值偏差、q因子、资产定价模型优化
+2. **Asset Pricing 资产定价**：多因子拓展、因子冗余检验、特质收益解释、横截面收益异象
+3. **Accounting 会计计量**：研发&费用化失真、表外资产遗漏、会计准则偏差、账面价值修正
+4. **Factor 因子研究**：风格因子构建、多空因子收益、夏普比率对比、因子相关性对冲
+5. **Mispricing 错误定价**：投资者反应不足、信息复杂度、分析师预测偏差、长期估值修正
+6. **Risk 风险研究**：特质风险辨析、尾部波动、资本属性差异、人力资本风险溢价
+7. **Portfolio 组合配置**：多因子组合增强、风格对冲、回撤控制、价值/质量策略改良
+8. **Firm Characteristic 企业特征**：无形资产密集度、轻资产企业定价、成长盈利预测
+9. **Model 量化模型**：FF三/五因子改进、GRS检验、Fama-MacBeth回归、特征vs贝塔检验
+10. **Investment 投资实务**：价值因子失效解释、成长策略重构、长期配置逻辑迭代
+
+## 三、关键阅读方法论（重点备注）
+1. **高效阅读逻辑**
+定向抓取量化落地核心模块：
+- 摘要+结论：无形资产溢价显著性、最终定性（错误定价）、模型改进结论
+- 机制章节：会计失真原理、投资者行为偏差、无形资产价值传导逻辑
+- 变量构建：知识资本/组织资本测算、无形资产密集度公式、因子分组方式
+- 实证结果：因子收益、夏普比率、因子相关性、Alpha、冗余性检验数据
+2. **量化研究认知纠正**
+- 无形资产不是单一行业特质，是全市场横截面有效异象，可通用化建模；
+- 传统CMA投资因子、HML价值因子失效，核心源于无形资产计量偏差，具备极强改造价值；
+- 该论文核心价值：提供**全新基本面Alpha因子**+传统因子改良方案，可直接用于BRAIN迭代。
+
+## 四、核心总结
+1. 高无形资产密集度具备稳定正向溢价，解释力碾压规模、价值、盈利、投资等经典因子，是优质基本面增量因子；
+2. 无形资产溢价本质为**会计失真引发的错误定价**，而非风险补偿，逻辑稳定、适合中长期量化选股；
+3. 新增无形资产因子可替代投资因子，优化FF五因子模型，同时天然对冲价值、质量因子，大幅提升组合夏普比率；
+4. 适配WorldQuant研究场景，可落地：指标重构、因子分组、中性化处理、多因子组合对冲，具备极高复用价值。
+
+# WorldQuant BRAIN 量化论文合集 关键信息梳理
+## 一、核心引言
+1. 量化研究中论文阅读为核心环节，尤其适配入门阶段；
+2. 核心价值：学习知识、获取因子灵感、接轨前沿研究、搭建行业交流体系；
+3. 平台价值：BRAIN 框架+海量数据集，可快速复现论文思路，并完成迭代优化，落地量化策略。
+
+## 二、论文分类清单（核心研究方向）
+1. **News 新闻舆情**：跨公司信息传导、新闻滞后反应、并购公告收益预测、日内新闻交易、行业关联信息溢出
+2. **Fundamental 基本面**：现金流/盈利有效性、无形资产溢价、估值模型、规模效应、研发投入、q因子模型、抗危机策略
+3. **PV 量价波动**：量价失衡、波动率拆分、流动性风险、尾部偏度、隔夜收益反转、换手率周期、短期动量、A股异象研究
+4. **Sentiment 情绪**：文本情绪、社交媒体舆情、用户评论、网络信息扩散
+5. **Option 期权**：期权市场分歧、隐含波动率、异常期权交易、方差风险溢价、衍生品信息传导
+6. **Analyst 分析师**：供应链分析师覆盖、研报价值、一致预期、分析师行为偏差
+7. **Earnings 财报盈余**：盈利质量、盈余惊喜、业绩会后行情、非GAAP指标、财报波动
+8. **Institutions 机构**：机构交易优势、信息泄露、散户行为追踪、资金持仓特征
+9. **Insider 内幕交易**：高管交易信号、信息不对称、财报窗口期交易规律
+10. **Macro 宏观**：宏观事件冲击、下行风险贝塔、不确定性溢价、宏观因子分散
+11. **Model 量化模型**：机器学习选股、因子动量、财务打分模型、时间序列预测、资产定价实证
+12. **Risk 风险**：下行风险、流动性溢价、崩盘风险、极端尾部风险
+13. **其他细分**：供应链动量、企业生命周期、ESG、人力资产、季节性收益、学术研究对市场的反向影响
+
+## 三、关键阅读方法论（重点备注）
+1. **高效阅读逻辑**
+无需逐字通读，定向抓取核心模块：
+- 摘要+结论：核心观点、收益表现、研究结论
+- 解释章节：底层逻辑与经济学原理
+- 模型/方法/数据：可落地的实现方案、变量定义、样本区间
+- 文献综述等次要内容按需选读
+2. **量化研究认知纠正**
+- 单篇论文≠可直接提交的有效Alpha，仅提供研究思路与逻辑；
+- 需整合多论文思路，结合平台工具迭代打磨，才能达标；
+- 论文阅读的长期价值：积累研究体系、优化存量策略、形成自主因子灵感。
+
+## 四、核心总结
+1. 该合集覆盖**量价、基本面、舆情、衍生品、宏观、行为金融**全量化赛道，适配WorldQuant因子研究场景；
+2. 量化是经验密集型领域，依托论文积累思路+平台落地验证，是新手进阶核心路径；
+3. 弱化“单篇变现”思维，以体系化积累为核心，长期输出高质量因子。
+
+### Tips
+# 调参经验与踩坑记录
+
+## 常见报错
+- "field not found": 字段名拼写错误或该 region 不支持
+- "operator not found": 函数名错误，检查 functions.md
+- "division by zero": 加 epsilon，如 (x + 0.001)
+- "NaN too many": 数据覆盖率不够，换更大的 universe 或更短的窗口
+## 优质止损核心要点
+- 分散风控核心: 构建与现有因子低相关性的优质Alpha，利用二者盈亏互补，实现长期稳定收益。
+- 前置风险思考: 设计因子前先预判亏损风险，验证因子成立的底层假设、适配的市场环境与周期条件。
+- 优化参数设计: 避免固定参数，采用区间动态调整或多周期参数平均的方式，适配实盘环境变化。
+- 拒绝通用止损: 统一的止损规则会造成策略依赖、限制策略多样性，需结合因子本身的设计逻辑定制优化方案。
+## IQC 关键技巧
+- 像投资组合经理一样思考：关注Alpha组合，而非单个Alpha，需考量Alpha是否适配现有组合、带来的具体变化及底层金融逻辑，组合协同性是核心竞争力。
+- 避免过拟合：高IS分数易实现，但难转化为高OS分数，应聚焦分散化和金融有效性，确保Alpha基于合理经济逻辑，而非单纯拟合数据。
+- 策略性使用LLM：LLM生成的Alpha多缺乏实际效用，需结合工程能力和领域经验，将其作为研究辅助工具，用于寻找信号证据、解读Alpha经济意义，而非替代人工创作。
+## 新季度CAP & CPPP 实用技巧
+- 扩大区域覆盖：CAP/CSAP/CPPP策略需广泛曝光，通过在多个区域提交常规或主题动力池Alpha，可将弱势（负）表现转化为更强信号。
+- 聚焦质量标准：目标需达到Sharpe>2.5、Fitness>1.8、Turnover<25、收益>回撤、Margin>5。
+- 避免单一中性化：如在GLB Alpha中，除“统计型”中性化外，可使用快速因子、Ram等其他中性化方式。
+- 多样化方法：避免重复使用相同数据字段和数据集，尝试不同运算符，不依赖单一框架，利用API和LLM获取独特Alpha。
+- 增加合理提交：每日在不同区域提交至少2-3个Alpha，提升策略稳健性和分散性。
+- 瞄准优质“超级Alpha”：尤其在GLB/EUR/印度等区域，目标需达到Sharpe>4、Fitness>3、Turnover<25、收益>回撤、Margin>7。
+- 保持每日纪律：每日提交中至少包含一个高表现区域（GLB/IND/EUR D0）。
+
+## 当前全局最佳 Alpha
+- expr: add(multiply(0.56,group_rank(ts_zscore(divide(earnings_per_share_reported,close),126),subindustry)),multiply(0.44,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))
+- sharpe: 2.4000
+- fitness: 1.1000
+- turnover: 0.5630
+- returns: 0.1182
+- drawdown: 0.0591
+- margin: 0.000420
+- checks_pass: True
+  checks:
+    ✅ LOW_SHARPE: PASS (value=2.4, limit=1.25)
+    ✅ LOW_FITNESS: PASS (value=1.1, limit=1.0)
+    ✅ LOW_TURNOVER: PASS (value=0.563, limit=0.01)
+    ✅ HIGH_TURNOVER: PASS (value=0.563, limit=0.7)
+    ✅ CONCENTRATED_WEIGHT: PASS
+    ✅ LOW_SUB_UNIVERSE_SHARPE: PASS (value=1.74, limit=1.04)
+    ⏳ SELF_CORRELATION: PENDING
+    ✅ MATCHES_COMPETITION: PASS → 匹配比赛: Challenge, International Quant Championship 2026 Stage 1
+  yearly performance:
+    Year |  Sharpe |  Turnover | Fitness |  Returns |  Drawdown |    Margin |  Long | Short
+    2019 |    2.70 |    56.31% |    0.96 |    7.19% |     2.03% |     2.55‱ |  1443 |  1441
+    2020 |    4.37 |    57.95% |    2.70 |   22.12% |     1.99% |     7.63‱ |  1428 |  1418
+    2021 |    1.27 |    55.15% |    0.44 |    6.48% |     5.91% |     2.35‱ |  1398 |  1398
+    2022 |    1.77 |    56.71% |    0.83 |   12.44% |     5.85% |     4.39‱ |  1451 |  1457
+    2023 |    3.37 |    55.52% |    1.57 |   12.05% |     1.80% |     4.34‱ |  1483 |  1486
+
+## 上一轮回测结果
+### Alpha 1: [失败]
+  expr: add(multiply(0.54,group_rank(ts_zscore(divide(add(earnings_per_share_reported,subtract(earnings_per_share_reported,eps_estimate_value)),close),126),subindustry)),multiply(0.46,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))
+  ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+### Alpha 2: [失败]
+  expr: add(multiply(0.58,group_rank(ts_zscore(divide(cashflow_op,assets),126),subindustry)),multiply(0.42,group_rank(ts_rank(subtract(ts_mean(close,5),close),16),subindustry)))
+  ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+### Alpha 3: [失败]
+  expr: add(multiply(0.56,group_rank(ts_zscore(divide(est_fcf,est_tot_assets),126),subindustry)),multiply(0.44,group_rank(ts_rank(subtract(ts_mean(close,7),close),20),subindustry)))
+  ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+### Alpha 4: [失败]
+  expr: add(multiply(0.55,group_rank(ts_zscore(divide(ebit,sales),126),subindustry)),multiply(0.45,group_rank(ts_rank(subtract(ts_mean(close,6),close),17),subindustry)))
+  ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+### Alpha 5: [失败]
+  expr: add(multiply(0.34,group_rank(ts_zscore(divide(earnings_per_share_reported,close),126),subindustry)),add(multiply(0.28,group_rank(ts_zscore(divide(cashflow_op,assets),126),subindustry)),multiply(0.38,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry))))
+  ❌ 错误: 提交失败: 429 {"detail":"CONCURRENT_SIMULATION_LIMIT_EXCEEDED"}
+
+### Alpha 6: [d5E2k5bX]
+  expr: add(multiply(0.57,group_rank(ts_zscore(divide(ebit,assets),126),subindustry)),multiply(0.43,group_rank(ts_rank(subtract(ts_mean(close,6),close),18),subindustry)))
+  sharpe=1.8200, fitness=0.7300, turnover=0.5029, returns=0.0808, drawdown=0.0402, margin=0.000321, checks_pass=False
+  checks:
+    ✅ LOW_SHARPE: PASS (value=1.82, limit=1.25)
+    ❌ LOW_FITNESS: FAIL (value=0.73, limit=1.0)
+    ✅ LOW_TURNOVER: PASS (value=0.5029, limit=0.01)
+    ✅ HIGH_TURNOVER: PASS (value=0.5029, limit=0.7)
+    ✅ CONCENTRATED_WEIGHT: PASS
+    ✅ LOW_SUB_UNIVERSE_SHARPE: PASS (value=0.85, limit=0.79)
+    ⏳ SELF_CORRELATION: PENDING
+    ✅ MATCHES_COMPETITION: PASS → 匹配比赛: Challenge, International Quant Championship 2026 Stage 1
+  yearly performance:
+    Year |  Sharpe |  Turnover | Fitness |  Returns |  Drawdown |    Margin |  Long | Short
+    2019 |   -0.14 |    49.90% |   -0.01 |   -0.37% |     3.16% |    -0.15‱ |  1367 |  1367
+    2020 |    3.30 |    51.17% |    1.81 |   15.39% |     1.25% |     6.01‱ |  1372 |  1371
+    2021 |    0.83 |    50.30% |    0.25 |    4.43% |     4.02% |     1.76‱ |  1334 |  1331
+    2022 |    2.41 |    50.39% |    1.22 |   12.81% |     2.75% |     5.09‱ |  1389 |  1387
+    2023 |    2.41 |    49.76% |    1.01 |    8.79% |     1.57% |     3.53‱ |  1418 |  1424
+
+
+=== USER ===
+## 第 10 轮迭代
+策略思路: 我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+-用不一样的角度思考，创建Alpha
+-以盈利，较高的夏普率为要求，进行制作
+-当方向不对的时候，要及时改正，不要一条道走到黑
+
+约束：
+- 必须是合法的 FAST Expression 语法
+- 回测 USA TOP3000 EQUITY
+- 只允许使用 fields.md 中列出的字段名，严禁编造字段
+- 只允许使用平台支持的函数
+
+输出格式要求：
+- 必须返回纯 JSON 数组，不要输出任何解释文字
+- 每个元素包含 name、expr、setting 三个字段
+- name：简短唯一的因子命名
+- expr：完整的 FAST Expression
+- setting：回测参数对象
+- 示例：
+[
+  {
+    "name": "quality_roe_rev5d",
+    "expr": "ts_zscore(divide(net_income, assets), 252) - 1.5 * ts_zscore(ts_mean(returns, 5), 20)",
+    "setting": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 0,
+      "neutralization": "SUBINDUSTRY",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]
+
+请基于上一轮的反馈，生成 6 个改进后的 alpha 表达式。
+目标: Grade >= GOOD, Sharpe >= 1.5, Fitness >= 1
+
+🚨 上一轮超过 3 个 Alpha 回测失败（返回空结果），说明当前方向的表达式大量无效。
+请 **彻底更换因子构建方向**，不要在上一轮的表达式基础上修补。
+从上方「参考知识库」中选取一个全新的金融假设或因子组合思路重新出发。
+优先考虑：换用不同的数据字段、不同的时间窗口、不同的截面处理逻辑。
+
+⚠️ 提醒：所有字段必须来自上方「可用字段」列表，不得使用任何未列出的字段。
+
+输出格式（纯 JSON 数组，无其他文字）：
+```json
+[
+  {"name": "alpha_001_xxx", "expr": "...", "setting": {}},
+  {"name": "alpha_002_xxx", "expr": "...", "setting": {}}
+]
+```

@@ -1,0 +1,728 @@
+[
+  {
+    "alpha_id": null,
+    "field_id": "alpha_003_margin_leverage_balance",
+    "expr": "rank(subtract(ts_zscore(gross_margin,252),ts_zscore(divide(liabilities,assets),252)))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": "QP58LAqX",
+    "expr": "rank(add(ts_zscore(sales_growth,252),ts_mean(returns,20)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.05,
+    "fitness": 0.01,
+    "turnover": 0.042,
+    "returns": 0.0032,
+    "drawdown": 0.135,
+    "margin": 0.000152,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.05,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.01,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.042,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.042,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.26,
+        "limit": 0.02,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_zscore\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"add\" at index 1, expected \"Unit[]\", found \"Unit[TSPrice:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.26,
+    "self_corr": null,
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -121007.0,
+        "bookSize": 20000000,
+        "longCount": 1436,
+        "shortCount": 1435,
+        "turnover": 0.0438,
+        "sharpe": -0.33,
+        "returns": -0.012,
+        "drawdown": 0.036,
+        "margin": -0.000548,
+        "fitness": -0.1,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": -383467.0,
+        "bookSize": 20000000,
+        "longCount": 1410,
+        "shortCount": 1412,
+        "turnover": 0.0441,
+        "sharpe": -0.4,
+        "returns": -0.0415,
+        "drawdown": 0.1046,
+        "margin": -0.001883,
+        "fitness": -0.23,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 620119.0,
+        "bookSize": 20000000,
+        "longCount": 1342,
+        "shortCount": 1339,
+        "turnover": 0.0422,
+        "sharpe": 1.23,
+        "returns": 0.0615,
+        "drawdown": 0.0424,
+        "margin": 0.002915,
+        "fitness": 0.86,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1187522.0,
+        "bookSize": 20000000,
+        "longCount": 1425,
+        "shortCount": 1425,
+        "turnover": 0.042,
+        "sharpe": 1.92,
+        "returns": 0.1183,
+        "drawdown": 0.0341,
+        "margin": 0.005632,
+        "fitness": 1.87,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": -1139495.0,
+        "bookSize": 20000000,
+        "longCount": 1482,
+        "shortCount": 1483,
+        "turnover": 0.0383,
+        "sharpe": -2.69,
+        "returns": -0.1139,
+        "drawdown": 0.1259,
+        "margin": -0.005957,
+        "fitness": -2.57,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "field_id": "alpha_004_sales_growth_momentum",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_005_earnings_yield_stability",
+    "expr": "rank(subtract(ts_zscore(divide(net_income,market_cap),252),ts_stddev(returns,20)))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": "pw1LAbA6",
+    "expr": "rank(ts_zscore(divide(cashflow_op,assets),252))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.17,
+    "fitness": 0.04,
+    "turnover": 0.0265,
+    "returns": 0.0075,
+    "drawdown": 0.1171,
+    "margin": 0.000562,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.17,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.04,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.0265,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.0265,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "FAIL",
+        "value": -0.1,
+        "limit": 0.07,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 0, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"divide\" at index 1, expected \"Unit[CSPrice:1,CSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": -0.1,
+    "self_corr": null,
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -183004.0,
+        "bookSize": 20000000,
+        "longCount": 1425,
+        "shortCount": 1422,
+        "turnover": 0.031,
+        "sharpe": -0.73,
+        "returns": -0.0182,
+        "drawdown": 0.0374,
+        "margin": -0.00117,
+        "fitness": -0.28,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": 258760.0,
+        "bookSize": 20000000,
+        "longCount": 1422,
+        "shortCount": 1423,
+        "turnover": 0.0243,
+        "sharpe": 0.67,
+        "returns": 0.028,
+        "drawdown": 0.0403,
+        "margin": 0.002302,
+        "fitness": 0.32,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 44303.0,
+        "bookSize": 20000000,
+        "longCount": 1376,
+        "shortCount": 1374,
+        "turnover": 0.0267,
+        "sharpe": 0.09,
+        "returns": 0.0044,
+        "drawdown": 0.0505,
+        "margin": 0.000329,
+        "fitness": 0.02,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": -11596.0,
+        "bookSize": 20000000,
+        "longCount": 1440,
+        "shortCount": 1441,
+        "turnover": 0.0259,
+        "sharpe": -0.02,
+        "returns": -0.0012,
+        "drawdown": 0.0794,
+        "margin": -8.9e-05,
+        "fitness": -0.0,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": 244299.0,
+        "bookSize": 20000000,
+        "longCount": 1485,
+        "shortCount": 1488,
+        "turnover": 0.0246,
+        "sharpe": 0.67,
+        "returns": 0.0244,
+        "drawdown": 0.0355,
+        "margin": 0.001982,
+        "fitness": 0.3,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "field_id": "alpha_001_cashflow_asset_strength",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": "e7qjoMRz",
+    "expr": "rank(add(ts_zscore(return_equity,252),reverse(ts_mean(returns,5))))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.81,
+    "fitness": 0.53,
+    "turnover": 0.0309,
+    "returns": 0.0535,
+    "drawdown": 0.1054,
+    "margin": 0.003458,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.81,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.53,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.0309,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.0309,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.8,
+        "limit": 0.35,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_zscore\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"add\" at index 1, expected \"Unit[]\", found \"Unit[TSPrice:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.8,
+    "self_corr": null,
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": 180352.0,
+        "bookSize": 20000000,
+        "longCount": 1493,
+        "shortCount": 1494,
+        "turnover": 0.0342,
+        "sharpe": 0.56,
+        "returns": 0.0179,
+        "drawdown": 0.0275,
+        "margin": 0.001048,
+        "fitness": 0.21,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": -231617.0,
+        "bookSize": 20000000,
+        "longCount": 1485,
+        "shortCount": 1485,
+        "turnover": 0.0342,
+        "sharpe": -0.26,
+        "returns": -0.0251,
+        "drawdown": 0.1054,
+        "margin": -0.001468,
+        "fitness": -0.12,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 1873721.0,
+        "bookSize": 20000000,
+        "longCount": 1462,
+        "shortCount": 1458,
+        "turnover": 0.0293,
+        "sharpe": 3.24,
+        "returns": 0.1859,
+        "drawdown": 0.0447,
+        "margin": 0.012692,
+        "fitness": 3.95,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 1279180.0,
+        "bookSize": 20000000,
+        "longCount": 1504,
+        "shortCount": 1504,
+        "turnover": 0.0292,
+        "sharpe": 1.63,
+        "returns": 0.1274,
+        "drawdown": 0.0554,
+        "margin": 0.008733,
+        "fitness": 1.65,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": -396002.0,
+        "bookSize": 20000000,
+        "longCount": 1532,
+        "shortCount": 1533,
+        "turnover": 0.0282,
+        "sharpe": -0.87,
+        "returns": -0.0396,
+        "drawdown": 0.0517,
+        "margin": -0.00281,
+        "fitness": -0.49,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "field_id": "alpha_002_quality_reversal_mix",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  },
+  {
+    "alpha_id": null,
+    "field_id": "alpha_007_debt_penalty_short_reversal",
+    "expr": "rank(add(reverse(ts_mean(returns,10)),reverse(ts_zscore(divide(total_debt,equity),252))))",
+    "error": "完成但 alpha 为空"
+  },
+  {
+    "alpha_id": "zqJVpvXX",
+    "expr": "rank(add(ts_zscore(current_ratio,252),ts_zscore(return_assets,252)))",
+    "grade": "INFERIOR",
+    "stage": "IS",
+    "status": "UNSUBMITTED",
+    "sharpe": 0.36,
+    "fitness": 0.14,
+    "turnover": 0.0318,
+    "returns": 0.0194,
+    "drawdown": 0.077,
+    "margin": 0.001218,
+    "checks_pass": false,
+    "checks_detail": [
+      {
+        "name": "LOW_SHARPE",
+        "result": "FAIL",
+        "value": 0.36,
+        "limit": 1.25,
+        "message": null
+      },
+      {
+        "name": "LOW_FITNESS",
+        "result": "FAIL",
+        "value": 0.14,
+        "limit": 1.0,
+        "message": null
+      },
+      {
+        "name": "LOW_TURNOVER",
+        "result": "PASS",
+        "value": 0.0318,
+        "limit": 0.01,
+        "message": null
+      },
+      {
+        "name": "HIGH_TURNOVER",
+        "result": "PASS",
+        "value": 0.0318,
+        "limit": 0.7,
+        "message": null
+      },
+      {
+        "name": "CONCENTRATED_WEIGHT",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "LOW_SUB_UNIVERSE_SHARPE",
+        "result": "PASS",
+        "value": 0.18,
+        "limit": 0.16,
+        "message": null
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_zscore\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "UNITS",
+        "result": "WARNING",
+        "value": null,
+        "limit": null,
+        "message": "Incompatible unit for input of \"ts_zscore\" at index 0, expected \"Unit[TSPrice:1,TSShare:1]\", found \"Unit[CSPrice:1,CSShare:1,Group:1]\""
+      },
+      {
+        "name": "SELF_CORRELATION",
+        "result": "PENDING",
+        "value": null,
+        "limit": null,
+        "message": null
+      },
+      {
+        "name": "MATCHES_COMPETITION",
+        "result": "PASS",
+        "value": null,
+        "limit": null,
+        "message": null
+      }
+    ],
+    "weight_max": null,
+    "sub_univ_sharpe": 0.18,
+    "self_corr": null,
+    "yearly_stats": [
+      {
+        "year": "2019",
+        "pnl": -55314.0,
+        "bookSize": 20000000,
+        "longCount": 1168,
+        "shortCount": 1170,
+        "turnover": 0.0351,
+        "sharpe": -0.16,
+        "returns": -0.0055,
+        "drawdown": 0.0542,
+        "margin": -0.000312,
+        "fitness": -0.03,
+        "stage": "IS"
+      },
+      {
+        "year": "2020",
+        "pnl": -179738.0,
+        "bookSize": 20000000,
+        "longCount": 1178,
+        "shortCount": 1178,
+        "turnover": 0.0339,
+        "sharpe": -0.36,
+        "returns": -0.0195,
+        "drawdown": 0.0706,
+        "margin": -0.001149,
+        "fitness": -0.14,
+        "stage": "IS"
+      },
+      {
+        "year": "2021",
+        "pnl": 517746.0,
+        "bookSize": 20000000,
+        "longCount": 1200,
+        "shortCount": 1198,
+        "turnover": 0.0304,
+        "sharpe": 1.25,
+        "returns": 0.0514,
+        "drawdown": 0.021,
+        "margin": 0.00338,
+        "fitness": 0.8,
+        "stage": "IS"
+      },
+      {
+        "year": "2022",
+        "pnl": 998964.0,
+        "bookSize": 20000000,
+        "longCount": 1223,
+        "shortCount": 1224,
+        "turnover": 0.0302,
+        "sharpe": 1.22,
+        "returns": 0.0995,
+        "drawdown": 0.0749,
+        "margin": 0.006593,
+        "fitness": 1.09,
+        "stage": "IS"
+      },
+      {
+        "year": "2023",
+        "pnl": -289828.0,
+        "bookSize": 20000000,
+        "longCount": 1234,
+        "shortCount": 1234,
+        "turnover": 0.0298,
+        "sharpe": -0.59,
+        "returns": -0.029,
+        "drawdown": 0.057,
+        "margin": -0.001942,
+        "fitness": -0.28,
+        "stage": "IS"
+      }
+    ],
+    "error": null,
+    "field_id": "alpha_006_liquidity_profitability_combo",
+    "settings_used": {
+      "instrumentType": "EQUITY",
+      "region": "USA",
+      "universe": "TOP3000",
+      "delay": 1,
+      "decay": 4,
+      "neutralization": "MARKET",
+      "truncation": 0.08,
+      "pasteurization": "ON",
+      "unitHandling": "VERIFY",
+      "nanHandling": "OFF",
+      "language": "FASTEXPR",
+      "visualization": false
+    }
+  }
+]

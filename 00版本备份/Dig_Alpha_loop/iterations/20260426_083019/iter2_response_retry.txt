@@ -1,0 +1,37 @@
+[
+  {
+    "name": "alpha_001_cashflow_asset_strength",
+    "expr": "rank(ts_zscore(divide(cashflow_op,assets),252))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_002_quality_reversal_mix",
+    "expr": "rank(add(ts_zscore(return_equity,252),reverse(ts_mean(returns,5))))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_003_margin_leverage_balance",
+    "expr": "rank(subtract(ts_zscore(gross_margin,252),ts_zscore(divide(liabilities,assets),252)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_004_sales_growth_momentum",
+    "expr": "rank(add(ts_zscore(sales_growth,252),ts_mean(returns,20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_005_earnings_yield_stability",
+    "expr": "rank(subtract(ts_zscore(divide(net_income,market_cap),252),ts_stddev(returns,20)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_006_liquidity_profitability_combo",
+    "expr": "rank(add(ts_zscore(current_ratio,252),ts_zscore(return_assets,252)))",
+    "setting": {}
+  },
+  {
+    "name": "alpha_007_debt_penalty_short_reversal",
+    "expr": "rank(add(reverse(ts_mean(returns,10)),reverse(ts_zscore(divide(total_debt,equity),252))))",
+    "setting": {}
+  }
+]

@@ -1,0 +1,36 @@
+=== SYSTEM ===
+你是 WorldQuant Brain 平台的量化 alpha 表达式专家。
+你精通 FASTEXPR 语法，熟悉平台支持的所有数据字段（returns, close, volume, market_cap, return_equity, return_assets, assets, revenue, cashflow_op, capex, ebitda, net_income, shares_outstanding 等）和函数（ts_zscore, ts_mean, ts_rank, ts_std_dev, ts_delta, ts_arg_max, rank, group_rank, decay_linear, signed_power 等）。
+你的目标：生成高 Sharpe、高 Fitness、低自相关、能通过平台全部 checks 的 alpha。
+
+=== USER ===
+## 用户策略思路
+我的策略方向：基本面质量因子 + 短期反转因子的组合。
+
+核心思路：
+- 用盈利能力指标（ROE、ROA、GPOA、FCF/Assets、毛利率、资产周转率）识别高质量公司
+- 结合短期反转信号（5-20日收益率的均值回归）择时入场
+- 使用 ts_zscore 标准化不同因子
+- 探索不同的组合权重、窗口期和因子组合方式
+
+约束：
+- FASTEXPR 语法
+- 回测 USA TOP3000 EQUITY
+- 尽量通过平台的 weight、sub-universe sharpe、self-correlation 等 checks
+
+## 任务
+请根据以上思路，生成 8 个多样化的 alpha 表达式。
+
+## 要求
+1. 使用 FASTEXPR 语法
+2. 每个 alpha 之间应有显著差异（不同因子、不同窗口期、不同组合方式）
+3. 目标 Sharpe >= 1.5，Fitness >= 1.0
+4. name 字段用简短英文标识因子含义
+5. 考虑因子的经济学逻辑和衰减特性
+
+## 输出格式
+先用 2-3 句话简述设计思路，然后 **严格** 输出如下 JSON 数组（不要嵌套在其他结构中）：
+
+```json
+[{"name": "alpha_001_xxx", "expr": "..."}, ...]
+```
